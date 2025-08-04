@@ -18,6 +18,8 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        velowrench.Resources.Languages.Culture = new System.Globalization.CultureInfo("en-US");
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -25,14 +27,14 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = new HomeViewModel()
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            singleViewPlatform.MainView = new HomeView
             {
-                DataContext = new MainViewModel()
+                DataContext = new HomeViewModel()
             };
         }
 

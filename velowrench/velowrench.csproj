@@ -20,5 +20,25 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Semi.Avalonia" />
   </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Languages.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Languages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	
+  <ItemGroup>
+    <Compile Update="Resources\Languages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Languages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\HomeView.axaml.cs">
+      <DependentUpon>HomeView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

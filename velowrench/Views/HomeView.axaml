@@ -1,0 +1,85 @@
+<UserControl x:Class="velowrench.Views.HomeView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:res="clr-namespace:velowrench.Resources"
+             xmlns:vm="clr-namespace:velowrench.ViewModels"
+             x:DataType="vm:HomeViewModel"
+             Design.Height="640"
+             Design.Width="360">
+    <Design.DataContext>
+        <vm:HomeViewModel />
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="*" RowDefinitions="20,Auto, Auto, Auto">
+
+        <Expander Grid.Row="1" Grid.Column="0"
+                  Margin="10,10" HorizontalAlignment="Stretch"
+                  Header="{x:Static res:Languages.TransmissionAndDrivetrain}">
+            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,0,0,5"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.ChainLengthCalculator}" />
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0"
+                        Margin="0,5"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.ChainlineCalculator}" />
+                </Button>
+                <Button Grid.Row="2" Grid.Column="0"
+                        Margin="0,5"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.DrivetrainRatioCalculator}" />
+                </Button>
+                <Button Grid.Row="3" Grid.Column="0"
+                        Margin="0,5,0,0"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.GearInchesAndRolloutCalculator}" />
+                </Button>
+            </Grid>
+        </Expander>
+
+        <Expander Grid.Row="2" Grid.Column="0"
+                  Margin="10,10" HorizontalAlignment="Stretch"
+                  Header="{x:Static res:Languages.WheelsAndSpoking}">
+            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,0,0,5"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.SpokeLengthCalculator}" />
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0"
+                        Margin="0,5,0,0"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.SpokeTensionGuide}" />
+                </Button>
+            </Grid>
+        </Expander>
+
+        <Expander Grid.Row="3" Grid.Column="0"
+                  Margin="10,10" HorizontalAlignment="Stretch"
+                  Header="{x:Static res:Languages.CompatibilityAndStandards}">
+            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,0,0,5"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.ComponentCompatibilityGuide}" />
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0"
+                        Margin="0,5,0,0"
+                        Classes="Tertiary"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <TextBlock Text="{x:Static res:Languages.AxleAndHubStandardChecker}" />
+                </Button>
+            </Grid>
+        </Expander>
+
+    </Grid>
+</UserControl>
