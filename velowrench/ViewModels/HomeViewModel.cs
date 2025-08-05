@@ -1,9 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DynamicData.Binding;
+using ReactiveUI;
+using System;
+using System.Reactive;
+using velowrench.Interfaces;
 
 namespace velowrench.ViewModels;
 
-public partial class HomeViewModel : ViewModelBase
+public class HomeViewModel : ReactiveObject, IRoutableViewModel
 {
-    [ObservableProperty]
-    private string _greeting = "Welcome to Avalonia!";
+    public ReactiveCommand<Unit, Unit> NavigateToChainLengthCalculatorCommand { get; }
+
+    public string? UrlPathSegment => "home";
+
+    public IScreen HostScreen { get; }
+
+    public HomeViewModel(IScreen hostScreen, ILocalizer localizer)
+    {
+        this.HostScreen = hostScreen ?? throw new ArgumentNullException(nameof(hostScreen));
+
+        this.NavigateToChainLengthCalculatorCommand = ReactiveCommand.Create(() =>
+        {
+            hostScreen.Router.Navigate.Execute(new ChainLengthCalculatorViewModel(hostScreen, localizer));
+        });
+    }
 }

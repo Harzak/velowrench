@@ -6,19 +6,17 @@
              x:DataType="vm:HomeViewModel"
              Design.Height="640"
              Design.Width="360">
-    <Design.DataContext>
-        <vm:HomeViewModel />
-    </Design.DataContext>
 
-    <Grid ColumnDefinitions="*" RowDefinitions="20,Auto, Auto, Auto">
+    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
 
-        <Expander Grid.Row="1" Grid.Column="0"
+        <Expander Grid.Row="0" Grid.Column="0"
                   Margin="10,10" HorizontalAlignment="Stretch"
                   Header="{x:Static res:Languages.TransmissionAndDrivetrain}">
             <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
                 <Button Grid.Row="0" Grid.Column="0"
                         Margin="0,0,0,5"
                         Classes="Tertiary"
+                        Command="{Binding NavigateToChainLengthCalculatorCommand}"
                         Theme="{DynamicResource BorderlessButton}">
                     <TextBlock Text="{x:Static res:Languages.ChainLengthCalculator}" />
                 </Button>
@@ -43,7 +41,7 @@
             </Grid>
         </Expander>
 
-        <Expander Grid.Row="2" Grid.Column="0"
+        <Expander Grid.Row="1" Grid.Column="0"
                   Margin="10,10" HorizontalAlignment="Stretch"
                   Header="{x:Static res:Languages.WheelsAndSpoking}">
             <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
@@ -62,7 +60,7 @@
             </Grid>
         </Expander>
 
-        <Expander Grid.Row="3" Grid.Column="0"
+        <Expander Grid.Row="2" Grid.Column="0"
                   Margin="10,10" HorizontalAlignment="Stretch"
                   Header="{x:Static res:Languages.CompatibilityAndStandards}">
             <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">

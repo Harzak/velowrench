@@ -6,6 +6,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using velowrench.ViewModels;
 using velowrench.Views;
+using velowrench.Services;
 
 namespace velowrench;
 
@@ -19,7 +20,7 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         velowrench.Resources.Languages.Culture = new System.Globalization.CultureInfo("en-US");
-
+        var localizer = new Localizer(); 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -27,14 +28,14 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new HomeViewModel()
+                DataContext = new MainWindowViewModel(localizer)
             };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             singleViewPlatform.MainView = new HomeView
             {
-                DataContext = new HomeViewModel()
+                DataContext = new MainWindowViewModel(localizer)
             };
         }
 
