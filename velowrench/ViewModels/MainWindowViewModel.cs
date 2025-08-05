@@ -13,12 +13,9 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 {
     public RoutingState Router { get; }
 
-    public ReactiveCommand<Unit, IRoutableViewModel> NavigateBackCommand { get; }
-
     public MainWindowViewModel(ILocalizer localizer)
     {
         this.Router = new RoutingState();
-        this.NavigateBackCommand = Router.NavigateBack;
         Router.Navigate.Execute(new HomeViewModel(this, localizer));
     }
 }

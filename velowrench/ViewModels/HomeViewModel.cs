@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using DynamicData.Binding;
+﻿using DynamicData.Binding;
 using ReactiveUI;
 using System;
 using System.Reactive;
