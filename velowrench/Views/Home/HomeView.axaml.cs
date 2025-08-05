@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
-using velowrench.ViewModels;
+using velowrench.ViewModels.Home;
 
-namespace velowrench.Views;
+namespace velowrench.Views.Home;
 
 public partial class HomeView : ReactiveUserControl<HomeViewModel>
 {

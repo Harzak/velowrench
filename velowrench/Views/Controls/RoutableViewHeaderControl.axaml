@@ -1,4 +1,4 @@
-<UserControl x:Class="velowrench.Views.RoutableViewHeaderControl"
+<UserControl x:Class="velowrench.Views.Controls.RoutableViewHeaderControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:app="clr-namespace:velowrench"
@@ -6,16 +6,15 @@
              xmlns:rxui="http://reactiveui.net"
              xmlns:views="clr-namespace:velowrench.Views"
              xmlns:vm="clr-namespace:velowrench.ViewModels"
-             x:DataType="vm:BaseRoutableViewModel">
+             x:DataType="vm:Base.BaseRoutableViewModel">
 
     <Grid Margin="5,5"
           ColumnDefinitions="*" RowDefinitions="*">
-        <!--  TextBlock spans full width and centers  -->
+
         <TextBlock Grid.Row="0" Grid.Column="0"
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Text="{Binding Name}" />
 
-        <!--  Button overlays on top, aligned left  -->
         <Button Grid.Row="0" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
                 Command="{Binding NavigateBackCommand}"

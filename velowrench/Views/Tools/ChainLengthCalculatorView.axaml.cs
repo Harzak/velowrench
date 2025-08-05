@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
-using velowrench.ViewModels;
+using velowrench.ViewModels.Tools;
 
-namespace velowrench.Views;
+namespace velowrench.Views.Tools;
 
 public partial class ChainLengthCalculatorView : ReactiveUserControl<ChainLengthCalculatorViewModel>
 {

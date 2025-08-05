@@ -7,8 +7,9 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using velowrench.Interfaces;
+using velowrench.ViewModels.Base;
 
-namespace velowrench.ViewModels;
+namespace velowrench.ViewModels.Tools;
 
 public class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 {
@@ -16,6 +17,6 @@ public class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 
     public ChainLengthCalculatorViewModel(IScreen hostScreen, ILocalizer localizer) : base(hostScreen)
     {
-        this.Name = localizer.GetString("ChainLengthCalculator");
+        Name = localizer.GetString("ChainLengthCalculator");
     }
 }

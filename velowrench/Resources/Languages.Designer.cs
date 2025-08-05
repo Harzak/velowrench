@@ -115,11 +115,11 @@ namespace velowrench.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gear Inches / Rollout Calculator.
+        ///   Looks up a localized string similar to Rollout Calculator.
         /// </summary>
-        public static string GearInchesAndRolloutCalculator {
+        public static string RolloutCalculator {
             get {
-                return ResourceManager.GetString("GearInchesAndRolloutCalculator", resourceCulture);
+                return ResourceManager.GetString("RolloutCalculator", resourceCulture);
             }
         }
         

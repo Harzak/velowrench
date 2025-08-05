@@ -5,14 +5,10 @@
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:semi="https://irihi.tech/semi"
              RequestedThemeVariant="Default">
-    <!--  "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.  -->
-
-    <Application.DataTemplates>
-        <local:ViewLocator />
-    </Application.DataTemplates>
 
     <Application.Styles>
         <semi:SemiTheme Locale="en-US" />
         <materialIcons:MaterialIconStyles />
     </Application.Styles>
+
 </Application>

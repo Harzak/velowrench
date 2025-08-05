@@ -6,7 +6,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace velowrench.ViewModels;
+namespace velowrench.ViewModels.Base;
 
 public abstract class BaseRoutableViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -17,8 +17,8 @@ public abstract class BaseRoutableViewModel : ReactiveObject, IRoutableViewModel
 
     public BaseRoutableViewModel(IScreen hostScreen)
     {
-        this.HostScreen = hostScreen ?? throw new ArgumentNullException(nameof(hostScreen));
-        this.UrlPathSegment = Guid.NewGuid().ToString().Substring(0, 5);
-        this.NavigateBackCommand = hostScreen.Router.NavigateBack;  
+        HostScreen = hostScreen ?? throw new ArgumentNullException(nameof(hostScreen));
+        UrlPathSegment = Guid.NewGuid().ToString().Substring(0, 5);
+        NavigateBackCommand = hostScreen.Router.NavigateBack;  
     }
 }

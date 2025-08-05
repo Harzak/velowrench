@@ -6,6 +6,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using velowrench.Interfaces;
+using velowrench.ViewModels.Home;
 
 namespace velowrench.ViewModels;
 
@@ -13,9 +14,9 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 {
     public RoutingState Router { get; }
 
-    public MainWindowViewModel(ILocalizer localizer)
+    public MainWindowViewModel(IToolsViewModelFactory toolsViewModelFactory)
     {
         this.Router = new RoutingState();
-        Router.Navigate.Execute(new HomeViewModel(this, localizer));
+        Router.Navigate.Execute(new HomeViewModel(this, toolsViewModelFactory));
     }
 }

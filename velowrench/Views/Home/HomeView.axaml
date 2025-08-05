@@ -1,9 +1,10 @@
-<UserControl x:Class="velowrench.Views.HomeView"
+<UserControl x:Class="velowrench.Views.Home.HomeView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:enums="clr-namespace:velowrench.Enums"
              xmlns:res="clr-namespace:velowrench.Resources"
              xmlns:vm="clr-namespace:velowrench.ViewModels"
-             x:DataType="vm:HomeViewModel"
+             x:DataType="vm:Home.HomeViewModel"
              Design.Height="640"
              Design.Width="360">
 
@@ -16,27 +17,34 @@
                 <Button Grid.Row="0" Grid.Column="0"
                         Margin="0,0,0,5"
                         Classes="Tertiary"
-                        Command="{Binding NavigateToChainLengthCalculatorCommand}"
+                        Command="{Binding NavigateToSelectedToolCommand}"
+                        CommandParameter="{x:Static enums:EVeloWrenchTools.ChainLengthCalculator}"
                         Theme="{DynamicResource BorderlessButton}">
                     <TextBlock Text="{x:Static res:Languages.ChainLengthCalculator}" />
                 </Button>
                 <Button Grid.Row="1" Grid.Column="0"
                         Margin="0,5"
                         Classes="Tertiary"
+                        Command="{Binding NavigateToSelectedToolCommand}"
+                        CommandParameter="{x:Static enums:EVeloWrenchTools.ChainlineCalculator}"
                         Theme="{DynamicResource BorderlessButton}">
                     <TextBlock Text="{x:Static res:Languages.ChainlineCalculator}" />
                 </Button>
                 <Button Grid.Row="2" Grid.Column="0"
                         Margin="0,5"
                         Classes="Tertiary"
+                        Command="{Binding NavigateToSelectedToolCommand}"
+                        CommandParameter="{x:Static enums:EVeloWrenchTools.DrivetrainRatioCalculator}"
                         Theme="{DynamicResource BorderlessButton}">
                     <TextBlock Text="{x:Static res:Languages.DrivetrainRatioCalculator}" />
                 </Button>
                 <Button Grid.Row="3" Grid.Column="0"
                         Margin="0,5,0,0"
                         Classes="Tertiary"
+                        Command="{Binding NavigateToSelectedToolCommand}"
+                        CommandParameter="{x:Static enums:EVeloWrenchTools.RolloutCalculator}"
                         Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.GearInchesAndRolloutCalculator}" />
+                    <TextBlock Text="{x:Static res:Languages.RolloutCalculator}" />
                 </Button>
             </Grid>
         </Expander>

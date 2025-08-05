@@ -38,10 +38,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Languages.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\ChainLengthCalculatorView.axaml.cs">
+    <Compile Update="Views\Tools\ChainLengthCalculatorView.axaml.cs">
       <DependentUpon>ChainLengthCalculatorView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\HomeView.axaml.cs">
+    <Compile Update="Views\Home\HomeView.axaml.cs">
       <DependentUpon>HomeView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

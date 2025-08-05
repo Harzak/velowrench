@@ -4,11 +4,14 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using ReactiveUI;
+using Splat;
 using System.Linq;
 using velowrench.Configuration;
 using velowrench.Services;
 using velowrench.ViewModels;
 using velowrench.Views;
+using velowrench.Views.Home;
 
 namespace velowrench;
 
@@ -38,7 +41,7 @@ public partial class App : Application
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new HomeView
+            singleViewPlatform.MainView = new MainWindow()
             {
                 DataContext = vm
             };

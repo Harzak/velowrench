@@ -126,8 +126,8 @@
   <data name="DrivetrainRatioCalculator" xml:space="preserve">
     <value>Drivetrain Ratio Calculator</value>
   </data>
-  <data name="GearInchesAndRolloutCalculator" xml:space="preserve">
-    <value>Gear Inches / Rollout Calculator</value>
+  <data name="RolloutCalculator" xml:space="preserve">
+    <value>Rollout Calculator</value>
   </data>
   <data name="SpokeLengthCalculator" xml:space="preserve">
     <value>Spoke Length Calculator</value>
