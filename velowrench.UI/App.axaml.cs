@@ -37,6 +37,8 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new Window
             {
+                Height = 640,
+                Width = 360,
                 Content = new MainWindow()
                 {
                     DataContext = vm

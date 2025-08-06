@@ -80,10 +80,10 @@ public interface INavigationService
 
 public class ViewModelChangedEventArgs : EventArgs
 {
-    public object? PreviousViewModel { get; }
-    public object CurrentViewModel { get; }
+    public IRoutableViewModel? PreviousViewModel { get; }
+    public IRoutableViewModel CurrentViewModel { get; }
 
-    public ViewModelChangedEventArgs(object? previous, object current)
+    public ViewModelChangedEventArgs(IRoutableViewModel? previous, IRoutableViewModel current)
     {
         PreviousViewModel = previous;
         CurrentViewModel = current;

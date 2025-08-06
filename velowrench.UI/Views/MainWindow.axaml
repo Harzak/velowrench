@@ -11,22 +11,25 @@
              Design.Height="640"
              Design.Width="360">
 
-    <Grid ColumnDefinitions="*" RowDefinitions="*">
+    <Grid ColumnDefinitions="*" RowDefinitions="40, *">
 
-        <Button Grid.Row="0" Grid.Column="0"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
+
+        <Button Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" VerticalAlignment="Top"
                 Command="{Binding NavigateBackCommand}"
                 Theme="{DynamicResource BorderlessButton}">
             <materialIcons:MaterialIcon Width="25" Height="25"
                                         Foreground="Black" Kind="ArrowLeft" />
         </Button>
+		
+        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding CurrentContent.Name}" />
 
-        <ContentControl Grid.Row="0" Grid.Column="0"
+        <ContentControl Grid.Row="1" Grid.Column="0"
                         Content="{Binding CurrentContent}">
             <ContentControl.DataTemplates>
                 <local:ViewLocator />
             </ContentControl.DataTemplates>
         </ContentControl>
+		
     </Grid>
 
 </UserControl>

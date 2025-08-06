@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Window;
 using Avalonia;
 using Avalonia.Android;
 using System.Globalization;
@@ -23,5 +24,10 @@ public class MainActivity : AvaloniaMainActivity<App>
     
         return base.CustomizeAppBuilder(builder)
             .WithInterFont();
+    }
+
+    public override void OnBackPressed()
+    {
+        base.OnBackPressed();
     }
 }

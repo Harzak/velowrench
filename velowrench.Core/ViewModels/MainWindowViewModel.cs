@@ -15,7 +15,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly INavigationService _navigationService;
 
     [ObservableProperty]
-    private object? _currentContent;
+    private IRoutableViewModel? _currentContent;
 
     public MainWindowViewModel(INavigationService  navigationService)
     {
