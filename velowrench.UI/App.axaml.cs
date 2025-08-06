@@ -5,18 +5,21 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
 using velowrench.Core.Configuration;
 using velowrench.Core.ViewModels;
-using velowrench.UI.Views;
-using velowrench.UI.Views.Home;
 using velowrench.UI;
 using velowrench.UI.Resources;
+using velowrench.UI.Views;
+using velowrench.UI.Views.Home;
 
 namespace velowrench.UI;
 
 public partial class App : Application
 {
+    public static IServiceProvider? ServiceProvider { get; private set; }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -29,9 +32,9 @@ public partial class App : Application
         ServiceCollection collection = new();
         collection.AddCoreServices();
         collection.AddUIServices();
-        ServiceProvider services = collection.BuildServiceProvider();
+        ServiceProvider = collection.BuildServiceProvider();
 
-        var vm = services.GetRequiredService<MainViewModel>();
+        var vm = ServiceProvider.GetRequiredService<MainViewModel>();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
