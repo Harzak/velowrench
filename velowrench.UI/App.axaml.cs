@@ -31,7 +31,7 @@ public partial class App : Application
         collection.AddUIServices();
         ServiceProvider services = collection.BuildServiceProvider();
 
-        var vm = services.GetRequiredService<MainWindowViewModel>();
+        var vm = services.GetRequiredService<MainViewModel>();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
@@ -39,7 +39,7 @@ public partial class App : Application
             {
                 Height = 640,
                 Width = 360,
-                Content = new MainWindow()
+                Content = new MainView()
                 {
                     DataContext = vm
                 }
@@ -47,7 +47,7 @@ public partial class App : Application
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainWindow()
+            singleViewPlatform.MainView = new MainView()
             {
                 DataContext = vm
             };

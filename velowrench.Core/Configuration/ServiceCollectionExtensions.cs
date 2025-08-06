@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCoreServices(this IServiceCollection collection)
     {
-        collection.AddSingleton<MainWindowViewModel>();
+        collection.AddSingleton<MainViewModel>();
         collection.AddSingleton<INavigationService, NavigationService>();
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
     }

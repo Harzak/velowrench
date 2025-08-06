@@ -22,7 +22,9 @@ public class ViewLocator : IDataTemplate
 
         if (type != null)
         {
-            return (Control)Activator.CreateInstance(type)!;
+            var control = (Control)Activator.CreateInstance(type)!;
+            control.DataContext = data; // This was missing!
+            return control;
         }
 
         return new TextBlock { Text = "Not Found: " + name };

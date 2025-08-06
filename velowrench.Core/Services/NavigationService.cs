@@ -27,6 +27,7 @@ public class NavigationService : INavigationService
     public void NavigateToHome()
     {
         IRoutableViewModel homeViewModel = _viewModelFactory.CreateHomeViewModel(this);
+        _navigationStack.Clear();
         NavigateTo(homeViewModel);
     }
 

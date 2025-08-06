@@ -4,9 +4,9 @@ using velowrench.Core.ViewModels;
 
 namespace velowrench.UI.Views;
 
-public partial class MainWindow : UserControl
+public partial class MainView : UserControl
 {
-    public MainWindow()
+    public MainView()
     {
         InitializeComponent();
     }

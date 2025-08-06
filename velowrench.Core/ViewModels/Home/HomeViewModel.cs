@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Services;
