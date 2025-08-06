@@ -9,7 +9,17 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+	  
+	  <!-- Prevent assembly trimming issues -->
+	  <PublishTrimmed>false</PublishTrimmed>
+	  <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
+
+  <!-- Preserve DI assemblies from trimming -->
+  <ItemGroup>
+	  <TrimmerRootAssembly Include="Microsoft.Extensions.DependencyInjection" />
+	  <TrimmerRootAssembly Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
 
   <ItemGroup>
     <AndroidResource Include="Icon.png">
@@ -25,4 +35,5 @@
   <ItemGroup>
     <ProjectReference Include="..\velowrench\velowrench.csproj" />
   </ItemGroup>
+
 </Project>

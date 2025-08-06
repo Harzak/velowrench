@@ -1,17 +1,15 @@
-<Window x:Class="velowrench.Views.MainWindow"
+<UserControl x:Class="velowrench.Views.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:routing="clr-namespace:velowrench.Routing"
         xmlns:rxui="http://reactiveui.net"
         xmlns:views="clr-namespace:velowrench.Views"
         xmlns:vm="using:velowrench.ViewModels"
-        Title="velowrench"
         Width="360"
         Height="640"
         x:DataType="vm:MainWindowViewModel"
         Design.Height="640"
-        Design.Width="360"
-        Icon="/Assets/avalonia-logo.ico">
+        Design.Width="360">
 
     <rxui:RoutedViewHost Grid.Row="1" Grid.Column="0"
                          Router="{Binding Router}">
@@ -20,4 +18,4 @@
         </rxui:RoutedViewHost.ViewLocator>
     </rxui:RoutedViewHost>
 
-</Window>
+</UserControl>
