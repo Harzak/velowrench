@@ -1,22 +1,34 @@
-﻿using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Services;
 using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels;
 
-public class MainWindowViewModel : ReactiveObject, IScreen
+public partial class MainWindowViewModel : ObservableObject
 {
-    public RoutingState Router { get; }
+    private readonly INavigationService _navigationService;
 
-    public MainWindowViewModel(IToolsViewModelFactory toolsViewModelFactory)
+    [ObservableProperty]
+    private object? _currentContent;
+
+    public MainWindowViewModel(INavigationService  navigationService)
     {
-        this.Router = new RoutingState();
-        Router.Navigate.Execute(new HomeViewModel(this, toolsViewModelFactory));
+        _navigationService = navigationService;
+
+        _navigationService.CurrentViewModelChanged += (_, e) => CurrentContent = e.CurrentViewModel;
+        _navigationService.NavigateToHome();
+    }
+
+
+    [RelayCommand]
+    private void NavigateBack()
+    {
+        _navigationService.NavigateBack();
     }
 }

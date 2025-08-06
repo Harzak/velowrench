@@ -5,8 +5,6 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
-using Splat;
 using System.Linq;
 using velowrench.Core.Configuration;
 using velowrench.Core.ViewModels;

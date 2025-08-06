@@ -2,7 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:velowrench.UI"
-             xmlns:rxui="http://reactiveui.net"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:views="clr-namespace:velowrench.UI.Views"
              xmlns:vm="using:velowrench.Core.ViewModels"
              Width="360"
@@ -11,11 +11,22 @@
              Design.Height="640"
              Design.Width="360">
 
-    <rxui:RoutedViewHost Grid.Row="1" Grid.Column="0"
-                         Router="{Binding Router}">
-        <rxui:RoutedViewHost.ViewLocator>
-            <local:ViewLocator />
-        </rxui:RoutedViewHost.ViewLocator>
-    </rxui:RoutedViewHost>
+    <Grid ColumnDefinitions="*" RowDefinitions="*">
+
+        <Button Grid.Row="0" Grid.Column="0"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Command="{Binding NavigateBackCommand}"
+                Theme="{DynamicResource BorderlessButton}">
+            <materialIcons:MaterialIcon Width="25" Height="25"
+                                        Foreground="Black" Kind="ArrowLeft" />
+        </Button>
+
+        <ContentControl Grid.Row="0" Grid.Column="0"
+                        Content="{Binding CurrentContent}">
+            <ContentControl.DataTemplates>
+                <local:ViewLocator />
+            </ContentControl.DataTemplates>
+        </ContentControl>
+    </Grid>
 
 </UserControl>

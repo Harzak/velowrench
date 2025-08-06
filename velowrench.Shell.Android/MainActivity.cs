@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Avalonia;
 using Avalonia.Android;
-using Avalonia.ReactiveUI;
 using System.Globalization;
 using velowrench.Core;
 using velowrench.UI;
@@ -23,7 +22,6 @@ public class MainActivity : AvaloniaMainActivity<App>
         CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
     
         return base.CustomizeAppBuilder(builder)
-            .WithInterFont()
-            .UseReactiveUI();
+            .WithInterFont();
     }
 }

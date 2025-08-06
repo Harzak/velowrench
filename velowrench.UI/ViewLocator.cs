@@ -1,31 +1,32 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using velowrench.Core.ViewModels;
-using velowrench.Core.ViewModels.Home;
-using velowrench.Core.ViewModels.Tools;
-using velowrench.UI.Views;
-using velowrench.UI.Views.Home;
-using velowrench.UI.Views.Tools;
 
 namespace velowrench.UI;
 
-public class ViewLocator : IViewLocator
+public class ViewLocator : IDataTemplate
 {
-    public IViewFor ResolveView<T>(T? viewModel, string? contract = null)
+    public Control? Build(object? data)
     {
-        ArgumentNullException.ThrowIfNull(viewModel);
-
-        return viewModel switch
+        if (data == null)
         {
-            MainWindowViewModel => new MainWindow { DataContext = viewModel },
-            HomeViewModel => new HomeView { DataContext = viewModel },
-            ChainLengthCalculatorViewModel => new ChainLengthCalculatorView { DataContext = viewModel },
-            ChainlineCalculatorViewModel => new ChainlineCalculatorView { DataContext = viewModel },
-            DrivetrainRatioCalculatorViewModel => new DrivetrainRatioCalculatorView { DataContext = viewModel },
-            RolloutCalculatorViewModel => new RolloutCalculatorView { DataContext = viewModel },
-            _ => throw new NotImplementedException(nameof(viewModel)),
-        };
+            return null;
+        }
+
+        string name = data.GetType().FullName!
+            .Replace("ViewModel", "View", StringComparison.Ordinal)
+            .Replace(".Core.", ".UI.", StringComparison.Ordinal);
+
+        Type? type = Type.GetType(name);
+
+        if (type != null)
+        {
+            return (Control)Activator.CreateInstance(type)!;
+        }
+
+        return new TextBlock { Text = "Not Found: " + name };
     }
+
+    public bool Match(object? data) => data is not null && data is ObservableObject;
 }

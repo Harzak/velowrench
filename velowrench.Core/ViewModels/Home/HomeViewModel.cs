@@ -1,31 +1,24 @@
-﻿using DynamicData.Binding;
-using ReactiveUI;
-using System;
-using System.Reactive;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Services;
+using velowrench.Core.ViewModels.Base;
 
 namespace velowrench.Core.ViewModels.Home;
 
-public class HomeViewModel : ReactiveObject, IRoutableViewModel
+public partial class HomeViewModel : BaseRoutableViewModel
 {
-    private readonly IToolsViewModelFactory _toolsViewModelFactory;
-    public IScreen HostScreen { get; }
-    public string? UrlPathSegment { get; }
-    public ReactiveCommand<EVeloWrenchTools, Unit> NavigateToSelectedToolCommand { get; }
+    public override string Name { get; }
 
-    public HomeViewModel(IScreen hostScreen, IToolsViewModelFactory toolsViewModelFactory)
+    public HomeViewModel(ILocalizer localizer, INavigationService navigationService) : base(navigationService)
     {
-        _toolsViewModelFactory = toolsViewModelFactory ?? throw new ArgumentNullException(nameof(toolsViewModelFactory));
-        HostScreen = hostScreen ?? throw new ArgumentNullException(nameof(hostScreen));
-        UrlPathSegment = Guid.NewGuid().ToString().Substring(0, 5);
-
-        NavigateToSelectedToolCommand = ReactiveCommand.Create<EVeloWrenchTools>(NavigateToTool);
+        Name = localizer.GetString("home");
     }
 
-    private void NavigateToTool(EVeloWrenchTools toolType)
+    [RelayCommand]
+    private void NavigateToSelectedTool(EVeloWrenchTools toolType)
     {
-        IRoutableViewModel viewModel = _toolsViewModelFactory.CreateRoutableViewModel(toolType, HostScreen);
-        HostScreen.Router.Navigate.Execute(viewModel);
+        base.NavigationService.NavigateToTool(toolType);
     }
 }
