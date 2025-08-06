@@ -1,0 +1,19 @@
+<UserControl x:Class="velowrench.UI.Views.Tools.RolloutCalculatorView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:velowrench.UI.Views.Controls"
+             xmlns:res="clr-namespace:velowrench.UI.Resources"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Tools.RolloutCalculatorViewModel">
+
+    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
+
+        <controls:RoutableViewHeaderControl Grid.Row="0" Grid.Column="0" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   Margin="100,50"
+                   Text="RolloutCalculatorView" />
+
+    </Grid>
+
+</UserControl>
