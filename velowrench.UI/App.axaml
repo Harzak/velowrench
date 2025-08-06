@@ -11,4 +11,17 @@
         <materialIcons:MaterialIconStyles />
     </Application.Styles>
 
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorFill1" />
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorBlack" />
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+
 </Application>

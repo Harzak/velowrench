@@ -2,90 +2,246 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:enums="using:velowrench.Core.Enums"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="using:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
              x:DataType="vm:Home.HomeViewModel"
              Design.Height="640"
              Design.Width="360">
 
-    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
+    <UserControl.Styles>
 
-        <Expander Grid.Row="0" Grid.Column="0"
-                  Margin="10,10" HorizontalAlignment="Stretch"
-                  Header="{x:Static res:Languages.TransmissionAndDrivetrain}">
-            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
-                <Button Grid.Row="0" Grid.Column="0"
-                        Margin="0,0,0,5"
-                        Classes="Tertiary"
-                        Command="{Binding NavigateToSelectedToolCommand}"
-                        CommandParameter="{x:Static enums:EVeloWrenchTools.ChainLengthCalculator}"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.ChainLengthCalculator}" />
-                </Button>
-                <Button Grid.Row="1" Grid.Column="0"
-                        Margin="0,5"
-                        Classes="Tertiary"
-                        Command="{Binding NavigateToSelectedToolCommand}"
-                        CommandParameter="{x:Static enums:EVeloWrenchTools.ChainlineCalculator}"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.ChainlineCalculator}" />
-                </Button>
-                <Button Grid.Row="2" Grid.Column="0"
-                        Margin="0,5"
-                        Classes="Tertiary"
-                        Command="{Binding NavigateToSelectedToolCommand}"
-                        CommandParameter="{x:Static enums:EVeloWrenchTools.DrivetrainRatioCalculator}"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.DrivetrainRatioCalculator}" />
-                </Button>
-                <Button Grid.Row="3" Grid.Column="0"
-                        Margin="0,5,0,0"
-                        Classes="Tertiary"
-                        Command="{Binding NavigateToSelectedToolCommand}"
-                        CommandParameter="{x:Static enums:EVeloWrenchTools.RolloutCalculator}"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.RolloutCalculator}" />
-                </Button>
-            </Grid>
-        </Expander>
+        <Style Selector="Border.SettingsGroup">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
 
-        <Expander Grid.Row="1" Grid.Column="0"
-                  Margin="10,10" HorizontalAlignment="Stretch"
-                  Header="{x:Static res:Languages.WheelsAndSpoking}">
-            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
-                <Button Grid.Row="0" Grid.Column="0"
-                        Margin="0,0,0,5"
-                        Classes="Tertiary"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.SpokeLengthCalculator}" />
-                </Button>
-                <Button Grid.Row="1" Grid.Column="0"
-                        Margin="0,5,0,0"
-                        Classes="Tertiary"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.SpokeTensionGuide}" />
-                </Button>
-            </Grid>
-        </Expander>
+        <Style Selector="TextBlock.GroupHeader">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+            <Setter Property="Margin" Value="16,16,16,8" />
+        </Style>
 
-        <Expander Grid.Row="2" Grid.Column="0"
-                  Margin="10,10" HorizontalAlignment="Stretch"
-                  Header="{x:Static res:Languages.CompatibilityAndStandards}">
-            <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto,Auto">
-                <Button Grid.Row="0" Grid.Column="0"
-                        Margin="0,0,0,5"
-                        Classes="Tertiary"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.ComponentCompatibilityGuide}" />
-                </Button>
-                <Button Grid.Row="1" Grid.Column="0"
-                        Margin="0,5,0,0"
-                        Classes="Tertiary"
-                        Theme="{DynamicResource BorderlessButton}">
-                    <TextBlock Text="{x:Static res:Languages.AxleAndHubStandardChecker}" />
-                </Button>
-            </Grid>
-        </Expander>
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
 
-    </Grid>
+        <Style Selector="Button.SettingsItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+
+        <Style Selector="TextBlock.SettingsItemText">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+
+        <Style Selector="Button.SettingsItem:last-child">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style Selector="Button.SettingsItem:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Spacing="0">
+
+            <Border Classes="SettingsGroup">
+                <StackPanel>
+                    <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.TransmissionAndDrivetrain}" />
+                    <Border Classes="Group">
+                        <StackPanel>
+                            <Button Classes="SettingsItem"
+                                    Command="{Binding NavigateToSelectedToolCommand}"
+                                    CommandParameter="{x:Static enums:EVeloWrenchTools.ChainLengthCalculator}">
+
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="Link" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.ChainLengthCalculator}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                            <Button Classes="SettingsItem"
+                                    Command="{Binding NavigateToSelectedToolCommand}"
+                                    CommandParameter="{x:Static enums:EVeloWrenchTools.ChainlineCalculator}">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="AlignHorizontalDistribute" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.ChainlineCalculator}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                            <Button Classes="SettingsItem"
+                                    Command="{Binding NavigateToSelectedToolCommand}"
+                                    CommandParameter="{x:Static enums:EVeloWrenchTools.DrivetrainRatioCalculator}">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="Cogs" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.DrivetrainRatioCalculator}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                            <Button Classes="SettingsItem"
+                                    Command="{Binding NavigateToSelectedToolCommand}"
+                                    CommandParameter="{x:Static enums:EVeloWrenchTools.RolloutCalculator}">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="CogRefreshOutline" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.RolloutCalculator}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="SettingsGroup">
+                <StackPanel>
+                    <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.WheelsAndSpoking}" />
+                    <Border Classes="Group">
+                        <StackPanel>
+                            <Button Classes="SettingsItem">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="Ruler" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.SpokeLengthCalculator}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                            <Button Classes="SettingsItem">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChartBellCurveCumulative" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.SpokeTensionGuide}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="SettingsGroup">
+                <StackPanel>
+                    <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.CompatibilityAndStandards}" />
+                    <Border Classes="Group">
+                        <StackPanel>
+                            <Button Classes="SettingsItem">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="Connection" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.ComponentCompatibilityGuide}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                            <Button Classes="SettingsItem">
+                                <Grid ColumnDefinitions="25,*,20">
+                                    <materialIcons:MaterialIcon Grid.Column="0"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="TableCheck" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Classes="SettingsItemText"
+                                               Text="{x:Static res:Languages.AxleAndHubStandardChecker}" />
+                                    <materialIcons:MaterialIcon Grid.Column="2"
+                                                                Width="20" Height="20"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                Kind="ChevronRight" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

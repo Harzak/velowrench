@@ -150,4 +150,7 @@
   <data name="AxleAndHubStandardChecker" xml:space="preserve">
     <value>Axle and Hub Standard Checker</value>
   </data>
+  <data name="VeloWrench" xml:space="preserve">
+    <value>veloWrench</value>
+  </data>
 </root>

@@ -12,6 +12,10 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private IRoutableViewModel? _currentContent;
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(NavigateBackCommand))]
+    private bool _canNavigateBack;
+
     public MainViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
@@ -23,11 +27,13 @@ public partial class MainViewModel : ObservableObject
     private void OnCurrentViewModelChanged(object? sender, ViewModelChangedEventArgs e)
     {
         CurrentContent = e.CurrentViewModel;
+        CanNavigateBack = _navigationService.CanNavigateBack;
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanNavigateBack))]
     private void NavigateBack()
     {
         _navigationService.NavigateBack();
+        CanNavigateBack = _navigationService.CanNavigateBack;
     }
 }

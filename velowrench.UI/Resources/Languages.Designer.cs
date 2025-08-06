@@ -151,6 +151,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to veloWrench.
+        /// </summary>
+        public static string VeloWrench {
+            get {
+                return ResourceManager.GetString("VeloWrench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wheels &amp; Spoking.
         /// </summary>
         public static string WheelsAndSpoking {

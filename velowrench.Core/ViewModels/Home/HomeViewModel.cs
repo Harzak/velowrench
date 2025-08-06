@@ -11,7 +11,7 @@ public partial class HomeViewModel : BaseRoutableViewModel
 
     public HomeViewModel(ILocalizer localizer, INavigationService navigationService) : base(navigationService)
     {
-        Name = localizer.GetString("home");
+        Name = localizer.GetString("VeloWrench");
     }
 
     [RelayCommand]
