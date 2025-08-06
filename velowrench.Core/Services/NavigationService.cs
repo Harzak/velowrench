@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Core.Enums;
+﻿using velowrench.Core.Enums;
+using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
-using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.Services;
 
@@ -45,7 +39,7 @@ public class NavigationService : INavigationService
         }
 
         IRoutableViewModel previous = CurrentViewModel;
-        _navigationStack.Pop(); 
+        _navigationStack.Pop();
         CurrentViewModel = _navigationStack.Peek();
 
         CurrentViewModelChanged?.Invoke(this, new ViewModelChangedEventArgs(previous, CurrentViewModel));
@@ -64,29 +58,5 @@ public class NavigationService : INavigationService
         CurrentViewModel = viewModel;
 
         CurrentViewModelChanged?.Invoke(this, new ViewModelChangedEventArgs(previous, CurrentViewModel));
-    }
-}
-
-public interface INavigationService
-{
-    void NavigateToHome();
-    void NavigateToTool(EVeloWrenchTools toolType);
-    void NavigateBack();
-    bool CanNavigateBack { get; }
-    IRoutableViewModel? CurrentViewModel { get; }
-
-    event EventHandler<ViewModelChangedEventArgs> CurrentViewModelChanged;
-    void ClearNavigationStack();
-}
-
-public class ViewModelChangedEventArgs : EventArgs
-{
-    public IRoutableViewModel? PreviousViewModel { get; }
-    public IRoutableViewModel CurrentViewModel { get; }
-
-    public ViewModelChangedEventArgs(IRoutableViewModel? previous, IRoutableViewModel current)
-    {
-        PreviousViewModel = previous;
-        CurrentViewModel = current;
     }
 }

@@ -1,6 +1,5 @@
-﻿using System;
-using Avalonia;
-using velowrench.Core;
+﻿using Avalonia;
+using System;
 using velowrench.UI;
 
 namespace velowrench.Shell.Desktop;

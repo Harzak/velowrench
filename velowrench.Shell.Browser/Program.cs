@@ -1,9 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Browser;
-using System.Runtime.Versioning;
 using System.Threading.Tasks;
-using velowrench;
-using velowrench.Core;
 using velowrench.UI;
 
 internal sealed partial class Program

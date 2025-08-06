@@ -3,7 +3,7 @@ using Avalonia.Controls.Templates;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 
-namespace velowrench.UI;
+namespace velowrench.UI.Services;
 
 public class ViewLocator : IDataTemplate
 {
@@ -22,9 +22,7 @@ public class ViewLocator : IDataTemplate
 
         if (type != null)
         {
-            var control = (Control)Activator.CreateInstance(type)!;
-            control.DataContext = data; // This was missing!
-            return control;
+            return (Control)Activator.CreateInstance(type)!;
         }
 
         return new TextBlock { Text = "Not Found: " + name };

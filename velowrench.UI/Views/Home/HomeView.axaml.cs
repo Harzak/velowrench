@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.UI.Views.Home;
 

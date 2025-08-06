@@ -1,10 +1,6 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.iOS;
-using Avalonia.Media;
 using Foundation;
-using UIKit;
-using velowrench.Core;
 using velowrench.UI;
 
 namespace velowrench.Shell.iOS;

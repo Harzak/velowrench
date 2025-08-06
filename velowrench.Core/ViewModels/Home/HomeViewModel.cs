@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
-using velowrench.Core.Services;
 using velowrench.Core.ViewModels.Base;
 
 namespace velowrench.Core.ViewModels.Home;

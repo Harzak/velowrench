@@ -1,14 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Core.Factories;
 using velowrench.Core.Interfaces;
-using velowrench.Core.ViewModels;
+using velowrench.UI.Services;
 
-namespace velowrench.UI;
+namespace velowrench.UI.Configuration;
 
 public static class ServiceCollectionExtensions
 {

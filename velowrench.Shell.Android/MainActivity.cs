@@ -1,15 +1,10 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Window;
 using Avalonia;
 using Avalonia.Android;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Globalization;
-using velowrench.Core;
-using velowrench.Core.Configuration;
-using velowrench.Core.Services;
+using velowrench.Core.Interfaces;
 using velowrench.UI;
 
 namespace velowrench.Shell.Android;
@@ -22,14 +17,10 @@ namespace velowrench.Shell.Android;
     ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
 public class MainActivity : AvaloniaMainActivity<App>
 {
-    private static IServiceProvider? _serviceProvider;
     private INavigationService? _navigationService;
 
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
-
         return base.CustomizeAppBuilder(builder)
             .WithInterFont();
     }

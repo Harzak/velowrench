@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Core.Interfaces;
+﻿using velowrench.Core.Interfaces;
 using velowrench.UI.Resources;
 
-namespace velowrench.UI;
+namespace velowrench.UI.Services;
 
 public class Localizer : ILocalizer
 {
