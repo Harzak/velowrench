@@ -3,13 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
-             x:DataType="vm:Tools.ChainLengthCalculatorViewModel">
+             x:DataType="vm:Tools.ChainLengthCalculatorViewModel"
+             Design.Height="640"
+             Design.Width="360">
 
-    <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
+    <StackPanel Orientation="Vertical">
 
-        <TextBlock Grid.Row="1" Grid.Column="0"
-                   Margin="100,50"
-                   Text="ChainLengthCalculatorView" />
+        <Grid Margin="20,10"
+              ColumnDefinitions="75*,3*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
 
-    </Grid>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0,10,0,3"
+                       Text="Chain stay length" />
+            <NumericUpDown Grid.Row="1" Grid.Column="0"
+                     Value="{Binding ChainStayLength, Delay=600}" />
+            <ComboBox Grid.Row="1" Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      PlaceholderText="cm" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0,10,0,3"
+                       Text="Largest front chainring" />
+			<NumericUpDown Grid.Row="3" Grid.Column="0" Minimum="1" Increment="1"
+                     Value="{Binding LargestChainring, Delay=600}" />
+            <ComboBox Grid.Row="3" Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      IsEnabled="False" PlaceholderText="teeth" />
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0,10,0,3"
+                       Text="Largest rear sprocket" />
+			<NumericUpDown Grid.Row="5" Grid.Column="0" Minimum="1" Increment="1" FormatString="0"
+                     Value="{Binding LargestSprocket, Delay=600}" />
+            <ComboBox Grid.Row="5" Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      IsEnabled="False" PlaceholderText="teeth" />
+
+        </Grid>
+
+        <Grid RowDefinitions="Auto, Auto, Auto">
+            <TextBlock Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Text="Recommended chain length" />
+
+            <StackPanel Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock Margin="0,0,5,0"
+                           FontSize="20" Foreground="Green"
+                           Text="{Binding ChainLengthInLinks}" />
+                <TextBlock FontSize="20" Foreground="Green" Text="links" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <TextBlock Margin="0,0,5,0"
+                           FontSize="20" Foreground="Green"
+                           Text="{Binding ChainLengthInInch}" />
+                <TextBlock FontSize="20" Foreground="Green" Text="cm" />
+            </StackPanel>
+        </Grid>
+
+    </StackPanel>
 </UserControl>

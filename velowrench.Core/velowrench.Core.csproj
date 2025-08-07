@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\velowrench.Calculations\velowrench.Calculations.csproj" />
+  </ItemGroup>
+
 </Project>

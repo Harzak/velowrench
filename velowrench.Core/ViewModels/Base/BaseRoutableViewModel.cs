@@ -3,10 +3,11 @@ using velowrench.Core.Interfaces;
 
 namespace velowrench.Core.ViewModels.Base;
 
-public abstract partial class BaseRoutableViewModel : ObservableObject, IRoutableViewModel
+public abstract partial class BaseRoutableViewModel : ObservableValidator, IRoutableViewModel
 {
     protected INavigationService NavigationService { get; }
     public string UrlPathSegment { get; }
+
     public abstract string Name { get; }
 
     public BaseRoutableViewModel(INavigationService navigationService)

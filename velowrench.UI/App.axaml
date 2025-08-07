@@ -4,24 +4,24 @@
              xmlns:local="using:velowrench.UI"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:semi="https://irihi.tech/semi"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
 
     <Application.Styles>
         <semi:SemiTheme Locale="en-US" />
         <materialIcons:MaterialIconStyles />
     </Application.Styles>
 
-	<Application.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.ThemeDictionaries>
-				<ResourceDictionary x:Key="Light">
-					<StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorFill1" />
-				</ResourceDictionary>
-				<ResourceDictionary x:Key="Dark">
-					<StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorBlack" />
-				</ResourceDictionary>
-			</ResourceDictionary.ThemeDictionaries>
-		</ResourceDictionary>
-	</Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorFill1" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorBlack" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
 </Application>

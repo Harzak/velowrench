@@ -1,4 +1,6 @@
-﻿using velowrench.Core.Enums;
+﻿using velowrench.Calculations.Calculs.Transmission.ChainLength;
+using velowrench.Calculations.Interfaces;
+using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
@@ -8,10 +10,13 @@ namespace velowrench.Core.Factories;
 public class ViewModelFactory : IViewModelFactory
 {
     private readonly ILocalizer _localizer;
+    private readonly ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _chainLengthCalculFactory;
 
-    public ViewModelFactory(ILocalizer localizer)
+    public ViewModelFactory(ILocalizer localizer,
+        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
+        _chainLengthCalculFactory = calculFactory ?? throw new ArgumentNullException(nameof(calculFactory));
     }
 
     public IRoutableViewModel CreateHomeViewModel(INavigationService navigationService)
@@ -24,7 +29,7 @@ public class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(navigationService, _localizer);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculFactory, navigationService, _localizer);
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.DrivetrainRatioCalculator:

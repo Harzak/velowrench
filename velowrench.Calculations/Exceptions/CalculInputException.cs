@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace velowrench.Calculations.Exceptions;
+
+public class CalculInputException : Exception
+{
+    public CalculInputException()
+        : base("Invalid input for calculation.")
+    {
+
+    }
+
+    public CalculInputException(string message)
+        : base(message)
+    {
+
+    }
+
+    public CalculInputException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+
+    }
+
+    public static void ThrowIfNegativeOrZero(double argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+    {
+        if (argument <= 0)
+        {
+            throw new CalculInputException($"The value of '{paramName}' must be greater than zero. Current value: {argument}");
+        }
+    }
+}

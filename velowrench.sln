@@ -18,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Core", "velowrench.Core\velowrench.Core.csproj", "{A3A04BE1-0591-45D8-8BC7-5155F0AFB601}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Calculations", "velowrench.Calculations\velowrench.Calculations.csproj", "{6C0A4A10-E226-4B6F-9214-671956C9E016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Utils", "velowrench.Utils\velowrench.Utils.csproj", "{CD235A13-D211-4DAD-9FB1-BB0C1064935F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{A3A04BE1-0591-45D8-8BC7-5155F0AFB601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3A04BE1-0591-45D8-8BC7-5155F0AFB601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3A04BE1-0591-45D8-8BC7-5155F0AFB601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C0A4A10-E226-4B6F-9214-671956C9E016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C0A4A10-E226-4B6F-9214-671956C9E016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C0A4A10-E226-4B6F-9214-671956C9E016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C0A4A10-E226-4B6F-9214-671956C9E016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

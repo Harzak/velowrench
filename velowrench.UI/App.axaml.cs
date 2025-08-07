@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using velowrench.Calculations.Configuration;
 using velowrench.Core.Configuration;
 using velowrench.Core.ViewModels;
 using velowrench.UI.Configuration;
@@ -30,6 +31,7 @@ public partial class App : Application
         ServiceCollection collection = new();
         collection.AddCoreServices();
         collection.AddUIServices();
+        collection.AddCalculationServices();
         ServiceProvider = collection.BuildServiceProvider();
 
         var vm = ServiceProvider.GetRequiredService<MainViewModel>();
