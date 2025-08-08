@@ -18,6 +18,7 @@ namespace velowrench.UI;
 public partial class App : Application
 {
     public static IServiceProvider? ServiceProvider { get; private set; }
+    public static Action<IServiceCollection>? RegisterPlatformSpecificServices { get; set; }
 
     public override void Initialize()
     {
@@ -32,6 +33,8 @@ public partial class App : Application
         collection.AddCoreServices();
         collection.AddUIServices();
         collection.AddCalculationServices();
+        RegisterPlatformSpecificServices?.Invoke(collection);
+
         ServiceProvider = collection.BuildServiceProvider();
 
         var vm = ServiceProvider.GetRequiredService<MainViewModel>();

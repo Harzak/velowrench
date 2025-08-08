@@ -44,5 +44,9 @@
       <DependentUpon>HomeView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
 
 </Project>

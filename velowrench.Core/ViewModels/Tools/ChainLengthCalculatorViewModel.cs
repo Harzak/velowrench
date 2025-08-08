@@ -82,6 +82,11 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 
     private void Calculate()
     {
+        if (base.HasErrors)
+        {
+            return;
+        }
+
         ChainLengthCalculInput input = new()
         {
             ChainStayLength = this.ChainStayLength ?? 0,

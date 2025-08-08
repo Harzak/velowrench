@@ -12,7 +12,7 @@ public class ChainLengthCalculFactory : ICalculFactory<ChainLengthCalculInput, C
 {
     private readonly ILogger _logger;
 
-    public ChainLengthCalculFactory(ILogger logger)
+    public ChainLengthCalculFactory(ILogger<ChainLengthCalculFactory> logger)
     {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }

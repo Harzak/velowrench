@@ -51,4 +51,14 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
 
         return result.WithSuccess();
     }
+
+    //private double CalculateLengthWithBigBig2Equation()
+    //{
+
+    //}
+
+    //private double CalculateLengthWithRigorousEquation()
+    //{
+
+    //}
 }

@@ -4,6 +4,7 @@ using Android.OS;
 using Avalonia;
 using Avalonia.Android;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using velowrench.Core.Interfaces;
 using velowrench.UI;
 
@@ -21,6 +22,16 @@ public class MainActivity : AvaloniaMainActivity<App>
 
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
+
+        App.RegisterPlatformSpecificServices = services =>
+        {
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.SetMinimumLevel(LogLevel.Information);
+            });
+        };
+
         return base.CustomizeAppBuilder(builder)
             .WithInterFont();
     }
