@@ -2,7 +2,7 @@
 
 public class ChainLengthCalculInput
 {
-    public double ChainStayLength { get; set; }
-    public int LargestChainring { get; set; }
-    public int LargestSprocket { get; set; }
+    public double ChainStayLengthInch { get; set; }
+    public int TeethLargestChainring { get; set; }
+    public int TeethLargestSprocket { get; set; }
 }

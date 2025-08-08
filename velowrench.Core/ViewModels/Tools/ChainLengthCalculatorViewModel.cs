@@ -1,9 +1,11 @@
 ﻿using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using UnitsNet.Units;
 using velowrench.Calculations.Calculs.Transmission.ChainLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Utils.Results;
 
@@ -16,25 +18,23 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
     public override string Name { get; }
 
     [ObservableProperty]
-    [Range(0.1, 1000.0, ErrorMessage = "Chain stay length must be between 0.1 and 1000.0 mm")]
+    private ConvertibleDouble<LengthUnit>? _chainStayLength;
+
+    [ObservableProperty]
+    [Range(1, 100, ErrorMessage = "Must be between 1 and 100 teeth")]
     [NotifyDataErrorInfo]
-    private double? _chainStayLength;
+    private int? _teethLargestChainring;
 
     [ObservableProperty]
-    [Range(1, 300, ErrorMessage = "Largest chainring must be between 1 and 300 teeth")]
+    [Range(1, 70, ErrorMessage = "Must be between 1 and 70 teeth")]
     [NotifyDataErrorInfo]
-    private int? _largestChainring;
+    private int? _teethLargestSprocket;
 
     [ObservableProperty]
-    [Range(1, 100, ErrorMessage = "Largest sprocket must be between 1 and 100 teeth")]
-    [NotifyDataErrorInfo]
-    private int? _largestSprocket;
+    private int _recomendedChainLinks;
 
     [ObservableProperty]
-    private int _chainLengthInLinks;
-
-    [ObservableProperty]
-    private double _chainLengthInInch;
+    private ConvertibleDouble<LengthUnit>? _recomendedChainLength;
 
     public ChainLengthCalculatorViewModel(ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
         INavigationService navigationService,
@@ -50,13 +50,21 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 
     private void InitializeDefaultValues()
     {
-        _chainStayLength = 400;
-        _largestChainring = 50;
-        _largestSprocket = 28;
+        _chainStayLength = new ConvertibleDouble<LengthUnit>(40, LengthUnit.Centimeter);
+        _teethLargestChainring = 50;
+        _teethLargestSprocket = 28;
         this.Calculate();
     }
 
-    partial void OnChainStayLengthChanged(double? value)
+    partial void OnChainStayLengthChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        if (value != null && value.Value > 0)
+        {
+            Calculate();
+        }
+    }
+
+    partial void OnTeethLargestChainringChanged(int? value)
     {
         if (value.HasValue && value > 0)
         {
@@ -64,15 +72,7 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
         }
     }
 
-    partial void OnLargestChainringChanged(int? value)
-    {
-        if (value.HasValue && value > 0)
-        {
-            Calculate();
-        }
-    }
-
-    partial void OnLargestSprocketChanged(int? value)
+    partial void OnTeethLargestSprocketChanged(int? value)
     {
         if (value.HasValue && value > 0)
         {
@@ -89,14 +89,14 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 
         ChainLengthCalculInput input = new()
         {
-            ChainStayLength = this.ChainStayLength ?? 0,
-            LargestChainring = this.LargestChainring ?? 0,
-            LargestSprocket = this.LargestSprocket ?? 0
+            ChainStayLengthInch = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
+            TeethLargestChainring = this.TeethLargestChainring ?? 0,
+            TeethLargestSprocket = this.TeethLargestSprocket ?? 0
         };
         OperationResult<ChainLengthCalculResult> calculResult = _calcul.Start(input);
         if (calculResult.IsSuccess && calculResult.HasContent)
         {
-            this.ChainLengthInInch = calculResult.Content.ChainLengthInInches;
+            this.RecomendedChainLength = new ConvertibleDouble<LengthUnit>(calculResult.Content.ChainLengthInch, LengthUnit.Inch);
         }
     }
 }

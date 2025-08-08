@@ -30,6 +30,7 @@ public partial class App : Application
         Languages.Culture = new System.Globalization.CultureInfo("en-US");
 
         ServiceCollection collection = new();
+        collection.AddLogging();
         collection.AddCoreServices();
         collection.AddUIServices();
         collection.AddCalculationServices();

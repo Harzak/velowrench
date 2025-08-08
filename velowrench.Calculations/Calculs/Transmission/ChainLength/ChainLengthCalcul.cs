@@ -22,15 +22,15 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     protected override OperationResult<ChainLengthCalculResult> Calculate(ChainLengthCalculInput input)
     {
         ArgumentNullException.ThrowIfNull(input, nameof(input));
-        CalculInputException.ThrowIfNegativeOrZero(input.ChainStayLength, nameof(input.ChainStayLength));
-        CalculInputException.ThrowIfNegativeOrZero(input.LargestSprocket, nameof(input.LargestSprocket));
-        CalculInputException.ThrowIfNegativeOrZero(input.LargestChainring, nameof(input.LargestChainring));
+        CalculInputException.ThrowIfNegativeOrZero(input.ChainStayLengthInch, nameof(input.ChainStayLengthInch));
+        CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestSprocket, nameof(input.TeethLargestSprocket));
+        CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestChainring, nameof(input.TeethLargestChainring));
 
         OperationResult<ChainLengthCalculResult> result = new();
 
-        double C = input.ChainStayLength;
-        double F = input.LargestChainring;
-        double R = input.LargestSprocket;
+        double C = input.ChainStayLengthInch;
+        double F = input.TeethLargestChainring;
+        double R = input.TeethLargestSprocket;
         double L = 0;
 
         L = 2 * C + F /4 + R/4 + 1;
@@ -42,11 +42,10 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
 
         result.Content = new ChainLengthCalculResult
         {
-            ChainLengthInLinks = (int)Math.Round(L),
-            ChainLengthInInches = L,
-            ChainLengthInMm = L * 25.4,
+            ChainLinks = (int)Math.Round(L),
+            ChainLengthInch = L,
             CalculatedAt = DateTime.UtcNow,
-            UsedInput = input
+            UsedInputs = input
         };
 
         return result.WithSuccess();
