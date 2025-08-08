@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Calculations", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Utils", "velowrench.Utils\velowrench.Utils.csproj", "{CD235A13-D211-4DAD-9FB1-BB0C1064935F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Calculations.Tests", "velowrench.Calculations.Tests\velowrench.Calculations.Tests.csproj", "{601D6DAC-15C1-4EC6-8EB8-2286574732A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,9 +61,16 @@ Global
 		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD235A13-D211-4DAD-9FB1-BB0C1064935F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{601D6DAC-15C1-4EC6-8EB8-2286574732A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601D6DAC-15C1-4EC6-8EB8-2286574732A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601D6DAC-15C1-4EC6-8EB8-2286574732A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601D6DAC-15C1-4EC6-8EB8-2286574732A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{601D6DAC-15C1-4EC6-8EB8-2286574732A0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83CB65B8-011F-4ED7-BCD3-A6CFA935EF7E}

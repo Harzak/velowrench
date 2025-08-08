@@ -16,6 +16,8 @@
     <PackageVersion Include="Avalonia.Browser" Version="11.3.2" />
     <PackageVersion Include="Avalonia.Android" Version="11.3.2" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageVersion Include="FakeItEasy" Version="8.3.0" />
+    <PackageVersion Include="FluentAssertions" Version="8.5.0" />
     <PackageVersion Include="Material.Icons.Avalonia" Version="2.4.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
@@ -28,5 +30,9 @@
     <PackageVersion Include="Serilog.Extensions.Logging" Version="9.0.2" />
     <PackageVersion Include="UnitsNet" Version="5.75.0" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.12.6" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.4.3" />
+    <PackageVersion Include="MSTest" Version="3.6.4" />
   </ItemGroup>
 </Project>
