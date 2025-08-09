@@ -15,7 +15,19 @@
         <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
     </UserControl.Resources>
 
+    <UserControl.Styles>
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+			<Setter Property="Padding" Value="16,12" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
+    </UserControl.Styles>
+
     <StackPanel Orientation="Vertical">
+
+        <Border Margin="20,10" Classes="Group">
+            <TextBlock Text="Calculate the recommended bicycle chain length using your bike's chainstay length and gear sizes." TextWrapping="Wrap" />
+        </Border>
 
         <!--  Inputs  -->
         <Grid Margin="20,10"

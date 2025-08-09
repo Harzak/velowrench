@@ -1,7 +1,88 @@
 <UserControl x:Class="velowrench.UI.Views.Help.ChainLengthCalculatorHelpView"
              xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:math="clr-namespace:AvaloniaMath.Controls;assembly=AvaloniaMath"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Help.ChainLengthCalculatorHelpViewModel"
+             Design.Height="840"
+             Design.Width="360">
 
-    <TextBox>help page</TextBox>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Header2">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="0,10,0,3" />
 
+        </Style>
+
+        <Style Selector="TextBlock.Content">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
+
+        <Style Selector="TextBlock.GroupHeader">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+            <Setter Property="Margin" Value="16,16,16,8" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto, Auto, Auto ,Auto, Auto, Auto,Auto, Auto, Auto, Auto, Auto, Auto ,Auto, Auto, Auto,Auto, Auto, Auto">
+
+        <!--  Inputs  -->
+        <TextBlock Grid.Row="0"
+                   Classes="GroupHeader" Text="Inputs" />
+
+        <Border Grid.Row="1" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Header2" Text="Chain stay length (C)" />
+                <TextBlock Classes="Content" Text="The distance between the center of the bottom bracket (pedal axle) and the center of the rear wheel axle. It is usually measured along the chain line." />
+
+                <TextBlock Classes="Header2" Text="Largest front chainring (F)" />
+                <TextBlock Classes="Content" Text="The number of teeth on your bike's largest front chainring." />
+
+                <TextBlock Classes="Header2" Text="Largest rear sprocket (R)" />
+                <TextBlock Classes="Content" Text="The number of teeth on the largest cog of your rear cassette/freewheel." />
+            </StackPanel>
+        </Border>
+
+        <!--  Calcul  -->
+        <TextBlock Grid.Row="2"
+                   Classes="GroupHeader" Text="Calculations" />
+
+        <Border Grid.Row="3" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Content" Text="This tool uses two common methods to estimate the correct bicycle chain length:" />
+
+                <TextBlock Classes="Header2" Text="Simple formula" />
+                <math:FormulaBlock Grid.Row="10"
+                                   Margin="0,5,0,5" HorizontalAlignment="Center"
+                                   Formula="{Binding SimpleEquationLaTeX}"
+                                   Scale="16" />
+                <TextBlock Classes="Content" Text="A quick approximation based on chainstay length and the sizes of your largest front chainring and largest rear sprocket. Best suited for standard bikes and quick calculations." />
+
+                <TextBlock Classes="Header2" Text="Rigorous formula" />
+                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding RigorousEquationLaTeX}"
+                                   Scale="14" />
+                <TextBlock Classes="Content" Text="A more accurate method that uses Pythagoras' theorem to take into account the actual path of the chain around the gears. This is more accurate for shorter chainstays or bikes with unusual gear sizes." />
+            </StackPanel>
+        </Border>
+
+        <!--  Results  -->
+        <TextBlock Grid.Row="4"
+                   Classes="GroupHeader" Text="Results" />
+        <Border Grid.Row="5" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Content" Text="Both formulas give the recommended chain length, which can then be converted into the number of links required." />
+            </StackPanel>
+        </Border>
+
+    </Grid>
 </UserControl>

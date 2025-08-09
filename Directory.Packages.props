@@ -15,6 +15,7 @@
     <PackageVersion Include="Avalonia.iOS" Version="11.3.2" />
     <PackageVersion Include="Avalonia.Browser" Version="11.3.2" />
     <PackageVersion Include="Avalonia.Android" Version="11.3.2" />
+    <PackageVersion Include="AvaloniaMath" Version="2.1.0" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageVersion Include="FakeItEasy" Version="8.3.0" />
     <PackageVersion Include="FluentAssertions" Version="8.5.0" />
