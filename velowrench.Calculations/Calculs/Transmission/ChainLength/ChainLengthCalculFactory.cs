@@ -8,7 +8,10 @@ using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Calculs.Transmission.ChainLength;
 
-public class ChainLengthCalculFactory : ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>
+/// <summary>
+/// Factory for creating chain length calculation instances.
+/// </summary>
+public sealed class ChainLengthCalculFactory : ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>
 {
     private readonly ILogger _logger;
 
@@ -17,6 +20,10 @@ public class ChainLengthCalculFactory : ICalculFactory<ChainLengthCalculInput, C
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Creates a new chain length calculation instance.
+    /// </summary>
+    /// <returns>A new <see cref="ChainLengthCalcul"/> instance ready to perform calculations.</returns>
     public ICalcul<ChainLengthCalculInput, ChainLengthCalculResult> CreateCalcul()
     {
         return new ChainLengthCalcul(_logger);

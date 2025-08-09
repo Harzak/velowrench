@@ -9,9 +9,11 @@ using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Exceptions;
 
+/// <summary>
+/// Exception thrown when an invalid operation is attempted on a calculation.
+/// </summary>
 public class InvalidCalculOperationException : Exception
 {
-
     public InvalidCalculOperationException()
         : base("Invalid operation for the calculation.")
     {
@@ -28,6 +30,14 @@ public class InvalidCalculOperationException : Exception
 
     }
 
+    /// <summary>
+    /// Throws an <see cref="InvalidCalculOperationException"/> if the specified calculation is currently in progress.
+    /// </summary>
+    /// <exception cref="InvalidCalculOperationException">Thrown when the calculation is in progress.</exception>
+    /// <remarks>
+    /// This method is typically used to prevent starting a new calculation when one is already running,
+    /// ensuring thread safety and proper calculation state management.
+    /// </remarks>
     public static void ThrowIfCalculInProgress([NotNull] ICalcul argument)
     {
         if (argument.State == Utils.Enums.ECalculState.InProgress)

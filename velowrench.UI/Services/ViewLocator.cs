@@ -5,7 +5,7 @@ using System;
 
 namespace velowrench.UI.Services;
 
-public class ViewLocator : IDataTemplate
+public sealed class ViewLocator : IDataTemplate
 {
     public Control? Build(object? data)
     {

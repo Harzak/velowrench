@@ -10,10 +10,19 @@ using velowrench.Utils.Interfaces;
 
 namespace velowrench.Calculations.Configuration;
 
-    public static class ServiceCollectionExtensions
+/// <summary>
+/// Extension methods for configuring calculation services in the dependency injection container.
+/// </summary>
+public static class ServiceCollectionExtensions
+{
+    /// <summary>
+    /// Adds calculation services to the specified <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// <remarks>
+    /// This method registers all necessary calculation factories and services for performing calculations.
+    /// </remarks>
+    public static void AddCalculationServices(this IServiceCollection collection)
     {
-        public static void AddCalculationServices(this IServiceCollection collection)
-        {
-            collection.AddSingleton<ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>, ChainLengthCalculFactory>();
-        }
+        collection.AddSingleton<ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>, ChainLengthCalculFactory>();
     }
+}

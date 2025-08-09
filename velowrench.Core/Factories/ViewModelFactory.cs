@@ -8,7 +8,10 @@ using velowrench.Core.ViewModels.Tools;
 
 namespace velowrench.Core.Factories;
 
-public class ViewModelFactory : IViewModelFactory
+/// <summary>
+/// Factory implementation for creating view model instances for different parts of the application.
+/// </summary>
+public sealed class ViewModelFactory : IViewModelFactory
 {
     private readonly ILocalizer _localizer;
     private readonly ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _chainLengthCalculFactory;
@@ -20,11 +23,20 @@ public class ViewModelFactory : IViewModelFactory
         _chainLengthCalculFactory = calculFactory ?? throw new ArgumentNullException(nameof(calculFactory));
     }
 
+    /// <summary>
+    /// Creates the home page view model.
+    /// </summary>
+    /// <returns>A routable view model instance for the home page.</returns>
     public IRoutableViewModel CreateHomeViewModel(INavigationService navigationService)
     {
         return new HomeViewModel(_localizer, navigationService);
     }
 
+    /// <summary>
+    /// Creates a tool-specific view model for the specified tool type.
+    /// </summary>
+    /// <returns>A routable view model instance for the specified tool.</returns>
+    /// <exception cref="NotSupportedException">Thrown when the specified tool type is not supported.</exception>
     public IRoutableViewModel CreateToolViewModel(EVeloWrenchTools type, INavigationService navigationService)
     {
         switch (type)
@@ -42,6 +54,11 @@ public class ViewModelFactory : IViewModelFactory
         }
     }
 
+    /// <summary>
+    /// Creates a help view model for the specified tool type.
+    /// </summary>
+    /// <returns>A routable view model instance for the tool's help page.</returns>
+    /// <exception cref="NotSupportedException">Thrown when the specified tool type does not have help documentation.</exception>
     public IRoutableViewModel CreateHelpViewModel(EVeloWrenchTools type, INavigationService navigationService)
     {
         switch (type)

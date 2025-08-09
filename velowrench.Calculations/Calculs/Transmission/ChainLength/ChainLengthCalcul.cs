@@ -11,6 +11,9 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculs.Transmission.ChainLength;
 
+/// <summary>
+/// Calculate the recommended bicycle chain length using bike’s chainstay length and gear sizes.
+/// </summary>
 public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, ChainLengthCalculResult>
 {
     /// <summary>
@@ -22,7 +25,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     /// <summary>
     /// BigBig2 equation lose accuracy for chainstays smaller than this value.
     /// </summary>
-    private const double CHAINSTAY_TRESHOLD = 15.5;
+    private const double CHAINSTAY_THRESHOLD = 15.5;
 
     protected override string CalculName => nameof(ChainLengthCalcul);
 
@@ -41,7 +44,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
         OperationResult<ChainLengthCalculResult> result = new();
 
         double calculatedLength;
-        if (input.ChainStayLengthInch < CHAINSTAY_TRESHOLD)
+        if (input.ChainStayLengthInch < CHAINSTAY_THRESHOLD)
         {
             calculatedLength = this.CalculateLengthWithRigorousEquation(input);
         }
@@ -67,8 +70,12 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     }
 
     /// <summary>
-    /// L = 2 * C + F /4 + R/4 + 1;
+    /// The BigBig2 equation: L = 2 * C + F/4 + R/4 + 1, used for longer chainstays.
     /// </summary>
+    /// <remarks>
+    /// This equation provides a quick approximation suitable for most standard bicycle configurations
+    /// where the chainstay length is greater than 15.5 inches.
+    /// </remarks>
     private double CalculateLengthWithBigBig2Equation(ChainLengthCalculInput input)
     {
         double C = input.ChainStayLengthInch;
@@ -85,8 +92,12 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     }
 
     /// <summary>
-    /// L = 0.25 * (F + R) + 2 * Math.Sqrt(Math.Pow(C, 2) + Math.Pow(0.0796 * (F - R), 2));
+    /// The precise equation: L = 0.25 * (F + R) + 2 * √(C² + (0.0796 * (F - R))²), used for shorter chainstays.
     /// </summary>
+    /// <remarks>
+    /// This equation accounts for angular effects and provides higher accuracy for compact bicycle frames
+    /// with shorter chainstays (typically less than 15.5 inches).
+    /// </remarks>
     private double CalculateLengthWithRigorousEquation(ChainLengthCalculInput input)
     {
         double C = input.ChainStayLengthInch;

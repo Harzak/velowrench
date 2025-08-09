@@ -12,35 +12,62 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;
 
-public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
+/// <summary>
+/// View model for the chain length calculator tool that determines optimal bicycle chain length.
+/// </summary>
+public sealed partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
-
     private readonly ICalcul<ChainLengthCalculInput, ChainLengthCalculResult> _calcul;
     private OperationResult<ChainLengthCalculResult>? _lastResult;
 
+    /// <summary>
+    /// Gets the display name of this view model.
+    /// </summary>
     public override string Name { get; }
+    
+    /// <summary>
+    /// Gets a value indicating whether this view model has an associated help page.
+    /// </summary>
     public override bool CanShowHelpPage => true;
 
+    /// <summary>
+    /// Gets or sets the chainstay length measurement with unit conversion capabilities.
+    /// </summary>
     [ObservableProperty]
     private ConvertibleDouble<LengthUnit>? _chainStayLength;
 
+    /// <summary>
+    /// Gets or sets the number of teeth on the largest chainring (front gear).
+    /// </summary>
     [ObservableProperty]
     [Range(1, 100, ErrorMessage = "Must be between 1 and 100 teeth")]
     [NotifyDataErrorInfo]
     private int? _teethLargestChainring;
 
+    /// <summary>
+    /// Gets or sets the number of teeth on the largest sprocket (rear gear).
+    /// </summary>
     [ObservableProperty]
     [Range(1, 70, ErrorMessage = "Must be between 1 and 70 teeth")]
     [NotifyDataErrorInfo]
     private int? _teethLargestSprocket;
 
+    /// <summary>
+    /// Gets or sets the recommended number of chain links for the specified drivetrain configuration.
+    /// </summary>
     [ObservableProperty]
     private int _recommendedChainLinks;
 
+    /// <summary>
+    /// Gets or sets the calculated chain length with unit conversion capabilities.
+    /// </summary>
     [ObservableProperty]
     private ConvertibleDouble<LengthUnit>? _recommendedChainLength;
 
+    /// <summary>
+    /// Gets or sets the current state of the chain length calculation.
+    /// </summary>
     [ObservableProperty]
     private ECalculState _currentState;
 
@@ -60,21 +87,33 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
         this.CurrentState = ECalculState.NotStarted; ;
     }
 
+    /// <summary>
+    /// Handles changes to the chainstay length value and triggers calculation updates.
+    /// </summary>
     private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
     {
         this.OnInputsChanged();
     }
 
+    /// <summary>
+    /// Partial method called when the largest chainring teeth count changes.
+    /// </summary>
     partial void OnTeethLargestChainringChanged(int? value)
     {
         this.OnInputsChanged();
     }
 
+    /// <summary>
+    /// Partial method called when the largest sprocket teeth count changes.
+    /// </summary>
     partial void OnTeethLargestSprocketChanged(int? value)
     {
         this.OnInputsChanged();
     }
 
+    /// <summary>
+    /// Handles input changes and triggers calculation if inputs are valid.
+    /// </summary>
     private void OnInputsChanged()
     {
         if (this.CanStartCalculation())
@@ -87,11 +126,17 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
         }
     }
 
+    /// <summary>
+    /// Determines whether a calculation can be started based on current input validity and calculation state.
+    /// </summary>
     private bool CanStartCalculation()
     {
         return !base.HasErrors && this.InputsAreValid() && _calcul.State != ECalculState.InProgress;
     }
 
+    /// <summary>
+    /// Validates that all required inputs have valid values.
+    /// </summary>
     private bool InputsAreValid()
     {
         return _chainStayLength?.Value > 0
@@ -99,6 +144,9 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
                 && _teethLargestSprocket.HasValue && _teethLargestSprocket > 0;
     }
 
+    /// <summary>
+    /// Handles state changes from the calculation engine and manages progress indicators.
+    /// </summary>
     private async void OnChainLengthCalculStateChanged(object? sender, CalculStateEventArgs e)
     {
         if (this.CurrentState == ECalculState.InProgress && e.State == ECalculState.Computed)
@@ -108,6 +156,9 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
         this.CurrentState = e.State;
     }
 
+    /// <summary>
+    /// Starts the chain length calculation with the current input values.
+    /// </summary>
     private void StartCalculation()
     {
         if (base.HasErrors || _calcul.State == ECalculState.InProgress)
@@ -136,6 +187,9 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
         }
     }
 
+    /// <summary>
+    /// Shows the help page for the chain length calculator.
+    /// </summary>
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);

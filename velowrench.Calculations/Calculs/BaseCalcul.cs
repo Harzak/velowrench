@@ -13,13 +13,29 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculs;
 
+/// <summary>
+/// Abstract base class for all calculations, providing common functionality and state management.
+/// </summary>
+/// <typeparam name="TInput">The type of input data required for the calculation.</typeparam>
+/// <typeparam name="TResult">The type of result returned by the calculation.</typeparam>
 public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> where TInput : class where TResult : class
 {
     protected ILogger Logger { get; }
     protected abstract string CalculName { get; }
+    
+    /// <summary>
+    /// Gets the current state of the calculation.
+    /// </summary>
     public ECalculState State { get; private set; }
+    
+    /// <summary>
+    /// Gets the last successful result produced by this calculation, or null if no successful calculation has been performed.
+    /// </summary>
     public TResult? LastResult { get; protected set; }
 
+    /// <summary>
+    /// Event raised when the calculation state changes.
+    /// </summary>
     public event EventHandler<CalculStateEventArgs>? StateChanged;
 
     protected BaseCalcul(ILogger logger)
@@ -28,6 +44,11 @@ public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> whe
         this.State = ECalculState.NotStarted;
     }
 
+    /// <summary>
+    /// Starts the calculation with the specified input data.
+    /// </summary>
+    /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
+    /// <exception cref="InvalidCalculOperationException">Thrown when a calculation is already in progress.</exception>
     public OperationResult<TResult> Start(TInput input)
     {
         InvalidCalculOperationException.ThrowIfCalculInProgress(this);

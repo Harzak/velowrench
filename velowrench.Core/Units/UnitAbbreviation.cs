@@ -8,9 +8,23 @@ using UnitsNet;
 
 namespace velowrench.Core.Units;
 
+/// <summary>
+/// Represents a unit abbreviation for a specific unit type.
+/// </summary>
+/// <typeparam name="T">The enum type representing the unit type (e.g., LengthUnit, VolumeUnit).</typeparam>
 public struct UnitAbbreviation<T> where T : Enum
 {
+    /// <summary>
+    /// Gets the default abbreviation for the current unit type in the current culture.
+    /// </summary>
+    /// <value>
+    /// The localized abbreviation string for the unit, or "N/A" if no abbreviation is available.
+    /// </value>
     public string Abbreviation => this.GetDefaultAbbreviation(this.Type) ?? "N/A";
+    
+    /// <summary>
+    /// Gets or sets the unit type for which to retrieve the abbreviation.
+    /// </summary>
     public T Type { get; set; }
 
     public UnitAbbreviation(T type)
@@ -18,6 +32,10 @@ public struct UnitAbbreviation<T> where T : Enum
         Type = type;
     }
 
+    /// <summary>
+    /// Gets the default abbreviation for the specified unit enum value.
+    /// </summary>
+    /// <returns>The default abbreviation string for the unit in the current culture.</returns>
     public string GetDefaultAbbreviation(Enum value)
     {
         return UnitsNetSetup.Default.UnitAbbreviations.GetDefaultAbbreviation(value, CultureInfo.CurrentCulture);

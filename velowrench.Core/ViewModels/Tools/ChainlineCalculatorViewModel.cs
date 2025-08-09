@@ -3,7 +3,7 @@ using velowrench.Core.ViewModels.Base;
 
 namespace velowrench.Core.ViewModels.Tools;
 
-public partial class ChainlineCalculatorViewModel : BaseRoutableViewModel
+public sealed partial class ChainlineCalculatorViewModel : BaseRoutableViewModel
 {
     public override string Name { get; }
 

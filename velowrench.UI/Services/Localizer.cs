@@ -3,7 +3,7 @@ using velowrench.UI.Resources;
 
 namespace velowrench.UI.Services;
 
-public class Localizer : ILocalizer
+public sealed class Localizer : ILocalizer
 {
     public string GetString(string key)
     {

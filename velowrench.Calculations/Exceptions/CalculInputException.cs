@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace velowrench.Calculations.Exceptions;
 
+/// <summary>
+/// Exception thrown when invalid input data is provided to a calculation.
+/// </summary>
 public class CalculInputException : Exception
 {
     public CalculInputException()
@@ -28,6 +31,12 @@ public class CalculInputException : Exception
 
     }
 
+    /// <summary>
+    /// Throws a <see cref="CalculInputException"/> if the specified argument is negative or zero.
+    /// </summary>
+    /// <param name="argument">The value to check.</param>
+    /// <param name="paramName">The name of the parameter being validated (automatically captured).</param>
+    /// <exception cref="CalculInputException">Thrown when <paramref name="argument"/> is less than or equal to zero.</exception>
     public static void ThrowIfNegativeOrZero(double argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
     {
         if (argument <= 0)

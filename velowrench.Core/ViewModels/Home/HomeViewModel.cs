@@ -5,8 +5,14 @@ using velowrench.Core.ViewModels.Base;
 
 namespace velowrench.Core.ViewModels.Home;
 
-public partial class HomeViewModel : BaseRoutableViewModel
+/// <summary>
+/// View model for the application's home page that serves as the main navigation hub.
+/// </summary>
+public sealed partial class HomeViewModel : BaseRoutableViewModel
 {
+    /// <summary>
+    /// Gets the display name of the home view model.
+    /// </summary>
     public override string Name { get; }
 
     public HomeViewModel(ILocalizer localizer, INavigationService navigationService) : base(navigationService)
@@ -14,6 +20,9 @@ public partial class HomeViewModel : BaseRoutableViewModel
         Name = localizer.GetString("VeloWrench");
     }
 
+    /// <summary>
+    /// Command to navigate to a selected tool based on the tool type.
+    /// </summary>
     [RelayCommand]
     private void NavigateToSelectedTool(EVeloWrenchTools toolType)
     {
