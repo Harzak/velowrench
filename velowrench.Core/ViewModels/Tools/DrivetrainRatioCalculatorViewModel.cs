@@ -9,6 +9,9 @@ public sealed partial class DrivetrainRatioCalculatorViewModel : BaseRoutableVie
 
     public DrivetrainRatioCalculatorViewModel(INavigationService navigationService, ILocalizer localizer) : base(navigationService)
     {
+        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
+        ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
+
         Name = localizer.GetString("DrivetrainRatioCalculator");
     }
 }

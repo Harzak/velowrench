@@ -77,6 +77,8 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseRoutableViewMod
     : base(navigationService)
     {
         ArgumentNullException.ThrowIfNull(calculFactory, nameof(calculFactory));
+        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
+        ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
         _calcul = calculFactory.CreateCalcul();
         _calcul.StateChanged += OnChainLengthCalculStateChanged;
@@ -151,7 +153,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseRoutableViewMod
     {
         if (this.CurrentState == ECalculState.InProgress && e.State == ECalculState.Computed)
         {
-            await Task.Delay(PROGRESS_INDICATOR_DELAY);
+            await Task.Delay(PROGRESS_INDICATOR_DELAY).ConfigureAwait(false);
         }
         this.CurrentState = e.State;
     }

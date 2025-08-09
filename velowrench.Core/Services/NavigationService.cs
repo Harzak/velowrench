@@ -70,7 +70,7 @@ public sealed class NavigationService : INavigationService
             return;
         }
 
-        IRoutableViewModel previous = CurrentViewModel;
+        IRoutableViewModel previous = CurrentViewModel!;
         _navigationStack.Pop();
         CurrentViewModel = _navigationStack.Peek();
 
