@@ -21,7 +21,7 @@
                        Increment="{Binding Increment, ElementName=LengthUpDownControl}"
                        Maximum="{Binding Maximum, ElementName=LengthUpDownControl}"
                        Minimum="{Binding Minimum, ElementName=LengthUpDownControl}"
-                       Value="{Binding DisplayValue, ElementName=LengthUpDownControl}" />
+                       Value="{Binding DisplayValue, ElementName=LengthUpDownControl, Delay=600}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"

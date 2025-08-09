@@ -19,4 +19,12 @@
     <ProjectReference Include="..\velowrench.Calculations\velowrench.Calculations.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Workspaces\velowrench\velowrench.Core\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Workspaces\velowrench\velowrench.Core\.editorconfig" />
+  </ItemGroup>
+
 </Project>

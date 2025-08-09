@@ -11,17 +11,16 @@
 
     <Grid ColumnDefinitions="75*,3*,Auto" RowDefinitions="Auto,Auto">
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                   Margin="0,10,0,3"
-                   Text="{Binding Title, ElementName=LengthTextBlockControl}" />
-
         <TextBlock Name="ValueUpDown"
                    Grid.Row="1" Grid.Column="0"
+                   Margin="0,0,5,0"  VerticalAlignment="Center"
+                   FontSize="{Binding TextFontSize, ElementName=LengthTextBlockControl}"
                    Text="{Binding DisplayValue, ElementName=LengthTextBlockControl}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"
-                  HorizontalAlignment="Stretch"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                  FontSize="14" FontWeight="Regular" Foreground="{DynamicResource SemiColorText0}"
                   ItemsSource="{Binding AvailableUnits, ElementName=LengthTextBlockControl}"
                   SelectedItem="{Binding SelectedUnit, ElementName=LengthTextBlockControl}">
             <ComboBox.ItemTemplate>

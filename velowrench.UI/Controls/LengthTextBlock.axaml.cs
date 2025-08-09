@@ -21,27 +21,27 @@ public partial class LengthTextBlock : UserControl, INotifyPropertyChanged
         LengthUnit.Inch
     ];
 
-    public static readonly StyledProperty<string> TitleProperty =
-        AvaloniaProperty.Register<LengthUpDown, string>(nameof(Title), string.Empty);
-
     public static readonly StyledProperty<string> FormatProperty =
         AvaloniaProperty.Register<LengthUpDown, string>(nameof(Format), string.Empty);
+
+    public static readonly StyledProperty<int> TextFontSizeProperty =
+        AvaloniaProperty.Register<LengthUpDown, int>(nameof(TextFontSize), 14);
 
     public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ValueProperty =
         AvaloniaProperty.Register<LengthUpDown, ConvertibleDouble<LengthUnit>?>(
             nameof(Value),
             defaultBindingMode: BindingMode.OneWay);
 
-    public string Title
-    {
-        get => GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
-
     public string Format
     {
         get => GetValue(FormatProperty);
         set => SetValue(FormatProperty, value);
+    }
+
+    public int TextFontSize
+    {
+        get => GetValue(TextFontSizeProperty);
+        set => SetValue(TextFontSizeProperty, value);
     }
 
     public ConvertibleDouble<LengthUnit>? Value
