@@ -26,8 +26,11 @@ public sealed class ConvertibleDouble<T> where T : Enum
         get => _value;
         set
         {
-            _value = value;
-            ValueChanged?.Invoke(this, new EventArgs());
+            if (_value != value)
+            {
+                _value = value;
+                ValueChanged?.Invoke(this, new EventArgs());
+            }
         }
     }
 

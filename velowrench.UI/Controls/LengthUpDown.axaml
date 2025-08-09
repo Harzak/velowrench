@@ -17,15 +17,18 @@
 
         <NumericUpDown Name="ValueUpDown"
                        Grid.Row="1" Grid.Column="0"
-                       FormatString="0.00"
+                       AllowSpin="True" ButtonSpinnerLocation="Right" FormatString="0.00"
                        Increment="{Binding Increment, ElementName=LengthUpDownControl}"
                        Maximum="{Binding Maximum, ElementName=LengthUpDownControl}"
                        Minimum="{Binding Minimum, ElementName=LengthUpDownControl}"
-                       Value="{Binding DisplayValue, ElementName=LengthUpDownControl, Delay=600}" />
+                       ShowButtonSpinner="False"
+                       Theme="{StaticResource LengthUpDown}"
+                       Value="{Binding DisplayValue, ElementName=LengthUpDownControl}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"
                   HorizontalAlignment="Stretch"
+				  Width="100"
                   ItemsSource="{Binding AvailableUnits, ElementName=LengthUpDownControl}"
                   SelectedItem="{Binding SelectedUnit, ElementName=LengthUpDownControl}">
             <ComboBox.ItemTemplate>

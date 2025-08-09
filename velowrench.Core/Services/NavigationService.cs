@@ -31,6 +31,12 @@ public class NavigationService : INavigationService
         NavigateTo(toolViewModel);
     }
 
+    public void NavigateToHelp(EVeloWrenchTools toolType)
+    {
+        IRoutableViewModel toolViewModel = _viewModelFactory.CreateHelpViewModel(toolType, this);
+        NavigateTo(toolViewModel);
+    }
+
     public void NavigateBack()
     {
         if (!CanNavigateBack)

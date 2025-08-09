@@ -16,6 +16,10 @@ public partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(NavigateBackCommand))]
     private bool _canNavigateBack;
 
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ShowHelpPageCommand))]
+    private bool _canShowHelpPage;
+
     public MainViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
@@ -28,6 +32,7 @@ public partial class MainViewModel : ObservableObject
     {
         CurrentContent = e.CurrentViewModel;
         CanNavigateBack = _navigationService.CanNavigateBack;
+        CanShowHelpPage = _navigationService.CurrentViewModel?.CanShowHelpPage ?? false;
     }
 
     [RelayCommand(CanExecute = nameof(CanNavigateBack))]
@@ -35,5 +40,11 @@ public partial class MainViewModel : ObservableObject
     {
         _navigationService.NavigateBack();
         CanNavigateBack = _navigationService.CanNavigateBack;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowHelpPage))]
+    private void ShowHelpPage()
+    {
+        _navigationService.CurrentViewModel?.ShowHelpPage();
     }
 }

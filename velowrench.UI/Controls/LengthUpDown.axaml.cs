@@ -30,9 +30,9 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
     public static readonly StyledProperty<double> IncrementProperty =
         AvaloniaProperty.Register<LengthUpDown, double>(nameof(Increment), 1.0);
 
-    public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ValueProperty =
+    public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ConvertibleDoubleProperty =
         AvaloniaProperty.Register<LengthUpDown, ConvertibleDouble<LengthUnit>?>(
-            nameof(Value),
+            nameof(ConvertibleDouble),
             defaultBindingMode: BindingMode.TwoWay);
 
     public string Title
@@ -59,36 +59,36 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
         set => SetValue(IncrementProperty, value);
     }
 
-    public ConvertibleDouble<LengthUnit>? Value
+    public ConvertibleDouble<LengthUnit>? ConvertibleDouble
     {
-        get => GetValue(ValueProperty);
-        set => SetValue(ValueProperty, value);
+        get => GetValue(ConvertibleDoubleProperty);
+        set => SetValue(ConvertibleDoubleProperty, value);
     }
 
     public List<LengthUnit> AvailableUnits => _availableUnits;
 
     public LengthUnit SelectedUnit
     {
-        get => Value?.Unit ?? LengthUnit.Centimeter;
+        get => ConvertibleDouble?.Unit ?? LengthUnit.Centimeter;
         set
         {
-            if (Value != null && Value.Unit != value)
+            if (ConvertibleDouble != null && ConvertibleDouble.Unit != value)
             {
-                Value.Unit = value;
+                ConvertibleDouble.Unit = value;
                 RaisePropertyChanged(nameof(SelectedUnit));
                 RaisePropertyChanged(nameof(DisplayValue));
             }
         }
     }
 
-    public double DisplayValue
+    public double? DisplayValue
     {
-        get => Value?.Value ?? 0;
+        get => ConvertibleDouble?.Value ?? 0;
         set
         {
-            if (Value != null && Value.Value != value)
+            if (value.HasValue && ConvertibleDouble != null && ConvertibleDouble.Value != value.Value)
             {
-                Value.Value = value;
+                ConvertibleDouble.Value = value.Value;
                 RaisePropertyChanged(nameof(DisplayValue));
             }
         }
@@ -99,14 +99,14 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
     public LengthUpDown()
     {
         InitializeComponent();
-        Value ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
+        ConvertibleDouble ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
 
-        if (change.Property == ValueProperty)
+        if (change.Property == ConvertibleDoubleProperty)
         {
             if (change.OldValue is ConvertibleDouble<LengthUnit> oldValue)
             {

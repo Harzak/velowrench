@@ -13,14 +13,16 @@
 
         <TextBlock Name="ValueUpDown"
                    Grid.Row="1" Grid.Column="0"
-                   Margin="0,0,5,0"  VerticalAlignment="Center"
+                   Margin="0,0,5,0" VerticalAlignment="Center"
                    FontSize="{Binding TextFontSize, ElementName=LengthTextBlockControl}"
                    Text="{Binding DisplayValue, ElementName=LengthTextBlockControl}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"
                   HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                  FontSize="14" FontWeight="Regular" Foreground="{DynamicResource SemiColorText0}"
+                  FontSize="14" FontWeight="Regular"
+				  Width="100"
+                  Foreground="{DynamicResource SemiColorText0}"
                   ItemsSource="{Binding AvailableUnits, ElementName=LengthTextBlockControl}"
                   SelectedItem="{Binding SelectedUnit, ElementName=LengthTextBlockControl}">
             <ComboBox.ItemTemplate>

@@ -2,6 +2,7 @@
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
+using velowrench.Core.ViewModels.Help;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
 
@@ -36,6 +37,17 @@ public class ViewModelFactory : IViewModelFactory
                 return new DrivetrainRatioCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
+            default:
+                throw new NotSupportedException(type.ToString());
+        }
+    }
+
+    public IRoutableViewModel CreateHelpViewModel(EVeloWrenchTools type, INavigationService navigationService)
+    {
+        switch (type)
+        {
+            case EVeloWrenchTools.ChainLengthCalculator:
+                return new ChainLengthCalculatorHelpViewModel(navigationService, _localizer);
             default:
                 throw new NotSupportedException(type.ToString());
         }

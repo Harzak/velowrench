@@ -1,5 +1,4 @@
-﻿using Avalonia.Platform;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculs.Transmission.ChainLength;
@@ -15,9 +14,13 @@ namespace velowrench.Core.ViewModels.Tools;
 
 public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 {
+    private const int PROGRESS_INDICATOR_DELAY = 350;
+
     private readonly ICalcul<ChainLengthCalculInput, ChainLengthCalculResult> _calcul;
+    private OperationResult<ChainLengthCalculResult>? _lastResult;
 
     public override string Name { get; }
+    public override bool CanShowHelpPage => true;
 
     [ObservableProperty]
     private ConvertibleDouble<LengthUnit>? _chainStayLength;
@@ -33,13 +36,13 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
     private int? _teethLargestSprocket;
 
     [ObservableProperty]
-    private int _recomendedChainLinks;
+    private int _recommendedChainLinks;
 
     [ObservableProperty]
-    private ConvertibleDouble<LengthUnit>? _recomendedChainLength;
+    private ConvertibleDouble<LengthUnit>? _recommendedChainLength;
 
     [ObservableProperty]
-    private ECalculState _calculState;
+    private ECalculState _currentState;
 
     public ChainLengthCalculatorViewModel(ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
         INavigationService navigationService,
@@ -50,55 +53,64 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
 
         _calcul = calculFactory.CreateCalcul();
         _calcul.StateChanged += OnChainLengthCalculStateChanged;
-        this.CalculState = _calcul.State;
+        _chainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
+        _chainStayLength.ValueChanged += this.OnChainStayLengthValueChanged;
+
         this.Name = localizer.GetString("ChainLengthCalculator");
-
-        this.InitializeDefaultValues();
-    }
-
-    private void InitializeDefaultValues()
-    {
-        _chainStayLength = new ConvertibleDouble<LengthUnit>(40, LengthUnit.Centimeter);
-        _teethLargestChainring = 50;
-        _teethLargestSprocket = 28;
-
-        _chainStayLength.ValueChanged += OnChainStayLengthValueChanged;
-        CalculState = ECalculState.NotStarted;
-        //this.Calculate();
+        this.CurrentState = ECalculState.NotStarted; ;
     }
 
     private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
     {
-        if (ChainStayLength?.Value > 0)
-        {
-            Calculate();
-        }
+        this.OnInputsChanged();
     }
 
     partial void OnTeethLargestChainringChanged(int? value)
     {
-        if (value.HasValue && value > 0)
-        {
-            Calculate();
-        }
+        this.OnInputsChanged();
     }
 
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        if (value.HasValue && value > 0)
+        this.OnInputsChanged();
+    }
+
+    private void OnInputsChanged()
+    {
+        if (this.CanStartCalculation())
         {
-            Calculate();
+            this.StartCalculation();
+        }
+        else if (!this.InputsAreValid())
+        {
+            this.CurrentState = ECalculState.NotStarted;
         }
     }
 
-    private void OnChainLengthCalculStateChanged(object? sender, CalculStateEventArgs e)
+    private bool CanStartCalculation()
     {
-        this.CalculState = e.State;
+        return !base.HasErrors && this.InputsAreValid() && _calcul.State != ECalculState.InProgress;
     }
 
-    private void Calculate()
+    private bool InputsAreValid()
     {
-        if (base.HasErrors || _calcul.State == Utils.Enums.ECalculState.InProgress)
+        return _chainStayLength?.Value > 0
+                && _teethLargestChainring.HasValue  && _teethLargestChainring > 0
+                && _teethLargestSprocket.HasValue && _teethLargestSprocket > 0;
+    }
+
+    private async void OnChainLengthCalculStateChanged(object? sender, CalculStateEventArgs e)
+    {
+        if (this.CurrentState == ECalculState.InProgress && e.State == ECalculState.Computed)
+        {
+            await Task.Delay(PROGRESS_INDICATOR_DELAY);
+        }
+        this.CurrentState = e.State;
+    }
+
+    private void StartCalculation()
+    {
+        if (base.HasErrors || _calcul.State == ECalculState.InProgress)
         {
             return;
         }
@@ -110,12 +122,38 @@ public partial class ChainLengthCalculatorViewModel : BaseRoutableViewModel
             TeethLargestSprocket = this.TeethLargestSprocket ?? 0
         };
 
-        OperationResult<ChainLengthCalculResult> calculResult = _calcul.Start(input);
-
-        if (calculResult.IsSuccess && calculResult.HasContent)
+        if (_lastResult?.Content?.UsedInputs != null && _lastResult.Content.UsedInputs == input)
         {
-            this.RecomendedChainLength = new ConvertibleDouble<LengthUnit>(calculResult.Content.ChainLengthInch, LengthUnit.Inch);
-            this.RecomendedChainLinks = calculResult.Content.ChainLinks;
+            return;
         }
+
+        _lastResult = _calcul.Start(input);
+
+        if (_lastResult.IsSuccess && _lastResult.HasContent)
+        {
+            this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(_lastResult.Content.ChainLengthInch, LengthUnit.Inch);
+            this.RecommendedChainLinks = _lastResult.Content.ChainLinks;
+        }
+    }
+
+    public override void ShowHelpPage()
+    {
+        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_calcul != null)
+            {
+                _calcul.StateChanged -= OnChainLengthCalculStateChanged;
+            }
+            if (_chainStayLength != null)
+            {
+                _chainStayLength.ValueChanged -= this.OnChainStayLengthValueChanged;
+            }
+        }
+        base.Dispose(disposing);
     }
 }

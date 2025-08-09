@@ -36,6 +36,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Languages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Help\ChainLengthCalculatorHelpView.axaml.cs">
+      <DependentUpon>ChainLengthCalculatorHelpView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainView.axaml.cs">
       <DependentUpon>MainView.axaml</DependentUpon>
     </Compile>
