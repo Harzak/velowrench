@@ -70,6 +70,51 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculated.
+        /// </summary>
+        public static string Calculated {
+            get {
+                return ResourceManager.GetString("Calculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculation failed.
+        /// </summary>
+        public static string CalculationFailed {
+            get {
+                return ResourceManager.GetString("CalculationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculation in progress....
+        /// </summary>
+        public static string CalculationInProgress {
+            get {
+                return ResourceManager.GetString("CalculationInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculations.
+        /// </summary>
+        public static string Calculations {
+            get {
+                return ResourceManager.GetString("Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain length.
+        /// </summary>
+        public static string ChainLength {
+            get {
+                return ResourceManager.GetString("ChainLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chain Length Calculator.
         /// </summary>
         public static string ChainLengthCalculator {
@@ -79,11 +124,56 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate the recommended bicycle chain length using your bike&apos;s chain stay length and gear sizes..
+        /// </summary>
+        public static string ChainLengthCalculatorHeader {
+            get {
+                return ResourceManager.GetString("ChainLengthCalculatorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain length:.
+        /// </summary>
+        public static string ChainLengthLabel {
+            get {
+                return ResourceManager.GetString("ChainLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chainline Calculator.
         /// </summary>
         public static string ChainlineCalculator {
             get {
                 return ResourceManager.GetString("ChainlineCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain links.
+        /// </summary>
+        public static string ChainLinks {
+            get {
+                return ResourceManager.GetString("ChainLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain links:.
+        /// </summary>
+        public static string ChainLinksLabel {
+            get {
+                return ResourceManager.GetString("ChainLinksLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain stay length.
+        /// </summary>
+        public static string ChainStayLength {
+            get {
+                return ResourceManager.GetString("ChainStayLength", resourceCulture);
             }
         }
         
@@ -115,11 +205,182 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the values.
+        /// </summary>
+        public static string EnterValues {
+            get {
+                return ResourceManager.GetString("EnterValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This tool uses two common methods to estimate the correct bicycle chain length:.
+        /// </summary>
+        public static string HelpChainLengthCalculationHeader {
+            get {
+                return ResourceManager.GetString("HelpChainLengthCalculationHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The distance between the center of the bottom bracket (pedal axle) and the center of the rear wheel axle. It is usually measured along the chain line..
+        /// </summary>
+        public static string HelpChainStayLength {
+            get {
+                return ResourceManager.GetString("HelpChainStayLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chain stay length (C).
+        /// </summary>
+        public static string HelpChainStayLengthHeader {
+            get {
+                return ResourceManager.GetString("HelpChainStayLengthHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of teeth on your bike&apos;s largest front chainring..
+        /// </summary>
+        public static string HelpFrontChainring {
+            get {
+                return ResourceManager.GetString("HelpFrontChainring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Largest front chainring (F).
+        /// </summary>
+        public static string HelpFrontChainringHeader {
+            get {
+                return ResourceManager.GetString("HelpFrontChainringHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of teeth on the largest cog of your rear cassette/freewheel..
+        /// </summary>
+        public static string HelpLargestRearSprocket {
+            get {
+                return ResourceManager.GetString("HelpLargestRearSprocket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Largest rear sprocket (R).
+        /// </summary>
+        public static string HelpLargestRearSprocketHeader {
+            get {
+                return ResourceManager.GetString("HelpLargestRearSprocketHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inputs.
+        /// </summary>
+        public static string Inputs {
+            get {
+                return ResourceManager.GetString("Inputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Largest front chainring.
+        /// </summary>
+        public static string LargestFrontChainring {
+            get {
+                return ResourceManager.GetString("LargestFrontChainring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Largest rear sprocket.
+        /// </summary>
+        public static string LargestRearSprocket {
+            get {
+                return ResourceManager.GetString("LargestRearSprocket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended value.
+        /// </summary>
+        public static string RecommendedValue {
+            get {
+                return ResourceManager.GetString("RecommendedValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both formulas give the recommended chain length, which can then be converted into the number of links required..
+        /// </summary>
+        public static string ResultChainLengthCalculExplaination {
+            get {
+                return ResourceManager.GetString("ResultChainLengthCalculExplaination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string Results {
+            get {
+                return ResourceManager.GetString("Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rigorous formula.
+        /// </summary>
+        public static string RigorousFormula {
+            get {
+                return ResourceManager.GetString("RigorousFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A more accurate method that uses Pythagoras&apos; theorem to take into account the actual path of the chain around the gears. This is more accurate for shorter chainstays or bikes with unusual gear sizes..
+        /// </summary>
+        public static string RigorousFormulaExplanation {
+            get {
+                return ResourceManager.GetString("RigorousFormulaExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rollout Calculator.
         /// </summary>
         public static string RolloutCalculator {
             get {
                 return ResourceManager.GetString("RolloutCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simple formula.
+        /// </summary>
+        public static string SimpleFormula {
+            get {
+                return ResourceManager.GetString("SimpleFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A quick approximation based on chainstay length and the sizes of your largest front chainring and largest rear sprocket. Best suited for standard bikes and quick calculations..
+        /// </summary>
+        public static string SimpleFormulaExplanation {
+            get {
+                return ResourceManager.GetString("SimpleFormulaExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong.
+        /// </summary>
+        public static string SomethingWentWrong {
+            get {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
             }
         }
         
@@ -138,6 +399,15 @@ namespace velowrench.UI.Resources {
         public static string SpokeTensionGuide {
             get {
                 return ResourceManager.GetString("SpokeTensionGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teeth.
+        /// </summary>
+        public static string Teeth {
+            get {
+                return ResourceManager.GetString("Teeth", resourceCulture);
             }
         }
         

@@ -18,7 +18,7 @@
     <UserControl.Styles>
         <Style Selector="Border.Group">
             <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-			<Setter Property="Padding" Value="16,12" />
+            <Setter Property="Padding" Value="16,12" />
             <Setter Property="CornerRadius" Value="7" />
         </Style>
     </UserControl.Styles>
@@ -26,7 +26,7 @@
     <StackPanel Orientation="Vertical">
 
         <Border Margin="20,10" Classes="Group">
-            <TextBlock Text="Calculate the recommended bicycle chain length using your bike's chainstay length and gear sizes." TextWrapping="Wrap" />
+            <TextBlock Text="{x:Static res:Languages.ChainLengthCalculatorHeader}" TextWrapping="Wrap" />
         </Border>
 
         <!--  Inputs  -->
@@ -34,7 +34,7 @@
               ColumnDefinitions="75*,3*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
             <!--  Chain Stay Length  -->
-            <controls:LengthUpDown Title="Chain stay length"
+            <controls:LengthUpDown Title="{x:Static res:Languages.ChainStayLength}"
                                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                                    ConvertibleDouble="{Binding ChainStayLength}"
                                    Increment="1" Maximum="3000" Minimum="0.1" />
@@ -42,19 +42,20 @@
             <!--  Largest front chainring  -->
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                        Margin="0,10,0,3"
-                       Text="Largest front chainring" />
+                       Text="{x:Static res:Languages.LargestFrontChainring}" />
             <NumericUpDown Grid.Row="2" Grid.Column="0"
                            Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
                            Value="{Binding TeethLargestChainring, Delay=600}" />
             <ComboBox Grid.Row="2" Grid.Column="2"
                       Width="100"
                       HorizontalAlignment="Stretch"
-                      IsEnabled="False" PlaceholderText="teeth" />
+                      IsEnabled="False"
+                      PlaceholderText="{x:Static res:Languages.Teeth}" />
 
             <!--  Largest rear sprocket  -->
             <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                        Margin="0,10,0,3"
-                       Text="Largest rear sprocket" />
+                       Text="{x:Static res:Languages.LargestRearSprocket}" />
             <NumericUpDown Grid.Row="4" Grid.Column="0"
                            FormatString="0" Increment="1" Maximum="70" Minimum="1"
                            ShowButtonSpinner="False"
@@ -62,7 +63,8 @@
             <ComboBox Grid.Row="4" Grid.Column="2"
                       Width="100"
                       HorizontalAlignment="Stretch"
-                      IsEnabled="False" PlaceholderText="teeth" />
+                      IsEnabled="False"
+                      PlaceholderText="{x:Static res:Languages.Teeth}" />
 
         </Grid>
 
@@ -87,7 +89,7 @@
                                                                             Kind="AccountQuestionOutline" />
                                                 <TextBlock Grid.Row="1"
                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Text="Please enter the values" />
+                                                           Text="{x:Static res:Languages.EnterValues}" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </Setter.Value>
@@ -107,7 +109,7 @@
                                                                             Kind="TimerSand" />
                                                 <TextBlock Grid.Row="1"
                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Text="Calculation in progress.." />
+                                                           Text="{x:Static res:Languages.CalculationInProgress}" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </Setter.Value>
@@ -128,14 +130,14 @@
                                                                                 Kind="CheckBold" />
                                                     <TextBlock Grid.Row="1"
                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="Calculated" />
+                                                               Text="{x:Static res:Languages.Calculated}" />
                                                 </StackPanel>
 
                                                 <TextBlock Grid.Row="1"
                                                            Margin="16,16,16,8" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                            FontSize="12" FontWeight="SemiBold"
                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                           Text="Recommended value" />
+                                                           Text="{x:Static res:Languages.RecommendedValue}" />
                                                 <Border Grid.Row="2"
                                                         HorizontalAlignment="Stretch"
                                                         Background="{DynamicResource SemiColorTertiaryLight}"
@@ -146,7 +148,7 @@
                                                                    Margin="0,0,10,0" VerticalAlignment="Center"
                                                                    FontWeight="DemiBold"
                                                                    Foreground="{DynamicResource SemiColorText0}"
-                                                                   Text="Chain length:" />
+                                                                   Text="{x:Static res:Languages.ChainLengthLabel}" />
                                                         <controls:LengthTextBlock Grid.Row="0" Grid.Column="1"
                                                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                                                   FontWeight="Bold"
@@ -157,7 +159,7 @@
                                                                    Margin="0,10,10,0"
                                                                    FontWeight="DemiBold"
                                                                    Foreground="{DynamicResource SemiColorText0}"
-                                                                   Text="Chain links:" />
+                                                                   Text="{x:Static res:Languages.ChainLinksLabel}" />
                                                         <TextBlock Grid.Row="1" Grid.Column="1"
                                                                    Margin="0,10,0,0" HorizontalAlignment="Left"
                                                                    FontWeight="Bold"
@@ -185,7 +187,7 @@
                                                                                 Kind="ErrorOutline" />
                                                     <TextBlock Grid.Row="1"
                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="Calculation failed" />
+                                                               Text="{x:Static res:Languages.CalculationFailed}" />
                                                 </StackPanel>
                                             </Grid>
                                         </DataTemplate>
@@ -207,7 +209,7 @@
                                                                                 Kind="CloseCircleOutline" />
                                                     <TextBlock Grid.Row="1"
                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="Something wrong happened." />
+                                                               Text="{x:Static res:Languages.SomethingWentWrong}" />
                                                 </StackPanel>
                                             </Grid>
                                         </DataTemplate>

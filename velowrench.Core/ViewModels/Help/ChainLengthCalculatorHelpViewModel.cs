@@ -11,7 +11,7 @@ namespace velowrench.Core.ViewModels.Help;
 
 public partial class ChainLengthCalculatorHelpViewModel : BaseRoutableViewModel
 {
-    public override string Name => "Chain length Help";
+    public override string Name { get;  }
 
     [ObservableProperty]
     private string _simpleEquationLaTeX = @"L = 2 \cdot C + \frac{F}{4} + \frac{R}{4} + 1";
@@ -21,6 +21,6 @@ public partial class ChainLengthCalculatorHelpViewModel : BaseRoutableViewModel
 
     public ChainLengthCalculatorHelpViewModel(INavigationService navigationService, ILocalizer  localizer) : base(navigationService)
     {
-
+        this.Name = localizer.GetString("ChainLengthCalculator");   
     }
 }

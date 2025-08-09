@@ -153,4 +153,94 @@
   <data name="VeloWrench" xml:space="preserve">
     <value>veloWrench</value>
   </data>
+  <data name="ChainLengthCalculatorHeader" xml:space="preserve">
+    <value>Calculate the recommended bicycle chain length using your bike's chain stay length and gear sizes.</value>
+  </data>
+  <data name="ChainStayLength" xml:space="preserve">
+    <value>Chain stay length</value>
+  </data>
+  <data name="LargestFrontChainring" xml:space="preserve">
+    <value>Largest front chainring</value>
+  </data>
+  <data name="Teeth" xml:space="preserve">
+    <value>Teeth</value>
+  </data>
+  <data name="LargestRearSprocket" xml:space="preserve">
+    <value>Largest rear sprocket</value>
+  </data>
+  <data name="EnterValues" xml:space="preserve">
+    <value>Please enter the values</value>
+  </data>
+  <data name="CalculationInProgress" xml:space="preserve">
+    <value>Calculation in progress...</value>
+  </data>
+  <data name="Calculated" xml:space="preserve">
+    <value>Calculated</value>
+  </data>
+  <data name="RecommendedValue" xml:space="preserve">
+    <value>Recommended value</value>
+  </data>
+  <data name="ChainLength" xml:space="preserve">
+    <value>Chain length</value>
+  </data>
+  <data name="ChainLinks" xml:space="preserve">
+    <value>Chain links</value>
+  </data>
+  <data name="CalculationFailed" xml:space="preserve">
+    <value>Calculation failed</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="ChainLengthLabel" xml:space="preserve">
+    <value>Chain length:</value>
+  </data>
+  <data name="ChainLinksLabel" xml:space="preserve">
+    <value>Chain links:</value>
+  </data>
+  <data name="Inputs" xml:space="preserve">
+    <value>Inputs</value>
+  </data>
+  <data name="HelpChainStayLengthHeader" xml:space="preserve">
+    <value>Chain stay length (C)</value>
+  </data>
+  <data name="HelpChainStayLength" xml:space="preserve">
+    <value>The distance between the center of the bottom bracket (pedal axle) and the center of the rear wheel axle. It is usually measured along the chain line.</value>
+  </data>
+  <data name="HelpFrontChainringHeader" xml:space="preserve">
+    <value>Largest front chainring (F)</value>
+  </data>
+  <data name="HelpFrontChainring" xml:space="preserve">
+    <value>The number of teeth on your bike's largest front chainring.</value>
+  </data>
+  <data name="HelpLargestRearSprocketHeader" xml:space="preserve">
+    <value>Largest rear sprocket (R)</value>
+  </data>
+  <data name="HelpLargestRearSprocket" xml:space="preserve">
+    <value>The number of teeth on the largest cog of your rear cassette/freewheel.</value>
+  </data>
+  <data name="Calculations" xml:space="preserve">
+    <value>Calculations</value>
+  </data>
+  <data name="HelpChainLengthCalculationHeader" xml:space="preserve">
+    <value>This tool uses two common methods to estimate the correct bicycle chain length:</value>
+  </data>
+  <data name="SimpleFormula" xml:space="preserve">
+    <value>Simple formula</value>
+  </data>
+  <data name="SimpleFormulaExplanation" xml:space="preserve">
+    <value>A quick approximation based on chainstay length and the sizes of your largest front chainring and largest rear sprocket. Best suited for standard bikes and quick calculations.</value>
+  </data>
+  <data name="RigorousFormula" xml:space="preserve">
+    <value>Rigorous formula</value>
+  </data>
+  <data name="RigorousFormulaExplanation" xml:space="preserve">
+    <value>A more accurate method that uses Pythagoras' theorem to take into account the actual path of the chain around the gears. This is more accurate for shorter chainstays or bikes with unusual gear sizes.</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="ResultChainLengthCalculExplaination" xml:space="preserve">
+    <value>Both formulas give the recommended chain length, which can then be converted into the number of links required.</value>
+  </data>
 </root>
