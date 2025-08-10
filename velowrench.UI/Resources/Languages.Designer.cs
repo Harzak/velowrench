@@ -196,20 +196,20 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drivetrain Ratio Calculator.
-        /// </summary>
-        public static string DrivetrainRatioCalculator {
-            get {
-                return ResourceManager.GetString("DrivetrainRatioCalculator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter the values.
         /// </summary>
         public static string EnterValues {
             get {
                 return ResourceManager.GetString("EnterValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gear Ratio Calculator.
+        /// </summary>
+        public static string GearRatioCalculator {
+            get {
+                return ResourceManager.GetString("GearRatioCalculator", resourceCulture);
             }
         }
         

@@ -123,8 +123,8 @@
   <data name="ChainlineCalculator" xml:space="preserve">
     <value>Chainline Calculator</value>
   </data>
-  <data name="DrivetrainRatioCalculator" xml:space="preserve">
-    <value>Drivetrain Ratio Calculator</value>
+  <data name="GearRatioCalculator" xml:space="preserve">
+    <value>Gear Ratio Calculator</value>
   </data>
   <data name="RolloutCalculator" xml:space="preserve">
     <value>Rollout Calculator</value>

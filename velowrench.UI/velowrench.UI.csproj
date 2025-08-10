@@ -17,6 +17,7 @@
     <PackageReference Include="Material.Icons.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Semi.Avalonia" />
+    <PackageReference Include="Semi.Avalonia.DataGrid" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +48,9 @@
     </Compile>
     <Compile Update="Views\Home\HomeView.axaml.cs">
       <DependentUpon>HomeView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Tools\GearRatioCalculatorView.axaml.cs">
+      <DependentUpon>GearRatioCalculatorView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

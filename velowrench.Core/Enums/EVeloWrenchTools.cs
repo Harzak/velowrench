@@ -23,7 +23,7 @@ public enum EVeloWrenchTools
     /// <summary>
     /// Tool for calculating gear ratios and drivetrain specifications.
     /// </summary>
-    DrivetrainRatioCalculator = 3,
+    GearRatioCalculator = 3,
     
     /// <summary>
     /// Tool for calculating wheel rollout distances based on tire and wheel specifications.
