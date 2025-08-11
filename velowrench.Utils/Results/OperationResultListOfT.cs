@@ -4,7 +4,7 @@
 /// Represents the result of an operation that returns a list of strongly-typed items with enhanced content validation.
 /// </summary>
 [Serializable]
-public class OperationResultList<T> : OperationResult<IList<T>>
+public class OperationResultList<T> : OperationResult<IList<T>> where T : class
 {
     /// <summary>
     /// Gets a value indicating whether the result contains valid content and the list is not empty.

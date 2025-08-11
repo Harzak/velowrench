@@ -44,4 +44,19 @@ public class CalculInputException : Exception
             throw new CalculInputException($"The value of '{paramName}' must be greater than zero. Current value: {argument}");
         }
     }
+
+
+    /// <summary>
+    /// Throws a <see cref="CalculInputException"/> if the specified argument is negative.
+    /// </summary>
+    /// <param name="argument">The value to check.</param>
+    /// <param name="paramName">The name of the parameter being validated (automatically captured).</param>
+    /// <exception cref="CalculInputException">Thrown when <paramref name="argument"/> is less than zero.</exception>
+    public static void ThrowIfNegative(double argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+    {
+        if (argument < 0)
+        {
+            throw new CalculInputException($"The value of '{paramName}' must be greater than zero. Current value: {argument}");
+        }
+    }
 }

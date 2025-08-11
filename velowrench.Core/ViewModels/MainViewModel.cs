@@ -39,7 +39,6 @@ public sealed partial class MainViewModel : ObservableObject
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
         _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
         _navigationService.NavigateToHome();
     }
 

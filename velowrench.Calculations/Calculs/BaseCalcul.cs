@@ -51,7 +51,9 @@ public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> whe
     /// <exception cref="InvalidCalculOperationException">Thrown when a calculation is already in progress.</exception>
     public OperationResult<TResult> Start(TInput input)
     {
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
         InvalidCalculOperationException.ThrowIfCalculInProgress(this);
+
         this.SetState(ECalculState.InProgress);
 
         OperationResult<TResult> result = Calculate(input);

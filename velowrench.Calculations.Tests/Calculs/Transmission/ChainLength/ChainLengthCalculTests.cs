@@ -37,7 +37,7 @@ public class ChainLengthCalculTests
     public void Calculate_ShouldGive_ExpectedResults(double chainStayLengthInch, int teethLargestSprocket, int teethLargestChainring, int expectedChainLink)
     {
         // Arrange
-        ChainLengthCalculInput input = new ChainLengthCalculInput
+        ChainLengthCalculInput input = new()
         {
             ChainStayLengthInch =  chainStayLengthInch,
             TeethLargestChainring = teethLargestChainring,

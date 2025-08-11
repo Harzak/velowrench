@@ -8,17 +8,17 @@ public record ChainLengthCalculInput
     /// <summary>
     /// Gets the chainstay length in inches, which is the horizontal distance between the bottom bracket and rear axle.
     /// </summary>
-    public double ChainStayLengthInch { get; init; }
+    public required double ChainStayLengthInch { get; init; }
     
     /// <summary>
     /// Gets the number of teeth on the largest chainring (front gear).
     /// </summary>
-    public int TeethLargestChainring { get; init; }
+    public required int TeethLargestChainring { get; init; }
     
     /// <summary>
     /// Gets the number of teeth on the largest sprocket (rear gear).
     /// </summary>
-    public int TeethLargestSprocket { get; init; }
+    public required int TeethLargestSprocket { get; init; }
 
     /// <summary>
     /// Determines whether the specified <see cref="ChainLengthCalculInput"/> is equal to the current instance.

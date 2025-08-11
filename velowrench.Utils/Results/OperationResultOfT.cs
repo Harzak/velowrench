@@ -6,7 +6,7 @@ namespace velowrench.Utils.Results;
 /// Represents the result of an operation that returns strongly-typed content along with success/failure status.
 /// </summary>
 [Serializable]
-public class OperationResult<T> : OperationResult, IResult<T>
+public class OperationResult<T> : OperationResult, IResult<T> 
 {
     /// <summary>
     /// Gets or sets the strongly-typed content of the operation result.

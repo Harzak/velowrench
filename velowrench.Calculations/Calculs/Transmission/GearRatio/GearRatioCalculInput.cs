@@ -10,14 +10,17 @@ namespace velowrench.Calculations.Calculs.Transmission.GearRatio;
 /// <summary>
 /// Represents the input parameters required for gear ratio calculations.
 /// </summary>
-public record GearRatioCalculInput
+public abstract record GearRatioCalculInput
 {
-    public ReadOnlyCollection<int> NumberOfTeethByChainring { get; init; }
-    public ReadOnlyCollection<int> NumberOfTeethBySprocket { get; init; }
+    public required int TeethNumberLargeOrUniqueChainring { get; init; }
+    public int? TeethNumberMediumChainring { get; init; }
+    public int? TeethNumberSmallChainring { get; init; }
+    public required IList<int> NumberOfTeethBySprocket { get; init; }
+    public int Precision { get; init; }  
+    public required double WheelDiameterInInch { get; init; }
 
-    public GearRatioCalculInput(IList<int> numberOfTeethByChainring, IList<int> numberOfTeethBySprocket)
+    protected GearRatioCalculInput()
     {
-        this.NumberOfTeethByChainring = new ReadOnlyCollection<int>(numberOfTeethByChainring);
-        this.NumberOfTeethBySprocket = new ReadOnlyCollection<int>(numberOfTeethBySprocket);
+        this.Precision = 1;
     }
 }

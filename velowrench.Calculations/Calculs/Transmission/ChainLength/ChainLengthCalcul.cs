@@ -36,7 +36,6 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
 
     protected override OperationResult<ChainLengthCalculResult> Calculate(ChainLengthCalculInput input)
     {
-        ArgumentNullException.ThrowIfNull(input, nameof(input));
         CalculInputException.ThrowIfNegativeOrZero(input.ChainStayLengthInch, nameof(input.ChainStayLengthInch));
         CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestSprocket, nameof(input.TeethLargestSprocket));
         CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestChainring, nameof(input.TeethLargestChainring));
@@ -58,7 +57,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
             return result.WithError("Calculated chain length is not a valid number.");
         }
 
-        result.Content = new ChainLengthCalculResult
+        result.Content = new ChainLengthCalculResult()
         {
             ChainLinks = this.GetChainLinksNumber(calculatedLength),
             ChainLengthInch = calculatedLength,
