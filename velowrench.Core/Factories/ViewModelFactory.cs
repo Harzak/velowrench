@@ -1,4 +1,4 @@
-﻿using velowrench.Calculations.Calculs.Transmission.ChainLength;
+﻿using velowrench.Calculations.Calculs.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
@@ -45,8 +45,8 @@ public sealed class ViewModelFactory : IViewModelFactory
                 return new ChainLengthCalculatorViewModel(_chainLengthCalculFactory, navigationService, _localizer);
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
-            case EVeloWrenchTools.GearRatioCalculator:
-                return new GearRatioCalculatorViewModel(navigationService, _localizer);
+            case EVeloWrenchTools.GearCalculator:
+                return new GearCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
             default:

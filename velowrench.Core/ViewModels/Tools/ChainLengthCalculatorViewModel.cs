@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
-using velowrench.Calculations.Calculs.Transmission.ChainLength;
+using velowrench.Calculations.Calculs.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;

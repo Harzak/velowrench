@@ -49,8 +49,8 @@
     <Compile Update="Views\Home\HomeView.axaml.cs">
       <DependentUpon>HomeView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Tools\GearRatioCalculatorView.axaml.cs">
-      <DependentUpon>GearRatioCalculatorView.axaml</DependentUpon>
+    <Compile Update="Views\Tools\GearCalculatorView.axaml.cs">
+      <DependentUpon>GearCalculatorView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

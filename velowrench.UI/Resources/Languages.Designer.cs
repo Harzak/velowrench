@@ -205,11 +205,11 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gear Ratio Calculator.
+        ///   Looks up a localized string similar to Gear Calculator.
         /// </summary>
-        public static string GearRatioCalculator {
+        public static string GearCalculator {
             get {
-                return ResourceManager.GetString("GearRatioCalculator", resourceCulture);
+                return ResourceManager.GetString("GearCalculator", resourceCulture);
             }
         }
         

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.ChainLength;
+using velowrench.Calculations.Calculs.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Tools;

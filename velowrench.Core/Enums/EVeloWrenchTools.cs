@@ -21,9 +21,9 @@ public enum EVeloWrenchTools
     ChainlineCalculator = 2,
     
     /// <summary>
-    /// Tool for calculating gear ratios and drivetrain specifications.
+    /// Tool for calculating gain ratios/ gear inches/ development/ speed.
     /// </summary>
-    GearRatioCalculator = 3,
+    GearCalculator = 3,
     
     /// <summary>
     /// Tool for calculating wheel rollout distances based on tire and wheel specifications.
