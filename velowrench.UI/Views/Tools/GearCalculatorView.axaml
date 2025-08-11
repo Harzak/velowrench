@@ -9,14 +9,60 @@
              Design.Width="360">
 
     <Grid Margin="20,10"
-          ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto">
+          ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+
+        <!--  Calcul Type  -->
+        <Grid Grid.Row="0" Grid.Column="0"
+              Margin="0,10,0,10"
+              ColumnDefinitions="2*,2*" RowDefinitions="Auto, Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Margin="0,0,0,8"
+                       Text="Output format" />
+            <ComboBox Grid.Row="1" Grid.Column="0"
+                      Margin="0,0,10,0" HorizontalAlignment="Stretch"
+                      IsEnabled="False" PlaceholderText="Gain ratio" />
+            <Button Grid.Row="1" Grid.Column="1"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Theme="{DynamicResource BorderlessButton}">
+                <materialIcons:MaterialIcon Width="20" Height="20"
+                                            Foreground="{DynamicResource SemiColorText0}"
+                                            Kind="InfoOutline" />
+            </Button>
+        </Grid>
+
+        <!--  Wheel & Crank &  Input & Cadence  -->
+        <Grid Grid.Row="1" Grid.Column="0"
+              Margin="0,10,0,10"
+              ColumnDefinitions="2*, 2*" RowDefinitions="Auto, Auto">
+
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Margin="0,0,0,8"
+                       Text="Wheel size" />
+            <ComboBox Grid.Row="1" Grid.Column="0"
+                      Margin="0,0,10,0" HorizontalAlignment="Stretch"
+                      PlaceholderText="28 inch" />
+
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                       Margin="10,0,0,8"
+                       IsVisible="False" Text="Crank length" />
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      Margin="10,0,0,0" HorizontalAlignment="Stretch"
+                      IsVisible="False" PlaceholderText="170 mm" />
+
+            <TextBlock Grid.Row="0" Grid.Column="1"
+                       Margin="10,0,0,8"
+                       IsVisible="True" Text="Cadence" />
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      Margin="10,0,0,0" HorizontalAlignment="Stretch"
+                      IsVisible="True" PlaceholderText="80 rpm" />
+        </Grid>
 
         <!--  Chainrings Input  -->
-        <Grid Grid.Row="0" Grid.Column="0"
-              Margin="0,10,0,20"
+        <Grid Grid.Row="2" Grid.Column="0"
+              Margin="0,10,0,10"
               ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto, Auto, Auto">
             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Margin="0,0,0,10"
+                       Margin="0,0,0,8"
                        Text="Chainring(s) teeth" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="0"
@@ -36,11 +82,11 @@
         </Grid>
 
         <!--  Sprockets Input  -->
-        <Grid Grid.Row="1" Grid.Column="0"
+        <Grid Grid.Row="3" Grid.Column="0"
               Margin="0,10,0,20"
               ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
             <TextBlock Grid.Row="0" Grid.Column="0"
-                       Margin="0,0,0,10"
+                       Margin="0,0,0,8"
                        Text="Sprocket(s) teeth" />
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
@@ -64,7 +110,7 @@
         </Grid>
 
         <!--  Calcul State  -->
-        <Grid Grid.Row="2" Grid.Column="0"
+        <Grid Grid.Row="4" Grid.Column="0"
               Margin="0,10,0,20"
               ColumnDefinitions="*" RowDefinitions="Auto, Auto">
             <materialIcons:MaterialIcon Grid.Row="0" Grid.Column="0"
@@ -78,16 +124,16 @@
         </Grid>
 
         <!--  Result  -->
-        <Grid Grid.Row="3" Grid.Column="0"
+        <Grid Grid.Row="5" Grid.Column="0"
               ColumnDefinitions="*" RowDefinitions="Auto, Auto">
             <Grid Grid.Row="0" Grid.Column="0"
                   ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto">
                 <TextBlock Grid.Row="0" Grid.Column="0"
                            Margin="0,0,0,10"
-                           Text="Gear units" />
+                           Text="units" />
                 <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                           Margin="0,0,10,0" HorizontalAlignment="Stretch"
-                          IsEnabled="False" PlaceholderText="Gain ratio" />
+                          IsEnabled="False" PlaceholderText="km/h" />
             </Grid>
 
             <DataGrid Grid.Row="1" Grid.Column="0"
