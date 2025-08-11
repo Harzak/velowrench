@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\velowrench.Calculations\velowrench.Calculations.csproj" />
+    <ProjectReference Include="..\velowrench.Repository\velowrench.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

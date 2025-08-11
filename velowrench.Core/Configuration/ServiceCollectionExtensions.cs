@@ -3,6 +3,7 @@ using velowrench.Core.Factories;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Services;
 using velowrench.Core.ViewModels;
+using velowrench.Repository.Configuration;
 
 namespace velowrench.Core.Configuration;
 
@@ -20,6 +21,8 @@ public static class ServiceCollectionExtensions
     /// </remarks>
     public static void AddCoreServices(this IServiceCollection collection)
     {
+        collection.AddRepositoryServices();
+
         collection.AddSingleton<MainViewModel>();
         collection.AddSingleton<INavigationService, NavigationService>();
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
