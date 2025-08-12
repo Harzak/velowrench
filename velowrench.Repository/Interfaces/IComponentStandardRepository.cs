@@ -12,5 +12,6 @@ public interface IComponentStandardRepository
     IReadOnlyCollection<CranksetSpecificationModel> GetAllCranksetSpecifications();
     IReadOnlyCollection<CadenceModel> GetAllCandences();
     IReadOnlyCollection<WheelSpecificationModel> GetMostCommonWheelSpecifications();
+    IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications();
 }
 

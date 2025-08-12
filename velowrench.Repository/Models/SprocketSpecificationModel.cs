@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace velowrench.Repository.Models;
 
-public sealed record CadenceModel
+public record SprocketSpecificationModel
 {
     public string Label { get; init; }
-    public int Rpm { get; init; }
+    public int TeethCount { get; init; }
 
-    public CadenceModel(string label, int rpm)
+    public SprocketSpecificationModel(string label, int teethCount)
     {
-        this.Label = label;
-        this.Rpm = rpm;
+        Label = label;
+        TeethCount = teethCount;
     }
 }

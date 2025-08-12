@@ -18,11 +18,16 @@ public sealed class ComponentStandardRepository : IComponentStandardRepository
 
     public IReadOnlyCollection<CadenceModel> GetAllCandences()
     {
-        return HardCodedComponentStandardCatalog.GetAllCandences;
+        return HardCodedComponentStandardCatalog.GetMostUsedCandences;
     }
 
     public IReadOnlyCollection<WheelSpecificationModel> GetMostCommonWheelSpecifications()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonWheelSpecifications;
+    }
+
+    public IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications()
+    {
+        return HardCodedComponentStandardCatalog.GetMostCommonSprocketSpecification;
     }
 }

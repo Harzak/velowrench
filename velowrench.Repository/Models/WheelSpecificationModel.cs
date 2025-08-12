@@ -14,8 +14,8 @@ public record WheelSpecificationModel
 
     public WheelSpecificationModel(string label, double bSDin,int bSDmm)
     {
-        Label = label;
-        BSDmm = bSDmm;
-        BSDin = bSDin;
+       this.Label = label;
+       this.BSDmm = bSDmm;
+       this.BSDin = bSDin;
     }
 }

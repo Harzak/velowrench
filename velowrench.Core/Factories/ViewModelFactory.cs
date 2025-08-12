@@ -5,6 +5,7 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Help;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
+using velowrench.Repository.Interfaces;
 
 namespace velowrench.Core.Factories;
 
@@ -15,12 +16,15 @@ public sealed class ViewModelFactory : IViewModelFactory
 {
     private readonly ILocalizer _localizer;
     private readonly ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _chainLengthCalculFactory;
+    private readonly IComponentStandardRepository _componentStandardRepository;
 
     public ViewModelFactory(ILocalizer localizer,
-        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory)
+        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
+        IComponentStandardRepository componentStandardRepository)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _chainLengthCalculFactory = calculFactory ?? throw new ArgumentNullException(nameof(calculFactory));
+        _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
     }
 
     /// <summary>
@@ -46,7 +50,7 @@ public sealed class ViewModelFactory : IViewModelFactory
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(navigationService, _localizer);
+                return new GearCalculatorViewModel(navigationService, _componentStandardRepository, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
             default:

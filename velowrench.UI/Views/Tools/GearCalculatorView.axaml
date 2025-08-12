@@ -5,9 +5,14 @@
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
              x:DataType="vm:Tools.GearCalculatorViewModel"
+			            xmlns:converters="clr-namespace:velowrench.UI.Converters"
              Design.Height="640"
              Design.Width="360">
 
+	<UserControl.Resources>
+		<converters:ContainsConverter x:Key="ContainsConverter" />
+	</UserControl.Resources>
+	
     <Grid Margin="20,10"
           ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 
@@ -40,21 +45,46 @@
                        Text="Wheel size" />
             <ComboBox Grid.Row="1" Grid.Column="0"
                       Margin="0,0,10,0" HorizontalAlignment="Stretch"
-                      PlaceholderText="28 inch" />
+                      ItemsSource="{Binding SourceWheels}"
+                      SelectedItem="{Binding SelectedWheel}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <TextBlock Grid.Row="0" Grid.Column="1"
                        Margin="10,0,0,8"
                        IsVisible="False" Text="Crank length" />
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                      IsVisible="False" PlaceholderText="170 mm" />
+                      IsVisible="False"
+                      ItemsSource="{Binding SourceCranks}"
+                      PlaceholderText="170 mm"
+                      SelectedItem="{Binding SelectedCrank}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <TextBlock Grid.Row="0" Grid.Column="1"
                        Margin="10,0,0,8"
                        IsVisible="True" Text="Cadence" />
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                      IsVisible="True" PlaceholderText="80 rpm" />
+                      IsVisible="True"
+                      ItemsSource="{Binding SourceCadence}"
+                      PlaceholderText="80 rpm"
+                      SelectedItem="{Binding SelectedCadence}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <!--  Chainrings Input  -->
@@ -90,22 +120,34 @@
                        Text="Sprocket(s) teeth" />
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
-                      PlaceholderText="11, 12, 13">
-                <ComboBoxItem>
-                    <Panel>
-                        <CheckBox Content="11 teeth" />
-                    </Panel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <Panel>
-                        <CheckBox Content="12 teeth" />
-                    </Panel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <Panel>
-                        <CheckBox Content="13 teeth" />
-                    </Panel>
-                </ComboBoxItem>
+                      ItemsSource="{Binding SourceSprockets}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+						<Button Background="Transparent"
+			 BorderThickness="0"
+			 Padding="0"
+			 HorizontalAlignment="Stretch"
+			 HorizontalContentAlignment="Left"
+			 Command="{Binding $parent[UserControl].DataContext.SprocketSelectedCommand}"
+			 CommandParameter="{Binding}">
+							<StackPanel Orientation="Horizontal">
+								<CheckBox IsHitTestVisible="False"
+										  VerticalAlignment="Center"
+										  IsChecked="{Binding $parent[UserControl].DataContext.SelectedSprockets, 
+                                                 Converter={StaticResource ContainsConverter}, 
+                                                 ConverterParameter={Binding}}" />
+								<TextBlock Margin="10,0,0,0"
+										   VerticalAlignment="Center"
+										   Text="{Binding Label}" />
+							</StackPanel>
+						</Button>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.SelectionBoxItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding $parent[UserControl].DataContext.SelectedSprocketsStr}" />
+                    </DataTemplate>
+                </ComboBox.SelectionBoxItemTemplate>
             </ComboBox>
         </Grid>
 
@@ -124,7 +166,7 @@
         </Grid>
 
         <!--  Result  -->
-        <Grid Grid.Row="5" Grid.Column="0"
+        <!--<Grid Grid.Row="5" Grid.Column="0"
               ColumnDefinitions="*" RowDefinitions="Auto, Auto">
             <Grid Grid.Row="0" Grid.Column="0"
                   ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto">
@@ -143,7 +185,7 @@
                       ItemsSource="{Binding Items}" />
 
 
-        </Grid>
+        </Grid>-->
 
     </Grid>
 </UserControl>
