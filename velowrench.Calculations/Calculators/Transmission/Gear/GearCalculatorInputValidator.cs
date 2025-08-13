@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using velowrench.Calculations.Interfaces;
 
-namespace velowrench.Calculations.Calculs.Transmission.Gear;
+namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
 /// Provides validation logic for gear calculation input parameters.
 /// Validates calculation-specific requirements, component specifications, and value ranges 
 /// for different types of gear calculations including gain ratio, gear inches, development, and speed.
 /// </summary>
-internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCalculInput>
+internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<GearCalculatorInput>
 {
     private readonly List<string> _errorMessage;
 
@@ -78,7 +78,7 @@ internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCal
     /// </summary>
     public IEnumerable<string> ErrorMessages => _errorMessage;
 
-    public GearCalculInputValidation()
+    public GearCalculatorInputValidator()
     {
         _errorMessage = [];
     }
@@ -92,7 +92,7 @@ internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCal
     /// Validation includes: non-null input, calculation-type specific requirements (crank length for gain ratio, RPM for speed),
     /// sprocket count and teeth validation, wheel diameter validation, and chainring teeth validation.
     /// </returns>
-    public bool Validate(GearCalculInput input)
+    public bool Validate(GearCalculatorInput input)
     {
         if (input == null)
         {
@@ -100,7 +100,7 @@ internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCal
             return false;
         }
 
-        if (input.CalculType == EGearCalculType.GainRatio)
+        if (input.CalculatorType == EGearCalculatorType.GainRatio)
         {
             if (!input.CrankLengthInInch.HasValue)
             {
@@ -113,7 +113,7 @@ internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCal
             }
         }
 
-        if (input.CalculType == EGearCalculType.Speed)
+        if (input.CalculatorType == EGearCalculatorType.Speed)
         {
             if (!input.RevolutionPerMinute.HasValue)
             {

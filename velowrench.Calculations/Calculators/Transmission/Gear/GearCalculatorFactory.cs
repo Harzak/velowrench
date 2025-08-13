@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.Chain;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 
-namespace velowrench.Calculations.Calculs.Transmission.Gear;
+namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
 /// Factory for creating gear calculation instances.
-/// Implements the factory pattern to provide properly configured <see cref="GearCalcul"/> instances
+/// Implements the factory pattern to provide properly configured <see cref="GearCalculator"/> instances
 /// with required dependencies for validation and logging.
 /// </summary>
-public class GearCalculFactory : ICalculFactory<GearCalculInput, GearCalculResult>
+public class GearCalculatorFactory : ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>
 {
-    private readonly Func<ICalculInputValidation<GearCalculInput>> _validationProvider;
+    private readonly Func<ICalculatorInputValidation<GearCalculatorInput>> _validationProvider;
     private readonly ILogger _logger;
 
-    public GearCalculFactory(Func<ICalculInputValidation<GearCalculInput>> validationProvider, ILogger<GearCalculFactory> logger)
+    public GearCalculatorFactory(Func<ICalculatorInputValidation<GearCalculatorInput>> validationProvider, ILogger<GearCalculatorFactory> logger)
     {
         _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -29,8 +29,8 @@ public class GearCalculFactory : ICalculFactory<GearCalculInput, GearCalculResul
     /// Creates a new gear calculation instance ready to perform calculations.
     /// Each created instance is independent and can be used for multiple calculations.
     /// </summary>
-    public ICalcul<GearCalculInput, GearCalculResult> CreateCalcul()
+    public ICalculator<GearCalculatorInput, GearCalculatorResult> CreateCalculator()
     {
-        return new GearCalcul(_validationProvider, _logger);
+        return new GearCalculator(_validationProvider, _logger);
     }
 }

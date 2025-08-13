@@ -8,7 +8,7 @@ namespace velowrench.Calculations.Interfaces;
 /// </summary>
 /// <typeparam name="TInput">The type of input data required for the calculation.</typeparam>
 /// <typeparam name="TResult">The type of result returned by the calculation.</typeparam>
-public interface ICalcul<TInput, TResult> : ICalcul where TInput : class
+public interface ICalculator<TInput, TResult> : ICalculator where TInput : class
 {
     /// <summary>
     /// Starts the calculation with the specified input data.
@@ -17,5 +17,5 @@ public interface ICalcul<TInput, TResult> : ICalcul where TInput : class
     /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
     OperationResult<TResult> Start(TInput input);
 
-    Func<ICalculInputValidation<TInput>> GetValidation { get; }
+    Func<ICalculatorInputValidation<TInput>> GetValidation { get; }
 }

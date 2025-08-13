@@ -7,11 +7,11 @@ using velowrench.Utils.Enums;
 
 namespace velowrench.Utils.EventArg;
 
-public class CalculStateEventArgs : EventArgs
+public class CalculatorStateEventArgs : EventArgs
 {
-    public ECalculState State { get; set; }
+    public ECalculatorState State { get; set; }
 
-    public CalculStateEventArgs(ECalculState state)
+    public CalculatorStateEventArgs(ECalculatorState state)
     {
         State = state;
     }

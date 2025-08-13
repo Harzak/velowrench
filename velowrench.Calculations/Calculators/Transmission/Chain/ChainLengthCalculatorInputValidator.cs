@@ -8,12 +8,12 @@ using velowrench.Calculations.Interfaces;
 
 [assembly: InternalsVisibleTo("velowrench.Calculations.Tests")]
 
-namespace velowrench.Calculations.Calculs.Transmission.Chain;
+namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Provides validation logic for chain length calculation input parameters.
 /// </summary>
-internal sealed class ChainLengthCalculInputValidation : ICalculInputValidation<ChainLengthCalculInput>
+internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputValidation<ChainLengthCalculatorInput>
 {
     private readonly List<string> _errorMessage;
 
@@ -47,7 +47,7 @@ internal sealed class ChainLengthCalculInputValidation : ICalculInputValidation<
     /// </summary>
     public IEnumerable<string> ErrorMessages => _errorMessage;
 
-    public ChainLengthCalculInputValidation()
+    public ChainLengthCalculatorInputValidator()
     {
         _errorMessage = [];
     }
@@ -59,7 +59,7 @@ internal sealed class ChainLengthCalculInputValidation : ICalculInputValidation<
     /// <c>true</c> if all validation rules pass; otherwise, <c>false</c>.
     /// Validation rules include: non-null input, valid chainstay length, valid chainring teeth count, and valid sprocket teeth count.
     /// </returns>
-    public bool Validate(ChainLengthCalculInput input)
+    public bool Validate(ChainLengthCalculatorInput input)
     {
         if (input == null)
         {

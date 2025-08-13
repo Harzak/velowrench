@@ -1,5 +1,5 @@
-﻿using velowrench.Calculations.Calculs.Transmission.Chain;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+﻿using velowrench.Calculations.Calculators.Transmission.Chain;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
@@ -16,18 +16,18 @@ namespace velowrench.Core.Factories;
 public sealed class ViewModelFactory : IViewModelFactory
 {
     private readonly ILocalizer _localizer;
-    private readonly ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _chainLengthCalculFactory;
-    private readonly ICalculFactory<GearCalculInput, GearCalculResult> _gearCalculFactory;
+    private readonly ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _chainLengthCalculatorFactory;
+    private readonly ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> _gearCalculatorFactory;
     private readonly IComponentStandardRepository _componentStandardRepository;
 
     public ViewModelFactory(ILocalizer localizer,
-        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> chainCalculFactory,
-        ICalculFactory<GearCalculInput, GearCalculResult> gearCalculFactory,
+        ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
+        ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> gearCalculatorFactory,
         IComponentStandardRepository componentStandardRepository)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
-        _chainLengthCalculFactory = chainCalculFactory ?? throw new ArgumentNullException(nameof(chainCalculFactory));
-        _gearCalculFactory = gearCalculFactory ?? throw new ArgumentNullException(nameof(gearCalculFactory));
+        _chainLengthCalculatorFactory = chainLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(chainLengthCalculatorFactory));
+        _gearCalculatorFactory = gearCalculatorFactory ?? throw new ArgumentNullException(nameof(gearCalculatorFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
     }
 
@@ -50,11 +50,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(_chainLengthCalculFactory, navigationService, _localizer);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _localizer);
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(_gearCalculFactory, navigationService, _componentStandardRepository, _localizer);
+                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _componentStandardRepository, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
             default:

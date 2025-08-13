@@ -1,9 +1,9 @@
-﻿namespace velowrench.Calculations.Calculs.Transmission.Chain;
+﻿namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Represents the input parameters required for chain length calculations.
 /// </summary>
-public sealed record ChainLengthCalculInput
+public sealed record ChainLengthCalculatorInput
 {
     /// <summary>
     /// Gets the chainstay length in inches, which is the horizontal distance between the bottom bracket and rear axle.
@@ -23,7 +23,7 @@ public sealed record ChainLengthCalculInput
     /// <summary>
     /// Custom equality implementation with floating-point tolerance.
     /// </summary>
-    public bool Equals(ChainLengthCalculInput? other)
+    public bool Equals(ChainLengthCalculatorInput? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

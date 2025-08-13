@@ -11,7 +11,7 @@ namespace velowrench.Calculations.Interfaces;
 /// Provides validation logic and error reporting capabilities for ensuring input data meets calculation requirements.
 /// </summary>
 /// <typeparam name="TInput">The type of input data to be validated</typeparam>
-public interface ICalculInputValidation<TInput>
+public interface ICalculatorInputValidation<TInput>
 {
     /// <summary>
     /// Gets a collection of error messages generated during the last validation operation.

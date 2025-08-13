@@ -5,18 +5,18 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
 
-namespace velowrench.Calculations.Calculs.Transmission.Chain;
+namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Calculate the recommended bicycle chain length using bike’s chainstay length and gear sizes.
 /// </summary>
-public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, ChainLengthCalculResult>
+public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
     /// <summary>
     /// A conversion factor from tooth count difference to chain angle correction in inches
@@ -29,20 +29,20 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     /// </summary>
     private const double CHAINSTAY_THRESHOLD = 15.5;
 
-    protected override string CalculName => nameof(ChainLengthCalcul);
+    protected override string CalculatorName => nameof(ChainLengthCalculator);
 
-    public ChainLengthCalcul(Func<ICalculInputValidation<ChainLengthCalculInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
+    public ChainLengthCalculator(Func<ICalculatorInputValidation<ChainLengthCalculatorInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
     {
 
     }
 
-    protected override OperationResult<ChainLengthCalculResult> Calculate(ChainLengthCalculInput input)
+    protected override OperationResult<ChainLengthCalculatorResult> Calculate(ChainLengthCalculatorInput input)
     {
-        CalculInputException.ThrowIfNegativeOrZero(input.ChainStayLengthInch, nameof(input.ChainStayLengthInch));
-        CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestSprocket, nameof(input.TeethLargestSprocket));
-        CalculInputException.ThrowIfNegativeOrZero(input.TeethLargestChainring, nameof(input.TeethLargestChainring));
+        CalculatorInputException.ThrowIfNegativeOrZero(input.ChainStayLengthInch, nameof(input.ChainStayLengthInch));
+        CalculatorInputException.ThrowIfNegativeOrZero(input.TeethLargestSprocket, nameof(input.TeethLargestSprocket));
+        CalculatorInputException.ThrowIfNegativeOrZero(input.TeethLargestChainring, nameof(input.TeethLargestChainring));
 
-        OperationResult<ChainLengthCalculResult> result = new();
+        OperationResult<ChainLengthCalculatorResult> result = new();
 
         double calculatedLength;
         if (input.ChainStayLengthInch < CHAINSTAY_THRESHOLD)
@@ -59,7 +59,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
             return result.WithError("Calculated chain length is not a valid number.");
         }
 
-        result.Content = new ChainLengthCalculResult()
+        result.Content = new ChainLengthCalculatorResult()
         {
             ChainLinks = this.GetChainLinksNumber(calculatedLength),
             ChainLengthInch = calculatedLength,
@@ -77,7 +77,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     /// This equation provides a quick approximation suitable for most standard bicycle configurations
     /// where the chainstay length is greater than 15.5 inches.
     /// </remarks>
-    private double CalculateLengthWithBigBig2Equation(ChainLengthCalculInput input)
+    private double CalculateLengthWithBigBig2Equation(ChainLengthCalculatorInput input)
     {
         double C = input.ChainStayLengthInch;
         double F = input.TeethLargestChainring;
@@ -99,7 +99,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
     /// This equation accounts for angular effects and provides higher accuracy for compact bicycle frames
     /// with shorter chainstays (typically less than 15.5 inches).
     /// </remarks>
-    private double CalculateLengthWithRigorousEquation(ChainLengthCalculInput input)
+    private double CalculateLengthWithRigorousEquation(ChainLengthCalculatorInput input)
     {
         double C = input.ChainStayLengthInch;
         double F = input.TeethLargestChainring;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear.Gain;
@@ -15,22 +15,22 @@ namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear.Gain;
 public class GainRatioCalculTests
 {
     private ILogger _logger;
-    private GearCalcul _calcul;
+    private GearCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _calcul = new GearCalcul(() => new GearCalculInputValidation(), _logger);
+        _calculator = new GearCalculator(() => new GearCalculatorInputValidator(), _logger);
     }
 
     [TestMethod]
     public void Calculate_ShouldGive_ExpectedResults()
     {
         // Arrange
-        GearCalculInput input = new()
+        GearCalculatorInput input = new()
         {
-            CalculType = EGearCalculType.GainRatio,
+            CalculatorType = EGearCalculatorType.GainRatio,
             RevolutionPerMinute = null,
             WheelDiameterInInch = 27,
             CrankLengthInInch = 6.7,
@@ -42,7 +42,7 @@ public class GainRatioCalculTests
         };
 
         // Act
-        OperationResult<GearCalculResult> result = _calcul.Start(input);
+        OperationResult<GearCalculatorResult> result = _calculator.Start(input);
 
         // Assert
         result.Should().NotBeNull();

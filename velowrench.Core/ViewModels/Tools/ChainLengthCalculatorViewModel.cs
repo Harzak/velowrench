@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
-using velowrench.Calculations.Calculs.Transmission.Chain;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
@@ -15,7 +15,7 @@ namespace velowrench.Core.ViewModels.Tools;
 /// <summary>
 /// View model for the chain length calculator tool that determines optimal bicycle chain length.
 /// </summary>
-public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel<ChainLengthCalculInput, ChainLengthCalculResult>
+public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewModel<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
     /// <summary>
     /// Gets the display name of this view model.
@@ -62,10 +62,10 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
     private ConvertibleDouble<LengthUnit>? _recommendedChainLength;
 
     public ChainLengthCalculatorViewModel(
-        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
+        ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> calculatorFactory,
         INavigationService navigationService,
         ILocalizer localizer)
-    : base(calculFactory, navigationService)
+    : base(calculatorFactory, navigationService)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
@@ -99,9 +99,9 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
         base.RefreshCalculation();
     }
 
-    protected override ChainLengthCalculInput GetInput()
+    protected override ChainLengthCalculatorInput GetInput()
     {
-        return new ChainLengthCalculInput()
+        return new ChainLengthCalculatorInput()
         {
             ChainStayLengthInch = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
             TeethLargestChainring = this.TeethLargestChainring ?? 0,
@@ -109,7 +109,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
         };
     }
 
-    protected override void OnCalculSuccessfull(OperationResult<ChainLengthCalculResult> result)
+    protected override void OnCalculationSuccessfull(OperationResult<ChainLengthCalculatorResult> result)
     {
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthInch, LengthUnit.Inch);
         this.RecommendedChainLinks = result.Content.ChainLinks;

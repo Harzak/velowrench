@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:enums="using:velowrench.Utils.Enums"
-             xmlns:gearEnums="using:velowrench.Calculations.Calculs.Transmission.Gear"
+             xmlns:gearEnums="using:velowrench.Calculations.Calculators.Transmission.Gear"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -19,7 +19,7 @@
 
     <ScrollViewer>
         <StackPanel Margin="20,10" Orientation="Vertical">
-            <!--  Calcul Type  -->
+            <!--  Calculator Type  -->
             <Grid Grid.Row="0" Grid.Column="0"
                   Margin="0,10,0,10"
                   ColumnDefinitions="2*,2*" RowDefinitions="Auto, Auto">
@@ -29,7 +29,7 @@
                 <ComboBox Grid.Row="1" Grid.Column="0"
                           Margin="0,0,10,0" HorizontalAlignment="Stretch"
                           ItemsSource="{Binding CalculationTypes}"
-                          SelectedItem="{Binding SelectedCalculType}">
+                          SelectedItem="{Binding SelectedCalculatorType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ., Converter={StaticResource EnumDisplayNameConverter}}" />
@@ -66,11 +66,11 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.GainRatio}}"
+                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.GainRatio}}"
                            Text="Crank length" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.GainRatio}}"
+                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.GainRatio}}"
                           ItemsSource="{Binding SourceCranks}"
                           SelectedItem="{Binding SelectedCrank}">
                     <ComboBox.ItemTemplate>
@@ -82,11 +82,11 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.Speed}}"
+                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.Speed}}"
                            Text="Cadence" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.Speed}}"
+                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.Speed}}"
                           ItemsSource="{Binding SourceCadence}"
                           SelectedItem="{Binding SelectedCadence}">
                     <ComboBox.ItemTemplate>
@@ -155,7 +155,7 @@
             <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
                             Content="{Binding CurrentState}">
                 <ContentControl.DataTemplates>
-                    <DataTemplate DataType="enums:ECalculState">
+                    <DataTemplate DataType="enums:ECalculatorState">
                         <ContentControl Content="{Binding}">
                             <ContentControl.Styles>
 
@@ -172,7 +172,7 @@
                                                                Text="{x:Static res:Languages.EnterValues}" />
                                                     <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                Foreground="{DynamicResource SemiColorWarning}"
-                                                               Text="{Binding $parent[UserControl].DataContext.CalculInputErrors}"
+                                                               Text="{Binding $parent[UserControl].DataContext.CalculatorInputErrors}"
                                                                TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </DataTemplate>

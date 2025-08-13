@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using velowrench.Calculations.Calculs;
+using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Enums;
@@ -16,23 +16,23 @@ namespace velowrench.Calculations.Tests.Calculs;
 public class BaseCalculTests
 {
     private ILogger _logger;
-    private ICalculInputValidation<TestInput> _inputValidation;
-    private TestableCalcul _calcul;
+    private ICalculatorInputValidation<TestInput> _inputValidation;
+    private TestableCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = A.Fake<ICalculInputValidation<TestInput>>();
-        _calcul = new TestableCalcul(() => _inputValidation, _logger);
+        _inputValidation = A.Fake<ICalculatorInputValidation<TestInput>>();
+        _calculator = new TestableCalculator(() => _inputValidation, _logger);
     }
 
     [TestMethod]
     public void InitialState_ShouldBeNotStarted()
     {
         // Assert
-        _calcul.State.Should().Be(ECalculState.NotStarted);
-        _calcul.LastResult.Should().BeNull();
+        _calculator.State.Should().Be(ECalculatorState.NotStarted);
+        _calculator.LastResult.Should().BeNull();
     }
 
     [TestMethod]
@@ -45,13 +45,13 @@ public class BaseCalculTests
         };
 
         // Act
-        OperationResult<TestResult> result = _calcul.Start(input);
+        OperationResult<TestResult> result = _calculator.Start(input);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
-        _calcul.State.Should().Be(ECalculState.Computed);
-        _calcul.LastResult.Should().NotBeNull();
-        _calcul.LastResult.Value.Should().Be(42 * 2);
+        _calculator.State.Should().Be(ECalculatorState.Computed);
+        _calculator.LastResult.Should().NotBeNull();
+        _calculator.LastResult.Value.Should().Be(42 * 2);
     }
 
 
@@ -65,12 +65,12 @@ public class BaseCalculTests
         };
 
         // Act
-        OperationResult<TestResult> result = _calcul.Start(input);
+        OperationResult<TestResult> result = _calculator.Start(input);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
-        _calcul.State.Should().Be(ECalculState.Failed);
-        _calcul.LastResult.Should().BeNull();
+        _calculator.State.Should().Be(ECalculatorState.Failed);
+        _calculator.LastResult.Should().BeNull();
     }
 
     [TestMethod]
@@ -87,15 +87,15 @@ public class BaseCalculTests
         };
 
         // Act
-        OperationResult<TestResult> result1 = _calcul.Start(input1);
-        OperationResult<TestResult> result2 = _calcul.Start(input2);
+        OperationResult<TestResult> result1 = _calculator.Start(input1);
+        OperationResult<TestResult> result2 = _calculator.Start(input2);
 
         // Assert
         result1.IsSuccess.Should().BeTrue();
         result2.IsSuccess.Should().BeTrue();
-        _calcul.State.Should().Be(ECalculState.Computed);
-        _calcul.LastResult.Should().NotBeNull();
-        _calcul.LastResult.Value.Should().Be(20 * 2);
+        _calculator.State.Should().Be(ECalculatorState.Computed);
+        _calculator.LastResult.Should().NotBeNull();
+        _calculator.LastResult.Value.Should().Be(20 * 2);
     }
 
     [TestMethod]
@@ -112,14 +112,14 @@ public class BaseCalculTests
         };
 
         // Act
-        OperationResult<TestResult> result1 = _calcul.Start(invalidInput);
-        OperationResult<TestResult> result2 = _calcul.Start(validInput);
+        OperationResult<TestResult> result1 = _calculator.Start(invalidInput);
+        OperationResult<TestResult> result2 = _calculator.Start(validInput);
 
         // Assert
         result1.IsSuccess.Should().BeFalse();
         result2.IsSuccess.Should().BeTrue();
-        _calcul.State.Should().Be(ECalculState.Computed);
-        _calcul.LastResult.Should().NotBeNull();
+        _calculator.State.Should().Be(ECalculatorState.Computed);
+        _calculator.LastResult.Should().NotBeNull();
     }
 
     [TestMethod]
@@ -130,18 +130,18 @@ public class BaseCalculTests
         {
             Value = 42
         };
-        List<ECalculState> stateChanges = [];
+        List<ECalculatorState> stateChanges = [];
 
-        _calcul.StateChanged += (sender, args) => stateChanges.Add(args.State);
+        _calculator.StateChanged += (sender, args) => stateChanges.Add(args.State);
 
         // Act
-        OperationResult<TestResult> result = _calcul.Start(input);
+        OperationResult<TestResult> result = _calculator.Start(input);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         stateChanges.Should().HaveCount(2);
-        stateChanges[0].Should().Be(ECalculState.InProgress);
-        stateChanges[1].Should().Be(ECalculState.Computed);
+        stateChanges[0].Should().Be(ECalculatorState.InProgress);
+        stateChanges[1].Should().Be(ECalculatorState.Computed);
     }
 
     [TestMethod]
@@ -149,27 +149,27 @@ public class BaseCalculTests
     {
         // Arrange
         TestInput input = new () { Value = -1 };
-        List<ECalculState> stateChanges = [];
-        List<CalculStateEventArgs> eventArgs = [];
+        List<ECalculatorState> stateChanges = [];
+        List<CalculatorStateEventArgs> eventArgs = [];
 
-        _calcul.StateChanged += (sender, args) =>
+        _calculator.StateChanged += (sender, args) =>
         {
             stateChanges.Add(args.State);
             eventArgs.Add(args);
         };
 
         // Act
-        OperationResult<TestResult> result = _calcul.Start(input);
+        OperationResult<TestResult> result = _calculator.Start(input);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
         stateChanges.Should().HaveCount(2);
-        stateChanges[0].Should().Be(ECalculState.InProgress);
-        stateChanges[1].Should().Be(ECalculState.Failed);
+        stateChanges[0].Should().Be(ECalculatorState.InProgress);
+        stateChanges[1].Should().Be(ECalculatorState.Failed);
 
         eventArgs.Should().HaveCount(2);
-        eventArgs[0].State.Should().Be(ECalculState.InProgress);
-        eventArgs[1].State.Should().Be(ECalculState.Failed);
+        eventArgs[0].State.Should().Be(ECalculatorState.InProgress);
+        eventArgs[1].State.Should().Be(ECalculatorState.Failed);
     }
 }
 
@@ -183,11 +183,11 @@ public class TestResult
     public int Value { get; set; }
 }
 
-public class TestableCalcul : BaseCalcul<TestInput, TestResult>
+public class TestableCalculator : BaseCalculator<TestInput, TestResult>
 {
-    protected override string CalculName => "TestableCalcul";
+    protected override string CalculatorName => "TestableCalcul";
 
-    public TestableCalcul(Func<ICalculInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
+    public TestableCalculator(Func<ICalculatorInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
     {
 
     }

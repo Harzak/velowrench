@@ -1,9 +1,9 @@
-﻿namespace velowrench.Calculations.Calculs.Transmission.Chain;
+﻿namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Represents the result of a chain length calculation for bicycle transmissions.
 /// </summary>
-public record ChainLengthCalculResult : BaseCalculResult<ChainLengthCalculInput>
+public record ChainLengthCalculatorResult : BaseCalculatorResult<ChainLengthCalculatorInput>
 {
     /// <summary>
     /// Gets the number of chain links required for the calculated chain length.

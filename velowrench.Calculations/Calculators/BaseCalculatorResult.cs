@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 
-namespace velowrench.Calculations.Calculs;
+namespace velowrench.Calculations.Calculators;
 
 /// <summary>
 /// Provides a base implementation for calculation result types that contain both the computed output
 /// and metadata about the calculation operation.
 /// </summary>
-public abstract record BaseCalculResult<TInput> where TInput : class
+public abstract record BaseCalculatorResult<TInput> where TInput : class
 {
     /// <summary>
     /// Gets the UTC timestamp indicating when this calculation was performed.

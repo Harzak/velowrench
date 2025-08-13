@@ -11,22 +11,22 @@ using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
 
-namespace velowrench.Calculations.Calculs;
+namespace velowrench.Calculations.Calculators;
 
 /// <summary>
 /// Abstract base class for all calculations, providing common functionality and state management.
 /// </summary>
 /// <typeparam name="TInput">The type of input data required for the calculation.</typeparam>
 /// <typeparam name="TResult">The type of result returned by the calculation.</typeparam>
-public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> where TInput : class where TResult : class
+public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TResult> where TInput : class where TResult : class
 {
     protected ILogger Logger { get; }
-    protected abstract string CalculName { get; }
+    protected abstract string CalculatorName { get; }
     
     /// <summary>
     /// Gets the current state of the calculation.
     /// </summary>
-    public ECalculState State { get; private set; }
+    public ECalculatorState State { get; private set; }
     
     /// <summary>
     /// Gets the last successful result produced by this calculation, or null if no successful calculation has been performed.
@@ -36,28 +36,28 @@ public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> whe
     /// <summary>
     /// Event raised when the calculation state changes.
     /// </summary>
-    public event EventHandler<CalculStateEventArgs>? StateChanged;
+    public event EventHandler<CalculatorStateEventArgs>? StateChanged;
 
-    public Func<ICalculInputValidation<TInput>> GetValidation { get; }
+    public Func<ICalculatorInputValidation<TInput>> GetValidation { get; }
 
-    protected BaseCalcul(Func<ICalculInputValidation<TInput>> validationProvider, ILogger logger)
+    protected BaseCalculator(Func<ICalculatorInputValidation<TInput>> validationProvider, ILogger logger)
     {
         this.GetValidation = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
         this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        this.State = ECalculState.NotStarted;
+        this.State = ECalculatorState.NotStarted;
     }
 
     /// <summary>
     /// Starts the calculation with the specified input data.
     /// </summary>
     /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
-    /// <exception cref="InvalidCalculOperationException">Thrown when a calculation is already in progress.</exception>
+    /// <exception cref="InvalidCalculatorOperationException">Thrown when a calculation is already in progress.</exception>
     public OperationResult<TResult> Start(TInput input)
     {
         ArgumentNullException.ThrowIfNull(input, nameof(input));
-        InvalidCalculOperationException.ThrowIfCalculInProgress(this);
+        InvalidCalculatorOperationException.ThrowIfCalculInProgress(this);
 
-        this.SetState(ECalculState.InProgress);
+        this.SetState(ECalculatorState.InProgress);
 
         OperationResult<TResult> result = Calculate(input);
         if (result.IsSuccess)
@@ -67,19 +67,19 @@ public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> whe
         else
         {
             string errorMessage = string.IsNullOrEmpty(result.ErrorMessage) ? "Unknown error" : result.ErrorMessage;    
-            CalculLogs.CalculInError(this.Logger, errorMessage);
+            CalculatorLogs.CalculationInError(this.Logger, errorMessage);
         }
 
-        this.SetState(result.IsSuccess ? ECalculState.Computed : ECalculState.Failed);
+        this.SetState(result.IsSuccess ? ECalculatorState.Computed : ECalculatorState.Failed);
         return result;
     }
 
     protected abstract OperationResult<TResult> Calculate(TInput input);
 
-    protected void SetState(ECalculState state)
+    protected void SetState(ECalculatorState state)
     {
         State = state;
-        CalculLogs.CalculStateChangedAt(this.Logger, this.CalculName, state, DateTime.UtcNow);
-        StateChanged?.Invoke(this, new CalculStateEventArgs(state));
+        CalculatorLogs.CalculationStateChangedAt(this.Logger, this.CalculatorName, state, DateTime.UtcNow);
+        StateChanged?.Invoke(this, new CalculatorStateEventArgs(state));
     }
 }

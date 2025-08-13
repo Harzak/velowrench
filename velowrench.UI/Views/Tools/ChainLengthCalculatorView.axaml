@@ -72,7 +72,7 @@
         <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
                         Content="{Binding CurrentState}">
             <ContentControl.DataTemplates>
-                <DataTemplate DataType="enums:ECalculState">
+                <DataTemplate DataType="enums:ECalculatorState">
                     <ContentControl Content="{Binding}">
                         <ContentControl.Styles>
 
@@ -91,7 +91,7 @@
                                                            Text="{x:Static res:Languages.EnterValues}" />
                                                 <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                            Foreground="{DynamicResource SemiColorWarning}"
-                                                           Text="{Binding $parent[UserControl].DataContext.CalculInputErrors}"
+                                                           Text="{Binding $parent[UserControl].DataContext.CalculatorInputErrors}"
                                                            TextWrapping="Wrap" />
                                             </StackPanel>
                                         </DataTemplate>

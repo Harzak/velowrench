@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace velowrench.Utils.Enums;
 
-public enum ECalculState
+public enum ECalculatorState
 {
     Unknown = 0,
     NotStarted = 1,

@@ -3,8 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
-using velowrench.Calculations.Calculs.Transmission.Chain;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+using velowrench.Calculations.Calculators.Transmission.Chain;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
@@ -24,7 +24,7 @@ namespace velowrench.Core.ViewModels.Tools;
 /// Provides gear analysis including gear inches, development, gain ratio, and speed calculations
 /// for various chainring and sprocket combinations.
 /// </summary>
-public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCalculInput, GearCalculResult>
+public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<GearCalculatorInput, GearCalculatorResult>
 {
     private readonly IComponentStandardRepository _repository;
 
@@ -36,7 +36,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     /// <summary>
     /// Gets all available gear calculation types for user selection.
     /// </summary>
-    public IEnumerable<EGearCalculType> CalculationTypes => Enum.GetValues<EGearCalculType>();
+    public IEnumerable<EGearCalculatorType> CalculationTypes => Enum.GetValues<EGearCalculatorType>();
 
     /// <summary>
     /// Gets a formatted string representation of currently selected sprockets.
@@ -49,7 +49,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     /// Determines which calculation algorithm is used and which optional parameters are required.
     /// </summary>
     [ObservableProperty]
-    private EGearCalculType _selectedCalculType;
+    private EGearCalculatorType _selectedCalculatorType;
 
     /// <summary>
     /// Gets or sets the collection of available wheel specifications.
@@ -73,7 +73,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
 
     /// <summary>
     /// Gets or sets the currently selected crankset specification.
-    /// Required when calculation type is <see cref="EGearCalculType.GainRatio"/>.
+    /// Required when calculation type is <see cref="EGearCalculatorType.GainRatio"/>.
     /// </summary>
     [ObservableProperty]
     private CranksetSpecificationModel _selectedCrank;
@@ -87,7 +87,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
 
     /// <summary>
     /// Gets or sets the currently selected cadence value.
-    /// Required when calculation type is <see cref="EGearCalculType.Speed"/>.
+    /// Required when calculation type is <see cref="EGearCalculatorType.Speed"/>.
     /// </summary>
     [ObservableProperty]
     private CadenceModel _selectedCadence;
@@ -128,18 +128,18 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     ObservableCollection<GearCalculResultRowModel> _gearCalculResultRows;
 
     public GearCalculatorViewModel(
-        ICalculFactory<GearCalculInput, GearCalculResult> calculFactory,
+        ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> calculatorFactory,
         INavigationService navigationService,
         IComponentStandardRepository repository,
         ILocalizer localizer)
-    : base(calculFactory, navigationService)
+    : base(calculatorFactory, navigationService)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
 
         _repository = repository;
 
-        _selectedCalculType = EGearCalculType.GearInches;
+        _selectedCalculatorType = EGearCalculatorType.GearInches;
         _sourceWheels = new(_repository.GetMostCommonWheelSpecifications());
         _selectedWheel = this.SourceWheels.GetMostUsedWheel();
         _sourceCranks = new(_repository.GetAllCranksetSpecifications());
@@ -172,11 +172,11 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     /// Creates calculation input based on current view model state.
     /// Maps UI properties to the gear calculation input structure required by the calculation engine.
     /// </summary>
-    protected override GearCalculInput GetInput()
+    protected override GearCalculatorInput GetInput()
     {
-        return new GearCalculInput()
+        return new GearCalculatorInput()
         {
-            CalculType = this.SelectedCalculType,
+            CalculatorType = this.SelectedCalculatorType,
             TeethNumberLargeOrUniqueChainring = this.Chainring1TeethCount,
             TeethNumberMediumChainring = this.Chainring2TeethCount,
             TeethNumberSmallChainring = this.Chainring3TeethCount,
@@ -191,7 +191,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     /// <summary>
     /// Processes successful gear calculation results and updates the display data.
     /// </summary>
-    protected override void OnCalculSuccessfull(OperationResult<GearCalculResult> result)
+    protected override void OnCalculationSuccessfull(OperationResult<GearCalculatorResult> result)
     {
         this.GearCalculResultRows.Clear();
         for (int i = 0; i < result.Content.ValuesLargeOrUniqueChainring.Count; i++)
@@ -210,7 +210,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
     /// Handles changes to the calculation type selection.
     /// Triggers input validation and potential recalculation when the calculation method changes.
     /// </summary>
-    partial void OnSelectedCalculTypeChanged(EGearCalculType value)  {
+    partial void OnSelectedCalculatorTypeChanged(EGearCalculatorType value)  {
         base.RefreshCalculation();
     }
 

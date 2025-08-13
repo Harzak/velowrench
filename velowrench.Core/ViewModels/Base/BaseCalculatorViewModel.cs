@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs;
-using velowrench.Calculations.Calculs.Transmission.Gear;
+using velowrench.Calculations.Calculators;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Tools;
@@ -20,9 +20,9 @@ namespace velowrench.Core.ViewModels.Base;
 /// state management, and result handling. This abstract class standardizes the calculation workflow
 /// across different calculation types while allowing specific implementations for input creation and result processing.
 /// </summary>
-public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutableViewModel 
+public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel 
     where TInput : class 
-    where TResult : BaseCalculResult<TInput>
+    where TResult : BaseCalculatorResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
@@ -32,30 +32,30 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     /// Gets the calculation engine instance used to perform calculations.
     /// This instance handles the actual calculation logic, validation, and state management.
     /// </summary>
-    protected ICalcul<TInput, TResult> Calcul { get; }
+    protected ICalculator<TInput, TResult> Calculator { get; }
 
     /// <summary>
     /// Gets or sets the current state of the calculation operation.
     /// </summary>
     [ObservableProperty]
-    private ECalculState _currentState;
+    private ECalculatorState _currentState;
 
     /// <summary>
     /// Gets or sets error messages from input validation failures.
     /// </summary>
     [ObservableProperty]
-    private string? _calculInputErrors;
+    private string? _calculatorInputErrors;
 
-    protected BaseCalculViewModel(ICalculFactory<TInput, TResult> calculFactory, INavigationService navigationService) : base(navigationService)
+    protected BaseCalculatorViewModel(ICalculatorFactory<TInput, TResult> calculatorFactory, INavigationService navigationService) : base(navigationService)
     {
-        this.Calcul = calculFactory?.CreateCalcul() ?? throw new ArgumentNullException(nameof(calculFactory));
-        this.Calcul.StateChanged += OnCalculStateChanged;
-        this.CurrentState = ECalculState.NotStarted;
+        this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
+        this.Calculator.StateChanged += OnCalculatorStateChanged;
+        this.CurrentState = ECalculatorState.NotStarted;
     }
 
-    private async void OnCalculStateChanged(object? sender, CalculStateEventArgs e)
+    private async void OnCalculatorStateChanged(object? sender, CalculatorStateEventArgs e)
     {
-        if (this.CurrentState == ECalculState.InProgress && e.State == ECalculState.Computed)
+        if (this.CurrentState == ECalculatorState.InProgress && e.State == ECalculatorState.Computed)
         {
             await Task.Delay(PROGRESS_INDICATOR_DELAY).ConfigureAwait(false);
         }
@@ -68,30 +68,30 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     protected void RefreshCalculation()
     {
         TInput input = this.GetInput();
-        if (this.CanStartCalculation(input))
+        if (this.CanCalculate(input))
         {
-            this.StartCalculation(input);
+            this.Calculate(input);
         }
     }
 
     /// <summary>
     /// Determines whether a calculation can be started based on current conditions.
     /// </summary>
-    protected virtual bool CanStartCalculation(TInput input)
+    protected virtual bool CanCalculate(TInput input)
     {
         return !base.HasErrors
             && this.InpuValidation(input)
-            && this.Calcul.State != ECalculState.InProgress
+            && this.Calculator.State != ECalculatorState.InProgress
             && (_lastResult == null || !_lastResult.Content.UsedInputs.Equals(input));
     }
 
-    private void StartCalculation(TInput input)
+    private void Calculate(TInput input)
     {
-        _lastResult = this.Calcul.Start(input);
+        _lastResult = this.Calculator.Start(input);
 
         if (_lastResult.IsSuccess && _lastResult.HasContent)
         {
-            this.OnCalculSuccessfull(_lastResult);
+            this.OnCalculationSuccessfull(_lastResult);
         }
     }
 
@@ -103,18 +103,18 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     /// <summary>
     /// Processes successful calculation results and updates the view model state.
     /// </summary>
-    protected abstract void OnCalculSuccessfull(OperationResult<TResult> result);
+    protected abstract void OnCalculationSuccessfull(OperationResult<TResult> result);
 
     /// <summary>
     /// Validates that all required inputs have valid values.
     /// </summary>
     private bool InpuValidation(TInput input)
     {
-        ICalculInputValidation<TInput> validation = this.Calcul.GetValidation();
+        ICalculatorInputValidation<TInput> validation = this.Calculator.GetValidation();
         if (!validation.Validate(input))
         {
-            this.CalculInputErrors = string.Join(Environment.NewLine, validation.ErrorMessages);
-            this.CurrentState = ECalculState.NotStarted;
+            this.CalculatorInputErrors = string.Join(Environment.NewLine, validation.ErrorMessages);
+            this.CurrentState = ECalculatorState.NotStarted;
             return false;
         }
         return true;
@@ -124,9 +124,9 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     {
         if (disposing)
         {
-            if (this.Calcul != null)
+            if (this.Calculator != null)
             {
-                this.Calcul.StateChanged -= OnCalculStateChanged;
+                this.Calculator.StateChanged -= OnCalculatorStateChanged;
             }
         }
         base.Dispose(disposing);

@@ -12,7 +12,7 @@ namespace velowrench.Calculations.Interfaces;
 /// <summary>
 /// Base interface for all calculations, providing state tracking and event notification capabilities.
 /// </summary>
-public interface ICalcul 
+public interface ICalculator 
 {
     /// <summary>
     /// Gets the current state of the calculation.
@@ -20,7 +20,7 @@ public interface ICalcul
     /// <value>
     /// The current calculation state indicating whether the calculation is not started, in progress, completed, or failed.
     /// </value>
-    public ECalculState State { get;  }
+    public ECalculatorState State { get;  }
 
     /// <summary>
     /// Event raised when the calculation state changes.
@@ -28,6 +28,6 @@ public interface ICalcul
     /// <remarks>
     /// Subscribers can monitor this event to track calculation progress and respond to state changes.
     /// </remarks>
-    event EventHandler<CalculStateEventArgs>? StateChanged;
+    event EventHandler<CalculatorStateEventArgs>? StateChanged;
 }
 

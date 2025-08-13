@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using velowrench.Calculations.Calculs.Transmission.Chain;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
@@ -19,15 +19,15 @@ namespace velowrench.Calculations.Tests.Calculs.Transmission.Chain;
 public class ChainLengthCalculTests
 {
     private ILogger _logger;
-    private ICalculInputValidation<ChainLengthCalculInput> _inputValidation;
-    private ChainLengthCalcul _calcul;
+    private ICalculatorInputValidation<ChainLengthCalculatorInput> _inputValidation;
+    private ChainLengthCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = new ChainLengthCalculInputValidation();
-        _calcul = new ChainLengthCalcul(() => _inputValidation ,_logger);
+        _inputValidation = new ChainLengthCalculatorInputValidator();
+        _calculator = new ChainLengthCalculator(() => _inputValidation ,_logger);
     }
 
     [DataRow(13.5, 44, 11, 83)] // Small road bike
@@ -40,7 +40,7 @@ public class ChainLengthCalculTests
     public void Calculate_ShouldGive_ExpectedResults(double chainStayLengthInch, int teethLargestSprocket, int teethLargestChainring, int expectedChainLink)
     {
         // Arrange
-        ChainLengthCalculInput input = new()
+        ChainLengthCalculatorInput input = new()
         {
             ChainStayLengthInch =  chainStayLengthInch,
             TeethLargestChainring = teethLargestChainring,
@@ -48,7 +48,7 @@ public class ChainLengthCalculTests
         };
 
         // Act
-        OperationResult<ChainLengthCalculResult> result = _calcul.Start(input);
+        OperationResult<ChainLengthCalculatorResult> result = _calculator.Start(input);
 
         // Assert
         result.Should().NotBeNull();
@@ -64,7 +64,7 @@ public class ChainLengthCalculTests
     public void Calculate_WithNullInput_ShouldThrowEx()
     {
         // Act
-        Action act = () => _calcul.Start(null!);
+        Action act = () => _calculator.Start(null!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();
@@ -77,7 +77,7 @@ public class ChainLengthCalculTests
     public void Calculate_WithInvalidInputs_ShouldThrowEx(double chainStayLength, int chainring, int sprocket)
     {
         // Arrange
-        var input = new ChainLengthCalculInput
+        var input = new ChainLengthCalculatorInput
         {
             ChainStayLengthInch = chainStayLength,
             TeethLargestChainring = chainring,
@@ -85,9 +85,9 @@ public class ChainLengthCalculTests
         };
 
         // Act
-        Action act = () => _calcul.Start(input);
+        Action act = () => _calculator.Start(input);
 
         // Assert
-        act.Should().Throw<CalculInputException>();
+        act.Should().Throw<CalculatorInputException>();
     }
 }

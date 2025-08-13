@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace velowrench.Calculations.Calculs.Transmission.Gear;
+namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
 /// Represents the input parameters required for gear ratio calculations.
 /// </summary>
-public sealed record GearCalculInput
+public sealed record GearCalculatorInput
 {
     /// <summary>
     /// Gets the number of teeth on the largest or unique chainring (front gear).
@@ -47,7 +47,7 @@ public sealed record GearCalculInput
     /// Only used for gain ratio calculations, should be set to null for other calculation types.
     /// </summary>
     /// <value>
-    /// Required for <see cref="EGearCalculType.GainRatio"/> calculations, null for other calculation types
+    /// Required for <see cref="EGearCalculatorType.GainRatio"/> calculations, null for other calculation types
     /// </value>
     public required double? CrankLengthInInch { get; init; }
 
@@ -56,7 +56,7 @@ public sealed record GearCalculInput
     /// Only used for speed calculations, should be set to null for other calculation types.
     /// </summary>
     /// <value>
-    /// Required for <see cref="EGearCalculType.Speed"/> calculations, null for other calculation types
+    /// Required for <see cref="EGearCalculatorType.Speed"/> calculations, null for other calculation types
     /// </value>
     public required int? RevolutionPerMinute { get; init; }
 
@@ -64,7 +64,7 @@ public sealed record GearCalculInput
     /// Gets the type of gear calculation to perform.
     /// Determines which calculation algorithm is used and which optional parameters are required.
     /// </summary>
-    public required EGearCalculType CalculType { get; init; }
+    public required EGearCalculatorType CalculatorType { get; init; }
     
     /// <summary>
     /// Gets the number of decimal places to include in calculation results.
@@ -72,7 +72,7 @@ public sealed record GearCalculInput
     /// </summary>
     public int Precision { get; init; }
 
-    public GearCalculInput()
+    public GearCalculatorInput()
     {
         this.Precision = 1;
     }

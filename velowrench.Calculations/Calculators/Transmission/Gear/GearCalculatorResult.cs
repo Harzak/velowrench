@@ -1,11 +1,11 @@
-﻿namespace velowrench.Calculations.Calculs.Transmission.Gear;
+﻿namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
 /// Represents the result of gear ratio calculations.
 /// Contains calculated values for each sprocket and chainring combination,
 /// organized by chainring size for easy comparison and analysis.
 /// </summary>
-public sealed record GearCalculResult : BaseCalculResult<GearCalculInput>
+public sealed record GearCalculatorResult : BaseCalculatorResult<GearCalculatorInput>
 {
     /// <summary>
     /// Gets the calculated values for the large or unique chainring paired with each sprocket.
@@ -28,7 +28,7 @@ public sealed record GearCalculResult : BaseCalculResult<GearCalculInput>
     /// </summary>
     public IList<double>? ValuesSmallChainring { get; init; }
 
-    public GearCalculResult()
+    public GearCalculatorResult()
     {
 
     }

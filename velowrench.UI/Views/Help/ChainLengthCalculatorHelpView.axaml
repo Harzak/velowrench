@@ -54,7 +54,7 @@
             </StackPanel>
         </Border>
 
-        <!--  Calcul  -->
+        <!--  Calculator  -->
         <TextBlock Grid.Row="2"
                    Classes="GroupHeader"
                    Text="{x:Static res:Languages.Calculations}" />
@@ -80,7 +80,8 @@
 
         <!--  Results  -->
         <TextBlock Grid.Row="4"
-                   Classes="GroupHeader" Text="{x:Static res:Languages.Results}" />
+                   Classes="GroupHeader"
+                   Text="{x:Static res:Languages.Results}" />
         <Border Grid.Row="5" Classes="Group">
             <StackPanel>
                 <TextBlock Classes="Content" Text="{x:Static res:Languages.ResultChainLengthCalculExplaination}" />

@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace velowrench.Calculations.Calculs.Transmission.Gear;
+namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
 /// Defines the types of gear calculations that can be performed.
 /// Each calculation type produces different metrics for analyzing bicycle gear performance.
 /// </summary>
-public enum EGearCalculType
+public enum EGearCalculatorType
 {
     /// <summary>
     /// Gain ratio calculation that considers crank arm length in the gear ratio formula.
