@@ -1,9 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
 
@@ -17,7 +12,7 @@ public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableVie
     /// <summary>
     /// Gets the display name of the help view model.
     /// </summary>
-    public override string Name { get;  }
+    public override string Name { get; }
 
     /// <summary>
     /// Gets or sets the LaTeX representation of the simplified chain length equation.
@@ -32,11 +27,11 @@ public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableVie
     [ObservableProperty]
     private string _rigorousEquationLaTeX = @"L = 0.25 \cdot \left(F + R\right) + 2 \cdot \sqrt{C^{2} + \left(0.0796 \cdot \left(F - R\right)\right)^{2}}";
 
-    public ChainLengthCalculatorHelpViewModel(INavigationService navigationService, ILocalizer  localizer) : base(navigationService)
+    public ChainLengthCalculatorHelpViewModel(INavigationService navigationService, ILocalizer localizer) : base(navigationService)
     {
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
-        this.Name = localizer.GetString("ChainLengthCalculator");   
+        this.Name = localizer.GetString("ChainLengthCalculator");
     }
 }

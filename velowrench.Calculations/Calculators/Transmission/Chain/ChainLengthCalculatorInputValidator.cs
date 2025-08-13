@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 using velowrench.Calculations.Interfaces;
 
 [assembly: InternalsVisibleTo("velowrench.Calculations.Tests")]
@@ -21,22 +16,22 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     /// The minimum allowable chainstay length in inches.
     /// </summary>
     internal const double MIN_CHAINSTAY_LENGTH_INCH = 1.0;
-    
+
     /// <summary>
     /// The minimum allowable number of teeth on a chainring.
     /// </summary>
     internal const int MIN_CHAINRING_TEETH_COUNT = 10;
-    
+
     /// <summary>
     /// The maximum allowable number of teeth on a chainring.
     /// </summary>
     internal const int MAX_CHAINRING_TEETH_COUNT = 120;
-    
+
     /// <summary>
     /// The minimum allowable number of teeth on a sprocket.
     /// </summary>
     internal const int MIN_SPROCKET_TEETH_COUNT = 9;
-    
+
     /// <summary>
     /// The maximum allowable number of teeth on a sprocket.
     /// </summary>
@@ -51,7 +46,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     {
         _errorMessage = [];
     }
-    
+
     /// <summary>
     /// Validates chain length calculation input parameters against business rules.
     /// </summary>
@@ -67,7 +62,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
             return false;
         }
 
-        if(!ChainStayLengthIsValid(input.ChainStayLengthInch))
+        if (!ChainStayLengthIsValid(input.ChainStayLengthInch))
         {
             _errorMessage.Add($"Chainstay length must be greater than {MIN_CHAINSTAY_LENGTH_INCH}.");
         }

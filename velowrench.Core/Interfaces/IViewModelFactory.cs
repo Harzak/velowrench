@@ -13,14 +13,14 @@ public interface IViewModelFactory
     /// <returns>A routable view model instance for the specified tool.</returns>
     /// <exception cref="NotSupportedException">Thrown when the specified tool type is not supported.</exception>
     IRoutableViewModel CreateToolViewModel(EVeloWrenchTools type, INavigationService navigationService);
-    
+
     /// <summary>
     /// Creates a help view model for the specified tool type.
     /// </summary>
     /// <returns>A routable view model instance for the tool's help page.</returns>
     /// <exception cref="NotSupportedException">Thrown when the specified tool type does not have help documentation.</exception>
     IRoutableViewModel CreateHelpViewModel(EVeloWrenchTools type, INavigationService navigationService);
-    
+
     /// <summary>
     /// Creates the home page view model.
     /// </summary>

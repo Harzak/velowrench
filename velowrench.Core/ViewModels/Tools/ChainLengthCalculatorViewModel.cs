@@ -6,8 +6,6 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
-using velowrench.Utils.Enums;
-using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;

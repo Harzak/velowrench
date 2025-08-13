@@ -1,11 +1,6 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Utils.Results;
 

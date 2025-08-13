@@ -2,19 +2,14 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using UnitsNet.Units;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
-using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
-using velowrench.Utils.Enums;
-using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;
@@ -210,7 +205,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// Handles changes to the calculation type selection.
     /// Triggers input validation and potential recalculation when the calculation method changes.
     /// </summary>
-    partial void OnSelectedCalculatorTypeChanged(EGearCalculatorType value)  {
+    partial void OnSelectedCalculatorTypeChanged(EGearCalculatorType value)
+    {
         base.RefreshCalculation();
     }
 
@@ -261,35 +257,4 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     {
         base.RefreshCalculation();
     }
-}
-
-/// <summary>
-/// Represents a single row of gear calculation results for display purposes.
-/// Contains calculated values for a specific sprocket size across all available chainrings.
-/// </summary>
-public class GearCalculResultRowModel
-{
-    /// <summary>
-    /// Gets or sets the number of teeth on the sprocket for this calculation row.
-    /// This value identifies which sprocket size this row represents.
-    /// </summary>
-    public int SprocketCount { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the calculated value for the primary (largest or only) chainring.
-    /// Always contains a value as the primary chainring is required for all calculations.
-    /// </summary>
-    public double Chainring1 { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the calculated value for the medium chainring.
-    /// Contains a value only when a medium chainring is configured in the input.
-    /// </summary>
-    public double? Chainring2 { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the calculated value for the smallest chainring.
-    /// Contains a value only when a small chainring is configured in the input.
-    /// </summary>
-    public double? Chainring3 { get; set; }
 }

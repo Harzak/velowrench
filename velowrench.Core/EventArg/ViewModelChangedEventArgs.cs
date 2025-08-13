@@ -11,7 +11,7 @@ public class ViewModelChangedEventArgs : EventArgs
     /// Gets the view model that was previously active, or null if this is the first navigation.
     /// </summary>
     public IRoutableViewModel? PreviousViewModel { get; }
-    
+
     /// <summary>
     /// Gets the view model that is now currently active.
     /// </summary>

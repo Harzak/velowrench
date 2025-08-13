@@ -12,27 +12,27 @@ public interface INavigationService
     /// Navigates to the home page and clears the navigation stack.
     /// </summary>
     void NavigateToHome();
-    
+
     /// <summary>
     /// Navigates to a specific tool page.
     /// </summary>
     void NavigateToTool(EVeloWrenchTools toolType);
-    
+
     /// <summary>
     /// Navigates to the help page for a specific tool.
     /// </summary>
     void NavigateToHelp(EVeloWrenchTools toolType);
-    
+
     /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
     void NavigateBack();
-    
+
     /// <summary>
     /// Gets a value indicating whether backward navigation is possible.
     /// </summary>
     bool CanNavigateBack { get; }
-    
+
     /// <summary>
     /// Gets the currently active view model.
     /// </summary>
@@ -45,7 +45,7 @@ public interface INavigationService
     /// Event raised when the current view model changes during navigation.
     /// </summary>
     event EventHandler<ViewModelChangedEventArgs> CurrentViewModelChanged;
-    
+
     /// <summary>
     /// Clears the entire navigation stack and sets the current view model to null.
     /// </summary>

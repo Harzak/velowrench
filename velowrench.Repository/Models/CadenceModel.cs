@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace velowrench.Repository.Models;
+﻿namespace velowrench.Repository.Models;
 
 /// <summary>
 /// Represents a cadence specification for cycling performance calculations.
@@ -15,7 +9,7 @@ public sealed record CadenceModel
     /// Gets the descriptive label for this cadence specification.
     /// </summary>
     public string Label { get; init; }
-    
+
     /// <summary>
     /// Gets the cadence value in revolutions per minute.
     /// </summary>

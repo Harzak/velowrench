@@ -1,7 +1,6 @@
 using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
-using UnitsNet;
 using UnitsNet.Units;
 using velowrench.Core.Units;
 
@@ -17,7 +16,7 @@ public class UnitDisplayConverter : IValueConverter
             UnitAbbreviation<LengthUnit> unitAbbreviation = new((LengthUnit)value);
             return unitAbbreviation.Abbreviation;
         }
-        
+
         return value?.ToString();
     }
 

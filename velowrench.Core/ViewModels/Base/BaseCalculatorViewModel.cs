@@ -1,14 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velowrench.Calculations.Calculators;
-using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
-using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -20,8 +13,8 @@ namespace velowrench.Core.ViewModels.Base;
 /// state management, and result handling. This abstract class standardizes the calculation workflow
 /// across different calculation types while allowing specific implementations for input creation and result processing.
 /// </summary>
-public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel 
-    where TInput : class 
+public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel
+    where TInput : class
     where TResult : BaseCalculatorResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
