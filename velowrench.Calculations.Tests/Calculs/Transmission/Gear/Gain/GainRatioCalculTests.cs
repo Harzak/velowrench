@@ -47,8 +47,8 @@ public class GainRatioCalculTests
         result.Should().NotBeNull();
         result.IsSuccess.Should().BeTrue();
         result.Content.Should().NotBeNull();
-        result.Content.RatiosSmallChainring.Should().BeEquivalentTo([6.2, 5.7, 5.3, 4.9, 4.3, 3.8, 3.3, 2.9, 2.5]);
-        result.Content.RatiosMediumChainring.Should().BeEquivalentTo([8.3, 7.6, 7, 6.5, 5.7, 5, 4.3, 3.8, 3.2]);
-        result.Content.RatiosLargeOrUniqueChainring.Should().BeEquivalentTo([9.7, 8.9, 8.2, 7.6, 6.7, 5.9, 5.1, 4.5, 3.8]);
+        result.Content.ValuesSmallChainring.Should().BeEquivalentTo([6.2, 5.7, 5.3, 4.9, 4.3, 3.8, 3.3, 2.9, 2.5]);
+        result.Content.ValuesMediumChainring.Should().BeEquivalentTo([8.3, 7.6, 7, 6.5, 5.7, 5, 4.3, 3.8, 3.2]);
+        result.Content.ValuesLargeOrUniqueChainring.Should().BeEquivalentTo([9.7, 8.9, 8.2, 7.6, 6.7, 5.9, 5.1, 4.5, 3.8]);
     }
 }

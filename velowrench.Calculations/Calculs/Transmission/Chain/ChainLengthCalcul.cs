@@ -29,7 +29,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
 
     protected override string CalculName => nameof(ChainLengthCalcul);
 
-    public ChainLengthCalcul(ILogger logger) : base(logger)
+    public ChainLengthCalcul(ILogger logger) : base(null!, logger) //todo 
     {
 
     }

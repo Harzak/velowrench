@@ -7,76 +7,110 @@ using System.Text;
 using System.Threading.Tasks;
 using velowrench.Calculations.Calculs.Transmission.Chain;
 using velowrench.Calculations.Exceptions;
+using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculs.Transmission.Gear;
 
-public abstract class GearCalcul<TInput, TResult> :  BaseCalcul<TInput, TResult>  where TInput : GearCalculInput where TResult : GearCalculResult
+public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
 {
-    protected GearCalcul(ILogger logger) : base(logger)
+    private const int INNER_CALCUL_PRECISION = 4;
+    protected override string CalculName => nameof(GearCalcul);
+
+    public GearCalcul(Func<ICalculInputValidation<GearCalculInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
     {
 
     }
 
-    protected override OperationResult<TResult> Calculate(TInput input) 
+    protected override OperationResult<GearCalculResult> Calculate(GearCalculInput input)
     {
         ArgumentNullException.ThrowIfNull(input, nameof(input));
-        CalculInputException.ThrowIfNegativeOrZero(input.TeethNumberLargeOrUniqueChainring, nameof(input.TeethNumberLargeOrUniqueChainring));
-        CalculInputException.ThrowIfNegative(input.Precision, nameof(input.TeethNumberLargeOrUniqueChainring));
 
-        if (input.TeethNumberMediumChainring.HasValue)
+        ICalculInputValidation<GearCalculInput> validator = base.GetValidation();
+        if (!validator.Validate(input))
         {
-            CalculInputException.ThrowIfNegativeOrZero(input.TeethNumberMediumChainring.Value, nameof(input.TeethNumberMediumChainring));
-        }
-        if (input.TeethNumberSmallChainring.HasValue)
-        {
-            CalculInputException.ThrowIfNegativeOrZero(input.TeethNumberSmallChainring.Value, nameof(input.TeethNumberSmallChainring));
+            throw new CalculInputException(validator.ErrorMessages);
         }
 
-        List<double> ratiosLargeOrUniqueChainring = [];
-        List<double> ratiosMediumChainring = [];
-        List<double> ratiosSmallChainring = [];
+        List<double> valuesLargeOrUniqueChainring = [];
+        List<double> valuesMediumChainring = [];
+        List<double> valuesSmallChainring = [];
 
         foreach (int teethCount in input.NumberOfTeethBySprocket.Order())
         {
-            double ratioLargeChainRing = this.CalculateRatio(input, input.TeethNumberLargeOrUniqueChainring, teethCount);
-            ratiosLargeOrUniqueChainring.Add(ratioLargeChainRing);
+            double ratioLargeChainRing = this.CalculateByMetrics(input, input.TeethNumberLargeOrUniqueChainring, teethCount);
+            valuesLargeOrUniqueChainring.Add(ratioLargeChainRing);
 
             if (input.TeethNumberMediumChainring.HasValue)
             {
-                double ratioMediumChainRing = this.CalculateRatio(input, input.TeethNumberMediumChainring.Value, teethCount);
-                ratiosMediumChainring.Add(ratioMediumChainRing);
+                double ratioMediumChainRing = this.CalculateByMetrics(input, input.TeethNumberMediumChainring.Value, teethCount);
+                valuesMediumChainring.Add(ratioMediumChainRing);
             }
 
             if (input.TeethNumberSmallChainring.HasValue)
             {
-                double ratioSmallChainRing = this.CalculateRatio(input, input.TeethNumberSmallChainring.Value, teethCount);
-                ratiosSmallChainring.Add(ratioSmallChainRing);
+                double ratioSmallChainRing = this.CalculateByMetrics(input, input.TeethNumberSmallChainring.Value, teethCount);
+                valuesSmallChainring.Add(ratioSmallChainRing);
             }
         }
 
-        OperationResult<TResult> result = new()
+        return new OperationResult<GearCalculResult>()
         {
-            Content = this.CreateResult(ratiosLargeOrUniqueChainring,
-                input.TeethNumberMediumChainring.HasValue ? ratiosMediumChainring : null,
-                input.TeethNumberSmallChainring.HasValue ? ratiosSmallChainring : null,
-                DateTime.UtcNow,
-                input)
+            Content = new GearCalculResult()
+            {
+                CalculatedAt = DateTime.UtcNow,
+                ValuesLargeOrUniqueChainring = new ReadOnlyCollection<double>(valuesLargeOrUniqueChainring),
+                ValuesMediumChainring = input.TeethNumberMediumChainring.HasValue ? new ReadOnlyCollection<double>(valuesMediumChainring) : null,
+                ValuesSmallChainring = input.TeethNumberSmallChainring.HasValue ? new ReadOnlyCollection<double>(valuesSmallChainring) : null,
+                UsedInputs = input
+            },
+            IsSuccess = true
         };
-
-        return result.WithSuccess();
     }
 
-    protected abstract TResult CreateResult(IList<double> ratiosLargeOrUniqueChainring,
-        IList<double>? ratiosMediumChainring,
-        IList<double>? ratiosSmallChainring,
-        DateTime calculatedAt,
-        TInput input);
+    private double CalculateByMetrics(GearCalculInput input, int teethCountChainring, int teethCountSprocket)
+    {
+        return input.CalculType switch
+        {
+            EGearCalculType.Development => this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, input.Precision),
+            EGearCalculType.GainRatio => this.CalculateGainRatio(input, teethCountChainring, teethCountSprocket,  input.Precision),
+            EGearCalculType.GearInches => this.CalculateGearInches(input, teethCountChainring, teethCountSprocket, input.Precision),
+            EGearCalculType.Speed => this.CalculateSpeed(input, teethCountChainring, teethCountSprocket, input.Precision),
+            _ => throw new NotSupportedException($"The calculation type '{input.CalculType}' is not supported."),
+        };
+    }
 
-    protected abstract double CalculateRatio(TInput input, int teethCountChainring, int teethCountSprocket);
-
-    protected double CalculateGearRatio(int teethCountChainring, int teethCountSprocket, int precision = 4)
+    private double CalculateGearRatio(int teethCountChainring, int teethCountSprocket, int precision = 4)
     {
         return Math.Round(teethCountChainring / (double)teethCountSprocket, precision);
+    }
+
+    private double CalculateGainRatio(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
+    {
+        double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
+        double gainRatio = ((input.WheelDiameterInInch / 2) / input.CrankLengthInInch!.Value) * gearRatio;
+        return Math.Round(gainRatio, precision);
+    }
+
+    private double CalculateGearInches(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
+    {
+        double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
+        double gearInches = input.WheelDiameterInInch * gearRatio;
+        return Math.Round(gearInches, precision);
+    }
+
+    private double CalculateDevelopment(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
+    {
+        double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
+        double circumferenceInInch = Math.PI * input.WheelDiameterInInch;
+        double developmentInInch = circumferenceInInch * gearRatio;
+        return Math.Round(developmentInInch, precision);
+    }
+
+    private double CalculateSpeed(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
+    {
+        double developmentInInch = this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, INNER_CALCUL_PRECISION);
+        double speedInInchPerMinute = input.RevolutionPerMinute!.Value * developmentInInch;
+        return Math.Round(speedInInchPerMinute, precision);
     }
 }

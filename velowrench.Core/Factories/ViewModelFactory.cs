@@ -1,4 +1,5 @@
 ﻿using velowrench.Calculations.Calculs.Transmission.Chain;
+using velowrench.Calculations.Calculs.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
@@ -16,14 +17,17 @@ public sealed class ViewModelFactory : IViewModelFactory
 {
     private readonly ILocalizer _localizer;
     private readonly ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _chainLengthCalculFactory;
+    private readonly ICalculFactory<GearCalculInput, GearCalculResult> _gearCalculFactory;
     private readonly IComponentStandardRepository _componentStandardRepository;
 
     public ViewModelFactory(ILocalizer localizer,
-        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
+        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> chainCalculFactory,
+        ICalculFactory<GearCalculInput, GearCalculResult> gearCalculFactory,
         IComponentStandardRepository componentStandardRepository)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
-        _chainLengthCalculFactory = calculFactory ?? throw new ArgumentNullException(nameof(calculFactory));
+        _chainLengthCalculFactory = chainCalculFactory ?? throw new ArgumentNullException(nameof(chainCalculFactory));
+        _gearCalculFactory = gearCalculFactory ?? throw new ArgumentNullException(nameof(gearCalculFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
     }
 
@@ -50,7 +54,7 @@ public sealed class ViewModelFactory : IViewModelFactory
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(navigationService, _componentStandardRepository, _localizer);
+                return new GearCalculatorViewModel(_gearCalculFactory, navigationService, _componentStandardRepository, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
             default:

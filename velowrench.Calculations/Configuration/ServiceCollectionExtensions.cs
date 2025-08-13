@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Calculations.Calculs;
 using velowrench.Calculations.Calculs.Transmission.Chain;
+using velowrench.Calculations.Calculs.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Interfaces;
 
@@ -24,5 +26,7 @@ public static class ServiceCollectionExtensions
     public static void AddCalculationServices(this IServiceCollection collection)
     {
         collection.AddSingleton<ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>, ChainLengthCalculFactory>();
+        collection.AddSingleton<ICalculFactory<GearCalculInput, GearCalculResult>, GearCalculFactory>();
+        collection.AddSingleton<Func<ICalculInputValidation<GearCalculInput>>>(() => new GearCalculInputValidation());
     }
 }

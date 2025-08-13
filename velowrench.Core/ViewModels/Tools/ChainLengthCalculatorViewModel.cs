@@ -71,7 +71,8 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseRoutableViewMod
     [ObservableProperty]
     private ECalculState _currentState;
 
-    public ChainLengthCalculatorViewModel(ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
+    public ChainLengthCalculatorViewModel(
+        ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> calculFactory,
         INavigationService navigationService,
         ILocalizer localizer)
     : base(navigationService)
@@ -86,7 +87,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseRoutableViewMod
         _chainStayLength.ValueChanged += this.OnChainStayLengthValueChanged;
 
         this.Name = localizer.GetString("ChainLengthCalculator");
-        this.CurrentState = ECalculState.NotStarted; ;
+        this.CurrentState = ECalculState.NotStarted;
     }
 
     /// <summary>

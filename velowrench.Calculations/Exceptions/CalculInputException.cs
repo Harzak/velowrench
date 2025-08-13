@@ -13,20 +13,22 @@ namespace velowrench.Calculations.Exceptions;
 /// </summary>
 public class CalculInputException : Exception
 {
-    public CalculInputException()
-        : base("Invalid input for calculation.")
+    public CalculInputException()  : base("Invalid input for calculation.")
     {
 
     }
 
-    public CalculInputException(string message)
-        : base(message)
+    public CalculInputException(string message) : base(message)
     {
 
     }
 
-    public CalculInputException(string message, Exception innerException)
-        : base(message, innerException)
+    public CalculInputException(IEnumerable<string> messages) : base(string.Join(Environment.NewLine, messages))
+    {
+
+    }
+
+    public CalculInputException(string message, Exception innerException)  : base(message, innerException)
     {
 
     }

@@ -16,4 +16,6 @@ public interface ICalcul<TInput, TResult> : ICalcul where TInput : class
     /// <param name="input">The input data for the calculation.</param>
     /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
     OperationResult<TResult> Start(TInput input);
+
+    Func<ICalculInputValidation<TInput>> GetValidation { get; }
 }

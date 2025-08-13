@@ -38,8 +38,11 @@ public abstract class BaseCalcul<TInput, TResult> : ICalcul<TInput, TResult> whe
     /// </summary>
     public event EventHandler<CalculStateEventArgs>? StateChanged;
 
-    protected BaseCalcul(ILogger logger)
+    public Func<ICalculInputValidation<TInput>> GetValidation { get; }
+
+    protected BaseCalcul(Func<ICalculInputValidation<TInput>> validationProvider, ILogger logger)
     {
+        this.GetValidation = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
         this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         this.State = ECalculState.NotStarted;
     }

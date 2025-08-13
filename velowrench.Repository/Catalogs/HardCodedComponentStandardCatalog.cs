@@ -128,6 +128,7 @@ public static class HardCodedComponentStandardCatalog
 
     public static ReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecification => new(
     [
+        new("9", 9),
         new("10", 10),
         new("11", 11),
         new("12", 12),

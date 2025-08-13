@@ -1,191 +1,291 @@
 <UserControl x:Class="velowrench.UI.Views.Tools.GearCalculatorView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:velowrench.UI.Converters"
+             xmlns:enums="using:velowrench.Utils.Enums"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
              x:DataType="vm:Tools.GearCalculatorViewModel"
-			            xmlns:converters="clr-namespace:velowrench.UI.Converters"
              Design.Height="640"
              Design.Width="360">
 
-	<UserControl.Resources>
-		<converters:ContainsConverter x:Key="ContainsConverter" />
-	</UserControl.Resources>
-	
-    <Grid Margin="20,10"
-          ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+    <UserControl.Resources>
+        <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
+        <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
+    </UserControl.Resources>
 
-        <!--  Calcul Type  -->
-        <Grid Grid.Row="0" Grid.Column="0"
-              Margin="0,10,0,10"
-              ColumnDefinitions="2*,2*" RowDefinitions="Auto, Auto">
-            <TextBlock Grid.Row="0" Grid.Column="0"
-                       Margin="0,0,0,8"
-                       Text="Output format" />
-            <ComboBox Grid.Row="1" Grid.Column="0"
-                      Margin="0,0,10,0" HorizontalAlignment="Stretch"
-                      IsEnabled="False" PlaceholderText="Gain ratio" />
-            <Button Grid.Row="1" Grid.Column="1"
-                    HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Theme="{DynamicResource BorderlessButton}">
-                <materialIcons:MaterialIcon Width="20" Height="20"
-                                            Foreground="{DynamicResource SemiColorText0}"
-                                            Kind="InfoOutline" />
-            </Button>
-        </Grid>
-
-        <!--  Wheel & Crank &  Input & Cadence  -->
-        <Grid Grid.Row="1" Grid.Column="0"
-              Margin="0,10,0,10"
-              ColumnDefinitions="2*, 2*" RowDefinitions="Auto, Auto">
-
-            <TextBlock Grid.Row="0" Grid.Column="0"
-                       Margin="0,0,0,8"
-                       Text="Wheel size" />
-            <ComboBox Grid.Row="1" Grid.Column="0"
-                      Margin="0,0,10,0" HorizontalAlignment="Stretch"
-                      ItemsSource="{Binding SourceWheels}"
-                      SelectedItem="{Binding SelectedWheel}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Label}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-            <TextBlock Grid.Row="0" Grid.Column="1"
-                       Margin="10,0,0,8"
-                       IsVisible="False" Text="Crank length" />
-            <ComboBox Grid.Row="1" Grid.Column="1"
-                      Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                      IsVisible="False"
-                      ItemsSource="{Binding SourceCranks}"
-                      PlaceholderText="170 mm"
-                      SelectedItem="{Binding SelectedCrank}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Label}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-            <TextBlock Grid.Row="0" Grid.Column="1"
-                       Margin="10,0,0,8"
-                       IsVisible="True" Text="Cadence" />
-            <ComboBox Grid.Row="1" Grid.Column="1"
-                      Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                      IsVisible="True"
-                      ItemsSource="{Binding SourceCadence}"
-                      PlaceholderText="80 rpm"
-                      SelectedItem="{Binding SelectedCadence}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Label}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </Grid>
-
-        <!--  Chainrings Input  -->
-        <Grid Grid.Row="2" Grid.Column="0"
-              Margin="0,10,0,10"
-              ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto, Auto, Auto">
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                       Margin="0,0,0,8"
-                       Text="Chainring(s) teeth" />
-
-            <NumericUpDown Grid.Row="1" Grid.Column="0"
-                           Margin="0,0,10,0"
-                           Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
-                           Value="10" />
-
-            <NumericUpDown Grid.Row="1" Grid.Column="1"
-                           Margin="10,0,10,0"
-                           Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
-                           Value="10" />
-
-            <NumericUpDown Grid.Row="1" Grid.Column="2"
-                           Margin="10,0,0,0"
-                           Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
-                           Value="10" />
-        </Grid>
-
-        <!--  Sprockets Input  -->
-        <Grid Grid.Row="3" Grid.Column="0"
-              Margin="0,10,0,20"
-              ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
-            <TextBlock Grid.Row="0" Grid.Column="0"
-                       Margin="0,0,0,8"
-                       Text="Sprocket(s) teeth" />
-            <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                      HorizontalAlignment="Stretch"
-                      ItemsSource="{Binding SourceSprockets}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-						<Button Background="Transparent"
-			 BorderThickness="0"
-			 Padding="0"
-			 HorizontalAlignment="Stretch"
-			 HorizontalContentAlignment="Left"
-			 Command="{Binding $parent[UserControl].DataContext.SprocketSelectedCommand}"
-			 CommandParameter="{Binding}">
-							<StackPanel Orientation="Horizontal">
-								<CheckBox IsHitTestVisible="False"
-										  VerticalAlignment="Center"
-										  IsChecked="{Binding $parent[UserControl].DataContext.SelectedSprockets, 
-                                                 Converter={StaticResource ContainsConverter}, 
-                                                 ConverterParameter={Binding}}" />
-								<TextBlock Margin="10,0,0,0"
-										   VerticalAlignment="Center"
-										   Text="{Binding Label}" />
-							</StackPanel>
-						</Button>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-                <ComboBox.SelectionBoxItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding $parent[UserControl].DataContext.SelectedSprocketsStr}" />
-                    </DataTemplate>
-                </ComboBox.SelectionBoxItemTemplate>
-            </ComboBox>
-        </Grid>
-
-        <!--  Calcul State  -->
-        <Grid Grid.Row="4" Grid.Column="0"
-              Margin="0,10,0,20"
-              ColumnDefinitions="*" RowDefinitions="Auto, Auto">
-            <materialIcons:MaterialIcon Grid.Row="0" Grid.Column="0"
-                                        Width="25" Height="25"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                                        Foreground="{DynamicResource SemiColorSuccess}"
-                                        Kind="CheckBold" />
-            <TextBlock Grid.Row="1" Grid.Column="0"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Text="{x:Static res:Languages.Calculated}" />
-        </Grid>
-
-        <!--  Result  -->
-        <!--<Grid Grid.Row="5" Grid.Column="0"
-              ColumnDefinitions="*" RowDefinitions="Auto, Auto">
+    <ScrollViewer>
+        <StackPanel Margin="20,10" Orientation="Vertical">
+            <!--  Calcul Type  -->
             <Grid Grid.Row="0" Grid.Column="0"
-                  ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto">
+                  Margin="0,10,0,10"
+                  ColumnDefinitions="2*,2*" RowDefinitions="Auto, Auto">
                 <TextBlock Grid.Row="0" Grid.Column="0"
-                           Margin="0,0,0,10"
-                           Text="units" />
-                <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           Text="Output format" />
+                <ComboBox Grid.Row="1" Grid.Column="0"
                           Margin="0,0,10,0" HorizontalAlignment="Stretch"
-                          IsEnabled="False" PlaceholderText="km/h" />
+                          ItemsSource="{Binding CalculationTypes}"
+                          SelectedItem="{Binding SelectedCalculType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={StaticResource EnumDisplayNameConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Grid.Row="1" Grid.Column="1"
+                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <materialIcons:MaterialIcon Width="20" Height="20"
+                                                Foreground="{DynamicResource SemiColorText0}"
+                                                Kind="InfoOutline" />
+                </Button>
             </Grid>
 
-            <DataGrid Grid.Row="1" Grid.Column="0"
-                      Margin="0,20,0,0"
-                      AutoGenerateColumns="True" BorderBrush="Gray" BorderThickness="1" GridLinesVisibility="All"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding Items}" />
+            <!--  Wheel & Crank &  Input & Cadence  -->
+            <Grid Grid.Row="1" Grid.Column="0"
+                  Margin="0,10,0,10"
+                  ColumnDefinitions="2*, 2*" RowDefinitions="Auto, Auto">
 
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Margin="0,0,0,8"
+                           Text="Wheel size" />
+                <ComboBox Grid.Row="1" Grid.Column="0"
+                          Margin="0,0,10,0" HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding SourceWheels}"
+                          SelectedItem="{Binding SelectedWheel}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Label}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-        </Grid>-->
+                <TextBlock Grid.Row="0" Grid.Column="1"
+                           Margin="10,0,0,8"
+                           IsVisible="False" Text="Crank length" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          Margin="10,0,0,0" HorizontalAlignment="Stretch"
+                          IsVisible="False"
+                          ItemsSource="{Binding SourceCranks}"
+                          PlaceholderText="170 mm"
+                          SelectedItem="{Binding SelectedCrank}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Label}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-    </Grid>
+                <TextBlock Grid.Row="0" Grid.Column="1"
+                           Margin="10,0,0,8"
+                           IsVisible="True" Text="Cadence" />
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          Margin="10,0,0,0" HorizontalAlignment="Stretch"
+                          IsVisible="True"
+                          ItemsSource="{Binding SourceCadence}"
+                          PlaceholderText="80 rpm"
+                          SelectedItem="{Binding SelectedCadence}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Label}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+
+            <!--  Chainrings Input  -->
+            <Grid Grid.Row="2" Grid.Column="0"
+                  Margin="0,10,0,10"
+                  ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto, Auto, Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           Text="Chainring(s) teeth" />
+
+                <NumericUpDown Grid.Row="1" Grid.Column="0"
+                               Margin="0,0,10,0"
+                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Value="{Binding Chainring1TeethCount, Delay=1000}" />
+
+                <NumericUpDown Grid.Row="1" Grid.Column="1"
+                               Margin="10,0,10,0"
+                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Value="{Binding Chainring2TeethCount, Delay=1000}" />
+
+                <NumericUpDown Grid.Row="1" Grid.Column="2"
+                               Margin="10,0,0,0"
+                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Value="{Binding Chainring3TeethCount, Delay=1000}" />
+            </Grid>
+
+            <!--  Sprockets Input  -->
+            <Grid Grid.Row="3" Grid.Column="0"
+                  Margin="0,10,0,20"
+                  ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Margin="0,0,0,8"
+                           Text="Sprocket(s) teeth" />
+                <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding SourceSprockets}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Height="35"
+                                      Margin="0,-8" HorizontalAlignment="Stretch"
+                                      Command="{Binding $parent[UserControl].DataContext.SprocketSelectedCommand}"
+                                      CommandParameter="{Binding}">
+                                <TextBlock Margin="10,0,0,0" Text="{Binding Label}" />
+                            </CheckBox>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.SelectionBoxItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding $parent[UserControl].DataContext.SelectedSprocketsStr}" />
+                        </DataTemplate>
+                    </ComboBox.SelectionBoxItemTemplate>
+                </ComboBox>
+            </Grid>
+
+            <!--  Result  -->
+            <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
+                            Content="{Binding CurrentState}">
+                <ContentControl.DataTemplates>
+                    <DataTemplate DataType="enums:ECalculState">
+                        <ContentControl Content="{Binding}">
+                            <ContentControl.Styles>
+
+                                <Style Selector="ContentControl[Content=NotStarted]">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                                    <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                Foreground="{DynamicResource SemiColorTertiary}"
+                                                                                Kind="AccountQuestionOutline" />
+                                                    <TextBlock Grid.Row="1"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                               Text="{x:Static res:Languages.EnterValues}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="ContentControl[Content=InProgress]">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                                    <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                Foreground="{DynamicResource SemiColorInformation}"
+                                                                                Kind="TimerSand" />
+                                                    <TextBlock Grid.Row="1"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                               Text="{x:Static res:Languages.CalculationInProgress}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="ContentControl[Content=Computed]">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                                                    <StackPanel Grid.Column="0"
+                                                                Margin="0,20,0,25"
+                                                                Orientation="Vertical">
+                                                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                    Foreground="{DynamicResource SemiColorSuccess}"
+                                                                                    Kind="CheckBold" />
+                                                        <TextBlock Grid.Row="1"
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                   Text="{x:Static res:Languages.Calculated}" />
+                                                    </StackPanel>
+
+                                                    <Grid Grid.Row="5" Grid.Column="0"
+                                                          HorizontalAlignment="Center"
+                                                          ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
+
+                                                        <DataGrid Grid.Row="1" Grid.Column="0"
+                                                                  Margin="0,20,0,0" HorizontalAlignment="Center"
+                                                                  BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                                                                  CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
+                                                                  ItemsSource="{Binding $parent[UserControl].DataContext.Datas}">
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn Binding="{Binding SprocketCount}"
+                                                                                    Header="" IsVisible="True" />
+                                                                <DataGridTextColumn Binding="{Binding Chainring1}"
+                                                                                    Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}}" IsVisible="True" />
+                                                                <DataGridTextColumn Binding="{Binding Chainring2}"
+                                                                                    Header="{Binding $parent[UserControl].DataContext.Chainring2TeethCount}"
+                                                                                    IsVisible="{Binding $parent[UserControl].DataContext.Chainring2TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
+                                                                <DataGridTextColumn Binding="{Binding Chainring3}"
+                                                                                    Header="{Binding $parent[UserControl].DataContext.Chainring3TeethCount}"
+                                                                                    IsVisible="{Binding $parent[UserControl].DataContext.Chainring3TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="ContentControl[Content=Failed]">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                                                    <StackPanel Grid.Column="0"
+                                                                Margin="0,20,0,25"
+                                                                Orientation="Vertical">
+                                                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                    Foreground="{DynamicResource SemiColorDanger}"
+                                                                                    Kind="ErrorOutline" />
+                                                        <TextBlock Grid.Row="1"
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                   Text="{x:Static res:Languages.CalculationFailed}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="ContentControl[Content=Unknown]">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                                                    <StackPanel Grid.Column="0"
+                                                                Margin="0,20,0,25"
+                                                                Orientation="Vertical">
+                                                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                                    Foreground="{DynamicResource SemiColorWarning}"
+                                                                                    Kind="CloseCircleOutline" />
+                                                        <TextBlock Grid.Row="1"
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                   Text="{x:Static res:Languages.SomethingWentWrong}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                            </ContentControl.Styles>
+                        </ContentControl>
+                    </DataTemplate>
+                </ContentControl.DataTemplates>
+            </ContentControl>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
