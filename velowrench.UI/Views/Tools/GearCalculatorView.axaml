@@ -223,7 +223,7 @@
                                                                   Margin="0,20,0,0" HorizontalAlignment="Center"
                                                                   BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
                                                                   CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
-                                                                  ItemsSource="{Binding $parent[UserControl].DataContext.Datas}">
+                                                                  ItemsSource="{Binding $parent[UserControl].DataContext.GearCalculResultRows}">
                                                             <DataGrid.Columns>
                                                                 <DataGridTextColumn Binding="{Binding SprocketCount}"
                                                                                     Header="" IsVisible="True" />

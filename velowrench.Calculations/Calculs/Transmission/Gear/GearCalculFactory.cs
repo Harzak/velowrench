@@ -9,6 +9,11 @@ using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Calculs.Transmission.Gear;
 
+/// <summary>
+/// Factory for creating gear calculation instances.
+/// Implements the factory pattern to provide properly configured <see cref="GearCalcul"/> instances
+/// with required dependencies for validation and logging.
+/// </summary>
 public class GearCalculFactory : ICalculFactory<GearCalculInput, GearCalculResult>
 {
     private readonly Func<ICalculInputValidation<GearCalculInput>> _validationProvider;
@@ -21,9 +26,9 @@ public class GearCalculFactory : ICalculFactory<GearCalculInput, GearCalculResul
     }
 
     /// <summary>
-    /// Creates a new gear calculation instance.
+    /// Creates a new gear calculation instance ready to perform calculations.
+    /// Each created instance is independent and can be used for multiple calculations.
     /// </summary>
-    /// <returns>A new <see cref="GearCalcul"/> instance ready to perform calculations.</returns>
     public ICalcul<GearCalculInput, GearCalculResult> CreateCalcul()
     {
         return new GearCalcul(_validationProvider, _logger);

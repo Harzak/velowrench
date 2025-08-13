@@ -12,9 +12,14 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculs.Transmission.Gear;
 
+/// <summary>
+/// Performs gear ratio calculations for bicycle drivetrains.
+/// Calculates various gear metrics including gear inches, development, gain ratio, and speed
+/// </summary>
 public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
 {
     private const int INNER_CALCUL_PRECISION = 4;
+
     protected override string CalculName => nameof(GearCalcul);
 
     public GearCalcul(Func<ICalculInputValidation<GearCalculInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
@@ -22,6 +27,11 @@ public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
 
     }
 
+    /// <summary>
+    /// Performs the gear calculation based on the specified input parameters.
+    /// Calculates the appropriate metric (gear inches, development, gain ratio, or speed) 
+    /// for each combination of chainrings and sprockets.
+    /// </summary>
     protected override OperationResult<GearCalculResult> Calculate(GearCalculInput input)
     {
         ArgumentNullException.ThrowIfNull(input, nameof(input));
@@ -80,11 +90,18 @@ public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
         };
     }
 
+    /// <summary>
+    /// Raw ratio between rear sprocket and front chainring used as the basis for other calculations
+    /// </summary>
     private double CalculateGearRatio(int teethCountChainring, int teethCountSprocket, int precision = 4)
     {
         return Math.Round(teethCountChainring / (double)teethCountSprocket, precision);
     }
 
+    /// <summary>
+    /// Gain ratio calculation that considers crank arm length in the gear ratio formula.
+    /// Provides a more accurate representation of mechanical advantage for pedaling efficiency.
+    /// </summary>
     private double CalculateGainRatio(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
@@ -92,6 +109,11 @@ public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
         return Math.Round(gainRatio, precision);
     }
 
+    /// <summary>
+    /// Traditional gear inches calculation that represents the diameter of a wheel 
+    /// that would travel the same distance per pedal revolution as the actual gear combination.
+    /// Standard measurement for comparing gear ratios across different bicycle configurations.
+    /// </summary>
     private double CalculateGearInches(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
@@ -99,6 +121,11 @@ public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
         return Math.Round(gearInches, precision);
     }
 
+    /// <summary>
+    /// Development calculation that measures the distance traveled per pedal revolution.
+    /// Expressed in inches, this metric directly shows how far the bicycle moves forward 
+    /// with each complete pedal stroke for a given gear combination.
+    /// </summary>
     private double CalculateDevelopment(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
@@ -107,6 +134,10 @@ public class GearCalcul : BaseCalcul<GearCalculInput, GearCalculResult>
         return Math.Round(developmentInInch, precision);
     }
 
+    /// <summary>
+    /// Speed calculation that determines theoretical speed based on cadence and gear ratio.
+    /// Calculates the speed achievable at a specific pedaling rate (RPM) for each gear combination.
+    /// </summary>
     private double CalculateSpeed(GearCalculInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double developmentInInch = this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, INNER_CALCUL_PRECISION);

@@ -80,7 +80,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
     /// </summary>
     private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
     {
-        base.OnInputsChanged();
+        base.RefreshCalculation();
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
     /// </summary>
     partial void OnTeethLargestChainringChanged(int? value)
     {
-        base.OnInputsChanged();
+        base.RefreshCalculation();
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculViewModel
     /// </summary>
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        base.OnInputsChanged();
+        base.RefreshCalculation();
     }
 
     protected override ChainLengthCalculInput GetInput()

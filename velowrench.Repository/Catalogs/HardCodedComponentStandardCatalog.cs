@@ -8,8 +8,14 @@ using velowrench.Repository.Models;
 
 namespace velowrench.Repository.Catalogs;
 
+/// <summary>
+/// Provides temporary static collections of standard bicycle component specifications for use throughout the application.
+/// </summary>
 public static class HardCodedComponentStandardCatalog
 {
+    /// <summary>
+    /// Gets a collection of all available crankset specifications.
+    /// </summary>
     public static ReadOnlyCollection<CranksetSpecificationModel> GetAllCranksetSpecifications => new(
     [
         new("100 mm", 100),
@@ -33,6 +39,9 @@ public static class HardCodedComponentStandardCatalog
         new("190 mm", 190),
     ]);
 
+    /// <summary>
+    /// Gets a collection of all available wheel specifications.
+    /// </summary>
     public static ReadOnlyCollection<WheelSpecificationModel> GetAllWheelSpecifications => new(
     [
         new("10 × 1 5/8 (10'')",7.638 ,194),
@@ -93,6 +102,9 @@ public static class HardCodedComponentStandardCatalog
         new("36'' (unicycle / 36er)",30.984 ,787)
     ]);
 
+    /// <summary>
+    /// Gets a collection of the most commonly used wheel specifications.
+    /// </summary>
     public static ReadOnlyCollection<WheelSpecificationModel> GetMostCommonWheelSpecifications => new(
     [
         new("16'' / 400×38B",12.992  ,330),
@@ -116,6 +128,9 @@ public static class HardCodedComponentStandardCatalog
         new("36'' (unicycle/36er)",30.984 ,787)
     ]);
 
+    /// <summary>
+    /// Gets a collection of commonly used cadence values.
+    /// </summary>
     public static ReadOnlyCollection<CadenceModel> GetMostUsedCandences => new(
     [
         new("40 rpm", 40),
@@ -126,6 +141,9 @@ public static class HardCodedComponentStandardCatalog
         new("120 rpm", 120)
     ]);
 
+    /// <summary>
+    /// Gets a comprehensive collection of standard sprocket specifications.
+    /// </summary>
     public static ReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecification => new(
     [
         new("9", 9),

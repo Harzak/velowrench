@@ -7,10 +7,14 @@ using velowrench.Calculations.Calculs.Transmission.Gear;
 
 namespace velowrench.Calculations.Calculs;
 
+/// <summary>
+/// Provides a base implementation for calculation result types that contain both the computed output
+/// and metadata about the calculation operation.
+/// </summary>
 public abstract record BaseCalculResult<TInput> where TInput : class
 {
     /// <summary>
-    /// Gets the UTC timestamp when this calculation was performed.
+    /// Gets the UTC timestamp indicating when this calculation was performed.
     /// </summary>
     public required DateTime CalculatedAt { get; init; }
 

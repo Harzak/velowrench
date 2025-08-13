@@ -15,19 +15,34 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Base;
 
-public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutableViewModel where TInput : class where TResult : BaseCalculResult<TInput>
+/// <summary>
+/// Provides a base implementation for view models that perform calculations with input validation,
+/// state management, and result handling. This abstract class standardizes the calculation workflow
+/// across different calculation types while allowing specific implementations for input creation and result processing.
+/// </summary>
+public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutableViewModel 
+    where TInput : class 
+    where TResult : BaseCalculResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
-    protected ICalcul<TInput, TResult> Calcul { get; }
     private OperationResult<TResult>? _lastResult;
 
     /// <summary>
-    /// Gets or sets the current state of the chain length calculation.
+    /// Gets the calculation engine instance used to perform calculations.
+    /// This instance handles the actual calculation logic, validation, and state management.
+    /// </summary>
+    protected ICalcul<TInput, TResult> Calcul { get; }
+
+    /// <summary>
+    /// Gets or sets the current state of the calculation operation.
     /// </summary>
     [ObservableProperty]
     private ECalculState _currentState;
 
+    /// <summary>
+    /// Gets or sets error messages from input validation failures.
+    /// </summary>
     [ObservableProperty]
     private string? _calculInputErrors;
 
@@ -50,7 +65,7 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     /// <summary>
     /// Handles input changes and triggers calculation if inputs are valid.
     /// </summary>
-    protected void OnInputsChanged()
+    protected void RefreshCalculation()
     {
         TInput input = this.GetInput();
         if (this.CanStartCalculation(input))
@@ -60,7 +75,7 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
     }
 
     /// <summary>
-    /// Determines whether a calculation can be started based on current input validity and calculation state.
+    /// Determines whether a calculation can be started based on current conditions.
     /// </summary>
     protected virtual bool CanStartCalculation(TInput input)
     {
@@ -80,8 +95,14 @@ public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutabl
         }
     }
 
+    /// <summary>
+    /// Creates and returns the calculation input based on current view model state.
+    /// </summary>
     protected abstract TInput GetInput();
 
+    /// <summary>
+    /// Processes successful calculation results and updates the view model state.
+    /// </summary>
     protected abstract void OnCalculSuccessfull(OperationResult<TResult> result);
 
     /// <summary>

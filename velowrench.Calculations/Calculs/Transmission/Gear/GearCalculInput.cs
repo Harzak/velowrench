@@ -12,23 +12,65 @@ namespace velowrench.Calculations.Calculs.Transmission.Gear;
 /// </summary>
 public sealed record GearCalculInput
 {
-    public required int TeethNumberLargeOrUniqueChainring { get; init; }
-    public int? TeethNumberMediumChainring { get; init; }
-    public int? TeethNumberSmallChainring { get; init; }
-    public required IList<int> NumberOfTeethBySprocket { get; init; }
-    public required double WheelDiameterInInch { get; init; }
     /// <summary>
-    /// Only used for gain ratio calculations, set at null otherwise.
+    /// Gets the number of teeth on the largest or unique chainring (front gear).
+    /// This is the primary chainring used in single chainring setups or the largest ring in multi-ring configurations.
     /// </summary>
+    public required int TeethNumberLargeOrUniqueChainring { get; init; }
+    
+    /// <summary>
+    /// Gets the number of teeth on the medium chainring (front gear).
+    /// Optional parameter used in triple chainring configurations.
+    /// </summary>
+    public int? TeethNumberMediumChainring { get; init; }
+    
+    /// <summary>
+    /// Gets the number of teeth on the smallest chainring (front gear).
+    /// Optional parameter used in double or triple chainring configurations.
+    /// </summary>
+    public int? TeethNumberSmallChainring { get; init; }
+    
+    /// <summary>
+    /// Gets the collection of teeth counts for all sprockets in the cassette or freewheel (rear gears).
+    /// Each value represents the number of teeth on a specific sprocket.
+    /// </summary>
+    public required IList<int> NumberOfTeethBySprocket { get; init; }
+    
+    /// <summary>
+    /// Gets the wheel diameter in inches, measured at the tire's outer circumference.
+    /// This measurement affects the actual distance traveled per wheel revolution.
+    /// </summary>
+    public required double WheelDiameterInInch { get; init; }
+    
+    /// <summary>
+    /// Gets the crank arm length in inches.
+    /// Only used for gain ratio calculations, should be set to null for other calculation types.
+    /// </summary>
+    /// <value>
+    /// Required for <see cref="EGearCalculType.GainRatio"/> calculations, null for other calculation types
+    /// </value>
     public required double? CrankLengthInInch { get; init; }
 
     /// <summary>
-    /// Only used for speed calculations, set at null otherwise.
+    /// Gets the pedaling cadence in revolutions per minute.
+    /// Only used for speed calculations, should be set to null for other calculation types.
     /// </summary>
+    /// <value>
+    /// Required for <see cref="EGearCalculType.Speed"/> calculations, null for other calculation types
+    /// </value>
     public required int? RevolutionPerMinute { get; init; }
 
+    /// <summary>
+    /// Gets the type of gear calculation to perform.
+    /// Determines which calculation algorithm is used and which optional parameters are required.
+    /// </summary>
     public required EGearCalculType CalculType { get; init; }
-    public int Precision { get; init; }  
+    
+    /// <summary>
+    /// Gets the number of decimal places to include in calculation results.
+    /// Controls the precision of the output values.
+    /// </summary>
+    public int Precision { get; init; }
 
     public GearCalculInput()
     {
