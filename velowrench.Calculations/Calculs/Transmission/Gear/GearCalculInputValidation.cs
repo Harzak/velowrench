@@ -9,7 +9,7 @@ using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Calculs.Transmission.Gear;
 
-internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalculInput>
+internal sealed class GearCalculInputValidation : ICalculInputValidation<GearCalculInput>
 {
     internal const int MIN_CRANK_LENGTH_MM = 100;
     internal const int MAX_CRANK_LENGTH_MM = 190;
@@ -23,9 +23,9 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
     internal const int MIN_RPM = 20;
     internal const int MAX_RPM = 150;
 
-    public IEnumerable<string> ErrorMessages => _errorMessage;
-
     private readonly List<string> _errorMessage;
+
+    public IEnumerable<string> ErrorMessages => _errorMessage;
 
     public GearCalculInputValidation()
     {
@@ -34,8 +34,6 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
 
     public bool Validate(GearCalculInput input)
     {
-        List<string> errorLst = [];
-
         if (input == null)
         {
             _errorMessage.Add("Input cannot be null.");
@@ -76,7 +74,7 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
             _errorMessage.Add($"Maximum {MAX_SPROCKETS_COUNT} sprockets allowed ({input.NumberOfTeethBySprocket.Count} entered).");
         }
 
-        if(input.NumberOfTeethBySprocket.Any(x => !SprocketTeethCountIsValid(x)))
+        if (input.NumberOfTeethBySprocket.Any(x => !SprocketTeethCountIsValid(x)))
         {
             _errorMessage.Add($"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }

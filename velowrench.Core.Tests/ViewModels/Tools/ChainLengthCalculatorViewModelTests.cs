@@ -23,6 +23,7 @@ public class ChainLengthCalculatorViewModelTests
 {
     private ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult> _factory;
     private ICalcul<ChainLengthCalculInput, ChainLengthCalculResult> _calcul;
+    private ICalculInputValidation<ChainLengthCalculInput> _inputValidation;
     private INavigationService _navigationService;
     private ILocalizer _localizer;
     private ChainLengthCalculatorViewModel _viewModel;
@@ -34,8 +35,10 @@ public class ChainLengthCalculatorViewModelTests
         _navigationService = A.Fake<INavigationService>();
         _localizer = A.Fake<ILocalizer>();
         _calcul = A.Fake<ICalcul<ChainLengthCalculInput, ChainLengthCalculResult>>();
+        _inputValidation = A.Fake<ICalculInputValidation<ChainLengthCalculInput>>();
 
         A.CallTo(() => _factory.CreateCalcul()).Returns(_calcul);
+        A.CallTo(() => _calcul.GetValidation()).Returns(_inputValidation);
 
         _viewModel = new(_factory, _navigationService, _localizer);
     }
@@ -79,6 +82,7 @@ public class ChainLengthCalculatorViewModelTests
 
         A.CallTo(() => _calcul.Start(A<ChainLengthCalculInput>._)).Returns(expectedResult);
         A.CallTo(() => _calcul.State).Returns(ECalculState.NotStarted);
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculInput>._)).Returns(true);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
@@ -184,6 +188,7 @@ public class ChainLengthCalculatorViewModelTests
 
         A.CallTo(() => _calcul.Start(A<ChainLengthCalculInput>._)).Returns(result);
         A.CallTo(() => _calcul.State).Returns(ECalculState.NotStarted);
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculInput>._)).Returns(true);
 
         // Act - First calculation
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
@@ -257,6 +262,8 @@ public class ChainLengthCalculatorViewModelTests
             }
         };
         A.CallTo(() => _calcul.Start(A<ChainLengthCalculInput>._)).Returns(result);
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculInput>._)).Returns(true);
+
 
         // Act
         _viewModel.ChainStayLength = chainStayLength;
@@ -293,6 +300,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _calcul.Start(A<ChainLengthCalculInput>.That.Matches(input =>
             Math.Abs(input.ChainStayLengthInch - 17.72) < 0.1))).Returns(expectedResult);
         A.CallTo(() => _calcul.State).Returns(ECalculState.NotStarted);
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculInput>._)).Returns(true);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Centimeter); // 45cm

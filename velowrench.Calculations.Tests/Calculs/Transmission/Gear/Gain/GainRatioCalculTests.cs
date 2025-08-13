@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using velowrench.Calculations.Calculs.Transmission.Gear;
-using velowrench.Calculations.Calculs.Transmission.Gear.GainRatio;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear.Gain;
@@ -16,21 +15,23 @@ namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear.Gain;
 public class GainRatioCalculTests
 {
     private ILogger _logger;
-    private GainRatioCalcul _calcul;
+    private GearCalcul _calcul;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _calcul = new GainRatioCalcul(_logger);
+        _calcul = new GearCalcul(() => new GearCalculInputValidation(), _logger);
     }
 
     [TestMethod]
     public void Calculate_ShouldGive_ExpectedResults()
     {
         // Arrange
-        GainRatioCalculInput input = new()
+        GearCalculInput input = new()
         {
+            CalculType = EGearCalculType.GainRatio,
+            RevolutionPerMinute = null,
             WheelDiameterInInch = 27,
             CrankLengthInInch = 6.7,
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],

@@ -16,13 +16,15 @@ namespace velowrench.Calculations.Tests.Calculs;
 public class BaseCalculTests
 {
     private ILogger _logger;
+    private ICalculInputValidation<TestInput> _inputValidation;
     private TestableCalcul _calcul;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _calcul = new TestableCalcul(_logger);
+        _inputValidation = A.Fake<ICalculInputValidation<TestInput>>();
+        _calcul = new TestableCalcul(() => _inputValidation, _logger);
     }
 
     [TestMethod]
@@ -185,7 +187,7 @@ public class TestableCalcul : BaseCalcul<TestInput, TestResult>
 {
     protected override string CalculName => "TestableCalcul";
 
-    public TestableCalcul(ILogger logger) : base(logger)
+    public TestableCalcul(Func<ICalculInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
     {
 
     }

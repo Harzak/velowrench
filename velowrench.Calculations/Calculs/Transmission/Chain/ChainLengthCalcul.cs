@@ -5,8 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Calculations.Calculs.Transmission.Gear;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
+using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculs.Transmission.Chain;
@@ -29,7 +31,7 @@ public sealed class ChainLengthCalcul : BaseCalcul<ChainLengthCalculInput, Chain
 
     protected override string CalculName => nameof(ChainLengthCalcul);
 
-    public ChainLengthCalcul(ILogger logger) : base(null!, logger) //todo 
+    public ChainLengthCalcul(Func<ICalculInputValidation<ChainLengthCalculInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
     {
 
     }

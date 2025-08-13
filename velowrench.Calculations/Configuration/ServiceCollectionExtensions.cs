@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
     {
         collection.AddSingleton<ICalculFactory<ChainLengthCalculInput, ChainLengthCalculResult>, ChainLengthCalculFactory>();
         collection.AddSingleton<ICalculFactory<GearCalculInput, GearCalculResult>, GearCalculFactory>();
+        collection.AddSingleton<Func<ICalculInputValidation<ChainLengthCalculInput>>>(() => new ChainLengthCalculInputValidation());
         collection.AddSingleton<Func<ICalculInputValidation<GearCalculInput>>>(() => new GearCalculInputValidation());
     }
 }

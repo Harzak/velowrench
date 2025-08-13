@@ -13,5 +13,9 @@ public abstract record BaseCalculResult<TInput> where TInput : class
     /// Gets the UTC timestamp when this calculation was performed.
     /// </summary>
     public required DateTime CalculatedAt { get; init; }
+
+    /// <summary>
+    /// Gets the input parameters that were used to produce this calculation result.
+    /// </summary>
     public required TInput UsedInputs { get; init; }
 }

@@ -15,11 +15,11 @@ using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Base;
 
-public  abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutableViewModel where TInput : class where TResult : BaseCalculResult<TInput>
+public abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutableViewModel where TInput : class where TResult : BaseCalculResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
-    protected ICalcul<TInput, TResult> Calcul {  get; }
+    protected ICalcul<TInput, TResult> Calcul { get; }
     private OperationResult<TResult>? _lastResult;
 
     /// <summary>
@@ -67,7 +67,7 @@ public  abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutab
         return !base.HasErrors
             && this.InpuValidation(input)
             && this.Calcul.State != ECalculState.InProgress
-            && (_lastResult?.Content?.UsedInputs == null || _lastResult.Content.UsedInputs != input);
+            && (_lastResult == null || !_lastResult.Content.UsedInputs.Equals(input));
     }
 
     private void StartCalculation(TInput input)
@@ -82,7 +82,7 @@ public  abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutab
 
     protected abstract TInput GetInput();
 
-    protected abstract void  OnCalculSuccessfull(OperationResult<TResult> result);
+    protected abstract void OnCalculSuccessfull(OperationResult<TResult> result);
 
     /// <summary>
     /// Validates that all required inputs have valid values.
@@ -97,5 +97,17 @@ public  abstract partial class BaseCalculViewModel<TInput, TResult> : BaseRoutab
             return false;
         }
         return true;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (this.Calcul != null)
+            {
+                this.Calcul.StateChanged -= OnCalculStateChanged;
+            }
+        }
+        base.Dispose(disposing);
     }
 }

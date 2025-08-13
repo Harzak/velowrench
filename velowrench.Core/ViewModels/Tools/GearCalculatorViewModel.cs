@@ -73,14 +73,10 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
         ILocalizer localizer)
     : base(calculFactory, navigationService)
     {
-        ArgumentNullException.ThrowIfNull(calculFactory, nameof(calculFactory));
-        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
 
         _repository = repository;
-
-        this.Name = localizer.GetString("GearCalculator");
 
         _selectedCalculType = EGearCalculType.GearInches;
         _sourceWheels = new(_repository.GetMostCommonWheelSpecifications());
@@ -97,6 +93,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculViewModel<GearCa
         _selectedCadence = this.SourceCadence.First();
         _selectedWheel = this.SourceWheels.First();
         _selectedCrank = this.SourceCranks.First();
+
+        this.Name = localizer.GetString("GearCalculator");
     }
 
     [RelayCommand]

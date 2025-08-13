@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using velowrench.Calculations.Calculs.Transmission.Chain;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
+using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Chain;
@@ -18,13 +19,15 @@ namespace velowrench.Calculations.Tests.Calculs.Transmission.Chain;
 public class ChainLengthCalculTests
 {
     private ILogger _logger;
+    private ICalculInputValidation<ChainLengthCalculInput> _inputValidation;
     private ChainLengthCalcul _calcul;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _calcul = new ChainLengthCalcul(_logger);
+        _inputValidation = new ChainLengthCalculInputValidation();
+        _calcul = new ChainLengthCalcul(() => _inputValidation ,_logger);
     }
 
     [DataRow(13.5, 44, 11, 83)] // Small road bike

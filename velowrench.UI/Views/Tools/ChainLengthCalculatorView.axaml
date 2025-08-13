@@ -87,9 +87,12 @@
                                                                             HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                             Foreground="{DynamicResource SemiColorTertiary}"
                                                                             Kind="AccountQuestionOutline" />
-                                                <TextBlock Grid.Row="1"
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                                            Text="{x:Static res:Languages.EnterValues}" />
+                                                <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource SemiColorWarning}"
+                                                           Text="{Binding $parent[UserControl].DataContext.CalculInputErrors}"
+                                                           TextWrapping="Wrap" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </Setter.Value>
