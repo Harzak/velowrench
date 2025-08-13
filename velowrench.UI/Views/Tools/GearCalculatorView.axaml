@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:enums="using:velowrench.Utils.Enums"
+             xmlns:gearEnums="using:velowrench.Calculations.Calculs.Transmission.Gear"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -13,6 +14,7 @@
     <UserControl.Resources>
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
         <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
+        <converters:EnumEqualsToBooleanConverter x:Key="EnumEqualsToBooleanConverter" />
     </UserControl.Resources>
 
     <ScrollViewer>
@@ -64,12 +66,12 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="False" Text="Crank length" />
+                           IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.GainRatio}}"
+                           Text="Crank length" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="False"
+                          IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.GainRatio}}"
                           ItemsSource="{Binding SourceCranks}"
-                          PlaceholderText="170 mm"
                           SelectedItem="{Binding SelectedCrank}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -80,12 +82,12 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="True" Text="Cadence" />
+                           IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.Speed}}"
+                           Text="Cadence" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="True"
+                          IsVisible="{Binding SelectedCalculType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculType.Speed}}"
                           ItemsSource="{Binding SourceCadence}"
-                          PlaceholderText="80 rpm"
                           SelectedItem="{Binding SelectedCadence}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -105,17 +107,17 @@
 
                 <NumericUpDown Grid.Row="1" Grid.Column="0"
                                Margin="0,0,10,0"
-                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Increment="1" ShowButtonSpinner="False"
                                Value="{Binding Chainring1TeethCount, Delay=1000}" />
 
                 <NumericUpDown Grid.Row="1" Grid.Column="1"
                                Margin="10,0,10,0"
-                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Increment="1" ShowButtonSpinner="False"
                                Value="{Binding Chainring2TeethCount, Delay=1000}" />
 
                 <NumericUpDown Grid.Row="1" Grid.Column="2"
                                Margin="10,0,0,0"
-                               Increment="1" Maximum="100" Minimum="1" ShowButtonSpinner="False"
+                               Increment="1" ShowButtonSpinner="False"
                                Value="{Binding Chainring3TeethCount, Delay=1000}" />
             </Grid>
 
@@ -134,8 +136,9 @@
                             <CheckBox Height="35"
                                       Margin="0,-8" HorizontalAlignment="Stretch"
                                       Command="{Binding $parent[UserControl].DataContext.SprocketSelectedCommand}"
-                                      CommandParameter="{Binding}">
-                                <TextBlock Margin="10,0,0,0" Text="{Binding Label}" />
+                                      CommandParameter="{Binding}"
+                                      IsChecked="{Binding IsSelected}">
+                                <TextBlock Margin="10,0,0,0" Text="{Binding Value.Label}" />
                             </CheckBox>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -146,6 +149,7 @@
                     </ComboBox.SelectionBoxItemTemplate>
                 </ComboBox>
             </Grid>
+
 
             <!--  Result  -->
             <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
@@ -164,9 +168,12 @@
                                                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                                 Foreground="{DynamicResource SemiColorTertiary}"
                                                                                 Kind="AccountQuestionOutline" />
-                                                    <TextBlock Grid.Row="1"
-                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                Text="{x:Static res:Languages.EnterValues}" />
+                                                    <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                               Foreground="{DynamicResource SemiColorWarning}"
+                                                               Text="{Binding $parent[UserControl].DataContext.CalculInputErrors}"
+                                                               TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </Setter.Value>

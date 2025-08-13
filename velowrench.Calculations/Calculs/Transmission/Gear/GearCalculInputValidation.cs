@@ -19,6 +19,7 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
     internal const int MAX_CHAINRING_TEETH_COUNT = 120;
     internal const int MIN_SPROCKET_TEETH_COUNT = 9;
     internal const int MAX_SPROCKET_TEETH_COUNT = 52;
+    internal const int MAX_SPROCKETS_COUNT = 15;
     internal const int MIN_RPM = 20;
     internal const int MAX_RPM = 150;
 
@@ -66,9 +67,18 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
             }
         }
 
+        if (input.NumberOfTeethBySprocket.Count < 1)
+        {
+            _errorMessage.Add("At least one sprocket is required.");
+        }
+        else if (input.NumberOfTeethBySprocket.Count > MAX_SPROCKETS_COUNT)
+        {
+            _errorMessage.Add($"Maximum {MAX_SPROCKETS_COUNT} sprockets allowed ({input.NumberOfTeethBySprocket.Count} entered).");
+        }
+
         if(input.NumberOfTeethBySprocket.Any(x => !SprocketTeethCountIsValid(x)))
         {
-            _errorMessage.Add($"All sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
+            _errorMessage.Add($"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }
 
         if (!WheelDiameterIsValid(input.WheelDiameterInInch))
@@ -78,30 +88,30 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
 
         if (!ChainringTeethCountIsValid(input.TeethNumberLargeOrUniqueChainring))
         {
-            _errorMessage.Add($"Largest chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
-        if (input.TeethNumberMediumChainring.HasValue && !ChainringTeethCountIsValid(input.TeethNumberLargeOrUniqueChainring))
+        if (input.TeethNumberMediumChainring.HasValue && !ChainringTeethCountIsValid(input.TeethNumberMediumChainring.Value))
         {
-            _errorMessage.Add($"Medium chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
         if (input.TeethNumberSmallChainring.HasValue && !ChainringTeethCountIsValid(input.TeethNumberSmallChainring.Value))
         {
-            _errorMessage.Add($"Small chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
-        return true;
+        return _errorMessage.Count == 0;
     }
 
     private bool CrankLengthIsValid(double crankLength)
     {
-        return crankLength > MIN_CRANK_LENGTH_MM && crankLength <= MAX_CRANK_LENGTH_MM;
+        return crankLength >= MIN_CRANK_LENGTH_MM && crankLength <= MAX_CRANK_LENGTH_MM;
     }
 
     private bool WheelDiameterIsValid(double wheelDiameterInch)
     {
-        return wheelDiameterInch > MIN_WHEEL_DIAMETER_INCH && wheelDiameterInch <= MAX_WHEEL_DIAMETER_INCH;
+        return wheelDiameterInch >= MIN_WHEEL_DIAMETER_INCH && wheelDiameterInch <= MAX_WHEEL_DIAMETER_INCH;
     }
 
     private bool ChainringTeethCountIsValid(int teethCount)
@@ -111,12 +121,12 @@ internal sealed class GearCalculInputValidation: ICalculInputValidation<GearCalc
 
     private bool SprocketTeethCountIsValid(int teethCount)
     {
-        return teethCount > MIN_SPROCKET_TEETH_COUNT && teethCount <= MAX_SPROCKET_TEETH_COUNT;
+        return teethCount >= MIN_SPROCKET_TEETH_COUNT && teethCount <= MAX_SPROCKET_TEETH_COUNT;
     }
 
     private bool RpmIsValid(int rpm)
     {
-        return rpm > MIN_RPM && rpm <= MAX_RPM;
+        return rpm >= MIN_RPM && rpm <= MAX_RPM;
     }
 }
 
