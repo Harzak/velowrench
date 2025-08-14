@@ -1,7 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using velowrench.Calculations.Calculators;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
+using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -13,12 +21,14 @@ namespace velowrench.Core.ViewModels.Base;
 /// state management, and result handling. This abstract class standardizes the calculation workflow
 /// across different calculation types while allowing specific implementations for input creation and result processing.
 /// </summary>
-public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel
-    where TInput : class
+public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel 
+    where TInput : class 
     where TResult : BaseCalculatorResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
+    private const int DEBOUNCE_DELAY_MS = 300;
 
+    private Timer? _debounceTimer;
     private OperationResult<TResult>? _lastResult;
 
     /// <summary>
@@ -56,9 +66,28 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     }
 
     /// <summary>
+    /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
+    /// This prevents excessive calculations during rapid UI changes.
+    /// </summary>
+    protected void RefreshCalculationDebounced()
+    {
+        _debounceTimer?.Dispose();
+        _debounceTimer = new Timer(async state =>
+        {
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                RefreshCalculation();
+            });
+        },
+        state: null,
+        dueTime: DEBOUNCE_DELAY_MS, 
+        period: Timeout.Infinite);
+    }
+
+    /// <summary>
     /// Handles input changes and triggers calculation if inputs are valid.
     /// </summary>
-    protected void RefreshCalculation()
+    private void RefreshCalculation()
     {
         TInput input = this.GetInput();
         if (this.CanCalculate(input))
@@ -84,7 +113,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 
         if (_lastResult.IsSuccess && _lastResult.HasContent)
         {
-            this.OnCalculationSuccessfull(_lastResult);
+            this.OnCalculationSuccessful(_lastResult);
         }
     }
 
@@ -96,7 +125,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// <summary>
     /// Processes successful calculation results and updates the view model state.
     /// </summary>
-    protected abstract void OnCalculationSuccessfull(OperationResult<TResult> result);
+    protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
 
     /// <summary>
     /// Validates that all required inputs have valid values.
@@ -121,6 +150,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
             {
                 this.Calculator.StateChanged -= OnCalculatorStateChanged;
             }
+            _debounceTimer?.Dispose();
         }
         base.Dispose(disposing);
     }

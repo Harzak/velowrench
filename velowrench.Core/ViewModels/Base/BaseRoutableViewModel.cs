@@ -11,12 +11,12 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     private bool _disposedValue;
 
     protected INavigationService NavigationService { get; }
-
+    
     /// <summary>
     /// Gets the unique URL path segment identifier for this view model.
     /// </summary>
     public string UrlPathSegment { get; }
-
+    
     /// <summary>
     /// Gets a value indicating whether this view model has an associated help page.
     /// </summary>
@@ -38,7 +38,7 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     /// </summary>
     public virtual void ShowHelpPage()
     {
-
+        
     }
 
     protected virtual void Dispose(bool disposing)

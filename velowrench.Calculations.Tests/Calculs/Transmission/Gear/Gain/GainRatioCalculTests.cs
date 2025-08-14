@@ -1,6 +1,11 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Utils.Results;
 
@@ -28,7 +33,7 @@ public class GainRatioCalculTests
             CalculatorType = EGearCalculatorType.GainRatio,
             RevolutionPerMinute = null,
             WheelDiameterInInch = 27,
-            CrankLengthInInch = 6.7,
+            CrankLengthInMilimeter = 6.7,
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 34,
             TeethNumberMediumChainring = 45,

@@ -11,7 +11,7 @@ public interface ILocalizer
     /// <param name="key">The resource key to retrieve the localized string for.</param>
     /// <returns>The localized string corresponding to the specified key.</returns>
     string GetString(string key);
-
+    
     /// <summary>
     /// Gets the localized string for the specified resource key and formats it with the provided arguments.
     /// </summary>

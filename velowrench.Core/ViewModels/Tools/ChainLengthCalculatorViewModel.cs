@@ -6,6 +6,8 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Utils.Enums;
+using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;
@@ -78,7 +80,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
     {
-        base.RefreshCalculation();
+        base.RefreshCalculationDebounced();
     }
 
     /// <summary>
@@ -86,7 +88,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     partial void OnTeethLargestChainringChanged(int? value)
     {
-        base.RefreshCalculation();
+        base.RefreshCalculationDebounced();
     }
 
     /// <summary>
@@ -94,7 +96,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        base.RefreshCalculation();
+        base.RefreshCalculationDebounced();
     }
 
     protected override ChainLengthCalculatorInput GetInput()
@@ -107,7 +109,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         };
     }
 
-    protected override void OnCalculationSuccessfull(OperationResult<ChainLengthCalculatorResult> result)
+    protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
     {
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthInch, LengthUnit.Inch);
         this.RecommendedChainLinks = result.Content.ChainLinks;

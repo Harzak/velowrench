@@ -1,4 +1,10 @@
-﻿namespace velowrench.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace velowrench.Core.Models;
 
 /// <summary>
 /// Provides a wrapper around any object to add selection state functionality.
@@ -12,7 +18,7 @@ public class SelectibleModel<T> where T : class
     /// This property is typically bound to UI controls like checkboxes or list selections.
     /// </summary>
     public bool IsSelected { get; set; }
-
+    
     /// <summary>
     /// Gets or sets the wrapped object that contains the actual data.
     /// </summary>

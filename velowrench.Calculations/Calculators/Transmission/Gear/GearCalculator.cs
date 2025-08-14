@@ -1,5 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
@@ -77,7 +83,7 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
         return input.CalculatorType switch
         {
             EGearCalculatorType.Development => this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, input.Precision),
-            EGearCalculatorType.GainRatio => this.CalculateGainRatio(input, teethCountChainring, teethCountSprocket, input.Precision),
+            EGearCalculatorType.GainRatio => this.CalculateGainRatio(input, teethCountChainring, teethCountSprocket,  input.Precision),
             EGearCalculatorType.GearInches => this.CalculateGearInches(input, teethCountChainring, teethCountSprocket, input.Precision),
             EGearCalculatorType.Speed => this.CalculateSpeed(input, teethCountChainring, teethCountSprocket, input.Precision),
             _ => throw new NotSupportedException($"The calculation type '{input.CalculatorType}' is not supported."),
@@ -99,7 +105,7 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGainRatio(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double gainRatio = ((input.WheelDiameterInInch / 2) / input.CrankLengthInInch!.Value) * gearRatio;
+        double gainRatio = ((input.WheelDiameterInInch / 2) / input.CrankLengthInMilimeter!.Value) * gearRatio;
         return Math.Round(gainRatio, precision);
     }
 

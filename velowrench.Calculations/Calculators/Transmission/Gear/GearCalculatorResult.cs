@@ -13,14 +13,14 @@ public sealed record GearCalculatorResult : BaseCalculatorResult<GearCalculatorI
     /// Values represent the calculated metric (gear inches, development, gain ratio, or speed) depending on the calculation type.
     /// </summary>
     public required IList<double> ValuesLargeOrUniqueChainring { get; init; }
-
+    
     /// <summary>
     /// Gets the calculated values for the medium chainring paired with each sprocket.
     /// Only populated when a medium chainring was specified in the input parameters.
     /// Contains one value for each sprocket, calculated using the medium chainring.
     /// </summary>
     public IList<double>? ValuesMediumChainring { get; init; }
-
+    
     /// <summary>
     /// Gets the calculated values for the small chainring paired with each sprocket.
     /// Only populated when a small chainring was specified in the input parameters.

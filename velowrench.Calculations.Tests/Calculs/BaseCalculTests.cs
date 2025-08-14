@@ -1,7 +1,10 @@
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using velowrench.Calculations.Calculators;
+using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
@@ -145,7 +148,7 @@ public class BaseCalculTests
     public void Start_WithFailingInput_ShouldTriggerFailedStateEvent()
     {
         // Arrange
-        TestInput input = new() { Value = -1 };
+        TestInput input = new () { Value = -1 };
         List<ECalculatorState> stateChanges = [];
         List<CalculatorStateEventArgs> eventArgs = [];
 

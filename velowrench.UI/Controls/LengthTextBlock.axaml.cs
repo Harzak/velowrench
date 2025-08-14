@@ -1,11 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnitsNet;
 using UnitsNet.Units;
 using velowrench.Core.Units;
+using velowrench.UI.Controls;
 
 namespace velowrench.UI.Controls;
 

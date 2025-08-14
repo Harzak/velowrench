@@ -1,4 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;

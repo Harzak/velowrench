@@ -9,7 +9,7 @@ public record ChainLengthCalculatorResult : BaseCalculatorResult<ChainLengthCalc
     /// Gets the number of chain links required for the calculated chain length.
     /// </summary>
     public required int ChainLinks { get; init; }
-
+    
     /// <summary>
     /// Gets the calculated chain length in inches.
     /// </summary>

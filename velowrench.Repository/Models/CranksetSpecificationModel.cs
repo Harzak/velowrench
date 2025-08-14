@@ -1,4 +1,10 @@
-﻿namespace velowrench.Repository.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace velowrench.Repository.Models;
 
 /// <summary>
 /// Represents a bicycle crankset specification with crank arm length information.

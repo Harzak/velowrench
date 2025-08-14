@@ -29,4 +29,4 @@ public class EnumEqualsToBooleanConverter : IValueConverter
     {
         throw new NotSupportedException("EnumEqualsToBooleanConverter does not support two-way binding.");
     }
-}
+}   
