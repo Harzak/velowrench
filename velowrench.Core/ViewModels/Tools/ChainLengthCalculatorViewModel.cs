@@ -64,8 +64,9 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     public ChainLengthCalculatorViewModel(
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> calculatorFactory,
         INavigationService navigationService,
+        IDebounceActionFactory actionFactory,
         ILocalizer localizer)
-    : base(calculatorFactory, navigationService)
+    : base(calculatorFactory, navigationService, actionFactory)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
@@ -80,7 +81,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     partial void OnTeethLargestChainringChanged(int? value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -96,7 +97,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     protected override ChainLengthCalculatorInput GetInput()

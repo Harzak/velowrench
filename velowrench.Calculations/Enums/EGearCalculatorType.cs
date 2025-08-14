@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace velowrench.Calculations.Calculators.Transmission.Gear;
+namespace velowrench.Calculations.Enums;
 
 /// <summary>
 /// Defines the types of gear calculations that can be performed.

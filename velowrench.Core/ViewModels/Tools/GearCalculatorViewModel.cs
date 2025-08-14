@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
+using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
@@ -131,9 +132,10 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     public GearCalculatorViewModel(
         ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> calculatorFactory,
         INavigationService navigationService,
+        IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
         ILocalizer localizer)
-    : base(calculatorFactory, navigationService)
+    : base(calculatorFactory, navigationService, actionFactory)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
@@ -187,7 +189,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
                 Chainring1 = result.Content.ValuesLargeOrUniqueChainring[i],
                 Chainring2 = result.Content.ValuesMediumChainring?.Count > i ? result.Content.ValuesMediumChainring[i] : null,
                 Chainring3 = result.Content.ValuesSmallChainring?.Count > i ? result.Content.ValuesSmallChainring[i] : null,
-                SprocketCount = result.Content.UsedInputs.NumberOfTeethBySprocket[i]
+                SprocketCount = result.Content.UsedInputs.NumberOfTeethBySprocket[i],
+                Intensity = GearCalculatorResultInterpreter.DetermineIntensity(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.UsedInputs.CalculatorType)
             });
         }
     }
@@ -199,7 +202,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     private void SprocketSelected(SelectibleModel<SprocketSpecificationModel> selectibleSprocket)
     {
         SelectedSprocketsStr =  string.Join(", ", SourceSprockets.Where(x => x.IsSelected).OrderBy(x => x.Value.TeethCount).Select(x => x.Value.Label));
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -208,7 +211,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnSelectedCalculatorTypeChanged(EGearCalculatorType value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -216,7 +219,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnChainring1TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -224,7 +227,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnChainring2TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -232,7 +235,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnChainring3TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -240,7 +243,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnSelectedCadenceChanged(CadenceModel value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -248,7 +251,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnSelectedWheelChanged(WheelSpecificationModel value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 
     /// <summary>
@@ -256,6 +259,6 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// </summary>
     partial void OnSelectedCrankChanged(CranksetSpecificationModel value)
     {
-        base.RefreshCalculationDebounced();
+        base.RefreshCalculationDebounced.Execute();
     }
 }

@@ -19,15 +19,18 @@ public sealed class ViewModelFactory : IViewModelFactory
     private readonly ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _chainLengthCalculatorFactory;
     private readonly ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> _gearCalculatorFactory;
     private readonly IComponentStandardRepository _componentStandardRepository;
+    private readonly IDebounceActionFactory _debounceActionFactory;
 
     public ViewModelFactory(ILocalizer localizer,
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
         ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> gearCalculatorFactory,
+        IDebounceActionFactory debounceActionFactory,
         IComponentStandardRepository componentStandardRepository)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _chainLengthCalculatorFactory = chainLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(chainLengthCalculatorFactory));
         _gearCalculatorFactory = gearCalculatorFactory ?? throw new ArgumentNullException(nameof(gearCalculatorFactory));
+        _debounceActionFactory = debounceActionFactory ?? throw new ArgumentNullException(nameof(debounceActionFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
     }
 
@@ -50,11 +53,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _localizer);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _debounceActionFactory, _localizer);
             case EVeloWrenchTools.ChainlineCalculator:
                 return new ChainlineCalculatorViewModel(navigationService, _localizer);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _componentStandardRepository, _localizer);
+                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer);
             case EVeloWrenchTools.RolloutCalculator:
                 return new RolloutCalculatorViewModel(navigationService, _localizer);
             default:

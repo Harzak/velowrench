@@ -12,6 +12,7 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
+using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Base;
@@ -21,15 +22,18 @@ namespace velowrench.Core.ViewModels.Base;
 /// state management, and result handling. This abstract class standardizes the calculation workflow
 /// across different calculation types while allowing specific implementations for input creation and result processing.
 /// </summary>
-public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel 
-    where TInput : class 
+public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRoutableViewModel
+    where TInput : class
     where TResult : BaseCalculatorResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
-    private const int DEBOUNCE_DELAY_MS = 300;
-
-    private Timer? _debounceTimer;
     private OperationResult<TResult>? _lastResult;
+
+    /// <summary>
+    /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
+    /// This prevents excessive calculations during rapid UI changes.
+    /// </summary>
+    protected IDebounceAction RefreshCalculationDebounced { get; }
 
     /// <summary>
     /// Gets the calculation engine instance used to perform calculations.
@@ -49,11 +53,17 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     [ObservableProperty]
     private string? _calculatorInputErrors;
 
-    protected BaseCalculatorViewModel(ICalculatorFactory<TInput, TResult> calculatorFactory, INavigationService navigationService) : base(navigationService)
+    protected BaseCalculatorViewModel(
+        ICalculatorFactory<TInput, TResult> calculatorFactory, 
+        INavigationService navigationService,
+        IDebounceActionFactory actionFactory) : base(navigationService)
     {
+        ArgumentNullException.ThrowIfNull(actionFactory, nameof(actionFactory));
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
+
+        this.RefreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
     }
 
     private async void OnCalculatorStateChanged(object? sender, CalculatorStateEventArgs e)
@@ -63,25 +73,6 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
             await Task.Delay(PROGRESS_INDICATOR_DELAY).ConfigureAwait(false);
         }
         this.CurrentState = e.State;
-    }
-
-    /// <summary>
-    /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
-    /// This prevents excessive calculations during rapid UI changes.
-    /// </summary>
-    protected void RefreshCalculationDebounced()
-    {
-        _debounceTimer?.Dispose();
-        _debounceTimer = new Timer(async state =>
-        {
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                RefreshCalculation();
-            });
-        },
-        state: null,
-        dueTime: DEBOUNCE_DELAY_MS, 
-        period: Timeout.Infinite);
     }
 
     /// <summary>
@@ -150,7 +141,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
             {
                 this.Calculator.StateChanged -= OnCalculatorStateChanged;
             }
-            _debounceTimer?.Dispose();
+            RefreshCalculationDebounced?.Dispose();
         }
         base.Dispose(disposing);
     }

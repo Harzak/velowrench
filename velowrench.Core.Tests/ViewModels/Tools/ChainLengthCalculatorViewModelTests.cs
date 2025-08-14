@@ -21,9 +21,9 @@ namespace velowrench.Core.Tests.ViewModels.Tools;
 [TestClass]
 public class ChainLengthCalculatorViewModelTests
 {
-    private ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _factory;
     private ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _calculator;
     private ICalculatorInputValidation<ChainLengthCalculatorInput> _inputValidation;
+    private IDebounceAction _calculateCall;
     private INavigationService _navigationService;
     private ILocalizer _localizer;
     private ChainLengthCalculatorViewModel _viewModel;
@@ -31,16 +31,24 @@ public class ChainLengthCalculatorViewModelTests
     [TestInitialize]
     public void Initialize()
     {
-        _factory = A.Fake<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
+        var calculFactory = A.Fake<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
+        var actionFactory = A.Fake<IDebounceActionFactory>();
         _navigationService = A.Fake<INavigationService>();
         _localizer = A.Fake<ILocalizer>();
         _calculator = A.Fake<ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
+        _calculateCall = A.Fake<IDebounceAction>();
         _inputValidation = A.Fake<ICalculatorInputValidation<ChainLengthCalculatorInput>>();
 
-        A.CallTo(() => _factory.CreateCalculator()).Returns(_calculator);
+        A.CallTo(() => calculFactory.CreateCalculator()).Returns(_calculator);
         A.CallTo(() => _calculator.GetValidation()).Returns(_inputValidation);
 
-        _viewModel = new(_factory, _navigationService, _localizer);
+        A.CallTo(() => actionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
+        .ReturnsLazily((Action action, int delayMs) => 
+        {
+            return new TestDebounceAction(action);
+        });
+
+        _viewModel = new(calculFactory, _navigationService, actionFactory, _localizer);
     }
 
     [TestMethod]
@@ -313,4 +321,23 @@ public class ChainLengthCalculatorViewModelTests
         _viewModel.RecommendedChainLength.Unit.Should().Be(LengthUnit.Inch);
         _viewModel.RecommendedChainLinks.Should().Be(84);
     }
+}
+
+
+// Test helper class
+public class TestDebounceAction : IDebounceAction
+{
+    private readonly Action _action;
+
+    public TestDebounceAction(Action action)
+    {
+        _action = action;
+    }
+
+    public void Execute()
+    {
+        _action();
+    }
+
+    public void Dispose() { }
 }

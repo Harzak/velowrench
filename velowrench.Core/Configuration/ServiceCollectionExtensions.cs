@@ -26,5 +26,6 @@ public static class ServiceCollectionExtensions
         collection.AddSingleton<MainViewModel>();
         collection.AddSingleton<INavigationService, NavigationService>();
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
+        collection.AddSingleton<IDebounceActionFactory, DebounceActionFactory>();
     }
 }

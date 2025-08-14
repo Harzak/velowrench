@@ -8,7 +8,7 @@
 
     <Application.Styles>
         <semi:SemiTheme Locale="en-US" />
-		<semi:DataGridSemiTheme />
+        <semi:DataGridSemiTheme />
         <materialIcons:MaterialIconStyles />
     </Application.Styles>
 

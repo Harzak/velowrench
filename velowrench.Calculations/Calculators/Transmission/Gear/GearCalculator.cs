@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using velowrench.Calculations.Calculators.Transmission.Chain;
+using velowrench.Calculations.Enums;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Results;
@@ -105,7 +106,8 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGainRatio(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double gainRatio = ((input.WheelDiameterInInch / 2) / input.CrankLengthInMilimeter!.Value) * gearRatio;
+        double wheelRadiusInMM = (input.WheelDiameterInInch / 2) * 25.4;
+        double gainRatio = (wheelRadiusInMM / input.CrankLengthInMilimeter!.Value) * gearRatio;
         return Math.Round(gainRatio, precision);
     }
 

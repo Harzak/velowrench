@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;

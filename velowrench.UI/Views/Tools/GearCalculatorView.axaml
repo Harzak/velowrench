@@ -1,9 +1,9 @@
 <UserControl x:Class="velowrench.UI.Views.Tools.GearCalculatorView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:enums="using:velowrench.Utils.Enums"
-             xmlns:gearEnums="using:velowrench.Calculations.Calculators.Transmission.Gear"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -15,6 +15,7 @@
         <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
         <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
         <converters:EnumEqualsToBooleanConverter x:Key="EnumEqualsToBooleanConverter" />
+        <converters:GearIntensityToColorConverter x:Key="GearIntensityToColorConverter" />
     </UserControl.Resources>
 
     <ScrollViewer>
@@ -66,11 +67,11 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.GainRatio}}"
+                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.GainRatio}}"
                            Text="Crank length" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.GainRatio}}"
+                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.GainRatio}}"
                           ItemsSource="{Binding SourceCranks}"
                           SelectedItem="{Binding SelectedCrank}">
                     <ComboBox.ItemTemplate>
@@ -82,11 +83,11 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1"
                            Margin="10,0,0,8"
-                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.Speed}}"
+                           IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.Speed}}"
                            Text="Cadence" />
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Margin="10,0,0,0" HorizontalAlignment="Stretch"
-                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static gearEnums:EGearCalculatorType.Speed}}"
+                          IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.Speed}}"
                           ItemsSource="{Binding SourceCadence}"
                           SelectedItem="{Binding SelectedCadence}">
                     <ComboBox.ItemTemplate>
@@ -224,8 +225,14 @@
                                                                   BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
                                                                   CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
                                                                   ItemsSource="{Binding $parent[UserControl].DataContext.GearCalculResultRows}">
+                                                            <DataGrid.Styles>
+                                                                <Style Selector="DataGridColumnHeader">
+                                                                    <Setter Property="Foreground" Value="{StaticResource SemiColorTertiary}" />
+                                                                </Style>
+                                                            </DataGrid.Styles>
                                                             <DataGrid.Columns>
                                                                 <DataGridTextColumn Binding="{Binding SprocketCount}"
+                                                                                    Foreground="{StaticResource SemiColorTertiary}"			
                                                                                     Header="" IsVisible="True" />
                                                                 <DataGridTextColumn Binding="{Binding Chainring1}"
                                                                                     Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}}" IsVisible="True" />

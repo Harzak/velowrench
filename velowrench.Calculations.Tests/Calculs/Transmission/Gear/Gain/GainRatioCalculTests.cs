@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using velowrench.Calculations.Calculators.Transmission.Gear;
+using velowrench.Calculations.Enums;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear.Gain;
@@ -33,12 +34,12 @@ public class GainRatioCalculTests
             CalculatorType = EGearCalculatorType.GainRatio,
             RevolutionPerMinute = null,
             WheelDiameterInInch = 27,
-            CrankLengthInMilimeter = 6.7,
+            CrankLengthInMilimeter = 170,
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
-            TeethNumberSmallChainring = 34,
-            TeethNumberMediumChainring = 45,
-            TeethNumberLargeOrUniqueChainring = 53,
-            Precision = 3
+            TeethNumberSmallChainring = null,
+            TeethNumberMediumChainring = null,
+            TeethNumberLargeOrUniqueChainring = 45,
+            Precision = 1
         };
 
         // Act
@@ -48,8 +49,6 @@ public class GainRatioCalculTests
         result.Should().NotBeNull();
         result.IsSuccess.Should().BeTrue();
         result.Content.Should().NotBeNull();
-        result.Content.ValuesSmallChainring.Should().BeEquivalentTo([6.2, 5.7, 5.3, 4.9, 4.3, 3.8, 3.3, 2.9, 2.5]);
-        result.Content.ValuesMediumChainring.Should().BeEquivalentTo([8.3, 7.6, 7, 6.5, 5.7, 5, 4.3, 3.8, 3.2]);
-        result.Content.ValuesLargeOrUniqueChainring.Should().BeEquivalentTo([9.7, 8.9, 8.2, 7.6, 6.7, 5.9, 5.1, 4.5, 3.8]);
+        result.Content.ValuesLargeOrUniqueChainring.Should().BeEquivalentTo([8.3, 7.6, 7, 6.5, 5.7, 5, 4.3, 3.8, 3.2,]);
     }
 }

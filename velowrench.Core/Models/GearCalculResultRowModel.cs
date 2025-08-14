@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Calculations.Enums;
 
 namespace velowrench.Core.Models;
 
@@ -35,4 +36,6 @@ public class GearCalculResultRowModel
     /// Contains a value only when a small chainring is configured in the input.
     /// </summary>
     public double? Chainring3 { get; set; }
+
+    public EGearCalculationResultIntensity Intensity { get; set; }
 }
