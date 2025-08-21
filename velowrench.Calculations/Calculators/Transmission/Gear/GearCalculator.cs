@@ -5,10 +5,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitsNet;
+using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Units;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
@@ -73,7 +76,8 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
                 ValuesLargeOrUniqueChainring = new ReadOnlyCollection<double>(valuesLargeOrUniqueChainring),
                 ValuesMediumChainring = input.TeethNumberMediumChainring.HasValue ? new ReadOnlyCollection<double>(valuesMediumChainring) : null,
                 ValuesSmallChainring = input.TeethNumberSmallChainring.HasValue ? new ReadOnlyCollection<double>(valuesSmallChainring) : null,
-                UsedInputs = input
+                UsedInputs = input,
+                Unit = UnitsStore.GetDefaultUnitForGearCalculation(input.CalculatorType),
             },
             IsSuccess = true
         };
@@ -84,7 +88,7 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
         return input.CalculatorType switch
         {
             EGearCalculatorType.Development => this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, input.Precision),
-            EGearCalculatorType.GainRatio => this.CalculateGainRatio(input, teethCountChainring, teethCountSprocket,  input.Precision),
+            EGearCalculatorType.GainRatio => this.CalculateGainRatio(input, teethCountChainring, teethCountSprocket, input.Precision),
             EGearCalculatorType.GearInches => this.CalculateGearInches(input, teethCountChainring, teethCountSprocket, input.Precision),
             EGearCalculatorType.Speed => this.CalculateSpeed(input, teethCountChainring, teethCountSprocket, input.Precision),
             _ => throw new NotSupportedException($"The calculation type '{input.CalculatorType}' is not supported."),
@@ -106,8 +110,8 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGainRatio(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double wheelRadiusInMM = (input.WheelDiameterInInch / 2) * 25.4;
-        double gainRatio = (wheelRadiusInMM / input.CrankLengthInMilimeter!.Value) * gearRatio;
+        double wheelRadiusInMM = input.TyreOuterDiameter.GetValueIn(LengthUnit.Millimeter) / 2;
+        double gainRatio = (wheelRadiusInMM / input.CrankLength!.GetValueIn(LengthUnit.Millimeter)) * gearRatio;
         return Math.Round(gainRatio, precision);
     }
 
@@ -119,31 +123,32 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGearInches(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double gearInches = input.WheelDiameterInInch * gearRatio;
+        double gearInches = input.TyreOuterDiameter.GetValueIn(LengthUnit.Inch) * gearRatio;
         return Math.Round(gearInches, precision);
     }
 
     /// <summary>
     /// Development calculation that measures the distance traveled per pedal revolution.
-    /// Expressed in inches, this metric directly shows how far the bicycle moves forward 
+    /// Expressed in meter, this metric directly shows how far the bicycle moves forward 
     /// with each complete pedal stroke for a given gear combination.
     /// </summary>
     private double CalculateDevelopment(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double circumferenceInInch = Math.PI * input.WheelDiameterInInch;
-        double developmentInInch = circumferenceInInch * gearRatio;
-        return Math.Round(developmentInInch, precision);
+        double circumferenceInMeter = Math.PI * input.TyreOuterDiameter.GetValueIn(LengthUnit.Meter);
+        double MetersDevelopment = circumferenceInMeter * gearRatio;
+        return Math.Round(MetersDevelopment, precision);
     }
 
     /// <summary>
     /// Speed calculation that determines theoretical speed based on cadence and gear ratio.
-    /// Calculates the speed achievable at a specific pedaling rate (RPM) for each gear combination.
+    /// Calculates the speed in km/h achievable at a specific pedaling rate (RPM) for each gear combination.
     /// </summary>
     private double CalculateSpeed(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
-        double developmentInInch = this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, INNER_CALCULATION_PRECISION);
-        double speedInInchPerMinute = input.RevolutionPerMinute!.Value * developmentInInch;
-        return Math.Round(speedInInchPerMinute, precision);
+        double metersDevelopment = this.CalculateDevelopment(input, teethCountChainring, teethCountSprocket, INNER_CALCULATION_PRECISION);
+        double speedInMeterPerMinute = input.RevolutionPerMinute!.Value * metersDevelopment;
+        double speedInKilometersPerHour = UnitConverter.Convert(speedInMeterPerMinute, SpeedUnit.MeterPerMinute, SpeedUnit.KilometerPerHour);
+        return Math.Round(speedInKilometersPerHour, precision);
     }
 }

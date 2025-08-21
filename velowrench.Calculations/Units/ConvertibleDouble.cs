@@ -1,7 +1,7 @@
 ﻿using UnitsNet;
 using UnitsNet.Units;
 
-namespace velowrench.Core.Units;
+namespace velowrench.Calculations.Units;
 
 /// <summary>
 /// Represents a numeric value with an associated unit that can be converted between different units of the same type.

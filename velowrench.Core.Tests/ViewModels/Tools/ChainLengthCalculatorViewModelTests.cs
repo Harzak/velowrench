@@ -13,8 +13,8 @@ using velowrench.Utils.Enums;
 using velowrench.Utils.Results;
 using velowrench.Utils.EventArg;
 using UnitsNet.Units;
-using velowrench.Core.Units;
 using velowrench.Core.Enums;
+using velowrench.Calculations.Units;
 
 namespace velowrench.Core.Tests.ViewModels.Tools;
 

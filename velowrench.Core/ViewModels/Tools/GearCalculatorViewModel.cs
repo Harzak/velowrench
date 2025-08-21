@@ -7,9 +7,9 @@ using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
-using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
@@ -124,6 +124,18 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     private int? _chainring3TeethCount;
 
     /// <summary>
+    /// Gets or sets the collection of units that can be applied to the calculation results.
+    /// </summary>
+    [ObservableProperty]
+    ObservableCollection<Enum> _availableResultUnits;
+
+    /// <summary>
+    /// Gets or sets the unit in which results are displayed.
+    /// </summary>
+    [ObservableProperty]
+    private Enum? _selectedResultUnit;
+
+    /// <summary>
     /// Gets or sets the collection of calculated gear data for display.
     /// </summary>
     [ObservableProperty]
@@ -150,6 +162,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         _sourceCadence = new(_repository.GetAllCandences());
         _selectedCadence = this.SourceCadence.GetMostUsedCadence();
         _sourceSprockets = new(_repository.GetMostCommonSprocketSpecifications().Select(x => new SelectibleModel<SprocketSpecificationModel>(x)));
+        _availableResultUnits = [];
         _gearCalculResultRows = [];
         _chainring1TeethCount = 10;
 
@@ -169,8 +182,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             TeethNumberMediumChainring = this.Chainring2TeethCount,
             TeethNumberSmallChainring = this.Chainring3TeethCount,
             NumberOfTeethBySprocket = [.. this.SourceSprockets.Where(x => x.IsSelected).OrderBy(x => x.Value.TeethCount).Select(x => x.Value.TeethCount)],
-            WheelDiameterInInch = this.SelectedWheel.BSDin,
-            CrankLengthInMilimeter = this.SelectedCrank.Length,
+            TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(this.SelectedWheel.TyreOuterDiameterInInch, LengthUnit.Inch),
+            CrankLength = new ConvertibleDouble<LengthUnit>(this.SelectedCrank.Length, LengthUnit.Millimeter),
             RevolutionPerMinute = this.SelectedCadence.Rpm,
             Precision = 2
         };
@@ -184,15 +197,22 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.GearCalculResultRows.Clear();
         for (int i = 0; i < result.Content.ValuesLargeOrUniqueChainring.Count; i++)
         {
-            this.GearCalculResultRows.Add(new GearCalculResultRowModel()
+            this.GearCalculResultRows.Add(new GearCalculResultRowModel(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.Unit)
             {
-                Chainring1 = result.Content.ValuesLargeOrUniqueChainring[i],
-                Chainring2 = result.Content.ValuesMediumChainring?.Count > i ? result.Content.ValuesMediumChainring[i] : null,
-                Chainring3 = result.Content.ValuesSmallChainring?.Count > i ? result.Content.ValuesSmallChainring[i] : null,
+                ValueForChainring2 = result.Content.ValuesMediumChainring?.Count > i ? result.Content.ValuesMediumChainring[i] : null,
+                ValueForChainring3 = result.Content.ValuesSmallChainring?.Count > i ? result.Content.ValuesSmallChainring[i] : null,
                 SprocketCount = result.Content.UsedInputs.NumberOfTeethBySprocket[i],
-                Intensity = GearCalculatorResultInterpreter.DetermineIntensity(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.UsedInputs.CalculatorType)
+                Intensity = GearCalculatorResultInterpreter.DetermineIntensity(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.UsedInputs.CalculatorType),
+                Precision = result.Content.UsedInputs.Precision,
             });
         }
+
+        this.AvailableResultUnits.Clear();
+        foreach (var item in UnitsStore.GetAvailableUnitForGearCalculation(result.Content.UsedInputs.CalculatorType))
+        {
+            this.AvailableResultUnits.Add(item);
+        }
+        this.SelectedResultUnit = result.Content.Unit;
     }
 
     /// <summary>
@@ -260,5 +280,19 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     partial void OnSelectedCrankChanged(CranksetSpecificationModel value)
     {
         base.RefreshCalculationDebounced.Execute();
+    }
+
+    /// <summary>
+    /// Handles changes to the selected result unit and updates the unit of all gear calculation result rows accordingly.
+    /// </summary>
+    partial void OnSelectedResultUnitChanged(Enum? value)
+    {
+        if (value != null && this.GearCalculResultRows.Count > 0 && this.GearCalculResultRows.First().ValueUnit != value)
+        {
+            foreach (GearCalculResultRowModel row in this.GearCalculResultRows)
+            {
+                row.ValueUnit = value;
+            }
+        }
     }
 }

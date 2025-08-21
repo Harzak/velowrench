@@ -32,12 +32,12 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     /// <summary>
     /// The minimum allowable wheel diameter in inches.
     /// </summary>
-    internal const int MIN_WHEEL_DIAMETER_INCH = 7;
+    internal const int MIN_TYRE_DIAMETER_INCH = 7;
     
     /// <summary>
     /// The maximum allowable wheel diameter in inches.
     /// </summary>
-    internal const int MAX_WHEEL_DIAMETER_INCH = 32;
+    internal const int MAX_TYRE_DIAMETER_INCH = 38;
     
     /// <summary>
     /// The minimum allowable number of teeth on a chainring.
@@ -103,12 +103,12 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
 
         if (input.CalculatorType == EGearCalculatorType.GainRatio)
         {
-            if (!input.CrankLengthInMilimeter.HasValue)
+            if (input.CrankLength == null)
             {
                 _errorMessage.Add("Crank length is required for Gain Ratio calculations.");
 
             }
-            else if (!CrankLengthIsValid(input.CrankLengthInMilimeter.Value))
+            else if (!CrankLengthIsValid(input.CrankLength.Value))
             {
                 _errorMessage.Add($"Crank length must be between {MIN_CRANK_LENGTH_MM} mm and {MAX_CRANK_LENGTH_MM} mm.");
             }
@@ -140,9 +140,9 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
             _errorMessage.Add($"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }
 
-        if (!WheelDiameterIsValid(input.WheelDiameterInInch))
+        if (!WheelDiameterIsValid(input.TyreOuterDiameter.Value))
         {
-            _errorMessage.Add($"Wheel diameter must be between {MIN_WHEEL_DIAMETER_INCH} and {MAX_WHEEL_DIAMETER_INCH} inches.");
+            _errorMessage.Add($"Tyre outer diameter must be between {MIN_TYRE_DIAMETER_INCH} and {MAX_TYRE_DIAMETER_INCH} inches.");
         }
 
         if (!ChainringTeethCountIsValid(input.TeethNumberLargeOrUniqueChainring))
@@ -170,7 +170,7 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
 
     private bool WheelDiameterIsValid(double wheelDiameterInch)
     {
-        return wheelDiameterInch >= MIN_WHEEL_DIAMETER_INCH && wheelDiameterInch <= MAX_WHEEL_DIAMETER_INCH;
+        return wheelDiameterInch >= MIN_TYRE_DIAMETER_INCH && wheelDiameterInch <= MAX_TYRE_DIAMETER_INCH;
     }
 
     private bool ChainringTeethCountIsValid(int teethCount)

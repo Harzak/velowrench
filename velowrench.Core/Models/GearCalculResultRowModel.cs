@@ -1,8 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using UnitsNet;
 using velowrench.Calculations.Enums;
 
 namespace velowrench.Core.Models;
@@ -11,31 +15,102 @@ namespace velowrench.Core.Models;
 /// Represents a single row of gear calculation results for display purposes.
 /// Contains calculated values for a specific sprocket size across all available chainrings.
 /// </summary>
-public class GearCalculResultRowModel
+public partial class GearCalculResultRowModel : ObservableObject
 {
     /// <summary>
     /// Gets or sets the number of teeth on the sprocket for this calculation row.
     /// This value identifies which sprocket size this row represents.
     /// </summary>
-    public int SprocketCount { get; set; }
+    [ObservableProperty]
+    private int _sprocketCount;
 
     /// <summary>
     /// Gets or sets the calculated value for the primary (largest or only) chainring.
     /// Always contains a value as the primary chainring is required for all calculations.
     /// </summary>
-    public double Chainring1 { get; set; }
+    [ObservableProperty]
+    private double _valueForChainring1;
 
     /// <summary>
     /// Gets or sets the calculated value for the medium chainring.
     /// Contains a value only when a medium chainring is configured in the input.
     /// </summary>
-    public double? Chainring2 { get; set; }
+    [ObservableProperty]
+    private double? _valueForChainring2;
 
     /// <summary>
     /// Gets or sets the calculated value for the smallest chainring.
     /// Contains a value only when a small chainring is configured in the input.
     /// </summary>
-    public double? Chainring3 { get; set; }
+    [ObservableProperty]
+    private double? _valueForChainring3;
 
-    public EGearCalculationResultIntensity Intensity { get; set; }
+    [ObservableProperty]
+    private EGearCalculationResultIntensity _intensity;
+
+    /// <summary>
+    /// Gets or sets the unit of measurement for <see cref="ValueForChainring1"/>, <see cref="ValueForChainring2"/>, <see cref="ValueForChainring3"/>.
+    /// </summary>
+    [ObservableProperty]
+    private Enum? _valueUnit;
+
+    /// <summary>
+    /// Gets or sets the precision value used for calculations or formatting.
+    /// </summary>
+    [ObservableProperty]
+    private int _precision;
+
+    public GearCalculResultRowModel(double valueForChainring1, Enum? valueUnit)
+    {
+        _valueForChainring1 = valueForChainring1;
+        _valueUnit = valueUnit;
+        _precision = 2;
+    }
+
+    partial void OnValueUnitChanged(Enum? oldValue, Enum? newValue)
+    {
+        if (oldValue != null && newValue != null && oldValue != newValue && TryConvertValues(oldValue, newValue))
+        {
+            // Values are already converted in TryConvertValues
+        }
+    }
+
+    private bool TryConvertValues(Enum oldUnit, Enum newUnit)
+    {
+        if (!TryConvertValue(this.ValueForChainring1, oldUnit, newUnit, out double convertedValue))
+        {
+            return false;
+        }
+        ValueForChainring1 = convertedValue;
+
+        if (this.ValueForChainring2.HasValue)
+        {
+            if (!TryConvertValue(this.ValueForChainring2.Value, oldUnit, newUnit, out double convertedValue2))
+            {
+                return false;
+            }
+            ValueForChainring2 = convertedValue2;
+        }
+
+        if (this.ValueForChainring3.HasValue)
+        {
+            if (!TryConvertValue(this.ValueForChainring3.Value, oldUnit, newUnit, out double convertedValue3))
+            {
+                return false;
+            }
+            ValueForChainring3 = convertedValue3;
+        }
+
+        return true;
+    }
+
+    private bool TryConvertValue(double value, Enum oldUnit, Enum newUnit, out double convertedValue)
+    {
+        if (UnitConverter.TryConvert(value, oldUnit, newUnit, out convertedValue))
+        {
+            convertedValue = Math.Round(convertedValue, Precision);
+            return true;
+        }
+        return false;
+    }
 }

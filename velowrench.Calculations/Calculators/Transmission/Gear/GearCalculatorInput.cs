@@ -4,7 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitsNet;
+using UnitsNet.Units;
 using velowrench.Calculations.Enums;
+using velowrench.Calculations.Units;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
@@ -36,21 +39,21 @@ public sealed record GearCalculatorInput
     /// Each value represents the number of teeth on a specific sprocket.
     /// </summary>
     public required IList<int> NumberOfTeethBySprocket { get; init; }
-    
+
     /// <summary>
-    /// Gets the wheel diameter in inches, measured at the tire's outer circumference.
+    /// Gets the outer tyre diameter in a specified unit (e.g., inches, millimeters).
     /// This measurement affects the actual distance traveled per wheel revolution.
     /// </summary>
-    public required double WheelDiameterInInch { get; init; }
-    
+    public required ConvertibleDouble<LengthUnit> TyreOuterDiameter { get; init; }
+
     /// <summary>
-    /// Gets the crank arm length in inches.
+    /// Gets the crank arm length in a specified unit (e.g., millimeters).
     /// Only used for gain ratio calculations, should be set to null for other calculation types.
     /// </summary>
     /// <value>
     /// Required for <see cref="EGearCalculatorType.GainRatio"/> calculations, null for other calculation types
     /// </value>
-    public required double? CrankLengthInMilimeter { get; init; }
+    public required ConvertibleDouble<LengthUnit>? CrankLength { get; init; }
 
     /// <summary>
     /// Gets the pedaling cadence in revolutions per minute.

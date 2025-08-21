@@ -28,6 +28,11 @@ public sealed record GearCalculatorResult : BaseCalculatorResult<GearCalculatorI
     /// </summary>
     public IList<double>? ValuesSmallChainring { get; init; }
 
+    /// <summary>
+    /// Gets the unit of measurement associated with the value.
+    /// </summary>
+    public Enum? Unit { get; init; }
+
     public GearCalculatorResult()
     {
 

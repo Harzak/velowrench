@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace velowrench.Repository.Models;
+﻿namespace velowrench.Repository.Models;
 
 /// <summary>
 /// Represents a bicycle wheel specification with size information and measurements.
@@ -15,23 +9,24 @@ public record WheelSpecificationModel
     /// Gets the descriptive label for this wheel specification.
     /// </summary>
     public string Label { get; init; }
-    
-    /// <summary>
-    /// Gets the Bead Seat Diameter (BSD) in millimeters.
-    /// This is the standardized measurement used in wheel manufacturing and tire compatibility.
-    /// </summary>
-    public int BSDmm { get; init; }
-    
+
     /// <summary>
     /// Gets the Bead Seat Diameter (BSD) in inches.
-    /// This measurement is commonly used in gear calculations and imperial-based formulas.
+    /// Value measured where the tire bead sits inside the rim, not at the outer edge of the inflated tyre.
     /// </summary>
     public double BSDin { get; init; }
 
-    public WheelSpecificationModel(string label, double bSDin, int bSDmm)
+    /// <summary>
+    /// Nominal tyre outer diameters
+    /// </summary>
+    public double TyreOuterDiameterInInch => this.BSDin + (TyreHeightInInch * 2);
+
+    public double TyreHeightInInch { get; init; }
+
+    public WheelSpecificationModel(string label, double bSDin, double tyreHeightIn)
     {
         this.Label = label;
-        this.BSDmm = bSDmm;
+        this.TyreHeightInInch = tyreHeightIn;
         this.BSDin = bSDin;
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitsNet;
 
-namespace velowrench.Core.Units;
+namespace velowrench.Calculations.Units;
 
 /// <summary>
 /// Represents a unit abbreviation for a specific unit type.

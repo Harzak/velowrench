@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace velowrench.UI.Converters;
 
+/// <summary>
+/// Converts a value to true of false based on whether the value is non-null.
+/// </summary>
 internal class NotNullToBooleanConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

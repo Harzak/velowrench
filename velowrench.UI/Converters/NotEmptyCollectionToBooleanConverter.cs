@@ -1,5 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,17 +10,22 @@ using System.Threading.Tasks;
 namespace velowrench.UI.Converters;
 
 /// <summary>
-/// Provides a value converter that converts an enumeration value to its string representation and vice versa.
+/// Converts a collection to a value treu or false depending on whether the collection has elements
 /// </summary>
-internal class EnumToStringConverter : IValueConverter
+internal class NotEmptyCollectionToBooleanConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value?.ToString() ?? string.Empty;
+        if (value is IEnumerable enumerable)
+        {
+            return enumerable.Cast<object>().Any();
+        }
+        return false;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return Enum.Parse(targetType, value?.ToString() ?? string.Empty);
+        throw new NotSupportedException("NotEmptyCollectionToBooleanConverter does not support two-way binding.");
     }
 }
+

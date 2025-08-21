@@ -16,6 +16,8 @@
         <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
         <converters:EnumEqualsToBooleanConverter x:Key="EnumEqualsToBooleanConverter" />
         <converters:GearIntensityToColorConverter x:Key="GearIntensityToColorConverter" />
+        <converters:NotEmptyCollectionToBooleanConverter x:Key="NotEmptyCollectionToBooleanConverter" />
+        <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
     </UserControl.Resources>
 
     <ScrollViewer>
@@ -151,7 +153,6 @@
                 </ComboBox>
             </Grid>
 
-
             <!--  Result  -->
             <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
                             Content="{Binding CurrentState}">
@@ -203,6 +204,7 @@
                                     <Setter Property="ContentTemplate">
                                         <Setter.Value>
                                             <DataTemplate>
+
                                                 <Grid RowDefinitions="Auto, Auto, Auto, Auto">
                                                     <StackPanel Grid.Column="0"
                                                                 Margin="0,20,0,25"
@@ -220,6 +222,18 @@
                                                           HorizontalAlignment="Center"
                                                           ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
 
+                                                        <ComboBox Grid.Row="0" Grid.Column="0"
+                                                                  HorizontalAlignment="Center"
+                                                                  IsVisible="{Binding $parent[UserControl].DataContext.AvailableResultUnits, Converter={StaticResource NotEmptyCollectionToBooleanConverter}}"
+                                                                  ItemsSource="{Binding $parent[UserControl].DataContext.AvailableResultUnits}"
+                                                                  SelectedItem="{Binding $parent[UserControl].DataContext.SelectedResultUnit}">
+                                                            <ComboBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                                                                </DataTemplate>
+                                                            </ComboBox.ItemTemplate>
+                                                        </ComboBox>
+
                                                         <DataGrid Grid.Row="1" Grid.Column="0"
                                                                   Margin="0,20,0,0" HorizontalAlignment="Center"
                                                                   BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
@@ -232,14 +246,14 @@
                                                             </DataGrid.Styles>
                                                             <DataGrid.Columns>
                                                                 <DataGridTextColumn Binding="{Binding SprocketCount}"
-                                                                                    Foreground="{StaticResource SemiColorTertiary}"			
+                                                                                    Foreground="{StaticResource SemiColorTertiary}"
                                                                                     Header="" IsVisible="True" />
-                                                                <DataGridTextColumn Binding="{Binding Chainring1}"
+                                                                <DataGridTextColumn Binding="{Binding ValueForChainring1}"
                                                                                     Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}}" IsVisible="True" />
-                                                                <DataGridTextColumn Binding="{Binding Chainring2}"
+                                                                <DataGridTextColumn Binding="{Binding ValueForChainring2}"
                                                                                     Header="{Binding $parent[UserControl].DataContext.Chainring2TeethCount}"
                                                                                     IsVisible="{Binding $parent[UserControl].DataContext.Chainring2TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
-                                                                <DataGridTextColumn Binding="{Binding Chainring3}"
+                                                                <DataGridTextColumn Binding="{Binding ValueForChainring3}"
                                                                                     Header="{Binding $parent[UserControl].DataContext.Chainring3TeethCount}"
                                                                                     IsVisible="{Binding $parent[UserControl].DataContext.Chainring3TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
                                                             </DataGrid.Columns>

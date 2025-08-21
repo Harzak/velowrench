@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnitsNet.Units;
-using velowrench.Core.Units;
+using velowrench.Calculations.Units;
 
 namespace velowrench.UI.Controls;
 
