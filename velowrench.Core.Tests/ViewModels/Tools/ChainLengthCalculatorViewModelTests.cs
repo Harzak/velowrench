@@ -23,7 +23,6 @@ public class ChainLengthCalculatorViewModelTests
 {
     private ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _calculator;
     private ICalculatorInputValidation<ChainLengthCalculatorInput> _inputValidation;
-    private IDebounceAction _calculateCall;
     private INavigationService _navigationService;
     private ILocalizer _localizer;
     private ChainLengthCalculatorViewModel _viewModel;
@@ -36,7 +35,6 @@ public class ChainLengthCalculatorViewModelTests
         _navigationService = A.Fake<INavigationService>();
         _localizer = A.Fake<ILocalizer>();
         _calculator = A.Fake<ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
-        _calculateCall = A.Fake<IDebounceAction>();
         _inputValidation = A.Fake<ICalculatorInputValidation<ChainLengthCalculatorInput>>();
 
         A.CallTo(() => calculFactory.CreateCalculator()).Returns(_calculator);

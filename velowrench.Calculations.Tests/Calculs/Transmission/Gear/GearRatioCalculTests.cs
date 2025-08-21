@@ -129,7 +129,7 @@ public class GearRatioCalculTests
             CalculatorType = EGearCalculatorType.Speed,
             RevolutionPerMinute = 90,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27, LengthUnit.Inch),
-            CrankLength = new ConvertibleDouble<LengthUnit>(175, LengthUnit.Millimeter),
+            CrankLength = null,
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 24,
             TeethNumberMediumChainring = 34,
@@ -158,7 +158,7 @@ public class GearRatioCalculTests
             CalculatorType = EGearCalculatorType.Speed,
             RevolutionPerMinute = 40,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(24, LengthUnit.Inch),
-            CrankLength = new ConvertibleDouble<LengthUnit>(115, LengthUnit.Millimeter),
+            CrankLength = null,
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 20,
             TeethNumberMediumChainring = 24,
@@ -217,7 +217,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.GearInches,
-            RevolutionPerMinute = 90,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(175, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
@@ -246,7 +246,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.GearInches,
-            RevolutionPerMinute = 40,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(24, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(115, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
@@ -275,7 +275,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.GearInches,
-            RevolutionPerMinute = 120,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(35.65, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(190, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
@@ -307,7 +307,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.Development,
-            RevolutionPerMinute = 90,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(175, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
@@ -336,7 +336,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.Development,
-            RevolutionPerMinute = 40,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(24, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(115, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
@@ -365,7 +365,7 @@ public class GearRatioCalculTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.Development,
-            RevolutionPerMinute = 120,
+            RevolutionPerMinute = null,
             TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(35.65, LengthUnit.Inch),
             CrankLength = new ConvertibleDouble<LengthUnit>(190, LengthUnit.Millimeter),
             NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
