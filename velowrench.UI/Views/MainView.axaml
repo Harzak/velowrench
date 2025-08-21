@@ -39,13 +39,14 @@
                                         Kind="InfoOutline" />
         </Button>
 
-        <ContentControl Grid.Row="1" Grid.Column="0"
-                        Content="{Binding CurrentContent}">
-            <ContentControl.DataTemplates>
-                <services:ViewLocator />
-            </ContentControl.DataTemplates>
-        </ContentControl>
 
+        <ScrollViewer Grid.Row="1" Grid.Column="0">
+            <ContentControl Content="{Binding CurrentContent}">
+                <ContentControl.DataTemplates>
+                    <services:ViewLocator />
+                </ContentControl.DataTemplates>
+            </ContentControl>
+        </ScrollViewer>
     </Grid>
 
 </UserControl>

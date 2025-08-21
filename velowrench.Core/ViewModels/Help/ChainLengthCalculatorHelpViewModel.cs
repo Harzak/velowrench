@@ -34,7 +34,6 @@ public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableVie
 
     public ChainLengthCalculatorHelpViewModel(INavigationService navigationService, ILocalizer  localizer) : base(navigationService)
     {
-        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
         this.Name = localizer.GetString("ChainLengthCalculator");   

@@ -1,0 +1,165 @@
+<UserControl x:Class="velowrench.UI.Views.Help.GearCalculatorHelpView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:math="clr-namespace:AvaloniaMath.Controls;assembly=AvaloniaMath"
+             xmlns:res="clr-namespace:velowrench.UI.Resources"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Help.GearCalculatorHelpViewModel"
+             Design.Height="840"
+             Design.Width="360">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Header2">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="0,10,0,3" />
+
+        </Style>
+
+        <Style Selector="TextBlock.Content">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
+
+        <Style Selector="TextBlock.GroupHeader">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+            <Setter Property="Margin" Value="16,16,16,8" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto, Auto, Auto ,Auto, Auto, Auto">
+
+        <!--  Inputs  -->
+        <TextBlock Grid.Row="0"
+                   Classes="GroupHeader"
+                   Text="{x:Static res:Languages.Inputs}" />
+
+        <Border Grid.Row="1" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Header2" Text="Output format" />
+                <TextBlock Margin="0,0,0,10"
+                           Classes="Content" Text="Represents the different ways of expressing the gear/transmission ratio." />
+
+                <TextBlock Classes="Content" Text="Gear inches" TextDecorations="Underline" />
+                <TextBlock Margin="0,0,0,10"
+                           Classes="Content" Text="Traditional gear inches calculation. Standard measurement for comparing gear ratios across different bicycle configurations." />
+
+                <TextBlock Classes="Content" Text="Gain ratio: " TextDecorations="Underline" />
+                <TextBlock Margin="0,0,0,10"
+                           Classes="Content" Text="Universal mechanical comparison between bikes. More mechanically accurate than gear inches." />
+
+                <TextBlock Classes="Content" Text="Development" TextDecorations="Underline" />
+                <TextBlock Margin="0,0,0,10"
+                           Classes="Content" Text="Development calculation that measures the distance traveled per pedal revolution." />
+
+                <TextBlock Classes="Content" Text="Speed" TextDecorations="Underline" />
+                <TextBlock Classes="Content" Text="Calculates the speed achievable at a specific pedaling rate (RPM)." />
+            </StackPanel>
+        </Border>
+
+        <!--  Calculator  -->
+        <TextBlock Grid.Row="2"
+                   Classes="GroupHeader"
+                   Text="{x:Static res:Languages.Calculations}" />
+
+        <Border Grid.Row="3" Classes="Group">
+            <StackPanel>
+                <!--  Gear inches  -->
+                <TextBlock Classes="Content" Text="Gear inches" TextDecorations="Underline" />
+                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding GearInchesFormula}"
+                                   Scale="20" />
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="F" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= number of teeth on the front chainring" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="R" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= number of teeth on the rear sprocket" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{D_w}" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= wheel diameter in inches" />
+                </StackPanel>
+
+                <!--  Gain ratio  -->
+                <TextBlock Margin="0,15,0,0"
+                           Classes="Content" Text="Gain ratio" TextDecorations="Underline" />
+                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding GainRatioFormula}"
+                                   Scale="20" />
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{L_w}" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= wheel radius" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{L_c}" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= crank length" />
+                </StackPanel>
+
+                <!--  Development  -->
+                <TextBlock Margin="0,15,0,0"
+                           Classes="Content" Text="Development" TextDecorations="Underline" />
+                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding DevelopmentFormula}"
+                                   Scale="20" />
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{C_w}" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= wheel circumference" />
+                </StackPanel>
+
+                <!--  Speed  -->
+                <TextBlock Margin="0,15,0,0"
+                           Classes="Content" Text="Speed" TextDecorations="Underline" />
+                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding SpeedFormula}"
+                                   Scale="20" />
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="RPM" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= cadence in revolutions per minute" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="Dev" Scale="18" />
+                    <TextBlock VerticalAlignment="Center"
+                               Classes="Content" Text="= development" />
+                </StackPanel>
+            </StackPanel>
+
+        </Border>
+
+        <!--  Results  -->
+        <TextBlock Grid.Row="4"
+                   Classes="GroupHeader"
+                   Text="{x:Static res:Languages.Results}" />
+        <Border Grid.Row="5" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Content" Text="All results contain the values calculated for each combination of sprocket and chainring, sorted by chainring size and sprocket size." />
+                <TextBlock Margin="0,10,0,0" Classes="Content" Text="The results of the development and speed calculations can be converted into different units, while the results of the gear inches calculation are only expressed in inches and those of the gain ratio are unitless." />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+
+</UserControl>

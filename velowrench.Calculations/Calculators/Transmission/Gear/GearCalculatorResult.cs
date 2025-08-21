@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents the result of gear ratio calculations.
 /// Contains calculated values for each sprocket and chainring combination,
-/// organized by chainring size for easy comparison and analysis.
+/// organized by chainring size
 /// </summary>
 public sealed record GearCalculatorResult : BaseCalculatorResult<GearCalculatorInput>
 {

@@ -76,6 +76,8 @@ public sealed class ViewModelFactory : IViewModelFactory
         {
             case EVeloWrenchTools.ChainLengthCalculator:
                 return new ChainLengthCalculatorHelpViewModel(navigationService, _localizer);
+            case EVeloWrenchTools.GearCalculator:
+                return new  GearCalculatorHelpViewModel(navigationService, _localizer);
             default:
                 throw new NotSupportedException(type.ToString());
         }

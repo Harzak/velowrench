@@ -35,6 +35,11 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     public override string Name { get; }
 
     /// <summary>
+    /// Gets a value indicating whether this view model has an associated help page.
+    /// </summary>
+    public override bool CanShowHelpPage => true;
+
+    /// <summary>
     /// Gets all available gear calculation types for user selection.
     /// </summary>
     public IEnumerable<EGearCalculatorType> CalculationTypes => Enum.GetValues<EGearCalculatorType>();
@@ -294,5 +299,14 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
                 row.ValueUnit = value;
             }
         }
+    }
+
+    /// <summary>
+    /// Shows the help page for the gear calculator.
+    /// </summary>
+    [RelayCommand]
+    public override void ShowHelpPage()
+    {
+        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.GearCalculator);
     }
 }
