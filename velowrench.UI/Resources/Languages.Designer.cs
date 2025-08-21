@@ -70,6 +70,24 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = cadence in revolutions per minute.
+        /// </summary>
+        public static string CadenceRpmFormula {
+            get {
+                return ResourceManager.GetString("CadenceRpmFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cadence.
+        /// </summary>
+        public static string Cadence {
+            get {
+                return ResourceManager.GetString("Cadence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculated.
         /// </summary>
         public static string Calculated {
@@ -169,6 +187,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chainring(s) teeth.
+        /// </summary>
+        public static string ChainringTeeth {
+            get {
+                return ResourceManager.GetString("ChainringTeeth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chain stay length.
         /// </summary>
         public static string ChainStayLength {
@@ -196,6 +223,51 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = crank length.
+        /// </summary>
+        public static string CrankLengthFormula {
+            get {
+                return ResourceManager.GetString("CrankLengthFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crank length.
+        /// </summary>
+        public static string CrankLength {
+            get {
+                return ResourceManager.GetString("CrankLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Development.
+        /// </summary>
+        public static string Development {
+            get {
+                return ResourceManager.GetString("Development", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Development calculation that measures the distance traveled per pedal revolution..
+        /// </summary>
+        public static string DevelopmentDescription {
+            get {
+                return ResourceManager.GetString("DevelopmentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = development.
+        /// </summary>
+        public static string DevelopmentFormula {
+            get {
+                return ResourceManager.GetString("DevelopmentFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the values.
         /// </summary>
         public static string EnterValues {
@@ -205,11 +277,83 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = number of teeth on the front chainring.
+        /// </summary>
+        public static string FrontChainringTeethFormula {
+            get {
+                return ResourceManager.GetString("FrontChainringTeethFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gain ratio.
+        /// </summary>
+        public static string GainRatio {
+            get {
+                return ResourceManager.GetString("GainRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Universal mechanical comparison between bikes. More mechanically accurate than gear inches..
+        /// </summary>
+        public static string GainRatioDescription {
+            get {
+                return ResourceManager.GetString("GainRatioDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gear Calculator.
         /// </summary>
         public static string GearCalculator {
             get {
                 return ResourceManager.GetString("GearCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Represents the different ways of expressing the gear/transmission ratio..
+        /// </summary>
+        public static string GearCalculatorOutputFormatDescription {
+            get {
+                return ResourceManager.GetString("GearCalculatorOutputFormatDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All results contain the values calculated for each combination of sprocket and chainring, sorted by chainring size and sprocket size..
+        /// </summary>
+        public static string GearCalculatorResultsDescription {
+            get {
+                return ResourceManager.GetString("GearCalculatorResultsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The results of the development and speed calculations can be converted into different units, while the results of the gear inches calculation are only expressed in inches and those of the gain ratio are unitless..
+        /// </summary>
+        public static string GearCalculatorUnitsDescription {
+            get {
+                return ResourceManager.GetString("GearCalculatorUnitsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gear inches.
+        /// </summary>
+        public static string GearInches {
+            get {
+                return ResourceManager.GetString("GearInches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traditional gear inches calculation. Standard measurement for comparing gear ratios across different bicycle configurations..
+        /// </summary>
+        public static string GearInchesDescription {
+            get {
+                return ResourceManager.GetString("GearInchesDescription", resourceCulture);
             }
         }
         
@@ -304,6 +448,24 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output format.
+        /// </summary>
+        public static string OutputFormat {
+            get {
+                return ResourceManager.GetString("OutputFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = number of teeth on the rear sprocket.
+        /// </summary>
+        public static string RearSprocketTeethFormula {
+            get {
+                return ResourceManager.GetString("RearSprocketTeethFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recommended value.
         /// </summary>
         public static string RecommendedValue {
@@ -385,6 +547,24 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Speed.
+        /// </summary>
+        public static string Speed {
+            get {
+                return ResourceManager.GetString("Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculates the speed achievable at a specific pedaling rate (RPM)..
+        /// </summary>
+        public static string SpeedDescription {
+            get {
+                return ResourceManager.GetString("SpeedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spoke Length Calculator.
         /// </summary>
         public static string SpokeLengthCalculator {
@@ -399,6 +579,15 @@ namespace velowrench.UI.Resources {
         public static string SpokeTensionGuide {
             get {
                 return ResourceManager.GetString("SpokeTensionGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sprocket(s) teeth.
+        /// </summary>
+        public static string SprocketTeeth {
+            get {
+                return ResourceManager.GetString("SprocketTeeth", resourceCulture);
             }
         }
         
@@ -426,6 +615,42 @@ namespace velowrench.UI.Resources {
         public static string VeloWrench {
             get {
                 return ResourceManager.GetString("VeloWrench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = wheel circumference.
+        /// </summary>
+        public static string WheelCircumferenceFormula {
+            get {
+                return ResourceManager.GetString("WheelCircumferenceFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = wheel diameter in inches.
+        /// </summary>
+        public static string WheelDiameterFormula {
+            get {
+                return ResourceManager.GetString("WheelDiameterFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = wheel radius.
+        /// </summary>
+        public static string WheelRadiusFormula {
+            get {
+                return ResourceManager.GetString("WheelRadiusFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wheel size.
+        /// </summary>
+        public static string WheelSize {
+            get {
+                return ResourceManager.GetString("WheelSize", resourceCulture);
             }
         }
         

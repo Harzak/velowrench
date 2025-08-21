@@ -243,4 +243,79 @@
   <data name="ResultChainLengthCalculExplaination" xml:space="preserve">
     <value>Both formulas give the recommended chain length, which can then be converted into the number of links required.</value>
   </data>
+  <data name="OutputFormat" xml:space="preserve">
+    <value>Output format</value>
+  </data>
+  <data name="GearCalculatorOutputFormatDescription" xml:space="preserve">
+    <value>Represents the different ways of expressing the gear/transmission ratio.</value>
+  </data>
+  <data name="GearInches" xml:space="preserve">
+    <value>Gear inches</value>
+  </data>
+  <data name="GearInchesDescription" xml:space="preserve">
+    <value>Traditional gear inches calculation. Standard measurement for comparing gear ratios across different bicycle configurations.</value>
+  </data>
+  <data name="GainRatio" xml:space="preserve">
+    <value>Gain ratio</value>
+  </data>
+  <data name="GainRatioDescription" xml:space="preserve">
+    <value>Universal mechanical comparison between bikes. More mechanically accurate than gear inches.</value>
+  </data>
+  <data name="Development" xml:space="preserve">
+    <value>Development</value>
+  </data>
+  <data name="DevelopmentDescription" xml:space="preserve">
+    <value>Development calculation that measures the distance traveled per pedal revolution.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="SpeedDescription" xml:space="preserve">
+    <value>Calculates the speed achievable at a specific pedaling rate (RPM).</value>
+  </data>
+  <data name="FrontChainringTeethFormula" xml:space="preserve">
+    <value>= number of teeth on the front chainring</value>
+  </data>
+  <data name="RearSprocketTeethFormula" xml:space="preserve">
+    <value>= number of teeth on the rear sprocket</value>
+  </data>
+  <data name="WheelDiameterFormula" xml:space="preserve">
+    <value>= wheel diameter in inches</value>
+  </data>
+  <data name="WheelRadiusFormula" xml:space="preserve">
+    <value>= wheel radius</value>
+  </data>
+  <data name="CrankLengthFormula" xml:space="preserve">
+    <value>= crank length</value>
+  </data>
+  <data name="WheelCircumferenceFormula" xml:space="preserve">
+    <value>= wheel circumference</value>
+  </data>
+  <data name="CadenceRpmFormula" xml:space="preserve">
+    <value>= cadence in revolutions per minute</value>
+  </data>
+  <data name="DevelopmentFormula" xml:space="preserve">
+    <value>= development</value>
+  </data>
+  <data name="GearCalculatorResultsDescription" xml:space="preserve">
+    <value>All results contain the values calculated for each combination of sprocket and chainring, sorted by chainring size and sprocket size.</value>
+  </data>
+  <data name="GearCalculatorUnitsDescription" xml:space="preserve">
+    <value>The results of the development and speed calculations can be converted into different units, while the results of the gear inches calculation are only expressed in inches and those of the gain ratio are unitless.</value>
+  </data>
+  <data name="WheelSize" xml:space="preserve">
+    <value>Wheel size</value>
+  </data>
+  <data name="CrankLength" xml:space="preserve">
+    <value>Crank length</value>
+  </data>
+  <data name="Cadence" xml:space="preserve">
+    <value>Cadence</value>
+  </data>
+  <data name="ChainringTeeth" xml:space="preserve">
+    <value>Chainring(s) teeth</value>
+  </data>
+  <data name="SprocketTeeth" xml:space="preserve">
+    <value>Sprocket(s) teeth</value>
+  </data>
 </root>

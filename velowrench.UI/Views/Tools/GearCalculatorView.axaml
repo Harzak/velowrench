@@ -27,7 +27,7 @@
               ColumnDefinitions="2*,2*" RowDefinitions="Auto, Auto">
             <TextBlock Grid.Row="0" Grid.Column="0"
                        Margin="0,0,0,8"
-                       Text="Output format" />
+                       Text="{x:Static res:Languages.OutputFormat}" />
             <ComboBox Grid.Row="1" Grid.Column="0"
                       Margin="0,0,10,0" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding CalculationTypes}"
@@ -55,7 +55,7 @@
 
             <TextBlock Grid.Row="0" Grid.Column="0"
                        Margin="0,0,0,8"
-                       Text="Wheel size" />
+                       Text="{x:Static res:Languages.WheelSize}" />
             <ComboBox Grid.Row="1" Grid.Column="0"
                       Margin="0,0,10,0" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding SourceWheels}"
@@ -70,7 +70,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1"
                        Margin="10,0,0,8"
                        IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.GainRatio}}"
-                       Text="Crank length" />
+                       Text="{x:Static res:Languages.CrankLength}" />
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0" HorizontalAlignment="Stretch"
                       IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.GainRatio}}"
@@ -86,7 +86,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1"
                        Margin="10,0,0,8"
                        IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.Speed}}"
-                       Text="Cadence" />
+                       Text="{x:Static res:Languages.Cadence}" />
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="10,0,0,0" HorizontalAlignment="Stretch"
                       IsVisible="{Binding SelectedCalculatorType, Converter={StaticResource EnumEqualsToBooleanConverter}, ConverterParameter={x:Static calculatorEnums:EGearCalculatorType.Speed}}"
@@ -106,7 +106,7 @@
               ColumnDefinitions="2*, 2*, 2*" RowDefinitions="Auto, Auto, Auto, Auto">
             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                        Margin="0,0,0,8"
-                       Text="Chainring(s) teeth" />
+                       Text="{x:Static res:Languages.ChainringTeeth}" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="0"
                            Margin="0,0,10,0"
@@ -130,7 +130,7 @@
               ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
             <TextBlock Grid.Row="0" Grid.Column="0"
                        Margin="0,0,0,8"
-                       Text="Sprocket(s) teeth" />
+                       Text="{x:Static res:Languages.SprocketTeeth}" />
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
                       ItemsSource="{Binding SourceSprockets}">
