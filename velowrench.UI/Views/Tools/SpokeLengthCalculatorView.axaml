@@ -1,0 +1,162 @@
+<UserControl x:Class="velowrench.UI.Views.Tools.SpokeLengthCalculatorView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
+             xmlns:converters="clr-namespace:velowrench.UI.Converters"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:res="clr-namespace:velowrench.UI.Resources"
+             xmlns:units="using:velowrench.Calculations.Units"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Tools.SpokeLengthCalculatorViewModel"
+             Design.Height="640"
+             Design.Width="360">
+
+    <UserControl.Resources>
+        <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
+        <Style Selector="TextBlock.Title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Light" />
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel Margin="20,10">
+
+        <Border Classes="Group">
+            <TextBlock Text="{x:Static res:Languages.ChainLengthCalculatorHeader}" TextWrapping="Wrap" />
+        </Border>
+
+        <!--  Hub measurements  -->
+        <Grid Margin="0,10,0,0"
+              ColumnDefinitions="3*, 2*, 2*" RowDefinitions="Auto,Auto,Auto,Auto">
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,0,0,10"
+                        Orientation="Horizontal">
+                <TextBlock Margin="0,0,15,0" VerticalAlignment="Center"
+                           Classes="Title" Text="Hub measurements" />
+                <ComboBox Grid.Row="0" Grid.Column="0"
+                          Width="70"
+                          HorizontalAlignment="Center"
+                          ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
+                          SelectedItem="{Binding HubMeasurementsSelectedUnit}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <materialIcons:MaterialIcon Width="20" Height="20"
+                                                Foreground="{DynamicResource SemiColorText0}"
+                                                Kind="InfoOutline" />
+                </Button>
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       FontSize="12" Text="Non-gear side" />
+            <TextBlock Grid.Row="1" Grid.Column="2"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="12" Text="Gear side" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Center to flange" />
+            <NumericUpDown Grid.Row="2" Grid.Column="1"
+                           Margin="0,5,5,5" VerticalAlignment="Center"
+                           ShowButtonSpinner="False"
+                           Value="{Binding HubCenterToFlangeNonGearSideDistance.Value}" />
+            <NumericUpDown Grid.Row="2" Grid.Column="2"
+                           Margin="5,5,0,5" VerticalAlignment="Center"
+                           ShowButtonSpinner="False"
+                           Value="{Binding HubCenterToFlangeGearSideDistance.Value}" />
+
+            <TextBlock Grid.Row="3" Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Hub diameter" />
+            <NumericUpDown Grid.Row="3" Grid.Column="1"
+                           Margin="0,5,5,5" VerticalAlignment="Center"
+                           ShowButtonSpinner="False"
+                           Value="{Binding HubFlangeDiameterNonGearSide.Value}" />
+            <NumericUpDown Grid.Row="3" Grid.Column="2"
+                           Margin="5,5,0,5" VerticalAlignment="Center"
+                           ShowButtonSpinner="False"
+                           Value="{Binding HubFlangeDiameterGearSide.Value}" />
+        </Grid>
+
+        <!--  Rim measurement  -->
+        <Grid Margin="0,10,0,0"
+              ColumnDefinitions="3*, 2*, 2*" RowDefinitions="Auto, Auto">
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Classes="Title" Text="Rim measurements" />
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <materialIcons:MaterialIcon Width="20" Height="20"
+                                                Foreground="{DynamicResource SemiColorText0}"
+                                                Kind="InfoOutline" />
+                </Button>
+            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Internal diameter" />
+            <NumericUpDown Grid.Row="1" Grid.Column="1"
+                           Margin="0,5,5,5" VerticalAlignment="Center"
+                           ShowButtonSpinner="False"
+                           Value="{Binding RimInternalDiameter.Value}" />
+            <ComboBox Grid.Row="1" Grid.Column="2"
+                      Margin="5,5,0,5" HorizontalAlignment="Stretch"
+                      ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
+                      SelectedItem="{Binding RimInternalDiameterSelectedUnit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
+        <!--  Build configuration  -->
+        <Grid Margin="0,10,0,0"
+              ColumnDefinitions="3*, 2*, 2*" RowDefinitions="Auto, Auto, Auto">
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center"
+                           Classes="Title" Text="Build configuration" />
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Theme="{DynamicResource BorderlessButton}">
+                    <materialIcons:MaterialIcon Width="20" Height="20"
+                                                Foreground="{DynamicResource SemiColorText0}"
+                                                Kind="InfoOutline" />
+                </Button>
+            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Margin="0,5,0,5" VerticalAlignment="Center"
+                       Text="Number of spokes" />
+            <ComboBox Grid.Row="1" Grid.Column="1"
+                      Margin="0,5,5,5" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding AvailableSpokeCount}"
+                      PlaceholderText="12"
+                      SelectedValue="{Binding SelectedSpokeCount}" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       Margin="0,5,0,0" VerticalAlignment="Center"
+                       Text="Lacing pattern" />
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      Margin="0,5,5,0" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding AvailableSpokeLacingPatterns}"
+                      PlaceholderText="3"
+                      SelectedValue="{Binding SelectedSpokeLacingPattern}" />
+        </Grid>
+
+    </StackPanel>
+</UserControl>

@@ -20,7 +20,21 @@
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
     </UserControl.Resources>
 
+    <UserControl.Styles>
+        <Style Selector="Border.Group">
+            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="CornerRadius" Value="7" />
+        </Style>
+    </UserControl.Styles>
+
+
     <StackPanel Margin="20,10" Orientation="Vertical">
+
+        <Border Classes="Group">
+            <TextBlock Text="{x:Static res:Languages.GearCalculatorHeader}" TextWrapping="Wrap" />
+        </Border>
+
         <!--  Calculator Type  -->
         <Grid Grid.Row="0" Grid.Column="0"
               Margin="0,10,0,10"

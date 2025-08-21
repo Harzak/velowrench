@@ -70,20 +70,20 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to = cadence in revolutions per minute.
-        /// </summary>
-        public static string CadenceRpmFormula {
-            get {
-                return ResourceManager.GetString("CadenceRpmFormula", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cadence.
         /// </summary>
         public static string Cadence {
             get {
                 return ResourceManager.GetString("Cadence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = cadence in revolutions per minute.
+        /// </summary>
+        public static string CadenceRpmFormula {
+            get {
+                return ResourceManager.GetString("CadenceRpmFormula", resourceCulture);
             }
         }
         
@@ -160,15 +160,6 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chainline Calculator.
-        /// </summary>
-        public static string ChainlineCalculator {
-            get {
-                return ResourceManager.GetString("ChainlineCalculator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Chain links.
         /// </summary>
         public static string ChainLinks {
@@ -223,20 +214,20 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to = crank length.
-        /// </summary>
-        public static string CrankLengthFormula {
-            get {
-                return ResourceManager.GetString("CrankLengthFormula", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Crank length.
         /// </summary>
         public static string CrankLength {
             get {
                 return ResourceManager.GetString("CrankLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = crank length.
+        /// </summary>
+        public static string CrankLengthFormula {
+            get {
+                return ResourceManager.GetString("CrankLengthFormula", resourceCulture);
             }
         }
         
@@ -309,6 +300,15 @@ namespace velowrench.UI.Resources {
         public static string GearCalculator {
             get {
                 return ResourceManager.GetString("GearCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visualize your gear setup with different metrics: gear inches, gain ratio, development, and speed..
+        /// </summary>
+        public static string GearCalculatorHeader {
+            get {
+                return ResourceManager.GetString("GearCalculatorHeader", resourceCulture);
             }
         }
         
@@ -511,15 +511,6 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rollout Calculator.
-        /// </summary>
-        public static string RolloutCalculator {
-            get {
-                return ResourceManager.GetString("RolloutCalculator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Simple formula.
         /// </summary>
         public static string SimpleFormula {
@@ -646,20 +637,20 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wheel size.
-        /// </summary>
-        public static string WheelSize {
-            get {
-                return ResourceManager.GetString("WheelSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Wheels &amp; Spoking.
         /// </summary>
         public static string WheelsAndSpoking {
             get {
                 return ResourceManager.GetString("WheelsAndSpoking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wheel size.
+        /// </summary>
+        public static string WheelSize {
+            get {
+                return ResourceManager.GetString("WheelSize", resourceCulture);
             }
         }
     }

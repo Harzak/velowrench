@@ -86,26 +86,6 @@
                         </Button>
                         <Button Classes="SettingsItem"
                                 Command="{Binding NavigateToSelectedToolCommand}"
-                                CommandParameter="{x:Static enums:EVeloWrenchTools.ChainlineCalculator}">
-                            <Grid ColumnDefinitions="25,*,20">
-                                <materialIcons:MaterialIcon Grid.Column="0"
-                                                            Width="20" Height="20"
-                                                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                            Kind="AlignHorizontalDistribute" />
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
-                                           Text="{x:Static res:Languages.ChainlineCalculator}" />
-                                <materialIcons:MaterialIcon Grid.Column="2"
-                                                            Width="20" Height="20"
-                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                            Kind="ChevronRight" />
-                            </Grid>
-                        </Button>
-                        <Button Classes="SettingsItem"
-                                Command="{Binding NavigateToSelectedToolCommand}"
                                 CommandParameter="{x:Static enums:EVeloWrenchTools.GearCalculator}">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
@@ -124,26 +104,6 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="SettingsItem"
-                                Command="{Binding NavigateToSelectedToolCommand}"
-                                CommandParameter="{x:Static enums:EVeloWrenchTools.RolloutCalculator}">
-                            <Grid ColumnDefinitions="25,*,20">
-                                <materialIcons:MaterialIcon Grid.Column="0"
-                                                            Width="20" Height="20"
-                                                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                            Kind="CogRefreshOutline" />
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
-                                           Text="{x:Static res:Languages.RolloutCalculator}" />
-                                <materialIcons:MaterialIcon Grid.Column="2"
-                                                            Width="20" Height="20"
-                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                            Kind="ChevronRight" />
-                            </Grid>
-                        </Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -154,7 +114,9 @@
                 <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.WheelsAndSpoking}" />
                 <Border Classes="Group">
                     <StackPanel>
-                        <Button Classes="SettingsItem">
+                        <Button Classes="SettingsItem"
+                                Command="{Binding NavigateToSelectedToolCommand}"
+                                CommandParameter="{x:Static enums:EVeloWrenchTools.SpokeLengthCalculator}">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"

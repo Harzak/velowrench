@@ -78,4 +78,14 @@ public static class UnitsStore
     }
 
     #endregion
+
+    #region Wheel Calculations
+    public static IReadOnlyCollection<LengthUnit> WheelMeasurementsAvailableUnits => [
+        LengthUnit.Millimeter,
+        LengthUnit.Centimeter,
+        LengthUnit.Inch
+    ];
+
+    public static LengthUnit WheelMeasurementsDefaultUnit => WheelMeasurementsAvailableUnits.First();   
+    #endregion
 }

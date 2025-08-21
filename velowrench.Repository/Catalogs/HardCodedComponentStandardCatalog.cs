@@ -201,4 +201,14 @@ public static class HardCodedComponentStandardCatalog
         new("51", 51),
         new("52", 52)
     ]);
+
+    public static ReadOnlyCollection<int> GetMostCommonWheelSpokeCount => new(
+    [
+        16,18,24,28,32,36
+    ]);
+
+    public static ReadOnlyCollection<int> GetMostCommonSpokeLacingPattern => new(
+    [
+        0,1,2,3,4
+    ]);
 }

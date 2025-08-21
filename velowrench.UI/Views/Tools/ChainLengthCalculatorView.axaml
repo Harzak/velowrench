@@ -23,15 +23,14 @@
         </Style>
     </UserControl.Styles>
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Margin="20,10" Orientation="Vertical">
 
-        <Border Margin="20,10" Classes="Group">
+        <Border Classes="Group">
             <TextBlock Text="{x:Static res:Languages.ChainLengthCalculatorHeader}" TextWrapping="Wrap" />
         </Border>
 
         <!--  Inputs  -->
-        <Grid Margin="20,10"
-              ColumnDefinitions="75*,3*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+        <Grid ColumnDefinitions="75*,3*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
             <!--  Chain Stay Length  -->
             <controls:LengthUpDown Title="{x:Static res:Languages.ChainStayLength}"
@@ -69,8 +68,7 @@
         </Grid>
 
         <!--  Calculation Status  -->
-        <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
-                        Content="{Binding CurrentState}">
+        <ContentControl HorizontalAlignment="Stretch" Content="{Binding CurrentState}">
             <ContentControl.DataTemplates>
                 <DataTemplate DataType="enums:ECalculatorState">
                     <ContentControl Content="{Binding}">

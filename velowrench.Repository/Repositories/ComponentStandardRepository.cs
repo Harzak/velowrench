@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,5 +46,15 @@ public sealed class ComponentStandardRepository : IComponentStandardRepository
     public IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonSprocketSpecification;
+    }
+
+    public IReadOnlyCollection<int> GetMostCommonWheelSpokeCount()
+    {
+        return HardCodedComponentStandardCatalog.GetMostCommonWheelSpokeCount;
+    }
+
+    public IReadOnlyCollection<int> GetMostCommonSpokeLacingPattern()
+    {
+        return HardCodedComponentStandardCatalog.GetMostCommonSpokeLacingPattern;
     }
 }

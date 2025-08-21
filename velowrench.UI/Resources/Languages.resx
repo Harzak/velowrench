@@ -120,14 +120,8 @@
   <data name="ChainLengthCalculator" xml:space="preserve">
     <value>Chain Length Calculator</value>
   </data>
-  <data name="ChainlineCalculator" xml:space="preserve">
-    <value>Chainline Calculator</value>
-  </data>
   <data name="GearCalculator" xml:space="preserve">
     <value>Gear Calculator</value>
-  </data>
-  <data name="RolloutCalculator" xml:space="preserve">
-    <value>Rollout Calculator</value>
   </data>
   <data name="SpokeLengthCalculator" xml:space="preserve">
     <value>Spoke Length Calculator</value>
@@ -318,5 +312,7 @@
   <data name="SprocketTeeth" xml:space="preserve">
     <value>Sprocket(s) teeth</value>
   </data>
+  <data name="GearCalculatorHeader" xml:space="preserve">
+    <value>Visualize your gear setup with different metrics: gear inches, gain ratio, development, and speed.</value>
+  </data>
 </root>
-

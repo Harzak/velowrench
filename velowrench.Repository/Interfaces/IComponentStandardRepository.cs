@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using velowrench.Repository.Catalogs;
 using velowrench.Repository.Models;
 
 namespace velowrench.Repository.Interfaces;
@@ -33,5 +34,9 @@ public interface IComponentStandardRepository
     /// Retrieves the most common sprocket specifications.
     /// </summary>
     IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications();
+
+    IReadOnlyCollection<int> GetMostCommonWheelSpokeCount();
+
+    IReadOnlyCollection<int> GetMostCommonSpokeLacingPattern();
 }
 

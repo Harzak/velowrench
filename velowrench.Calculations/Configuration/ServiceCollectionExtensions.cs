@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
+using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Utils.Interfaces;
 
@@ -26,8 +27,12 @@ public static class ServiceCollectionExtensions
     public static void AddCalculationServices(this IServiceCollection collection)
     {
         collection.AddSingleton<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>, ChainLengthCalculatorFactory>();
-        collection.AddSingleton<ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>, GearCalculatorFactory>();
         collection.AddSingleton<Func<ICalculatorInputValidation<ChainLengthCalculatorInput>>>(() => new ChainLengthCalculatorInputValidator());
+
+        collection.AddSingleton<ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>, GearCalculatorFactory>();
         collection.AddSingleton<Func<ICalculatorInputValidation<GearCalculatorInput>>>(() => new GearCalculatorInputValidator());
+
+        collection.AddSingleton<ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>, SpokeLengthCalculatorFactory>();
+        collection.AddSingleton<Func<ICalculatorInputValidation<SpokeLengthCalculatorInput>>>(() => new  SpokeLengthCalculatorInputValidation());
     }
 }
