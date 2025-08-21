@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Units;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Chain;
@@ -42,7 +44,7 @@ public class ChainLengthCalculTests
         // Arrange
         ChainLengthCalculatorInput input = new()
         {
-            ChainStayLengthInch =  chainStayLengthInch,
+            ChainStayLength =  new ConvertibleDouble<LengthUnit>( chainStayLengthInch, LengthUnit.Inch),
             TeethLargestChainring = teethLargestChainring,
             TeethLargestSprocket = teethLargestSprocket
         };
@@ -55,7 +57,7 @@ public class ChainLengthCalculTests
         result.IsSuccess.Should().BeTrue();
         result.Content.Should().NotBeNull();
         result.Content.ChainLinks.Should().Be(expectedChainLink);
-        result.Content.ChainLengthInch.Should().BeApproximately(expectedChainLink * ChainConst.CHAINLINK_LENGTH_INCH, 0.5);
+        result.Content.ChainLength.Value.Should().BeApproximately(expectedChainLink * ChainConst.CHAINLINK_LENGTH_INCH, 0.5);
         result.Content.UsedInputs.Should().BeEquivalentTo(input);
         result.Content.CalculatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
@@ -79,7 +81,7 @@ public class ChainLengthCalculTests
         // Arrange
         var input = new ChainLengthCalculatorInput
         {
-            ChainStayLengthInch = chainStayLength,
+            ChainStayLength = new ConvertibleDouble<LengthUnit>(chainStayLength, LengthUnit.Inch),
             TeethLargestChainring = chainring,
             TeethLargestSprocket = sprocket
         };

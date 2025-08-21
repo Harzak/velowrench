@@ -67,7 +67,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
             return false;
         }
 
-        if(!ChainStayLengthIsValid(input.ChainStayLengthInch))
+        if(!ChainStayLengthIsValid(input.ChainStayLength.Value))
         {
             _errorMessage.Add($"Chainstay length must be greater than {MIN_CHAINSTAY_LENGTH_INCH}.");
         }

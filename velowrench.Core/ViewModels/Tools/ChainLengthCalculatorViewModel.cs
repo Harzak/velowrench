@@ -104,7 +104,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         return new ChainLengthCalculatorInput()
         {
-            ChainStayLengthInch = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
+            ChainStayLength = this.ChainStayLength ?? ConvertibleDouble<LengthUnit>.Default(),
             TeethLargestChainring = this.TeethLargestChainring ?? 0,
             TeethLargestSprocket = this.TeethLargestSprocket ?? 0
         };
@@ -112,7 +112,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
     {
-        this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthInch, LengthUnit.Inch);
+        this.RecommendedChainLength = result.Content.ChainLength;
         this.RecommendedChainLinks = result.Content.ChainLinks;
     }
 

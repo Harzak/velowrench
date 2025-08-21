@@ -1,4 +1,7 @@
-﻿namespace velowrench.Calculations.Calculators.Transmission.Chain;
+﻿using UnitsNet.Units;
+using velowrench.Calculations.Units;
+
+namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Represents the result of a chain length calculation for bicycle transmissions.
@@ -13,5 +16,5 @@ public record ChainLengthCalculatorResult : BaseCalculatorResult<ChainLengthCalc
     /// <summary>
     /// Gets the calculated chain length in inches.
     /// </summary>
-    public required double ChainLengthInch { get; init; }
+    public required ConvertibleDouble<LengthUnit> ChainLength { get; init; }
 }
