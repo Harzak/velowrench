@@ -50,8 +50,8 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
         {
             Content = new SpokeLengthCalculatorResult()
             {
-                SpokeLengthNonGearSideMm = Math.Round(spokeLengthNonGearSideMm),
-                SpokeLengthGearSideMm = Math.Round(spokeLengthGearSideMm),
+                SpokeLengthNonGearSideMm = Math.Round(spokeLengthNonGearSideMm, input.Precision),
+                SpokeLengthGearSideMm = Math.Round(spokeLengthGearSideMm, input.Precision),
                 CalculatedAt = DateTime.UtcNow,
                 UsedInputs = input,
             },
@@ -71,10 +71,10 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
     /// <summary>
     /// Calculates the length of a spoke in a 3D space based on the chord length: hypotenuse including flange offset
     /// </summary>
-    private double GetSpokeLength(double rimInternalDiameterMm, double hubCenterToFalngeDistanceMm, double hubFlangeDiameter, double spokeLacingPattern, int spokeCount)
+    private double GetSpokeLength(double rimInternalDiameterMm, double hubCenterToFlangeDistanceMm, double hubFlangeDiameter, double spokeLacingPattern, int spokeCount)
     {
         double chord = this.GetChordLength(rimInternalDiameterMm, hubFlangeDiameter, spokeLacingPattern, spokeCount);
-        return Math.Sqrt(chord * chord + hubCenterToFalngeDistanceMm * hubCenterToFalngeDistanceMm);
+        return Math.Sqrt(chord * chord + hubCenterToFlangeDistanceMm * hubCenterToFlangeDistanceMm);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
     /// </summary>
     private double GetChordLength(double rimInternalDiameterMm, double hubFlangeDiameter, double spokeLacingPattern, int spokeCount)
     {
-        double rimRadius = this.GetRimRadius(rimInternalDiameterMm);
+        double rimRadius = rimInternalDiameterMm / 2.0;
         double flangeRadius = hubFlangeDiameter / 2.0;
         double theta = this.GetSpokeAndRimHoleAngle(spokeLacingPattern, spokeCount);
         return Math.Sqrt(rimRadius * rimRadius + flangeRadius * flangeRadius - 2.0 * rimRadius * flangeRadius * Math.Cos(theta));
@@ -94,13 +94,5 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
     private double GetSpokeAndRimHoleAngle(double spokeLacingPattern, int spokeCount)
     {
         return 2.0 * Math.PI * spokeLacingPattern / (spokeCount / 2);
-    }
-
-    /// <summary>
-    /// Calculates the radius of a rim based on its internal diameter.
-    /// </summary>
-    private double GetRimRadius(double rimInternalDiameterMm)
-    {
-        return rimInternalDiameterMm / 2.0;
     }
 }

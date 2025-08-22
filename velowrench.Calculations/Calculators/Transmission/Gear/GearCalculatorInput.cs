@@ -1,4 +1,5 @@
-﻿using velowrench.Calculations.Enums;
+﻿using velowrench.Calculations.Constants;
+using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
@@ -69,6 +70,6 @@ public sealed record GearCalculatorInput
 
     public GearCalculatorInput()
     {
-        this.Precision = 1;
+        this.Precision = CalculationConstants.DEFAULT_PRECISION;
     }
 }

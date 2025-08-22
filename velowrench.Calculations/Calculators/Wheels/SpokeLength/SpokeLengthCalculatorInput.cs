@@ -1,4 +1,6 @@
-﻿namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
+﻿using velowrench.Calculations.Constants;
+
+namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
 /// <summary>
 /// Represents the input parameters required for calculating spoke lengths in a wheel-building context.
@@ -39,6 +41,17 @@ public sealed record SpokeLengthCalculatorInput
     /// Gets the spoke lacing pattern (cross count). How many times each spoke crosses others (e.g., 3-cross, 2-cross, radial).
     /// </summary>
     public required int SpokeLacingPattern { get; init; }
+
+    /// <summary>
+    /// Gets the number of decimal places to include in calculation results.
+    /// Controls the precision of the output values.
+    /// </summary>
+    public int Precision { get; init; }
+
+    public SpokeLengthCalculatorInput()
+    {
+        this.Precision = CalculationConstants.DEFAULT_PRECISION;
+    }
 
     /// <summary>
     /// Custom equality implementation with floating-point tolerance.

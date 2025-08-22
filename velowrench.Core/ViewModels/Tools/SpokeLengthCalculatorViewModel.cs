@@ -154,6 +154,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
             RimInternalDiameterMm = RimInternalDiameter?.GetValueIn(LengthUnit.Millimeter) ?? 0,
             SpokeCount = this.SelectedSpokeCount,
             SpokeLacingPattern = this.SelectedSpokeLacingPattern.Crosses,
+            Precision = 0
         };
     }
 
