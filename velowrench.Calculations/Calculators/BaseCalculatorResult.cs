@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Calculations.Calculators.Transmission.Gear;
-
-namespace velowrench.Calculations.Calculators;
+﻿namespace velowrench.Calculations.Calculators;
 
 /// <summary>
 /// Provides a base implementation for calculation result types that contain both the computed output

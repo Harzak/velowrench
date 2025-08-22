@@ -1,17 +1,10 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Chain;
@@ -29,7 +22,7 @@ public class ChainLengthCalculTests
     {
         _logger = A.Fake<ILogger>();
         _inputValidation = new ChainLengthCalculatorInputValidator();
-        _calculator = new ChainLengthCalculator(() => _inputValidation ,_logger);
+        _calculator = new ChainLengthCalculator(() => _inputValidation, _logger);
     }
 
     [DataRow(13.5, 44, 11, 83)] // Small road bike

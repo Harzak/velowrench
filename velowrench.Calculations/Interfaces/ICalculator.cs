@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Utils.Enums;
+﻿using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
-using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Interfaces;
 
 /// <summary>
 /// Base interface for all calculations, providing state tracking and event notification capabilities.
 /// </summary>
-public interface ICalculator 
+public interface ICalculator
 {
     /// <summary>
     /// Gets the current state of the calculation.
@@ -20,7 +14,7 @@ public interface ICalculator
     /// <value>
     /// The current calculation state indicating whether the calculation is not started, in progress, completed, or failed.
     /// </value>
-    public ECalculatorState State { get;  }
+    public ECalculatorState State { get; }
 
     /// <summary>
     /// Event raised when the calculation state changes.

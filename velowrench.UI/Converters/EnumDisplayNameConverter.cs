@@ -2,7 +2,6 @@ using Avalonia.Data.Converters;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 
 namespace velowrench.UI.Converters;

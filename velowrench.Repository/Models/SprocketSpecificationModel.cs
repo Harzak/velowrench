@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace velowrench.Repository.Models;
+﻿namespace velowrench.Repository.Models;
 
 /// <summary>
 /// Represents a bicycle sprocket specification with teeth count information.
@@ -15,7 +9,7 @@ public record SprocketSpecificationModel
     /// Gets the descriptive label for this sprocket specification.
     /// </summary>
     public string Label { get; init; }
-    
+
     /// <summary>
     /// Gets the number of teeth on this sprocket.
     /// </summary>

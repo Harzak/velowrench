@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitsNet.Units;
+﻿using UnitsNet.Units;
 using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Units;
@@ -69,7 +64,7 @@ public static class UnitsStore
     {
         return type switch
         {
-            EGearCalculatorType.Development => [..DevelopmentResultAvailableUnits.Cast<Enum>()],
+            EGearCalculatorType.Development => [.. DevelopmentResultAvailableUnits.Cast<Enum>()],
             EGearCalculatorType.Speed => [.. SpeedResultAvailableUnits.Cast<Enum>()],
             EGearCalculatorType.GearInches => [],
             EGearCalculatorType.GainRatio => [],
@@ -86,6 +81,6 @@ public static class UnitsStore
         LengthUnit.Inch
     ];
 
-    public static LengthUnit WheelMeasurementsDefaultUnit => WheelMeasurementsAvailableUnits.First();   
+    public static LengthUnit WheelMeasurementsDefaultUnit => WheelMeasurementsAvailableUnits.First();
     #endregion
 }

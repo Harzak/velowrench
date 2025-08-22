@@ -1,13 +1,8 @@
 using FakeItEasy;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
-using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Tools;

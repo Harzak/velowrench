@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Calculations.Enums;
+﻿using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 

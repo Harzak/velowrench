@@ -1,7 +1,4 @@
-﻿using UnitsNet.Units;
-using velowrench.Calculations.Units;
-
-namespace velowrench.Calculations.Calculators.Transmission.Chain;
+﻿namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Represents the input parameters required for chain length calculations.
@@ -13,12 +10,12 @@ public sealed record ChainLengthCalculatorInput
     /// which is the horizontal distance between the bottom bracket and rear axle.
     /// </summary>
     public required double ChainStayLengthIn { get; init; }
-    
+
     /// <summary>
     /// Gets the number of teeth on the largest chainring (front gear).
     /// </summary>
     public required int TeethLargestChainring { get; init; }
-    
+
     /// <summary>
     /// Gets the number of teeth on the largest sprocket (rear gear).
     /// </summary>
@@ -31,9 +28,9 @@ public sealed record ChainLengthCalculatorInput
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
-        
+
         const double tolerance = 1e-10;
-        return Math.Abs(ChainStayLengthIn - other.ChainStayLengthIn) < tolerance 
+        return Math.Abs(ChainStayLengthIn - other.ChainStayLengthIn) < tolerance
             && TeethLargestChainring == other.TeethLargestChainring
             && TeethLargestSprocket == other.TeethLargestSprocket;
     }

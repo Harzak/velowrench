@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Units;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
-using velowrench.Utils.Enums;
-using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;
@@ -76,6 +74,29 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     }
 
     /// <summary>
+    /// Creates calculation input based on current view model state.
+    /// Maps UI properties to the gear calculation input structure required by the calculation engine.
+    /// </summary>
+    protected override ChainLengthCalculatorInput GetInput()
+    {
+        return new ChainLengthCalculatorInput()
+        {
+            ChainStayLengthIn = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
+            TeethLargestChainring = this.TeethLargestChainring ?? 0,
+            TeethLargestSprocket = this.TeethLargestSprocket ?? 0
+        };
+    }
+
+    /// <summary>
+    /// Processes successful gear calculation results and updates the display data.
+    /// </summary>
+    protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
+    {
+        this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
+        this.RecommendedChainLinks = result.Content.ChainLinks;
+    }
+
+    /// <summary>
     /// Handles changes to the chainstay length value and triggers calculation updates.
     /// </summary>
     private void OnChainStayLengthValueChanged(double value)
@@ -97,22 +118,6 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     partial void OnTeethLargestSprocketChanged(int? value)
     {
         base.RefreshCalculationDebounced.Execute();
-    }
-
-    protected override ChainLengthCalculatorInput GetInput()
-    {
-        return new ChainLengthCalculatorInput()
-        {
-            ChainStayLengthIn = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
-            TeethLargestChainring = this.TeethLargestChainring ?? 0,
-            TeethLargestSprocket = this.TeethLargestSprocket ?? 0
-        };
-    }
-
-    protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
-    {
-        this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
-        this.RecommendedChainLinks = result.Content.ChainLinks;
     }
 
     /// <summary>

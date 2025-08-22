@@ -1,21 +1,14 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
-using velowrench.Utils.Results;
 using velowrench.Utils.EventArg;
-using UnitsNet.Units;
-using velowrench.Core.Enums;
-using velowrench.Calculations.Units;
-using velowrench.Core.Units;
+using velowrench.Utils.Results;
 
 namespace velowrench.Core.Tests.ViewModels.Tools;
 
@@ -42,7 +35,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _calculator.GetValidation()).Returns(_inputValidation);
 
         A.CallTo(() => actionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
-        .ReturnsLazily((Action action, int delayMs) => 
+        .ReturnsLazily((Action action, int delayMs) =>
         {
             return new TestDebounceAction(action);
         });

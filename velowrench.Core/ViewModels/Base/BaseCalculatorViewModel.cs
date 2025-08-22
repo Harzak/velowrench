@@ -1,18 +1,9 @@
-﻿using Avalonia.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using velowrench.Calculations.Calculators;
-using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
-using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
-using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Base;
@@ -54,7 +45,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     private string? _calculatorInputErrors;
 
     protected BaseCalculatorViewModel(
-        ICalculatorFactory<TInput, TResult> calculatorFactory, 
+        ICalculatorFactory<TInput, TResult> calculatorFactory,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory) : base(navigationService)
     {

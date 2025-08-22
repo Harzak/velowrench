@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-using velowrench.Calculations.Interfaces;
+﻿using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
@@ -70,7 +64,7 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
 
     public SpokeLengthCalculatorInputValidation()
     {
-        _errorMessage = []; 
+        _errorMessage = [];
     }
 
     /// <summary>
@@ -84,7 +78,7 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
             return false;
         }
 
-        if(!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSideMm) 
+        if (!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSideMm)
            || !HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSideMm))
         {
             _errorMessage.Add($"Hub flange diameter must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
@@ -96,7 +90,7 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
             _errorMessage.Add($"Hub center to flange distance must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
         }
 
-        if(!ERDIsValid(input.RimInternalDiameterMm))
+        if (!ERDIsValid(input.RimInternalDiameterMm))
         {
             _errorMessage.Add($"Rim internal diameter (ERD) must be between {MIN_ERD_MM} mm and {MAX_ERD_MM} mm.");
         }
@@ -106,7 +100,7 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
             _errorMessage.Add($"Spoke count must be between {MIN_SPOKE_COUNT} and {MAX_SPOKE_COUNT}.");
         }
 
-        if(!LacingPatternIsValid(input.SpokeLacingPattern))
+        if (!LacingPatternIsValid(input.SpokeLacingPattern))
         {
             _errorMessage.Add($"Lacing pattern must be between {MIN_LACING_PATTERN} and {MAX_LACING_PATTERN}.");
         }

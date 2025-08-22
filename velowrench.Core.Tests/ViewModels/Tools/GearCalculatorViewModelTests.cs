@@ -1,15 +1,9 @@
 using FakeItEasy;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
-using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
 using velowrench.Core.ViewModels.Tools;

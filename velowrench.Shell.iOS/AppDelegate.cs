@@ -24,7 +24,7 @@ public partial class AppDelegate : AvaloniaAppDelegate<App>
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);
                 // Add iOS-specific logging providers if needed
             });
-            
+
             // Add any other iOS-specific services here
         };
 

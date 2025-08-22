@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitsNet;
-using UnitsNet.Units;
-using velowrench.Calculations.Enums;
-using velowrench.Calculations.Units;
+﻿using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
@@ -21,19 +12,19 @@ public sealed record GearCalculatorInput
     /// This is the primary chainring used in single chainring setups or the largest ring in multi-ring configurations.
     /// </summary>
     public required int TeethNumberLargeOrUniqueChainring { get; init; }
-    
+
     /// <summary>
     /// Gets the number of teeth on the medium chainring (front gear).
     /// Optional parameter used in triple chainring configurations.
     /// </summary>
     public int? TeethNumberMediumChainring { get; init; }
-    
+
     /// <summary>
     /// Gets the number of teeth on the smallest chainring (front gear).
     /// Optional parameter used in double or triple chainring configurations.
     /// </summary>
     public int? TeethNumberSmallChainring { get; init; }
-    
+
     /// <summary>
     /// Gets the collection of teeth counts for all sprockets in the cassette or freewheel (rear gears).
     /// Each value represents the number of teeth on a specific sprocket.
@@ -69,7 +60,7 @@ public sealed record GearCalculatorInput
     /// Determines which calculation algorithm is used and which optional parameters are required.
     /// </summary>
     public required EGearCalculatorType CalculatorType { get; init; }
-    
+
     /// <summary>
     /// Gets the number of decimal places to include in calculation results.
     /// Controls the precision of the output values.

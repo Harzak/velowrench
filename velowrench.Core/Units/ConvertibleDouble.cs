@@ -8,7 +8,7 @@ namespace velowrench.Core.Units;
 /// Represents a numeric value with an associated unit that can be converted between different units of the same type.
 /// </summary>
 /// <typeparam name="T">The enum type representing the unit system (e.g., LengthUnit, VolumeUnit).</typeparam>
-public  sealed partial class ConvertibleDouble<T> : ObservableObject where T : Enum
+public sealed partial class ConvertibleDouble<T> : ObservableObject where T : Enum
 {
     private readonly Action<double>? _onValueChanged;
 
@@ -55,11 +55,17 @@ public  sealed partial class ConvertibleDouble<T> : ObservableObject where T : E
         _onValueChanged = OnValueChanged;
     }
 
+    /// <summary>
+    /// Invoked when the value of the associated property changes.
+    /// </summary>
     partial void OnValueChanged(double value)
     {
         _onValueChanged?.Invoke(value);
     }
 
+    /// <summary>
+    /// Invoked before the unit of measurement is changed, allowing for custom validation.
+    /// </summary>
     partial void OnUnitChanging(T? oldValue, T newValue)
     {
         if (UnitConverter.TryConvert(Value, _unit, newValue, out double convertedValue))

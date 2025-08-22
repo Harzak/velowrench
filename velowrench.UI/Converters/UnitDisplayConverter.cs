@@ -1,9 +1,6 @@
 using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
-using UnitsNet;
-using UnitsNet.Units;
-using velowrench.Calculations.Units;
 using velowrench.Core.Units;
 
 namespace velowrench.UI.Converters;
@@ -20,7 +17,7 @@ public class UnitDisplayConverter : IValueConverter
             UnitAbbreviation<Enum> unitAbbreviation = new(unit);
             return unitAbbreviation.Abbreviation;
         }
-        
+
         return value?.ToString();
     }
 

@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.LogMessages;
@@ -22,12 +17,12 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
 {
     protected ILogger Logger { get; }
     protected abstract string CalculatorName { get; }
-    
+
     /// <summary>
     /// Gets the current state of the calculation.
     /// </summary>
     public ECalculatorState State { get; private set; }
-    
+
     /// <summary>
     /// Gets the last successful result produced by this calculation, or null if no successful calculation has been performed.
     /// </summary>
@@ -66,7 +61,7 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
         }
         else
         {
-            string errorMessage = string.IsNullOrEmpty(result.ErrorMessage) ? "Unknown error" : result.ErrorMessage;    
+            string errorMessage = string.IsNullOrEmpty(result.ErrorMessage) ? "Unknown error" : result.ErrorMessage;
             CalculatorLogs.CalculationInError(this.Logger, errorMessage);
         }
 

@@ -16,12 +16,12 @@ public sealed class NavigationService : INavigationService
     /// Event raised when the current view model changes during navigation.
     /// </summary>
     public event EventHandler<ViewModelChangedEventArgs>? CurrentViewModelChanged;
-    
+
     /// <summary>
     /// Gets the currently active view model.
     /// </summary>
     public IRoutableViewModel? CurrentViewModel { get; private set; }
-    
+
     /// <summary>
     /// Gets a value indicating whether backward navigation is possible.
     /// </summary>

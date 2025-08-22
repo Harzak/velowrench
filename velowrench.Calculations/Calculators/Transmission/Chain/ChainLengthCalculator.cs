@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using UnitsNet.Units;
-using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;

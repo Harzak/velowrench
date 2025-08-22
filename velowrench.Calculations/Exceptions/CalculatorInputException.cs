@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace velowrench.Calculations.Exceptions;
 
@@ -13,7 +7,7 @@ namespace velowrench.Calculations.Exceptions;
 /// </summary>
 public class CalculatorInputException : Exception
 {
-    public CalculatorInputException()  : base("Invalid input for calculation.")
+    public CalculatorInputException() : base("Invalid input for calculation.")
     {
 
     }
@@ -28,7 +22,7 @@ public class CalculatorInputException : Exception
 
     }
 
-    public CalculatorInputException(string message, Exception innerException)  : base(message, innerException)
+    public CalculatorInputException(string message, Exception innerException) : base(message, innerException)
     {
 
     }

@@ -2,22 +2,17 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using UnitsNet.Units;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Units;
+using velowrench.Calculations.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
-using velowrench.Utils.Enums;
-using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
-using velowrench.Calculations.Units;
 
 namespace velowrench.Core.ViewModels.Tools;
 

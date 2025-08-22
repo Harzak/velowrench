@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnitsNet.Units;
-using velowrench.Calculations.Units;
-
-namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
+﻿namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
 /// <summary>
 /// Represents the result of a spoke length calculation.
