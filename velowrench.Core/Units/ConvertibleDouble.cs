@@ -1,4 +1,5 @@
-﻿using UnitsNet;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using UnitsNet;
 using UnitsNet.Units;
 
 namespace velowrench.Core.Units;
@@ -7,10 +8,9 @@ namespace velowrench.Core.Units;
 /// Represents a numeric value with an associated unit that can be converted between different units of the same type.
 /// </summary>
 /// <typeparam name="T">The enum type representing the unit system (e.g., LengthUnit, VolumeUnit).</typeparam>
-public sealed class ConvertibleDouble<T> where T : Enum
+public  sealed partial class ConvertibleDouble<T> : ObservableObject where T : Enum
 {
-    private T _unit;
-    private double _value;
+    private readonly Action<double>? _onValueChanged;
 
     /// <summary>
     /// Gets or sets the unit of measurement for this value.
@@ -21,18 +21,9 @@ public sealed class ConvertibleDouble<T> where T : Enum
     /// <remarks>
     /// When the unit is changed, the numeric value is automatically converted to maintain the same physical quantity.
     /// </remarks>
-    public T Unit
-    {
-        get => _unit;
-        set
-        {
-            if (UnitConverter.TryConvert(Value, _unit, value, out double convertedValue))
-            {
-                _unit = value;
-                Value = convertedValue;
-            }
-        }
-    }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Value))]
+    private T _unit;
 
     /// <summary>
     /// Gets or sets the numeric value in the current unit.
@@ -40,26 +31,8 @@ public sealed class ConvertibleDouble<T> where T : Enum
     /// <value>
     /// The numeric value expressed in the current unit of measurement.
     /// </value>
-    /// <remarks>
-    /// Setting this property raises the <see cref="ValueChanged"/> event if the value actually changes.
-    /// </remarks>
-    public double Value
-    {
-        get => _value;
-        set
-        {
-            if (_value != value)
-            {
-                _value = value;
-                ValueChanged?.Invoke(this, new EventArgs());
-            }
-        }
-    }
-
-    /// <summary>
-    /// Event raised when the <see cref="Value"/> property changes.
-    /// </summary>
-    public EventHandler<EventArgs>? ValueChanged { get; set; }
+    [ObservableProperty]
+    private double _value;
 
     public ConvertibleDouble()
     {
@@ -75,6 +48,25 @@ public sealed class ConvertibleDouble<T> where T : Enum
     public ConvertibleDouble(double value, T unit) : this(value)
     {
         _unit = unit;
+    }
+
+    public ConvertibleDouble(double value, T unit, Action<double> OnValueChanged) : this(value, unit)
+    {
+        _onValueChanged = OnValueChanged;
+    }
+
+    partial void OnValueChanged(double value)
+    {
+        _onValueChanged?.Invoke(value);
+    }
+
+    partial void OnUnitChanging(T? oldValue, T newValue)
+    {
+        if (UnitConverter.TryConvert(Value, _unit, newValue, out double convertedValue))
+        {
+            _unit = newValue;
+            Value = convertedValue;
+        }
     }
 
     /// <summary>

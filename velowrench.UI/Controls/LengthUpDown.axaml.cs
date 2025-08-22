@@ -111,12 +111,12 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
         {
             if (change.OldValue is ConvertibleDouble<LengthUnit> oldValue)
             {
-                oldValue.ValueChanged -= OnConvertibleDoubleValueChanged;
+                oldValue.PropertyChanged -= OnConvertibleDoubleValueChanged;
             }
 
             if (change.NewValue is ConvertibleDouble<LengthUnit> newValue)
             {
-                newValue.ValueChanged += OnConvertibleDoubleValueChanged;
+                newValue.PropertyChanged += OnConvertibleDoubleValueChanged;
             }
 
             RaisePropertyChanged(nameof(SelectedUnit));

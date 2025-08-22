@@ -70,8 +70,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
-        _chainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
-        _chainStayLength.ValueChanged += this.OnChainStayLengthValueChanged;
+        _chainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter, OnChainStayLengthValueChanged);
 
         this.Name = localizer.GetString("ChainLengthCalculator");
     }
@@ -79,7 +78,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// <summary>
     /// Handles changes to the chainstay length value and triggers calculation updates.
     /// </summary>
-    private void OnChainStayLengthValueChanged(object? sender, EventArgs e)
+    private void OnChainStayLengthValueChanged(double value)
     {
         base.RefreshCalculationDebounced.Execute();
     }
@@ -122,17 +121,5 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (this.ChainStayLength != null)
-            {
-                this.ChainStayLength.ValueChanged -= this.OnChainStayLengthValueChanged;
-            }
-        }
-        base.Dispose(disposing);
     }
 }

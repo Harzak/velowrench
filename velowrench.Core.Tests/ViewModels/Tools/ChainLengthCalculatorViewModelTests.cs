@@ -15,6 +15,7 @@ using velowrench.Utils.EventArg;
 using UnitsNet.Units;
 using velowrench.Core.Enums;
 using velowrench.Calculations.Units;
+using velowrench.Core.Units;
 
 namespace velowrench.Core.Tests.ViewModels.Tools;
 
