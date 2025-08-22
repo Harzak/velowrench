@@ -1,0 +1,117 @@
+<UserControl x:Class="velowrench.UI.Controls.CalculatorStateControl"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:velowrench.UI.Controls"
+             xmlns:enums="using:velowrench.Utils.Enums"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:res="clr-namespace:velowrench.UI.Resources"
+             x:Name="CalculatorStateControlRoot">
+
+    <ContentControl HorizontalAlignment="Stretch" Content="{Binding #CalculatorStateControlRoot.State}">
+        <ContentControl.DataTemplates>
+            <DataTemplate DataType="enums:ECalculatorState">
+                <ContentControl Content="{Binding}">
+                    <ContentControl.Styles>
+
+                        <Style Selector="ContentControl[Content=NotStarted]">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                            <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        Foreground="{DynamicResource SemiColorTertiary}"
+                                                                        Kind="AccountQuestionOutline" />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Text="{x:Static res:Languages.EnterValues}" />
+                                            <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource SemiColorWarning}"
+                                                       Text="{Binding #CalculatorStateControlRoot.ErrorMessage}"
+                                                       TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ContentControl[Content=InProgress]">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                            <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        Foreground="{DynamicResource SemiColorInformation}"
+                                                                        Kind="TimerSand" />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Text="{x:Static res:Languages.CalculationInProgress}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ContentControl[Content=Computed]">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid RowDefinitions="Auto, Auto">
+                                            <StackPanel Grid.Row="0"
+                                                        Margin="0,20,0,25"
+                                                        Orientation="Vertical">
+                                                <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                            Foreground="{DynamicResource SemiColorSuccess}"
+                                                                            Kind="CheckBold" />
+                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           Text="{x:Static res:Languages.Calculated}" />
+                                            </StackPanel>
+                                            <!--  This is where custom content will be inserted  -->
+                                            <ContentPresenter Grid.Row="1" Content="{Binding #CalculatorStateControlRoot.ComputedContent}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ContentControl[Content=Failed]">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                            <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        Foreground="{DynamicResource SemiColorDanger}"
+                                                                        Kind="ErrorOutline" />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Text="{x:Static res:Languages.CalculationFailed}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <Style Selector="ContentControl[Content=Unknown]">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,20,0,25" Orientation="Vertical">
+                                            <materialIcons:MaterialIcon Width="25" Height="25"
+                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        Foreground="{DynamicResource SemiColorWarning}"
+                                                                        Kind="CloseCircleOutline" />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       Text="{x:Static res:Languages.SomethingWentWrong}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </ContentControl.Styles>
+                </ContentControl>
+            </DataTemplate>
+        </ContentControl.DataTemplates>
+    </ContentControl>
+
+</UserControl>
