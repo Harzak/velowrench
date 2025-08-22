@@ -32,10 +32,10 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     public override bool CanShowHelpPage => true;
 
     [ObservableProperty]
-    private ConvertibleDouble<LengthUnit> _hubCenterToFlangeGearSideDistance;
+    private ConvertibleDouble<LengthUnit> _hubCenterToFlangeDistanceGearSide;
 
     [ObservableProperty]
-    private ConvertibleDouble<LengthUnit> _hubCenterToFlangeNonGearSideDistance;
+    private ConvertibleDouble<LengthUnit> _hubCenterToFlangeDistanceNonGearSide;
 
     [ObservableProperty]
     private ConvertibleDouble<LengthUnit> _hubFlangeDiameterGearSide;
@@ -64,6 +64,12 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     [ObservableProperty]
     private SpokeLacingPatternModel _selectedSpokeLacingPattern;
 
+    [ObservableProperty]
+    private ConvertibleDouble<LengthUnit> _recommendedSpokeLengthGearSide;
+
+    [ObservableProperty]
+    private ConvertibleDouble<LengthUnit> _recommendedSpokeLengthNonGearSide;
+
     public SpokeLengthCalculatorViewModel(
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> calculatorFactory,
         INavigationService navigationService,
@@ -75,8 +81,8 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        this.HubCenterToFlangeGearSideDistance = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
-        this.HubCenterToFlangeNonGearSideDistance = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
+        this.HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
+        this.HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
         this.HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
         this.HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
         this.RimInternalDiameter = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter);
@@ -89,25 +95,12 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         this.Name = localizer.GetString("SpokeLengthCalculator");
     }
 
-    partial void OnHubMeasurementsSelectedUnitChanging(LengthUnit value)
-    {
-        this.HubCenterToFlangeGearSideDistance.Unit = value;
-        this.HubCenterToFlangeNonGearSideDistance.Unit = value;
-        this.HubFlangeDiameterGearSide.Unit = value;
-        this.HubFlangeDiameterNonGearSide.Unit = value;
-    }
-
-    partial void OnRimInternalDiameterSelectedUnitChanging(LengthUnit value)
-    {
-        this.RimInternalDiameter.Unit = value;
-    }
-
     protected override SpokeLengthCalculatorInput GetInput()
     {
         return new SpokeLengthCalculatorInput
         {
-            HubCenterToFlangeGearSideDistance = this.HubCenterToFlangeGearSideDistance,
-            HubCenterToFlangeNonGearSideDistance = this.HubCenterToFlangeNonGearSideDistance,
+            HubCenterToFlangeDistanceGearSide = this.HubCenterToFlangeDistanceGearSide,
+            HubCenterToFlangeDistanceNonGearSide = this.HubCenterToFlangeDistanceNonGearSide,
             HubFlangeDiameterGearSide = this.HubFlangeDiameterGearSide,
             HubFlangeDiameterNonGearSide = this.HubFlangeDiameterNonGearSide,
             RimInternalDiameter = this.RimInternalDiameter,
@@ -118,7 +111,56 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
     protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
     {
-        throw new NotImplementedException();
+        this.RecommendedSpokeLengthGearSide = result.Content.SpokeLengthGearSide;
+        this.RecommendedSpokeLengthNonGearSide = result.Content.SpokeLengthNonGearSide;
+    }
+
+    partial void OnHubMeasurementsSelectedUnitChanging(LengthUnit value)
+    {
+        this.HubCenterToFlangeDistanceGearSide.Unit = value;
+        this.HubCenterToFlangeDistanceNonGearSide.Unit = value;
+        this.HubFlangeDiameterGearSide.Unit = value;
+        this.HubFlangeDiameterNonGearSide.Unit = value;
+    }
+
+    partial void OnHubCenterToFlangeDistanceGearSideChanged(ConvertibleDouble<LengthUnit> value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnHubCenterToFlangeDistanceNonGearSideChanged(ConvertibleDouble<LengthUnit> value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnHubFlangeDiameterGearSideChanged(ConvertibleDouble<LengthUnit> value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnHubFlangeDiameterNonGearSideChanged(ConvertibleDouble<LengthUnit> value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnRimInternalDiameterChanged(ConvertibleDouble<LengthUnit> value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnRimInternalDiameterSelectedUnitChanging(LengthUnit value)
+    {
+        this.RimInternalDiameter.Unit = value;
+    }
+
+    partial void OnSelectedSpokeCountChanged(int value)
+    {
+        base.RefreshCalculationDebounced.Execute();
+    }
+
+    partial void OnSelectedSpokeLacingPatternChanged(SpokeLacingPatternModel value)
+    {
+        base.RefreshCalculationDebounced.Execute();
     }
 }
 

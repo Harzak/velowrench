@@ -35,8 +35,8 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeNonGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
             RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(395, UnitsNet.Units.LengthUnit.Millimeter),
@@ -61,8 +61,8 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(36, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeNonGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(17, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(36, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(17, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
             RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(600, UnitsNet.Units.LengthUnit.Millimeter),
@@ -87,8 +87,8 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeNonGearSideDistance =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(70, UnitsNet.Units.LengthUnit.Millimeter),
             HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(70, UnitsNet.Units.LengthUnit.Millimeter),
             RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(560, UnitsNet.Units.LengthUnit.Millimeter),

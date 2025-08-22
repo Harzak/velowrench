@@ -42,14 +42,14 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
 
         double spokeLengthNonGearSideMm = this.GetCorrectedSpokeLength(
             input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter),
-            input.HubCenterToFlangeNonGearSideDistance.GetValueIn(LengthUnit.Millimeter),
+            input.HubCenterToFlangeDistanceNonGearSide.GetValueIn(LengthUnit.Millimeter),
             input.HubFlangeDiameterNonGearSide.GetValueIn(LengthUnit.Millimeter),
             input.SpokeLacingPattern,
             input.SpokeCount);
 
         double spokeLengthGearSideMm = this.GetCorrectedSpokeLength(
             input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter),
-            input.HubCenterToFlangeGearSideDistance.GetValueIn(LengthUnit.Millimeter),
+            input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter),
             input.HubFlangeDiameterGearSide.GetValueIn(LengthUnit.Millimeter),
             input.SpokeLacingPattern,
             input.SpokeCount);

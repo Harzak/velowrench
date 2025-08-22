@@ -91,8 +91,8 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
             return false;
         }
 
-        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeGearSideDistance.GetValueIn(LengthUnit.Millimeter))
-            || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeGearSideDistance.GetValueIn(LengthUnit.Millimeter)))
+        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter))
+            || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter)))
         {
             _errorMessage.Add($"Hub center to flange distance must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
             return false;

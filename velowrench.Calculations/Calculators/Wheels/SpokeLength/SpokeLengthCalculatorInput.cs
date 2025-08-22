@@ -16,12 +16,12 @@ public record SpokeLengthCalculatorInput
     /// <summary>
     /// Gets the distance from the hub center to the flange on the gear (right) side.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> HubCenterToFlangeGearSideDistance { get; init; }
+    public required ConvertibleDouble<LengthUnit> HubCenterToFlangeDistanceGearSide { get; init; }
 
     /// <summary>
     /// Gets the distance from the hub center to the flange on the non-gear (left) side.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> HubCenterToFlangeNonGearSideDistance { get; init; }
+    public required ConvertibleDouble<LengthUnit> HubCenterToFlangeDistanceNonGearSide { get; init; }
 
     /// <summary>
     /// Gets the diameter of the circle through the centers of the spoke holes on the gear side (right) flange.
