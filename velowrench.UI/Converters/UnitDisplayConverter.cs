@@ -16,7 +16,7 @@ public class UnitDisplayConverter : IValueConverter
     {
         if (value is Enum unit)
         {
-            UnitAbbreviation<Enum> unitAbbreviation = new((Enum)value);
+            UnitAbbreviation<Enum> unitAbbreviation = new(unit);
             return unitAbbreviation.Abbreviation;
         }
         

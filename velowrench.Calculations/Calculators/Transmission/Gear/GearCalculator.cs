@@ -72,12 +72,12 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
         {
             Content = new GearCalculatorResult()
             {
-                CalculatedAt = DateTime.UtcNow,
                 ValuesLargeOrUniqueChainring = new ReadOnlyCollection<double>(valuesLargeOrUniqueChainring),
                 ValuesMediumChainring = input.TeethNumberMediumChainring.HasValue ? new ReadOnlyCollection<double>(valuesMediumChainring) : null,
                 ValuesSmallChainring = input.TeethNumberSmallChainring.HasValue ? new ReadOnlyCollection<double>(valuesSmallChainring) : null,
-                UsedInputs = input,
                 Unit = UnitsStore.GetDefaultUnitForGearCalculation(input.CalculatorType),
+                CalculatedAt = DateTime.UtcNow,
+                UsedInputs = input,
             },
             IsSuccess = true
         };

@@ -10,9 +10,7 @@ using velowrench.Calculations.Interfaces;
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
-/// Factory for creating gear calculation instances.
-/// Implements the factory pattern to provide properly configured <see cref="GearCalculator"/> instances
-/// with required dependencies for validation and logging.
+/// Factory for creating instances of<see cref = "GearCalculator"/>.
 /// </summary>
 public class GearCalculatorFactory : ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>
 {

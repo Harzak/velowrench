@@ -12,6 +12,7 @@ using velowrench.Calculations.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Interfaces;
+using velowrench.Repository.Models;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;
@@ -58,10 +59,10 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     private int _selectedSpokeCount;
 
     [ObservableProperty]
-    private IEnumerable<int> _availableSpokeLacingPatterns;
+    private IEnumerable<SpokeLacingPatternModel> _availableSpokeLacingPatterns;
 
     [ObservableProperty]
-    private int _selectedSpokeLacingPattern;
+    private SpokeLacingPatternModel _selectedSpokeLacingPattern;
 
     public SpokeLengthCalculatorViewModel(
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> calculatorFactory,
@@ -111,7 +112,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
             HubFlangeDiameterNonGearSide = this.HubFlangeDiameterNonGearSide,
             RimInternalDiameter = this.RimInternalDiameter,
             SpokeCount = this.SelectedSpokeCount,
-            SpokeLacingPattern = this.SelectedSpokeLacingPattern
+            SpokeLacingPattern = this.SelectedSpokeLacingPattern.Crosses,
         };
     }
 

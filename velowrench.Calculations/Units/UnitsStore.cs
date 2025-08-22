@@ -69,8 +69,8 @@ public static class UnitsStore
     {
         return type switch
         {
-            EGearCalculatorType.Development => DevelopmentResultAvailableUnits.Cast<Enum>().ToList(),
-            EGearCalculatorType.Speed => SpeedResultAvailableUnits.Cast<Enum>().ToList(),
+            EGearCalculatorType.Development => [..DevelopmentResultAvailableUnits.Cast<Enum>()],
+            EGearCalculatorType.Speed => [.. SpeedResultAvailableUnits.Cast<Enum>()],
             EGearCalculatorType.GearInches => [],
             EGearCalculatorType.GainRatio => [],
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unsupported gear calculation type")

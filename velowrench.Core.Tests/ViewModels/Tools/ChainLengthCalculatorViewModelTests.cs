@@ -323,7 +323,7 @@ public class ChainLengthCalculatorViewModelTests
 
 
 // Test helper class
-public class TestDebounceAction : IDebounceAction
+public sealed class TestDebounceAction : IDebounceAction
 {
     private readonly Action _action;
 

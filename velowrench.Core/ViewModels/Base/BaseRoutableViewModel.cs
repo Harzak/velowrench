@@ -30,7 +30,7 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     protected BaseRoutableViewModel(INavigationService navigationService)
     {
         NavigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
-        UrlPathSegment = Guid.NewGuid().ToString().Substring(0, 5);
+        UrlPathSegment = Guid.NewGuid().ToString()[..5];
     }
 
     /// <summary>

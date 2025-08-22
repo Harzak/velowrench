@@ -152,7 +152,7 @@ public static class HardCodedComponentStandardCatalog
     ]);
 
     /// <summary>
-    /// Gets a comprehensive collection of standard sprocket specifications.
+    /// Gets a collection of standard sprocket specifications.
     /// </summary>
     public static ReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecification => new(
     [
@@ -202,13 +202,23 @@ public static class HardCodedComponentStandardCatalog
         new("52", 52)
     ]);
 
+    /// <summary>
+    /// Gets a read-only collection of the most common wheel spoke counts.
+    /// </summary>
     public static ReadOnlyCollection<int> GetMostCommonWheelSpokeCount => new(
     [
-        16,18,24,28,32,36
+        12,16,18,20,24,28,32,36,40,48
     ]);
 
-    public static ReadOnlyCollection<int> GetMostCommonSpokeLacingPattern => new(
+    /// <summary>
+    /// Gets a read-only collection of the most common spoke lacing patterns used in wheel building.
+    /// </summary>
+    public static ReadOnlyCollection<SpokeLacingPatternModel> GetMostCommonSpokeLacingPattern => new(
     [
-        0,1,2,3,4
+        new("0 Cross (radial)", 0),
+        new("1 Cross", 1),
+        new("2 Cross", 2),
+        new("3 Cross", 3),
+        new("4 Cross", 4)
     ]);
 }

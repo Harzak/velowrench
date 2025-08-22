@@ -16,44 +16,38 @@ namespace velowrench.Repository.Repositories;
 /// </summary>
 public sealed class ComponentStandardRepository : IComponentStandardRepository
 {
-    /// <summary>
-    /// Retrieves all available crankset specifications from the hard-coded catalog.
-    /// </summary>
+    /// <inheritdoc/>
     public IReadOnlyCollection<CranksetSpecificationModel> GetAllCranksetSpecifications()
     {
         return HardCodedComponentStandardCatalog.GetAllCranksetSpecifications;
     }
 
-    /// <summary>
-    /// Retrieves all available cadence specifications from the hard-coded catalog.
-    /// </summary>
+    /// <inheritdoc/>
     public IReadOnlyCollection<CadenceModel> GetAllCandences()
     {
         return HardCodedComponentStandardCatalog.GetMostUsedCandences;
     }
 
-    /// <summary>
-    /// Retrieves the most commonly used wheel specifications from the hard-coded catalog.
-    /// </summary>
+    /// <inheritdoc/>
     public IReadOnlyCollection<WheelSpecificationModel> GetMostCommonWheelSpecifications()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonWheelSpecifications;
     }
 
-    /// <summary>
-    /// Retrieves the most common sprocket specifications from the hard-coded catalog.
-    /// </summary>
+    /// <inheritdoc/>
     public IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonSprocketSpecification;
     }
 
+    /// <inheritdoc/>
     public IReadOnlyCollection<int> GetMostCommonWheelSpokeCount()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonWheelSpokeCount;
     }
 
-    public IReadOnlyCollection<int> GetMostCommonSpokeLacingPattern()
+    /// <inheritdoc/>
+    public IReadOnlyCollection<SpokeLacingPatternModel> GetMostCommonSpokeLacingPattern()
     {
         return HardCodedComponentStandardCatalog.GetMostCommonSpokeLacingPattern;
     }

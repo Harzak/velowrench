@@ -11,9 +11,8 @@ using velowrench.Calculations.Interfaces;
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
 
 /// <summary>
-/// Provides validation logic for gear calculation input parameters.
-/// Validates calculation-specific requirements, component specifications, and value ranges 
-/// for different types of gear calculations including gain ratio, gear inches, development, and speed.
+/// Provides validation logic for <see cref="GearCalculatorInput"/> instances, ensuring that input parameters
+/// conform to defined business rules for gear calculation.
 /// </summary>
 internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<GearCalculatorInput>
 {
@@ -85,14 +84,8 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     }
 
     /// <summary>
-    /// Validates gear calculation input parameters against comprehensive business rules.
-    /// Performs calculation-type specific validation and general component specification validation.
+    /// Validates gear calculation input parameters against business rules.
     /// </summary>
-    /// <returns>
-    /// <c>true</c> if all validation rules pass; otherwise, <c>false</c>.
-    /// Validation includes: non-null input, calculation-type specific requirements (crank length for gain ratio, RPM for speed),
-    /// sprocket count and teeth validation, wheel diameter validation, and chainring teeth validation.
-    /// </returns>
     public bool Validate(GearCalculatorInput input)
     {
         if (input == null)

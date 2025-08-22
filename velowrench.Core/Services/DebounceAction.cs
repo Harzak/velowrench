@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using velowrench.Core.Interfaces;
 using velowrench.Utils.Interfaces;
 
-namespace velowrench.Core.Actions;
+namespace velowrench.Core.Services;
 
 public sealed class DebounceAction : IDebounceAction
 {

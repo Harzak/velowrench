@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
   
   <ItemGroup>
@@ -52,6 +53,14 @@
     <Compile Update="Views\Tools\GearCalculatorView.axaml.cs">
       <DependentUpon>GearCalculatorView.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+	
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Workspaces\velowrench\velowrench.UI\.editorconfig" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Include="C:\Workspaces\velowrench\velowrench.UI\.editorconfig" />
   </ItemGroup>
 
 </Project>

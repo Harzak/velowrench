@@ -8,7 +8,7 @@ namespace velowrench.Calculations.Interfaces;
 
 /// <summary>
 /// Defines a contract for validating calculation input parameters of type <typeparamref name="TInput"/>.
-/// Provides validation logic and error reporting capabilities for ensuring input data meets calculation requirements.
+/// Provides validation logic for ensuring input data meets calculation requirements.
 /// </summary>
 /// <typeparam name="TInput">The type of input data to be validated</typeparam>
 public interface ICalculatorInputValidation<TInput>
@@ -23,8 +23,5 @@ public interface ICalculatorInputValidation<TInput>
     /// Validates the specified input data against defined business rules and constraints.
     /// </summary>
     /// <returns>
-    /// <c>true</c> if the input passes all validation rules; otherwise, <c>false</c>.
-    /// When validation fails, error messages are available through <see cref="ErrorMessages"/>.
-    /// </returns>
     bool Validate(TInput input);    
 }

@@ -35,8 +35,14 @@ public interface IComponentStandardRepository
     /// </summary>
     IReadOnlyCollection<SprocketSpecificationModel> GetMostCommonSprocketSpecifications();
 
+    /// <summary>
+    /// Retrieves the most common spoke counts for wheels.
+    /// </summary>
     IReadOnlyCollection<int> GetMostCommonWheelSpokeCount();
 
-    IReadOnlyCollection<int> GetMostCommonSpokeLacingPattern();
+    /// <summary>
+    /// Retrieves the most common spoke lacing patterns.
+    /// </summary>
+    IReadOnlyCollection<SpokeLacingPatternModel> GetMostCommonSpokeLacingPattern();
 }
 

@@ -11,7 +11,8 @@ using velowrench.Calculations.Interfaces;
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
-/// Provides validation logic for chain length calculation input parameters.
+/// Provides validation logic for <see cref="ChainLengthCalculatorInput"/> instances, ensuring that input parameters
+/// conform to defined business rules for chain length calculation.
 /// </summary>
 internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputValidation<ChainLengthCalculatorInput>
 {
@@ -55,10 +56,6 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     /// <summary>
     /// Validates chain length calculation input parameters against business rules.
     /// </summary>
-    /// <returns>
-    /// <c>true</c> if all validation rules pass; otherwise, <c>false</c>.
-    /// Validation rules include: non-null input, valid chainstay length, valid chainring teeth count, and valid sprocket teeth count.
-    /// </returns>
     public bool Validate(ChainLengthCalculatorInput input)
     {
         if (input == null)

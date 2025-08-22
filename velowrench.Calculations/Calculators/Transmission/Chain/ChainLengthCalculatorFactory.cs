@@ -10,7 +10,7 @@ using velowrench.Calculations.Interfaces;
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
-/// Factory for creating chain length calculation instances.
+/// Factory for creating instances of <see cref="ChainLengthCalculator"/>.
 /// </summary>
 public sealed class ChainLengthCalculatorFactory : ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {

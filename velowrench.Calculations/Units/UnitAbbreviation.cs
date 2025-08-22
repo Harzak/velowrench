@@ -20,7 +20,7 @@ public struct UnitAbbreviation<T> : IEquatable<UnitAbbreviation<T>> where T : En
     /// <value>
     /// The localized abbreviation string for the unit, or "N/A" if no abbreviation is available.
     /// </value>
-    public string Abbreviation => this.GetDefaultAbbreviation(this.Type) ?? "N/A";
+    public readonly string Abbreviation => this.GetDefaultAbbreviation(this.Type) ?? "N/A";
 
     /// <summary>
     /// Gets or sets the unit type for which to retrieve the abbreviation.
@@ -36,7 +36,7 @@ public struct UnitAbbreviation<T> : IEquatable<UnitAbbreviation<T>> where T : En
     /// Gets the default abbreviation for the specified unit enum value.
     /// </summary>
     /// <returns>The default abbreviation string for the unit in the current culture.</returns>
-    public string GetDefaultAbbreviation(Enum value)
+    public readonly string GetDefaultAbbreviation(Enum value)
     {
         return UnitsNetSetup.Default.UnitAbbreviations.GetDefaultAbbreviation(value, CultureInfo.CurrentCulture);
     }

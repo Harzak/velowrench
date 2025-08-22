@@ -8,7 +8,7 @@ using velowrench.Utils.Results;
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
-/// Calculate the recommended bicycle chain length using bike’s chainstay length and gear sizes.
+/// Calculates the recommended bicycle chain length using bike’s chainstay length and gear sizes.
 /// </summary>
 public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {

@@ -11,6 +11,10 @@
     <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\velowrench.Core\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="FakeItEasy" />
 		<PackageReference Include="FluentAssertions" />
