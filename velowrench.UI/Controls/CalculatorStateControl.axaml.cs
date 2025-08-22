@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using velowrench.Utils.Enums;
 
 namespace velowrench.UI.Controls;
@@ -13,10 +14,10 @@ public partial class CalculatorStateControl : UserControl
         AvaloniaProperty.Register<CalculatorStateControl, ECalculatorState>(nameof(State));
 
     /// <summary>
-    /// Defines the ComputedContent property for custom content when calculation is completed.
+    /// Defines the ComputedContentTemplate property for custom content template when calculation is completed.
     /// </summary>
-    public static readonly StyledProperty<object?> ComputedContentProperty =
-        AvaloniaProperty.Register<CalculatorStateControl, object?>(nameof(ComputedContent));
+    public static readonly StyledProperty<IDataTemplate?> ComputedContentTemplateProperty =
+        AvaloniaProperty.Register<CalculatorStateControl, IDataTemplate?>(nameof(ComputedContentTemplate));
 
     /// <summary>
     /// Defines the ErrorMessage property for displaying validation errors.
@@ -34,12 +35,12 @@ public partial class CalculatorStateControl : UserControl
     }
 
     /// <summary>
-    /// Gets or sets the custom content to display when the calculation is completed.
+    /// Gets or sets the data template to use for displaying content when the calculation is completed.
     /// </summary>
-    public object? ComputedContent
+    public IDataTemplate? ComputedContentTemplate
     {
-        get => GetValue(ComputedContentProperty);
-        set => SetValue(ComputedContentProperty, value);
+        get => GetValue(ComputedContentTemplateProperty);
+        set => SetValue(ComputedContentTemplateProperty, value);
     }
 
     /// <summary>

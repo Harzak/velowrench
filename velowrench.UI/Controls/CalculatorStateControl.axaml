@@ -1,7 +1,6 @@
 <UserControl x:Class="velowrench.UI.Controls.CalculatorStateControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="using:velowrench.UI.Controls"
              xmlns:enums="using:velowrench.Utils.Enums"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
@@ -66,8 +65,10 @@
                                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                                            Text="{x:Static res:Languages.Calculated}" />
                                             </StackPanel>
-                                            <!--  This is where custom content will be inserted  -->
-                                            <ContentPresenter Grid.Row="1" Content="{Binding #CalculatorStateControlRoot.ComputedContent}" />
+                                            <!--  Custom content via DataTemplate  -->
+                                            <ContentPresenter Grid.Row="1"
+                                                              Content="{Binding $parent[UserControl].DataContext}"
+                                                              ContentTemplate="{Binding #CalculatorStateControlRoot.ComputedContentTemplate}" />
                                         </Grid>
                                     </DataTemplate>
                                 </Setter.Value>

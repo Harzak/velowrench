@@ -90,6 +90,11 @@ public sealed class ConvertibleDouble<T> where T : Enum
         throw new InvalidOperationException($"Cannot convert from {Unit} to {unit}");
     }
 
+    public ConvertibleDouble<T> Clone()
+    {
+        return new ConvertibleDouble<T>(this.Value, this.Unit);
+    }
+
     /// <summary>
     /// Creates a new instance of <see cref="ConvertibleDouble{T}"/> with a value of zero and the default unit.
     /// </summary>

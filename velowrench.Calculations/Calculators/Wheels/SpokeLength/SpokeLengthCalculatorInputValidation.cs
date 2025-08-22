@@ -88,35 +88,30 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
            || !HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSide.GetValueIn(LengthUnit.Millimeter)))
         {
             _errorMessage.Add($"Hub flange diameter must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
-            return false;
         }
 
         if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter))
             || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter)))
         {
             _errorMessage.Add($"Hub center to flange distance must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
-            return false;
         }
 
         if(!ERDIsValid(input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter)))
         {
             _errorMessage.Add($"Rim internal diameter (ERD) must be between {MIN_ERD_MM} mm and {MAX_ERD_MM} mm.");
-            return false;
         }
 
         if (!SpokeCountIsValid(input.SpokeCount))
         {
             _errorMessage.Add($"Spoke count must be between {MIN_SPOKE_COUNT} and {MAX_SPOKE_COUNT}.");
-            return false;
         }
 
         if(!LacingPatternIsValid(input.SpokeLacingPattern))
         {
             _errorMessage.Add($"Lacing pattern must be between {MIN_LACING_PATTERN} and {MAX_LACING_PATTERN}.");
-            return false;
         }
 
-        return true;
+        return _errorMessage.Count == 0;
     }
 
     private bool HubFlangeDiameterIsValid(double hubFlangeDiameterMm)

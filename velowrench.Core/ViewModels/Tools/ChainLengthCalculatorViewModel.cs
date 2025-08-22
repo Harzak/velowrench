@@ -104,7 +104,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         return new ChainLengthCalculatorInput()
         {
-            ChainStayLength = this.ChainStayLength ?? ConvertibleDouble<LengthUnit>.Default(),
+            ChainStayLength = this.ChainStayLength != null ? this.ChainStayLength.Clone() : ConvertibleDouble<LengthUnit>.Default(),
             TeethLargestChainring = this.TeethLargestChainring ?? 0,
             TeethLargestSprocket = this.TeethLargestSprocket ?? 0
         };
@@ -122,5 +122,17 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (this.ChainStayLength != null)
+            {
+                this.ChainStayLength.ValueChanged -= this.OnChainStayLengthValueChanged;
+            }
+        }
+        base.Dispose(disposing);
     }
 }

@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
+             xmlns:controls="using:velowrench.UI.Controls"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:enums="using:velowrench.Utils.Enums"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
@@ -18,6 +19,50 @@
         <converters:GearIntensityToColorConverter x:Key="GearIntensityToColorConverter" />
         <converters:NotEmptyCollectionToBooleanConverter x:Key="NotEmptyCollectionToBooleanConverter" />
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
+
+        <!--  DataTemplate when calculation is computed  -->
+        <DataTemplate x:Key="GearCalculatorComputedContentTemplate" x:DataType="vm:Tools.GearCalculatorViewModel">
+            <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
+
+                <ComboBox Grid.Row="0" Grid.Column="0"
+                          HorizontalAlignment="Center"
+                          IsVisible="{Binding AvailableResultUnits, Converter={StaticResource NotEmptyCollectionToBooleanConverter}}"
+                          ItemsSource="{Binding AvailableResultUnits}"
+                          SelectedItem="{Binding SelectedResultUnit}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <DataGrid Grid.Row="1" Grid.Column="0"
+                          Margin="0,20,0,0" HorizontalAlignment="Center"
+                          BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                          CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
+                          ItemsSource="{Binding GearCalculResultRows}">
+                    <DataGrid.Styles>
+                        <Style Selector="DataGridColumnHeader">
+                            <Setter Property="Foreground" Value="{StaticResource SemiColorTertiary}" />
+                        </Style>
+                    </DataGrid.Styles>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding SprocketCount}"
+                                            Foreground="{StaticResource SemiColorTertiary}"
+                                            Header="" IsVisible="True" />
+                        <DataGridTextColumn Binding="{Binding ValueForChainring1}"
+                                            Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}"
+                                            IsVisible="True" />
+                        <DataGridTextColumn Binding="{Binding ValueForChainring2}"
+                                            Header="{Binding $parent[UserControl].DataContext.Chainring2TeethCount}"
+                                            IsVisible="{Binding $parent[UserControl].DataContext.Chainring2TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
+                        <DataGridTextColumn Binding="{Binding ValueForChainring3}"
+                                            Header="{Binding $parent[UserControl].DataContext.Chainring3TeethCount}"
+                                            IsVisible="{Binding $parent[UserControl].DataContext.Chainring3TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.Styles>
@@ -27,7 +72,6 @@
             <Setter Property="CornerRadius" Value="7" />
         </Style>
     </UserControl.Styles>
-
 
     <StackPanel Margin="20,10" Orientation="Vertical">
 
@@ -167,166 +211,11 @@
             </ComboBox>
         </Grid>
 
-        <!--  Result  -->
-        <ContentControl Margin="20,10" HorizontalAlignment="Stretch"
-                        Content="{Binding CurrentState}">
-            <ContentControl.DataTemplates>
-                <DataTemplate DataType="enums:ECalculatorState">
-                    <ContentControl Content="{Binding}">
-                        <ContentControl.Styles>
+        <!--  Calculation Status  -->
+        <controls:CalculatorStateControl Margin="20,10" HorizontalAlignment="Stretch"
+                                         ComputedContentTemplate="{StaticResource GearCalculatorComputedContentTemplate}"
+                                         ErrorMessage="{Binding CalculatorInputErrors}"
+                                         State="{Binding CurrentState}" />
 
-                            <Style Selector="ContentControl[Content=NotStarted]">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <StackPanel Margin="0,20,0,25" Orientation="Vertical">
-                                                <materialIcons:MaterialIcon Width="25" Height="25"
-                                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                            Foreground="{DynamicResource SemiColorTertiary}"
-                                                                            Kind="AccountQuestionOutline" />
-                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Text="{x:Static res:Languages.EnterValues}" />
-                                                <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Foreground="{DynamicResource SemiColorWarning}"
-                                                           Text="{Binding $parent[UserControl].DataContext.CalculatorInputErrors}"
-                                                           TextWrapping="Wrap" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-                            <Style Selector="ContentControl[Content=InProgress]">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <StackPanel Margin="0,20,0,25" Orientation="Vertical">
-                                                <materialIcons:MaterialIcon Width="25" Height="25"
-                                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                            Foreground="{DynamicResource SemiColorInformation}"
-                                                                            Kind="TimerSand" />
-                                                <TextBlock Grid.Row="1"
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                           Text="{x:Static res:Languages.CalculationInProgress}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-                            <Style Selector="ContentControl[Content=Computed]">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-
-                                            <Grid RowDefinitions="Auto, Auto, Auto, Auto">
-                                                <StackPanel Grid.Column="0"
-                                                            Margin="0,20,0,25"
-                                                            Orientation="Vertical">
-                                                    <materialIcons:MaterialIcon Width="25" Height="25"
-                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                                Foreground="{DynamicResource SemiColorSuccess}"
-                                                                                Kind="CheckBold" />
-                                                    <TextBlock Grid.Row="1"
-                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="{x:Static res:Languages.Calculated}" />
-                                                </StackPanel>
-
-                                                <Grid Grid.Row="5" Grid.Column="0"
-                                                      HorizontalAlignment="Center"
-                                                      ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
-
-                                                    <ComboBox Grid.Row="0" Grid.Column="0"
-                                                              HorizontalAlignment="Center"
-                                                              IsVisible="{Binding $parent[UserControl].DataContext.AvailableResultUnits, Converter={StaticResource NotEmptyCollectionToBooleanConverter}}"
-                                                              ItemsSource="{Binding $parent[UserControl].DataContext.AvailableResultUnits}"
-                                                              SelectedItem="{Binding $parent[UserControl].DataContext.SelectedResultUnit}">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
-
-                                                    <DataGrid Grid.Row="1" Grid.Column="0"
-                                                              Margin="0,20,0,0" HorizontalAlignment="Center"
-                                                              BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
-                                                              CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
-                                                              ItemsSource="{Binding $parent[UserControl].DataContext.GearCalculResultRows}">
-                                                        <DataGrid.Styles>
-                                                            <Style Selector="DataGridColumnHeader">
-                                                                <Setter Property="Foreground" Value="{StaticResource SemiColorTertiary}" />
-                                                            </Style>
-                                                        </DataGrid.Styles>
-                                                        <DataGrid.Columns>
-                                                            <DataGridTextColumn Binding="{Binding SprocketCount}"
-                                                                                Foreground="{StaticResource SemiColorTertiary}"
-                                                                                Header="" IsVisible="True" />
-                                                            <DataGridTextColumn Binding="{Binding ValueForChainring1}"
-                                                                                Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}}" IsVisible="True" />
-                                                            <DataGridTextColumn Binding="{Binding ValueForChainring2}"
-                                                                                Header="{Binding $parent[UserControl].DataContext.Chainring2TeethCount}"
-                                                                                IsVisible="{Binding $parent[UserControl].DataContext.Chainring2TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
-                                                            <DataGridTextColumn Binding="{Binding ValueForChainring3}"
-                                                                                Header="{Binding $parent[UserControl].DataContext.Chainring3TeethCount}"
-                                                                                IsVisible="{Binding $parent[UserControl].DataContext.Chainring3TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
-                                                        </DataGrid.Columns>
-                                                    </DataGrid>
-                                                </Grid>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-                            <Style Selector="ContentControl[Content=Failed]">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <Grid RowDefinitions="Auto, Auto, Auto, Auto">
-                                                <StackPanel Grid.Column="0"
-                                                            Margin="0,20,0,25"
-                                                            Orientation="Vertical">
-                                                    <materialIcons:MaterialIcon Width="25" Height="25"
-                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                                Foreground="{DynamicResource SemiColorDanger}"
-                                                                                Kind="ErrorOutline" />
-                                                    <TextBlock Grid.Row="1"
-                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="{x:Static res:Languages.CalculationFailed}" />
-                                                </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-                            <Style Selector="ContentControl[Content=Unknown]">
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <Grid RowDefinitions="Auto, Auto, Auto, Auto">
-                                                <StackPanel Grid.Column="0"
-                                                            Margin="0,20,0,25"
-                                                            Orientation="Vertical">
-                                                    <materialIcons:MaterialIcon Width="25" Height="25"
-                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                                Foreground="{DynamicResource SemiColorWarning}"
-                                                                                Kind="CloseCircleOutline" />
-                                                    <TextBlock Grid.Row="1"
-                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                               Text="{x:Static res:Languages.SomethingWentWrong}" />
-                                                </StackPanel>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-                        </ContentControl.Styles>
-                    </ContentControl>
-                </DataTemplate>
-            </ContentControl.DataTemplates>
-        </ContentControl>
     </StackPanel>
 </UserControl>
