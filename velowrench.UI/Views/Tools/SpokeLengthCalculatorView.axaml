@@ -18,32 +18,37 @@
         <!--  Empty template for computed state - to be implemented later  -->
         <DataTemplate x:Key="SpokeLengthComputedContentTemplate" x:DataType="vm:Tools.SpokeLengthCalculatorViewModel">
             <StackPanel>
-                <TextBlock Margin="16,16,16,8" HorizontalAlignment="Left" VerticalAlignment="Center"
-                           FontSize="12" FontWeight="SemiBold"
-                           Foreground="{DynamicResource SemiColorTertiary}"
-                           Text="Recommended spoke length" />
                 <Border HorizontalAlignment="Stretch"
                         Background="{DynamicResource SemiColorTertiaryLight}"
                         CornerRadius="7">
                     <Grid Margin="10,10"
-                          ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
-                        <TextBlock Grid.Row="0" Grid.Column="0"
+                          ColumnDefinitions="Auto,Auto" RowDefinitions="Auto, Auto,Auto">
+						
+						
+						
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                   Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   FontSize="14" FontWeight="Light" Text="Recommended spoke length" />
+						
+						
+						
+                        <TextBlock Grid.Row="1" Grid.Column="0"
                                    Margin="0,0,10,0" VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Foreground="{DynamicResource SemiColorText0}"
                                    Text="Gear side:" />
-                        <controls:LengthTextBlock Grid.Row="0" Grid.Column="1"
+                        <controls:LengthTextBlock Grid.Row="1" Grid.Column="1"
                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   FontWeight="Bold"
                                                   Foreground="{DynamicResource SemiColorSuccess}"
                                                   Format="0.00"
                                                   Value="{Binding RecommendedSpokeLengthGearSide}" />
-                        <TextBlock Grid.Row="1" Grid.Column="0"
+                        <TextBlock Grid.Row="2" Grid.Column="0"
                                    Margin="0,10,10,0" VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Foreground="{DynamicResource SemiColorText0}"
                                    Text="Non-gear side:" />
-                        <controls:LengthTextBlock Grid.Row="1" Grid.Column="1"
+                        <controls:LengthTextBlock Grid.Row="2" Grid.Column="1"
                                                   Margin="0,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   FontWeight="Bold"
                                                   Foreground="{DynamicResource SemiColorSuccess}"
@@ -82,7 +87,7 @@
                 <TextBlock Margin="0,0,15,0" VerticalAlignment="Center"
                            Classes="Title" Text="Hub measurements" />
                 <ComboBox Grid.Row="0" Grid.Column="0"
-                          Width="70"
+                          Width="90"
                           HorizontalAlignment="Center"
                           ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
                           SelectedItem="{Binding HubMeasurementsSelectedUnit}">
@@ -185,7 +190,6 @@
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Margin="0,5,5,5" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding AvailableSpokeCount}"
-                      PlaceholderText="12"
                       SelectedValue="{Binding SelectedSpokeCount}" />
 
             <TextBlock Grid.Row="2" Grid.Column="0"

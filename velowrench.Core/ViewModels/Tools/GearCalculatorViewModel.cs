@@ -7,7 +7,7 @@ using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
+using velowrench.Core.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
 using velowrench.Core.ViewModels.Base;
@@ -17,6 +17,7 @@ using velowrench.Repository.Models;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
+using velowrench.Calculations.Units;
 
 namespace velowrench.Core.ViewModels.Tools;
 
@@ -187,8 +188,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             TeethNumberMediumChainring = this.Chainring2TeethCount,
             TeethNumberSmallChainring = this.Chainring3TeethCount,
             NumberOfTeethBySprocket = [.. this.SourceSprockets.Where(x => x.IsSelected).OrderBy(x => x.Value.TeethCount).Select(x => x.Value.TeethCount)],
-            TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(this.SelectedWheel.TyreOuterDiameterInInch, LengthUnit.Inch),
-            CrankLength = new ConvertibleDouble<LengthUnit>(this.SelectedCrank.Length, LengthUnit.Millimeter),
+            TyreOuterDiameterIn = this.SelectedWheel.TyreOuterDiameterInInch,
+            CrankLengthMm = this.SelectedCrank.Length,
             RevolutionPerMinute = this.SelectedCadence.Rpm,
             Precision = 2
         };

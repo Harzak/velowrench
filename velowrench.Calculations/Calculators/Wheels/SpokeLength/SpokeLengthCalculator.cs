@@ -41,16 +41,16 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
         }
 
         double spokeLengthNonGearSideMm = this.GetCorrectedSpokeLength(
-            input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter),
-            input.HubCenterToFlangeDistanceNonGearSide.GetValueIn(LengthUnit.Millimeter),
-            input.HubFlangeDiameterNonGearSide.GetValueIn(LengthUnit.Millimeter),
+            input.RimInternalDiameterMm,
+            input.HubCenterToFlangeDistanceNonGearSideMm,
+            input.HubFlangeDiameterNonGearSideMm,
             input.SpokeLacingPattern,
             input.SpokeCount);
 
         double spokeLengthGearSideMm = this.GetCorrectedSpokeLength(
-            input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter),
-            input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter),
-            input.HubFlangeDiameterGearSide.GetValueIn(LengthUnit.Millimeter),
+            input.RimInternalDiameterMm,
+            input.HubCenterToFlangeDistanceGearSideMm,
+            input.HubFlangeDiameterGearSideMm,
             input.SpokeLacingPattern,
             input.SpokeCount);
 
@@ -58,8 +58,8 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
         {
             Content = new SpokeLengthCalculatorResult()
             {
-                SpokeLengthNonGearSide = new Units.ConvertibleDouble<LengthUnit>(Math.Round(spokeLengthNonGearSideMm), LengthUnit.Millimeter),
-                SpokeLengthGearSide = new Units.ConvertibleDouble<LengthUnit>(Math.Round(spokeLengthGearSideMm), LengthUnit.Millimeter),
+                SpokeLengthNonGearSideMm = Math.Round(spokeLengthNonGearSideMm),
+                SpokeLengthGearSideMm = Math.Round(spokeLengthGearSideMm),
                 CalculatedAt = DateTime.UtcNow,
                 UsedInputs = input,
             },

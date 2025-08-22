@@ -1,7 +1,7 @@
 ﻿using UnitsNet;
 using UnitsNet.Units;
 
-namespace velowrench.Calculations.Units;
+namespace velowrench.Core.Units;
 
 /// <summary>
 /// Represents a numeric value with an associated unit that can be converted between different units of the same type.
@@ -88,20 +88,6 @@ public sealed class ConvertibleDouble<T> where T : Enum
             return convertedValue;
         }
         throw new InvalidOperationException($"Cannot convert from {Unit} to {unit}");
-    }
-
-    public ConvertibleDouble<T> Clone()
-    {
-        return new ConvertibleDouble<T>(this.Value, this.Unit);
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="ConvertibleDouble{T}"/> with a value of zero and the default unit.
-    /// </summary>
-    /// <returns>A new instance with default values.</returns>
-    public static ConvertibleDouble<T> Default()
-    {
-        return new ConvertibleDouble<T>(0, (T)GetDefault());
     }
 
     /// <summary>

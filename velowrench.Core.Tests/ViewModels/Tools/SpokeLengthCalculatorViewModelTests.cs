@@ -79,15 +79,15 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(expectedSpokeLengthGearSide, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(expectedSpokeLengthNonGearSide, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = expectedSpokeLengthGearSide,
+                SpokeLengthNonGearSideMm = expectedSpokeLengthNonGearSide,
                 UsedInputs = new SpokeLengthCalculatorInput()
                 {
-                    HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(36, LengthUnit.Millimeter),
-                    HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-                    HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+                    HubCenterToFlangeDistanceGearSideMm = 36,
+                    HubCenterToFlangeDistanceNonGearSideMm = 17,
+                    HubFlangeDiameterGearSideMm = 45,
+                    HubFlangeDiameterNonGearSideMm = 45,
+                    RimInternalDiameterMm = 600,
                     SpokeCount = 32,
                     SpokeLacingPattern = 3
                 }
@@ -170,11 +170,11 @@ public class SpokeLengthCalculatorViewModelTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(36, LengthUnit.Millimeter),
-            HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-            HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-            HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-            RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSideMm = 36,
+            HubCenterToFlangeDistanceNonGearSideMm = 17,
+            HubFlangeDiameterGearSideMm = 45,
+            HubFlangeDiameterNonGearSideMm = 45,
+            RimInternalDiameterMm = 600,
             SpokeCount = 32,
             SpokeLacingPattern = 3
         };
@@ -185,8 +185,8 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(295, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(290, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = 295,
+                SpokeLengthNonGearSideMm = 290,
                 UsedInputs = input
             }
         };
@@ -296,15 +296,15 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(295, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(290, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = 295,
+                SpokeLengthNonGearSideMm = 290,
                 UsedInputs = new SpokeLengthCalculatorInput()
                 {
-                    HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(36, LengthUnit.Millimeter),
-                    HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-                    HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+                    HubCenterToFlangeDistanceGearSideMm = 36,
+                    HubCenterToFlangeDistanceNonGearSideMm =    17,
+                    HubFlangeDiameterGearSideMm = 45,
+                    HubFlangeDiameterNonGearSideMm = 45,
+                    RimInternalDiameterMm = 600,
                     SpokeCount = 36,
                     SpokeLacingPattern = 3
                 }
@@ -343,15 +343,15 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(295, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(290, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = 295,
+                SpokeLengthNonGearSideMm = 290,
                 UsedInputs = new SpokeLengthCalculatorInput()
                 {
-                    HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(36, LengthUnit.Millimeter),
-                    HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-                    HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+                    HubCenterToFlangeDistanceGearSideMm = 36,
+                    HubCenterToFlangeDistanceNonGearSideMm = 17,
+                    HubFlangeDiameterGearSideMm = 45,
+                    HubFlangeDiameterNonGearSideMm = 45,
+                    RimInternalDiameterMm = 600,
                     SpokeCount = 32,
                     SpokeLacingPattern = 2
                 }
@@ -390,15 +390,15 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(295, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(290, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = 295,
+                SpokeLengthNonGearSideMm = 290,
                 UsedInputs = new SpokeLengthCalculatorInput()
                 {
-                    HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(37, LengthUnit.Millimeter),
-                    HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-                    HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+                    HubCenterToFlangeDistanceGearSideMm =   37,
+                    HubCenterToFlangeDistanceNonGearSideMm = 17,
+                    HubFlangeDiameterGearSideMm = 45,
+                    HubFlangeDiameterNonGearSideMm = 45,
+                    RimInternalDiameterMm = 600,
                     SpokeCount = 32,
                     SpokeLacingPattern = 3
                 }
@@ -431,15 +431,15 @@ public class SpokeLengthCalculatorViewModelTests
             Content = new SpokeLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                SpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(295, LengthUnit.Millimeter),
-                SpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(290, LengthUnit.Millimeter),
+                SpokeLengthGearSideMm = 295,
+                SpokeLengthNonGearSideMm = 290,
                 UsedInputs = new SpokeLengthCalculatorInput()
                 {
-                    HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(36, LengthUnit.Millimeter),
-                    HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(17, LengthUnit.Millimeter),
-                    HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Millimeter),
-                    RimInternalDiameter = new ConvertibleDouble<LengthUnit>(600, LengthUnit.Millimeter),
+                    HubCenterToFlangeDistanceGearSideMm =   36,
+                    HubCenterToFlangeDistanceNonGearSideMm = 17,
+                    HubFlangeDiameterGearSideMm = 45,
+                    HubFlangeDiameterNonGearSideMm = 45,
+                    RimInternalDiameterMm = 600,
                     SpokeCount = 32,
                     SpokeLacingPattern = 3
                 }
@@ -447,7 +447,7 @@ public class SpokeLengthCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>.That.Matches(input =>
-            Math.Abs(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter) - 36) < 0.1))).Returns(expectedResult);
+            Math.Abs(input.HubCenterToFlangeDistanceGearSideMm - 36) < 0.1))).Returns(expectedResult);
         A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
         A.CallTo(() => _inputValidation.Validate(A<SpokeLengthCalculatorInput>._)).Returns(true);
 

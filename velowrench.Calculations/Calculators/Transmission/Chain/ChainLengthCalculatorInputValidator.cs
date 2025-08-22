@@ -41,7 +41,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     /// <summary>
     /// The maximum allowable number of teeth on a sprocket.
     /// </summary>
-    internal const int MAX_SPROCKET_TEETH_COUNT = 52;
+    internal const int MAX_SPROCKET_TEETH_COUNT = 54;
 
     /// <summary>
     /// Gets a collection of validation error messages from the most recent validation attempt.
@@ -64,7 +64,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
             return false;
         }
 
-        if(!ChainStayLengthIsValid(input.ChainStayLength.Value))
+        if(!ChainStayLengthIsValid(input.ChainStayLengthIn))
         {
             _errorMessage.Add($"Chainstay length must be greater than {MIN_CHAINSTAY_LENGTH_INCH}.");
         }

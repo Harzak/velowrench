@@ -41,19 +41,19 @@ public sealed record GearCalculatorInput
     public required IList<int> NumberOfTeethBySprocket { get; init; }
 
     /// <summary>
-    /// Gets the outer tyre diameter in a specified unit (e.g., inches, millimeters).
+    /// Gets the outer tyre diameter in inches.
     /// This measurement affects the actual distance traveled per wheel revolution.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> TyreOuterDiameter { get; init; }
+    public required double TyreOuterDiameterIn { get; init; }
 
     /// <summary>
-    /// Gets the crank arm length in a specified unit (e.g., millimeters).
+    /// Gets the crank arm length millimeters.
     /// Only used for gain ratio calculations, should be set to null for other calculation types.
     /// </summary>
     /// <value>
     /// Required for <see cref="EGearCalculatorType.GainRatio"/> calculations, null for other calculation types
     /// </value>
-    public required ConvertibleDouble<LengthUnit>? CrankLength { get; init; }
+    public required double CrankLengthMm { get; init; }
 
     /// <summary>
     /// Gets the pedaling cadence in revolutions per minute.

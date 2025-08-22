@@ -75,11 +75,11 @@ public class ChainLengthCalculatorViewModelTests
             Content = new ChainLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                ChainLength =  new ConvertibleDouble<LengthUnit>(expectedChainLength, LengthUnit.Inch),
+                ChainLengthIn =  expectedChainLength,
                 ChainLinks = expectedChainLinks,
                 UsedInputs = new ChainLengthCalculatorInput()
                 {
-                    ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch),
+                    ChainStayLengthIn = 10,
                     TeethLargestChainring = 50,
                     TeethLargestSprocket = 30
                 }
@@ -175,7 +175,7 @@ public class ChainLengthCalculatorViewModelTests
         // Arrange
         ChainLengthCalculatorInput input = new()
         {
-            ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch),
+            ChainStayLengthIn = 10,
             TeethLargestChainring = 50,
             TeethLargestSprocket = 30
         };
@@ -186,7 +186,7 @@ public class ChainLengthCalculatorViewModelTests
             Content = new ChainLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                ChainLength = new ConvertibleDouble<LengthUnit>(15, LengthUnit.Inch),
+                ChainLengthIn = 15,
                 ChainLinks = 101,
                 UsedInputs = input
             }
@@ -257,11 +257,11 @@ public class ChainLengthCalculatorViewModelTests
             Content = new ChainLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                ChainLength = new ConvertibleDouble<LengthUnit>(20, LengthUnit.Inch),
+                ChainLengthIn = 20,
                 ChainLinks = 120,
                 UsedInputs = new ChainLengthCalculatorInput()
                 {
-                    ChainStayLength = new ConvertibleDouble<LengthUnit>(15, LengthUnit.Inch),
+                    ChainStayLengthIn = 15,
                     TeethLargestChainring = 52,
                     TeethLargestSprocket = 28
                 }
@@ -292,11 +292,11 @@ public class ChainLengthCalculatorViewModelTests
             Content = new ChainLengthCalculatorResult()
             {
                 CalculatedAt = DateTime.UtcNow,
-                ChainLength = new ConvertibleDouble<LengthUnit>(42.0, LengthUnit.Inch),
+                ChainLengthIn = 42.0,
                 ChainLinks = 84,
                 UsedInputs = new ChainLengthCalculatorInput()
                 {
-                    ChainStayLength = new ConvertibleDouble<LengthUnit>(17.72, LengthUnit.Inch),
+                    ChainStayLengthIn = 17.72,
                     TeethLargestChainring = 53,
                     TeethLargestSprocket = 32
                 }
@@ -304,7 +304,7 @@ public class ChainLengthCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>.That.Matches(input =>
-            Math.Abs(input.ChainStayLength.GetValueIn(LengthUnit.Inch) - 17.72) < 0.1))).Returns(expectedResult);
+            Math.Abs(input.ChainStayLengthIn - 17.72) < 0.1))).Returns(expectedResult);
         A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
         A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculatorInput>._)).Returns(true);
 

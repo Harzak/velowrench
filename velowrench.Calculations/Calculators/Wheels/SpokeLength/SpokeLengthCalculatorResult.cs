@@ -16,12 +16,12 @@ public record SpokeLengthCalculatorResult : BaseCalculatorResult<SpokeLengthCalc
     /// <summary>
     /// Gets the calculated length of the spoke on the non-gear side of the wheel.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> SpokeLengthNonGearSide { get; init; }
+    public required double SpokeLengthNonGearSideMm { get; init; }
 
     /// <summary>
     /// Gets the calculated length of the spoke on the gear side of the wheel.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> SpokeLengthGearSide { get; init; }
+    public required double SpokeLengthGearSideMm { get; init; }
 
     public SpokeLengthCalculatorResult()
     {

@@ -109,12 +109,12 @@ public class GearCalculatorViewModelTests
                 Unit = LengthUnit.Inch,
                 UsedInputs = new GearCalculatorInput()
                 {
-                    CrankLength = new ConvertibleDouble<LengthUnit>(170, LengthUnit.Millimeter),
+                    CrankLengthMm = 170,
                     RevolutionPerMinute = 90,
                     CalculatorType = EGearCalculatorType.GearInches,
                     TeethNumberLargeOrUniqueChainring = 46,
                     NumberOfTeethBySprocket = [11, 12, 13],
-                    TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27.0, LengthUnit.Inch),
+                    TyreOuterDiameterIn = 27.0,
                     Precision = 2
                 }
             }
@@ -191,11 +191,11 @@ public class GearCalculatorViewModelTests
         GearCalculatorInput input = new()
         {
             CalculatorType = EGearCalculatorType.GearInches,
-            CrankLength = new ConvertibleDouble<LengthUnit>(170, LengthUnit.Millimeter),
+            CrankLengthMm = 170,
             RevolutionPerMinute = 90,
             TeethNumberLargeOrUniqueChainring = 46,
             NumberOfTeethBySprocket = [11],
-            TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27.0, LengthUnit.Inch),
+            TyreOuterDiameterIn = 27.0,
             Precision = 2
         };
 
@@ -277,8 +277,8 @@ public class GearCalculatorViewModelTests
                 UsedInputs = new GearCalculatorInput()
                 {
                     CalculatorType = EGearCalculatorType.Speed,
-                    TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27.0, LengthUnit.Inch),
-                    CrankLength = new ConvertibleDouble<LengthUnit>(170, LengthUnit.Millimeter),
+                    TyreOuterDiameterIn = 27.0,
+                    CrankLengthMm = 170,
                     TeethNumberLargeOrUniqueChainring = 46,
                     NumberOfTeethBySprocket = [11],
                     RevolutionPerMinute = 90
@@ -382,13 +382,13 @@ public class GearCalculatorViewModelTests
                 UsedInputs = new GearCalculatorInput()
                 {
                     CalculatorType = EGearCalculatorType.GearInches,
-                    CrankLength = new ConvertibleDouble<LengthUnit>(170, LengthUnit.Millimeter),
+                    CrankLengthMm = 170,
                     RevolutionPerMinute = 90,
                     TeethNumberLargeOrUniqueChainring = 46,
                     TeethNumberMediumChainring = 34,
                     TeethNumberSmallChainring = 24,
                     NumberOfTeethBySprocket = [11, 12],
-                    TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27.0, LengthUnit.Inch),
+                    TyreOuterDiameterIn = 27.0,
                     Precision = 2
                 }
             }
@@ -434,11 +434,11 @@ public class GearCalculatorViewModelTests
                 UsedInputs = new GearCalculatorInput()
                 {
                     CalculatorType = EGearCalculatorType.GearInches,
-                    CrankLength = new ConvertibleDouble<LengthUnit>(170, LengthUnit.Millimeter),
+                    CrankLengthMm = 170,
                     RevolutionPerMinute = 90,
                     TeethNumberLargeOrUniqueChainring = 46,
                     NumberOfTeethBySprocket = [11],
-                    TyreOuterDiameter = new ConvertibleDouble<LengthUnit>(27.0, LengthUnit.Inch),
+                    TyreOuterDiameterIn = 27.0,
                     Precision = 2
                 }
             }

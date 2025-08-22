@@ -4,6 +4,7 @@ using System.Globalization;
 using UnitsNet;
 using UnitsNet.Units;
 using velowrench.Calculations.Units;
+using velowrench.Core.Units;
 
 namespace velowrench.UI.Converters;
 

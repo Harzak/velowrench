@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using UnitsNet.Units;
+using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
@@ -32,14 +33,19 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
 
     protected override OperationResult<ChainLengthCalculatorResult> Calculate(ChainLengthCalculatorInput input)
     {
-        CalculatorInputException.ThrowIfNegativeOrZero(input.ChainStayLength.Value, nameof(input.ChainStayLength));
-        CalculatorInputException.ThrowIfNegativeOrZero(input.TeethLargestSprocket, nameof(input.TeethLargestSprocket));
-        CalculatorInputException.ThrowIfNegativeOrZero(input.TeethLargestChainring, nameof(input.TeethLargestChainring));
+        ArgumentNullException.ThrowIfNull(input, nameof(input));
+
+        ICalculatorInputValidation<ChainLengthCalculatorInput> validator = base.GetValidation();
+        if (!validator.Validate(input))
+        {
+            throw new CalculatorInputException(validator.ErrorMessages);
+        }
+
 
         OperationResult<ChainLengthCalculatorResult> result = new();
 
         double calculatedLength;
-        if (input.ChainStayLength.GetValueIn(LengthUnit.Inch) < CHAINSTAY_INCH_THRESHOLD)
+        if (input.ChainStayLengthIn < CHAINSTAY_INCH_THRESHOLD)
         {
             calculatedLength = this.CalculateLengthWithRigorousEquation(input);
         }
@@ -56,7 +62,7 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
         result.Content = new ChainLengthCalculatorResult()
         {
             ChainLinks = this.GetChainLinksNumber(calculatedLength),
-            ChainLength = new Units.ConvertibleDouble<LengthUnit>(calculatedLength, LengthUnit.Inch),
+            ChainLengthIn = calculatedLength,
             CalculatedAt = DateTime.UtcNow,
             UsedInputs = input
         };
@@ -73,7 +79,7 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
     /// </remarks>
     private double CalculateLengthWithBigBig2Equation(ChainLengthCalculatorInput input)
     {
-        double C = input.ChainStayLength.GetValueIn(LengthUnit.Inch);
+        double C = input.ChainStayLengthIn;
         double F = input.TeethLargestChainring;
         double R = input.TeethLargestSprocket;
 
@@ -95,7 +101,7 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
     /// </remarks>
     private double CalculateLengthWithRigorousEquation(ChainLengthCalculatorInput input)
     {
-        double C = input.ChainStayLength.GetValueIn(LengthUnit.Inch);
+        double C = input.ChainStayLengthIn;
         double F = input.TeethLargestChainring;
         double R = input.TeethLargestSprocket;
 

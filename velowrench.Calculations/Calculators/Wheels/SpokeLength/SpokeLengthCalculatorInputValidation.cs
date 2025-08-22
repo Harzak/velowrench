@@ -84,19 +84,19 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
             return false;
         }
 
-        if(!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSide.GetValueIn(LengthUnit.Millimeter)) 
-           || !HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSide.GetValueIn(LengthUnit.Millimeter)))
+        if(!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSideMm) 
+           || !HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSideMm))
         {
             _errorMessage.Add($"Hub flange diameter must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
         }
 
-        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter))
-            || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSide.GetValueIn(LengthUnit.Millimeter)))
+        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSideMm)
+            || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSideMm))
         {
             _errorMessage.Add($"Hub center to flange distance must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
         }
 
-        if(!ERDIsValid(input.RimInternalDiameter.GetValueIn(LengthUnit.Millimeter)))
+        if(!ERDIsValid(input.RimInternalDiameterMm))
         {
             _errorMessage.Add($"Rim internal diameter (ERD) must be between {MIN_ERD_MM} mm and {MAX_ERD_MM} mm.");
         }

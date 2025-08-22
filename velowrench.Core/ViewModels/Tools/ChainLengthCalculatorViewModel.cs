@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
+using velowrench.Core.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Utils.Enums;
@@ -104,7 +104,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         return new ChainLengthCalculatorInput()
         {
-            ChainStayLength = this.ChainStayLength != null ? this.ChainStayLength.Clone() : ConvertibleDouble<LengthUnit>.Default(),
+            ChainStayLengthIn = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
             TeethLargestChainring = this.TeethLargestChainring ?? 0,
             TeethLargestSprocket = this.TeethLargestSprocket ?? 0
         };
@@ -112,7 +112,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
     {
-        this.RecommendedChainLength = result.Content.ChainLength;
+        this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
         this.RecommendedChainLinks = result.Content.ChainLinks;
     }
 

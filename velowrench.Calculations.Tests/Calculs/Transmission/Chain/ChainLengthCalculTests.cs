@@ -44,7 +44,7 @@ public class ChainLengthCalculTests
         // Arrange
         ChainLengthCalculatorInput input = new()
         {
-            ChainStayLength =  new ConvertibleDouble<LengthUnit>( chainStayLengthInch, LengthUnit.Inch),
+            ChainStayLengthIn =   chainStayLengthInch,
             TeethLargestChainring = teethLargestChainring,
             TeethLargestSprocket = teethLargestSprocket
         };
@@ -57,7 +57,7 @@ public class ChainLengthCalculTests
         result.IsSuccess.Should().BeTrue();
         result.Content.Should().NotBeNull();
         result.Content.ChainLinks.Should().Be(expectedChainLink);
-        result.Content.ChainLength.Value.Should().BeApproximately(expectedChainLink * ChainConst.CHAINLINK_LENGTH_INCH, 0.5);
+        result.Content.ChainLengthIn.Should().BeApproximately(expectedChainLink * ChainConst.CHAINLINK_LENGTH_INCH, 0.5);
         result.Content.UsedInputs.Should().BeEquivalentTo(input);
         result.Content.CalculatedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(1));
     }
@@ -81,7 +81,7 @@ public class ChainLengthCalculTests
         // Arrange
         var input = new ChainLengthCalculatorInput
         {
-            ChainStayLength = new ConvertibleDouble<LengthUnit>(chainStayLength, LengthUnit.Inch),
+            ChainStayLengthIn = chainStayLength,
             TeethLargestChainring = chainring,
             TeethLargestSprocket = sprocket
         };

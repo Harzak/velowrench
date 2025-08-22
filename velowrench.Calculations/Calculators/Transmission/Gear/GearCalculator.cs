@@ -110,8 +110,9 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGainRatio(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double wheelRadiusInMM = input.TyreOuterDiameter.GetValueIn(LengthUnit.Millimeter) / 2;
-        double gainRatio = (wheelRadiusInMM / input.CrankLength!.GetValueIn(LengthUnit.Millimeter)) * gearRatio;
+        double tyreOuterDiameterMm = UnitConverter.Convert(input.TyreOuterDiameterIn, LengthUnit.Inch, LengthUnit.Millimeter); 
+        double tyreRadiusInMM = tyreOuterDiameterMm / 2;
+        double gainRatio = (tyreRadiusInMM / input.CrankLengthMm) * gearRatio;
         return Math.Round(gainRatio, precision);
     }
 
@@ -123,7 +124,7 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateGearInches(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double gearInches = input.TyreOuterDiameter.GetValueIn(LengthUnit.Inch) * gearRatio;
+        double gearInches = input.TyreOuterDiameterIn * gearRatio;
         return Math.Round(gearInches, precision);
     }
 
@@ -135,7 +136,8 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     private double CalculateDevelopment(GearCalculatorInput input, int teethCountChainring, int teethCountSprocket, int precision)
     {
         double gearRatio = this.CalculateGearRatio(teethCountChainring, teethCountSprocket);
-        double circumferenceInMeter = Math.PI * input.TyreOuterDiameter.GetValueIn(LengthUnit.Meter);
+        double tyreDiameterM = UnitConverter.Convert(input.TyreOuterDiameterIn, LengthUnit.Inch, LengthUnit.Meter);
+        double circumferenceInMeter = Math.PI * tyreDiameterM;
         double MetersDevelopment = circumferenceInMeter * gearRatio;
         return Math.Round(MetersDevelopment, precision);
     }

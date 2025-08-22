@@ -22,52 +22,52 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     /// The minimum allowable crank length in millimeters.
     /// </summary>
     internal const int MIN_CRANK_LENGTH_MM = 100;
-    
+
     /// <summary>
     /// The maximum allowable crank length in millimeters.
     /// </summary>
     internal const int MAX_CRANK_LENGTH_MM = 190;
-    
+
     /// <summary>
     /// The minimum allowable wheel diameter in inches.
     /// </summary>
     internal const int MIN_TYRE_DIAMETER_INCH = 7;
-    
+
     /// <summary>
     /// The maximum allowable wheel diameter in inches.
     /// </summary>
     internal const int MAX_TYRE_DIAMETER_INCH = 38;
-    
+
     /// <summary>
     /// The minimum allowable number of teeth on a chainring.
     /// </summary>
     internal const int MIN_CHAINRING_TEETH_COUNT = 10;
-    
+
     /// <summary>
     /// The maximum allowable number of teeth on a chainring.
     /// </summary>
     internal const int MAX_CHAINRING_TEETH_COUNT = 120;
-    
+
     /// <summary>
     /// The minimum allowable number of teeth on a sprocket.
     /// </summary>
     internal const int MIN_SPROCKET_TEETH_COUNT = 9;
-    
+
     /// <summary>
     /// The maximum allowable number of teeth on a sprocket.
     /// </summary>
     internal const int MAX_SPROCKET_TEETH_COUNT = 52;
-    
+
     /// <summary>
     /// The maximum number of sprockets allowed in a single calculation.
     /// </summary>
     internal const int MAX_SPROCKETS_COUNT = 15;
-    
+
     /// <summary>
     /// The minimum allowable revolutions per minute for speed calculations.
     /// </summary>
     internal const int MIN_RPM = 20;
-    
+
     /// <summary>
     /// The maximum allowable revolutions per minute for speed calculations.
     /// </summary>
@@ -94,17 +94,9 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
             return false;
         }
 
-        if (input.CalculatorType == EGearCalculatorType.GainRatio)
+        if (input.CalculatorType == EGearCalculatorType.GainRatio && !CrankLengthIsValid(input.CrankLengthMm))
         {
-            if (input.CrankLength == null)
-            {
-                _errorMessage.Add("Crank length is required for Gain Ratio calculations.");
-
-            }
-            else if (!CrankLengthIsValid(input.CrankLength.Value))
-            {
-                _errorMessage.Add($"Crank length must be between {MIN_CRANK_LENGTH_MM} mm and {MAX_CRANK_LENGTH_MM} mm.");
-            }
+            _errorMessage.Add($"Crank length must be between {MIN_CRANK_LENGTH_MM} mm and {MAX_CRANK_LENGTH_MM} mm.");
         }
 
         if (input.CalculatorType == EGearCalculatorType.Speed)
@@ -133,7 +125,7 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
             _errorMessage.Add($"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }
 
-        if (!WheelDiameterIsValid(input.TyreOuterDiameter.Value))
+        if (!WheelDiameterIsValid(input.TyreOuterDiameterIn))
         {
             _errorMessage.Add($"Tyre outer diameter must be between {MIN_TYRE_DIAMETER_INCH} and {MAX_TYRE_DIAMETER_INCH} inches.");
         }

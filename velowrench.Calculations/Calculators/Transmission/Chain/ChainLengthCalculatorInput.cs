@@ -9,10 +9,10 @@ namespace velowrench.Calculations.Calculators.Transmission.Chain;
 public sealed record ChainLengthCalculatorInput
 {
     /// <summary>
-    /// Gets the chainstay length in a specified unit (e.g., inches, millimeters)
+    /// Gets the chainstay length in inches.
     /// which is the horizontal distance between the bottom bracket and rear axle.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> ChainStayLength { get; init; }
+    public required double ChainStayLengthIn { get; init; }
     
     /// <summary>
     /// Gets the number of teeth on the largest chainring (front gear).
@@ -33,14 +33,14 @@ public sealed record ChainLengthCalculatorInput
         if (ReferenceEquals(this, other)) return true;
         
         const double tolerance = 1e-10;
-        return Math.Abs(ChainStayLength.GetValueIn(LengthUnit.Centimeter) - other.ChainStayLength.GetValueIn(LengthUnit.Centimeter)) < tolerance 
+        return Math.Abs(ChainStayLengthIn - other.ChainStayLengthIn) < tolerance 
             && TeethLargestChainring == other.TeethLargestChainring
             && TeethLargestSprocket == other.TeethLargestSprocket;
     }
 
     public override int GetHashCode()
     {
-        double roundedLength = Math.Round(ChainStayLength.Value, 10);
+        double roundedLength = Math.Round(ChainStayLengthIn, 10);
         return HashCode.Combine(roundedLength, TeethLargestChainring, TeethLargestSprocket);
     }
 }

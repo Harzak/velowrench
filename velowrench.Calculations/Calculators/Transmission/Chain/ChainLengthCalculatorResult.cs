@@ -16,5 +16,5 @@ public sealed record ChainLengthCalculatorResult : BaseCalculatorResult<ChainLen
     /// <summary>
     /// Gets the calculated chain length in inches.
     /// </summary>
-    public required ConvertibleDouble<LengthUnit> ChainLength { get; init; }
+    public required double ChainLengthIn { get; init; }
 }

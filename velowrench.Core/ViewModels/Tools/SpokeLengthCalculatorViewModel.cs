@@ -8,12 +8,13 @@ using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
+using velowrench.Core.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Results;
+using velowrench.Calculations.Units;
 
 namespace velowrench.Core.ViewModels.Tools;
 
@@ -107,11 +108,11 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     {
         return new SpokeLengthCalculatorInput
         {
-            HubCenterToFlangeDistanceGearSide = this.HubCenterToFlangeDistanceGearSide != null ? this.HubCenterToFlangeDistanceGearSide.Clone() : ConvertibleDouble<LengthUnit>.Default(),
-            HubCenterToFlangeDistanceNonGearSide = this.HubCenterToFlangeDistanceNonGearSide != null ? this.HubCenterToFlangeDistanceNonGearSide.Clone() : ConvertibleDouble<LengthUnit>.Default(),
-            HubFlangeDiameterGearSide = this.HubFlangeDiameterGearSide != null ? this.HubFlangeDiameterGearSide.Clone() : ConvertibleDouble<LengthUnit>.Default(),
-            HubFlangeDiameterNonGearSide = this.HubFlangeDiameterNonGearSide != null ? this.HubFlangeDiameterNonGearSide.Clone() : ConvertibleDouble<LengthUnit>.Default(),
-            RimInternalDiameter = this.RimInternalDiameter != null ? this.RimInternalDiameter.Clone() : ConvertibleDouble<LengthUnit>.Default(),
+            HubCenterToFlangeDistanceGearSideMm = HubCenterToFlangeDistanceGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
+            HubCenterToFlangeDistanceNonGearSideMm = HubCenterToFlangeDistanceNonGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
+            HubFlangeDiameterGearSideMm = HubFlangeDiameterGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
+            HubFlangeDiameterNonGearSideMm = HubFlangeDiameterNonGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
+            RimInternalDiameterMm = RimInternalDiameter?.GetValueIn(LengthUnit.Millimeter) ?? 0,
             SpokeCount = this.SelectedSpokeCount,
             SpokeLacingPattern = this.SelectedSpokeLacingPattern.Crosses,
         };
@@ -119,8 +120,8 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
     protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
     {
-        this.RecommendedSpokeLengthGearSide = result.Content.SpokeLengthGearSide;
-        this.RecommendedSpokeLengthNonGearSide = result.Content.SpokeLengthNonGearSide;
+        this.RecommendedSpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthGearSideMm, LengthUnit.Millimeter);
+        this.RecommendedSpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthNonGearSideMm, LengthUnit.Millimeter);
     }
 
     partial void OnHubMeasurementsSelectedUnitChanged(LengthUnit value)

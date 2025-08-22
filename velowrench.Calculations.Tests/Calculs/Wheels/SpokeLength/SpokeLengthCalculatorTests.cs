@@ -35,11 +35,11 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(32, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
-            RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(395, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSideMm = 32,
+            HubCenterToFlangeDistanceNonGearSideMm = 32,
+            HubFlangeDiameterGearSideMm = 45,
+            HubFlangeDiameterNonGearSideMm = 45,
+            RimInternalDiameterMm = 395,
             SpokeCount = 36,
             SpokeLacingPattern = 2
         };
@@ -51,8 +51,8 @@ public class SpokeLengthCalculatorTests
         Assert.IsNotNull(result);
         Assert.IsTrue(result.IsSuccess);
         Assert.IsNotNull(result.Content);
-        Assert.AreEqual(182, result.Content.SpokeLengthNonGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
-        Assert.AreEqual(182, result.Content.SpokeLengthGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
+        Assert.AreEqual(182, result.Content.SpokeLengthNonGearSideMm);
+        Assert.AreEqual(182, result.Content.SpokeLengthGearSideMm);
     }
 
     [TestMethod] /// 700C/29″ rear road/gravel, 130–135 mm hub
@@ -61,11 +61,11 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(36, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(17, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(45, UnitsNet.Units.LengthUnit.Millimeter),
-            RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(600, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSideMm = 36,
+            HubCenterToFlangeDistanceNonGearSideMm = 17,
+            HubFlangeDiameterGearSideMm = 45,
+            HubFlangeDiameterNonGearSideMm = 45,
+            RimInternalDiameterMm = 600,
             SpokeCount = 32,
             SpokeLacingPattern = 3
         };
@@ -77,8 +77,8 @@ public class SpokeLengthCalculatorTests
         Assert.IsNotNull(result);
         Assert.IsTrue(result.IsSuccess);
         Assert.IsNotNull(result.Content);
-        Assert.AreEqual(291, result.Content.SpokeLengthNonGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
-        Assert.AreEqual(293,result.Content.SpokeLengthGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
+        Assert.AreEqual(291, result.Content.SpokeLengthNonGearSideMm);
+        Assert.AreEqual(293, result.Content.SpokeLengthGearSideMm);
     }
 
     [TestMethod] /// Fat bike rear, 197 mm hub, big flanges
@@ -87,11 +87,11 @@ public class SpokeLengthCalculatorTests
         // Arrange
         SpokeLengthCalculatorInput input = new()
         {
-            HubCenterToFlangeDistanceGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
-            HubCenterToFlangeDistanceNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(60, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(70, UnitsNet.Units.LengthUnit.Millimeter),
-            HubFlangeDiameterNonGearSide =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(70, UnitsNet.Units.LengthUnit.Millimeter),
-            RimInternalDiameter =  new ConvertibleDouble<UnitsNet.Units.LengthUnit>(560, UnitsNet.Units.LengthUnit.Millimeter),
+            HubCenterToFlangeDistanceGearSideMm = 60,
+            HubCenterToFlangeDistanceNonGearSideMm = 60,
+            HubFlangeDiameterGearSideMm = 70,
+            HubFlangeDiameterNonGearSideMm = 70,
+            RimInternalDiameterMm = 560,
             SpokeCount = 32,
             SpokeLacingPattern = 3
         };
@@ -103,8 +103,8 @@ public class SpokeLengthCalculatorTests
         Assert.IsNotNull(result);
         Assert.IsTrue(result.IsSuccess);
         Assert.IsNotNull(result.Content);
-        Assert.AreEqual(274, result.Content.SpokeLengthNonGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
-        Assert.AreEqual(274, result.Content.SpokeLengthGearSide.GetValueIn(UnitsNet.Units.LengthUnit.Millimeter));
+        Assert.AreEqual(274, result.Content.SpokeLengthNonGearSideMm);
+        Assert.AreEqual(274, result.Content.SpokeLengthGearSideMm);
     }
 
 }
