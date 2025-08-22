@@ -34,7 +34,8 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 45,
             RimInternalDiameterMm = 395,
             SpokeCount = 36,
-            SpokeLacingPattern = 2
+            SpokeLacingPattern = 2,
+            Precision = 0
         };
 
         // Act
@@ -60,7 +61,8 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 45,
             RimInternalDiameterMm = 600,
             SpokeCount = 32,
-            SpokeLacingPattern = 3
+            SpokeLacingPattern = 3,
+            Precision = 0
         };
 
         // Act
@@ -86,7 +88,8 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 70,
             RimInternalDiameterMm = 560,
             SpokeCount = 32,
-            SpokeLacingPattern = 3
+            SpokeLacingPattern = 3,
+            Precision = 0
         };
 
         // Act
