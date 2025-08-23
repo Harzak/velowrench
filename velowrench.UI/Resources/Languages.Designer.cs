@@ -70,6 +70,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Build configuration.
+        /// </summary>
+        public static string BuildConfiguration {
+            get {
+                return ResourceManager.GetString("BuildConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cadence.
         /// </summary>
         public static string Cadence {
@@ -421,6 +430,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hub measurements.
+        /// </summary>
+        public static string HubMeasurements {
+            get {
+                return ResourceManager.GetString("HubMeasurements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inputs.
         /// </summary>
         public static string Inputs {
@@ -507,6 +525,15 @@ namespace velowrench.UI.Resources {
         public static string RigorousFormulaExplanation {
             get {
                 return ResourceManager.GetString("RigorousFormulaExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rim measurements.
+        /// </summary>
+        public static string RimMeasurements {
+            get {
+                return ResourceManager.GetString("RimMeasurements", resourceCulture);
             }
         }
         

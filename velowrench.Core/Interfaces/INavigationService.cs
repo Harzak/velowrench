@@ -24,6 +24,11 @@ public interface INavigationService
     void NavigateToHelp(EVeloWrenchTools toolType);
 
     /// <summary>
+    /// Navigates to the specified view model.
+    /// </summary>
+    void NavigateTo(IRoutableViewModel viewModel);
+
+    /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
     void NavigateBack();

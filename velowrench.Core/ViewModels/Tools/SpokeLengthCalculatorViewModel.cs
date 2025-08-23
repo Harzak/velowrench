@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
@@ -6,6 +7,7 @@ using velowrench.Calculations.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Core.ViewModels.Help;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Results;
@@ -14,6 +16,7 @@ namespace velowrench.Core.ViewModels.Tools;
 
 public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewModel<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>
 {
+    private readonly ILocalizer _localizer;
     private readonly IComponentStandardRepository _repository;
 
     /// <summary>
@@ -120,7 +123,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         ILocalizer localizer)
     : base(calculatorFactory, navigationService, actionFactory)
     {
-        ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
+        _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         _hubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
@@ -223,6 +226,36 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     partial void OnSelectedSpokeLacingPatternChanged(SpokeLacingPatternModel value)
     {
         base.RefreshCalculationDebounced.Execute();
+    }
+
+    /// <summary>
+    /// Shows the help page for the spoke length calculator.
+    /// </summary>
+    [RelayCommand]
+    public override void ShowHelpPage()
+    {
+        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.SpokeLengthCalculator);
+    }
+
+    [RelayCommand]
+    private void ShowHubMeasurementsHelpPage()
+    {
+        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        base.NavigationService.NavigateTo(vm);
+    }
+
+    [RelayCommand]
+    private void ShowRimMeasurementsHelpPage()
+    {
+        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        base.NavigationService.NavigateTo(vm);
+    }
+
+    [RelayCommand]
+    private void ShowBuildConfigurationHelpPage()
+    {
+        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
+        base.NavigationService.NavigateTo(vm);
     }
 }
 

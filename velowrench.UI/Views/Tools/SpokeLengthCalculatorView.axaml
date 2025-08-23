@@ -23,15 +23,15 @@
                         CornerRadius="7">
                     <Grid Margin="10,10"
                           ColumnDefinitions="Auto,Auto" RowDefinitions="Auto, Auto,Auto">
-						
-						
-						
+
+
+
                         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                    Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Center"
                                    FontSize="14" FontWeight="Light" Text="Recommended spoke length" />
-						
-						
-						
+
+
+
                         <TextBlock Grid.Row="1" Grid.Column="0"
                                    Margin="0,0,10,0" VerticalAlignment="Center"
                                    FontWeight="DemiBold"
@@ -85,7 +85,8 @@
                         Margin="0,0,0,10"
                         Orientation="Horizontal">
                 <TextBlock Margin="0,0,15,0" VerticalAlignment="Center"
-                           Classes="Title" Text="Hub measurements" />
+                           Classes="Title"
+                           Text="{x:Static res:Languages.HubMeasurements}" />
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           Width="90"
                           HorizontalAlignment="Center"
@@ -98,6 +99,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding ShowHubMeasurementsHelpPageCommand}"
                         Theme="{DynamicResource BorderlessButton}">
                     <materialIcons:MaterialIcon Width="20" Height="20"
                                                 Foreground="{DynamicResource SemiColorText0}"
@@ -143,8 +145,10 @@
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center"
-                           Classes="Title" Text="Rim measurements" />
+                           Classes="Title"
+                           Text="{x:Static res:Languages.RimMeasurements}" />
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding ShowRimMeasurementsHelpPageCommand}"
                         Theme="{DynamicResource BorderlessButton}">
                     <materialIcons:MaterialIcon Width="20" Height="20"
                                                 Foreground="{DynamicResource SemiColorText0}"
@@ -176,8 +180,10 @@
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                         Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center"
-                           Classes="Title" Text="Build configuration" />
+                           Classes="Title"
+                           Text="{x:Static res:Languages.BuildConfiguration}" />
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Command="{Binding ShowBuildConfigurationHelpPageCommand}"
                         Theme="{DynamicResource BorderlessButton}">
                     <materialIcons:MaterialIcon Width="20" Height="20"
                                                 Foreground="{DynamicResource SemiColorText0}"

@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Svg.Skia;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
@@ -25,8 +26,10 @@ sealed class Program
     }
 
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .WithInterFont()
-            .LogToTrace();
+    {
+        return AppBuilder.Configure<App>()
+                    .UsePlatformDetect()
+                    .WithInterFont()
+                    .LogToTrace();
+    }
 }

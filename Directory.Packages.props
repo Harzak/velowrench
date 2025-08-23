@@ -31,6 +31,8 @@
     <PackageVersion Include="Semi.Avalonia.DataGrid" Version="11.2.1.9" />
     <PackageVersion Include="Serilog" Version="4.3.0" />
     <PackageVersion Include="Serilog.Extensions.Logging" Version="9.0.2" />
+    <PackageVersion Include="Svg.Controls.Skia.Avalonia" Version="11.3.0.4" />
+    <PackageVersion Include="Svg.Skia" Version="3.0.6" />
     <PackageVersion Include="UnitsNet" Version="5.75.0" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.16" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

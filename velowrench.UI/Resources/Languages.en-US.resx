@@ -315,4 +315,13 @@
   <data name="GearCalculatorHeader" xml:space="preserve">
     <value>Visualize your gear setup with different metrics: gear inches, gain ratio, development, and speed.</value>
   </data>
+  <data name="BuildConfiguration" xml:space="preserve">
+    <value>Build configuration</value>
+  </data>
+  <data name="HubMeasurements" xml:space="preserve">
+    <value>Hub measurements</value>
+  </data>
+  <data name="RimMeasurements" xml:space="preserve">
+    <value>Rim measurements</value>
+  </data>
 </root>

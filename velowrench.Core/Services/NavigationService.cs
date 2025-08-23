@@ -61,6 +61,18 @@ public sealed class NavigationService : INavigationService
     }
 
     /// <summary>
+    /// Navigates to the specified view model by adding it to the navigation stack.
+    /// </summary>
+    public void NavigateTo(IRoutableViewModel viewModel)
+    {
+        IRoutableViewModel? previous = CurrentViewModel;
+        _navigationStack.Push(viewModel);
+        CurrentViewModel = viewModel;
+
+        CurrentViewModelChanged?.Invoke(this, new ViewModelChangedEventArgs(previous, CurrentViewModel));
+    }
+
+    /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
     public void NavigateBack()
@@ -84,17 +96,5 @@ public sealed class NavigationService : INavigationService
     {
         _navigationStack.Clear();
         CurrentViewModel = null;
-    }
-
-    /// <summary>
-    /// Navigates to the specified view model by adding it to the navigation stack.
-    /// </summary>
-    private void NavigateTo(IRoutableViewModel viewModel)
-    {
-        IRoutableViewModel? previous = CurrentViewModel;
-        _navigationStack.Push(viewModel);
-        CurrentViewModel = viewModel;
-
-        CurrentViewModelChanged?.Invoke(this, new ViewModelChangedEventArgs(previous, CurrentViewModel));
     }
 }
