@@ -10,11 +10,27 @@
              Design.Width="360">
 
     <Grid Margin="20,10"
-          ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
+          ColumnDefinitions="*" RowDefinitions="Auto, Auto,Auto, Auto,Auto, Auto">
         <Svg x:Name="HubDiagram"
              Grid.Row="0" Grid.Column="0"
-             Path="avares://velowrench.UI/Assets/front_hub_measurements.svg" />
+             Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+             Path="avares://velowrench.UI/Assets/front_hub_measurements.svg" Stretch="Uniform" />
 
+        <TextBlock Grid.Row="1" Grid.Column="1"
+                   Margin="0,15,0,0"
+                   FontWeight="Bold" Text="DL= Center to flange non-gear side " TextWrapping="Wrap" />
+        <TextBlock Grid.Row="2" Grid.Column="1"
+                   Text="The distance from the hub centerline to the left flange." TextWrapping="Wrap" />
+
+        <TextBlock Grid.Row="3" Grid.Column="1"
+                   Margin="0,10,0,0"
+                   FontWeight="Bold" Text="DR= Center to flange gear side " TextWrapping="Wrap" />
+        <TextBlock Grid.Row="4" Grid.Column="1"
+                   Text="The distance from the hub centerline to the right flange." TextWrapping="Wrap" />
+
+        <TextBlock Grid.Row="5" Grid.Column="1"
+                   Margin="0,10,0,0"
+                   FontStyle="Italic" Text="For a front wheel DL = DR" TextWrapping="Wrap" />
     </Grid>
 
 </UserControl>
