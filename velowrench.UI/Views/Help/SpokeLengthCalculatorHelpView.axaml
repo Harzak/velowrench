@@ -1,6 +1,7 @@
 <UserControl x:Class="velowrench.UI.Views.Help.SpokeLengthCalculatorHelpView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:math="clr-namespace:AvaloniaMath.Controls;assembly=AvaloniaMath"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -44,12 +45,101 @@
 
         <Border Grid.Row="1" Classes="Group">
             <StackPanel>
-                <TextBlock Classes="Header2" Text="Header" />
-                <TextBlock Margin="0,0,0,10"
-                           Classes="Content" Text="Header" />
+                <!--  Hub measurements  -->
+                <TextBlock Classes="Header2" Text="Hub measurements" />
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Classes="Secondary"
+                        Command="{Binding ShowHubMeasurementsHelpPageCommand}"
+                        Theme="{DynamicResource LigthButton}">
+                    <StackPanel Orientation="Horizontal">
 
-                <TextBlock Margin="0,0,0,10"
-                           Classes="Content" Text="content" />
+                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                    HorizontalAlignment="Center"
+                                                    Kind="InfoOutline" />
+                        <TextBlock Margin="10,0" VerticalAlignment="Center"
+                                   Text="Help Page" />
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,15,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{w_L}, {}{w_R}" Scale="18" />
+                    <TextBlock Margin="5,10,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Center to flange distances (left/right)" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="{}{D_L}, {}{D_R}" Scale="18" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Hub diameters (left/right)" />
+                </StackPanel>
+
+                <!--  Rim measurements  -->
+                <TextBlock Margin="0,10,0,0"
+                           Classes="Header2" Text="Rim measurements" />
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Classes="Secondary"
+                        Command="{Binding ShowRimMeasurementsHelpPageCommand}"
+                        Theme="{DynamicResource LigthButton}">
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                    HorizontalAlignment="Center"
+                                                    Kind="InfoOutline" />
+                        <TextBlock Margin="10,0" VerticalAlignment="Center"
+                                   Text="Help Page" />
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="ERD" Scale="18" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Effective Rim Diameter" />
+                </StackPanel>
+
+                <!--  Build configuration  -->
+                <TextBlock Margin="0,10,0,0"
+                           Classes="Header2" Text="Build configuration" />
+                <Button Grid.Row="0" Grid.Column="0"
+                        Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Classes="Secondary"
+                        Command="{Binding ShowBuildConfigurationHelpPageCommand}"
+                        Theme="{DynamicResource LigthButton}">
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialIcons:MaterialIcon Width="25" Height="25"
+                                                    HorizontalAlignment="Center"
+                                                    Kind="InfoOutline" />
+                        <TextBlock Margin="10,0" VerticalAlignment="Center"
+                                   Text="Help Page" />
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="S" Scale="18" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Number of spokes" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="X" Scale="18" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Cross count" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Formula="d" Scale="18" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
+                               Classes="Content" Text="= Hub spoke hole diameter (fixed at 2.5mm)" />
+                </StackPanel>
+
             </StackPanel>
         </Border>
 
@@ -59,7 +149,41 @@
                    Text="{x:Static res:Languages.Calculations}" />
 
         <Border Grid.Row="3" Classes="Group">
-            <StackPanel />
+            <StackPanel>
+                <TextBlock Classes="Content" Text="This tool use the standard side specific spoke-length formula with one shared &quot;core&quot; triangle and then a side by side step." />
+
+                <!--  Defintions  -->
+                <TextBlock Margin="0,10,0,0"
+                           Classes="Content" Text="Definitions:" />
+                <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding DefinitionLaTeX}"
+                                   Scale="16" />
+
+                <!--  Baseline chord C  -->
+                <TextBlock Margin="0,5,0,0"
+                           Classes="Content" Text="Compute the baseline chord from the law of cosines:" />
+                <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding BaselineChordCLaTeX}"
+                                   Scale="20" />
+
+                <!--  Left spoke length  -->
+                <TextBlock Margin="0,5,0,0"
+                           Classes="Content" Text="Left spoke length:" />
+                <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding SpokeLengthLeftLaTeX}"
+                                   Scale="20" />
+
+                <!--  Left spoke right  -->
+                <TextBlock Margin="0,5,0,0"
+                           Classes="Content" Text="Left spoke right:" />
+                <math:FormulaBlock Margin="0,10,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Formula="{Binding SpokeLengthRightLaTeX}"
+                                   Scale="20" />
+
+                <TextBlock Margin="0,5,0,0"
+                           Classes="Content" Text="That final - d/2 slightly shortens for the spoke-hole radius at the hub." />
+
+            </StackPanel>
 
         </Border>
 
@@ -68,7 +192,9 @@
                    Classes="GroupHeader"
                    Text="{x:Static res:Languages.Results}" />
         <Border Grid.Row="5" Classes="Group">
-            <StackPanel />
+            <StackPanel>
+                <TextBlock Classes="Content" Text="The calculator provides the recommended spoke length, based on the inputs, for the gear side and the non-gear side. The two values may differ due to the presence of a cassette/freewheel or a disc brake rotor." />
+            </StackPanel>
         </Border>
 
     </Grid>
