@@ -1,5 +1,32 @@
 <UserControl x:Class="velowrench.UI.Views.Help.SpokeLengthCalculatorRimMeasurementHelpView"
              xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    Welcome to Avalonia!
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:res="clr-namespace:velowrench.UI.Resources"
+             xmlns:skia="using:Svg.Skia.Avalonia"
+             xmlns:svg="using:Svg.Controls.Skia.Avalonia"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Help.SpokeLengthCalculatorRimMeasurementHelpViewModel"
+             Design.Height="840"
+             Design.Width="360">
+
+    <StackPanel Margin="20,10" Orientation="Vertical">
+
+        <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto,Auto, Auto,Auto, Auto">
+
+            <TextBlock Grid.Row="0"
+                       FontSize="20" FontWeight="Light" Text="Internal diameter" TextWrapping="Wrap" />
+
+            <Svg x:Name="RimDiagram"
+                 Grid.Row="1" Grid.Column="0"
+                 Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Path="avares://velowrench.UI/Assets/rim_measurements.svg" Stretch="Uniform" />
+
+            <TextBlock Grid.Row="2" Grid.Column="1"
+                       Margin="0,15,0,0"
+                       FontWeight="Bold" Text="ERD= Effective Rim Diameter" TextWrapping="Wrap" />
+            <TextBlock Grid.Row="3" Grid.Column="1"
+                       Text="The diameter measured at the nipple seats inside the rim (not the outside diameter)." TextWrapping="Wrap" />
+        </Grid>
+
+    </StackPanel>
 </UserControl>

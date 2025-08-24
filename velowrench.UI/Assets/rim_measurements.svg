@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="161mm"
+   height="42mm"
+   viewBox="0 0 161 42"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="rim_measurements.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+	<sodipodi:namedview
+	   id="namedview1"
+	   pagecolor="#ffffff"
+	   bordercolor="#000000"
+	   borderopacity="0.25"
+	   inkscape:showpageshadow="2"
+	   inkscape:pageopacity="0.0"
+	   inkscape:pagecheckerboard="0"
+	   inkscape:deskcolor="#d1d1d1"
+	   inkscape:document-units="mm"
+	   showgrid="true"
+	   inkscape:zoom="1.4142136"
+	   inkscape:cx="-43.133513"
+	   inkscape:cy="475.17576"
+	   inkscape:window-width="3840"
+	   inkscape:window-height="2036"
+	   inkscape:window-x="-12"
+	   inkscape:window-y="-12"
+	   inkscape:window-maximized="1"
+	   inkscape:current-layer="layer1">
+		<inkscape:grid
+		   id="grid1"
+		   units="mm"
+		   originx="0"
+		   originy="0"
+		   spacingx="1"
+		   spacingy="0.99999997"
+		   empcolor="#0099e5"
+		   empopacity="0.30196078"
+		   color="#0099e5"
+		   opacity="0.14901961"
+		   empspacing="5"
+		   enabled="true"
+		   visible="true" />
+	</sodipodi:namedview>
+	<defs
+	   id="defs1">
+		<marker
+		   style="overflow:visible"
+		   id="marker79"
+		   refX="0"
+		   refY="0"
+		   orient="auto-start-reverse"
+		   inkscape:stockid="Triangle arrow"
+		   markerWidth="1"
+		   markerHeight="1"
+		   viewBox="0 0 1 1"
+		   inkscape:isstock="true"
+		   inkscape:collect="always"
+		   preserveAspectRatio="xMidYMid">
+			<path
+			   transform="scale(0.5)"
+			   class="legendColor"
+			   style="stroke-width:1pt"
+			   d="M 5.77,0 -2.88,5 V -5 Z"
+			   id="path79" />
+		</marker>
+		<marker
+		   style="overflow:visible"
+		   id="Triangle"
+		   refX="0"
+		   refY="0"
+		   orient="auto-start-reverse"
+		   inkscape:stockid="Triangle arrow"
+		   markerWidth="1"
+		   markerHeight="1"
+		   viewBox="0 0 1 1"
+		   inkscape:isstock="true"
+		   inkscape:collect="always"
+		   preserveAspectRatio="xMidYMid">
+			<path
+			   transform="scale(0.5)"
+			   class="legendColor"
+			   style="stroke-width:1pt"
+			   d="M 5.77,0 -2.88,5 V -5 Z"
+			   id="path135" />
+		</marker>
+		<style>
+			.lineColor { fill: #000000; stroke: #000000; }
+			.legendColor { fill: #000000; stroke: #000000 }
+		</style>
+	</defs>
+	<g
+	   inkscape:label="Calque 1"
+	   inkscape:groupmode="layer"
+	   id="layer1">
+		<path class="lineColor"
+		   style="fill-opacity:0;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 5.7085948,37.445971 c 7.8759322,0.91327 30.4753722,-3.12485 34.7230822,-6.3204 4.38935,-3.30211 4.42317,-17.16961 0.05,-20.502066 C 36.258377,7.4051845 13.762967,3.2207645 5.8388908,4.0570645"
+		   id="path31"
+		   sodipodi:nodetypes="cssc" />
+		<path class="lineColor"
+		   id="path44"
+		   style="fill:none;fill-opacity:0;stroke-width:2.12468;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 12.248277,30.092801 c 4.12418,-0.5661 7.23611,-4.56577 7.25463,-9.32414 0.0186,-4.75837 -3.06196,-8.782226 -7.1816,-9.380526"
+		   sodipodi:nodetypes="ccc" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45"
+		   cx="-36.824604"
+		   cy="5.9567895"
+		   rx="1.3609999"
+		   ry="1.3613998"
+		   transform="rotate(-89.776291)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.32944;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-2-2"
+		   cx="-11.335726"
+		   cy="12.346393"
+		   rx="0.89673829"
+		   ry="0.8970018"
+		   transform="rotate(-89.776291)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.32944;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-2-2-6"
+		   cx="-30.071688"
+		   cy="12.238879"
+		   rx="0.89673829"
+		   ry="0.8970018"
+		   transform="rotate(-89.776291)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-1"
+		   cx="-4.6450295"
+		   cy="5.8447671"
+		   rx="1.3609999"
+		   ry="1.3613998"
+		   transform="rotate(-89.776291)" />
+		<path class="lineColor"
+		   style="fill-opacity:1;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 12.503497,37.613161 c 0.22748,-7.09694 0.22748,-7.09694 0.22748,-7.09694"
+		   id="path77" />
+		<path class="lineColor"
+		   style="fill-opacity:1;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="M 12.808217,11.364265 C 12.551167,4.2683345 12.551167,4.2683345 12.551167,4.2683345"
+		   id="path77-1" />
+		<path class="lineColor"
+		   style="fill-opacity:0;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 155.33072,37.109121 c -7.87593,0.91327 -30.47537,-3.12485 -34.72307,-6.3204 -4.38935,-3.30211 -4.42317,-17.16961 -0.05,-20.502057 4.22329,-3.2183195 26.7187,-7.4027395 34.64278,-6.5664395"
+		   id="path31-9"
+		   sodipodi:nodetypes="cssc" />
+		<path class="lineColor"
+		   id="path44-5"
+		   style="fill:none;fill-opacity:0;stroke-width:2.12468;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 148.79104,29.755951 c -4.12418,-0.5661 -7.23611,-4.56577 -7.25463,-9.32414 -0.0186,-4.75837 3.06196,-8.782217 7.1816,-9.380517"
+		   sodipodi:nodetypes="ccc" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-4"
+		   cx="-37.116539"
+		   cy="-155.08263"
+		   rx="1.3609999"
+		   ry="1.3613998"
+		   transform="matrix(-0.00390445,-0.99999238,-0.99999238,0.00390445,0,0)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.32944;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-2-2-3"
+		   cx="-11.627653"
+		   cy="-148.69302"
+		   rx="0.89673829"
+		   ry="0.8970018"
+		   transform="matrix(-0.00390445,-0.99999238,-0.99999238,0.00390445,0,0)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.32944;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-2-2-6-1"
+		   cx="-30.363607"
+		   cy="-148.80054"
+		   rx="0.89673829"
+		   ry="0.8970018"
+		   transform="matrix(-0.00390445,-0.99999238,-0.99999238,0.00390445,0,0)" />
+		<ellipse class="lineColor"
+		   style="fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   id="path45-1-2"
+		   cx="-4.9369645"
+		   cy="-155.19466"
+		   rx="1.3609999"
+		   ry="1.3613998"
+		   transform="matrix(-0.00390445,-0.99999238,-0.99999238,0.00390445,0,0)" />
+		<path class="lineColor"
+		   style="fill-opacity:1;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 148.53582,37.276311 c -0.22748,-7.09694 -0.22748,-7.09694 -0.22748,-7.09694"
+		   id="path77-3" />
+		<path class="lineColor"
+		   style="fill-opacity:1;stroke-width:2;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   d="m 148.2311,11.027424 c 0.25705,-7.0959295 0.25705,-7.0959295 0.25705,-7.0959295"
+		   id="path77-1-3" />
+		<path class="legendColor"
+		   style="fill-opacity:1;stroke-width:1.03943;stroke-dasharray:none;stroke-opacity:0.993569;marker-start:url(#Triangle);marker-end:url(#marker79);paint-order:stroke fill markers"
+		   d="m 48.939434,20.547501 c 63.409366,0 63.409366,0 63.409366,0"
+		   id="path78" />
+		<text class="legendColor"
+		   xml:space="preserve"
+		   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill-opacity:1;stroke-width:0;stroke-dasharray:none;stroke-opacity:0.993569;paint-order:stroke fill markers"
+		   x="73.291977"
+		   y="17.960516"
+		   id="text79"><tspan
+  sodipodi:role="line"
+  id="tspan79"
+  style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0;stroke-dasharray:none"
+  x="73.291977"
+  y="17.960516">ERD</tspan></text>
+	</g>
+</svg>

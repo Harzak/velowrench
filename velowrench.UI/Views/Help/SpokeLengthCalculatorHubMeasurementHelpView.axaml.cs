@@ -20,7 +20,7 @@ public partial class SpokeLengthCalculatorHubMeasurementHelpView : UserControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        UpdateSvgColor();
+        UpdateDiagramsColor();
         
         if (Application.Current != null)
         {
@@ -39,13 +39,21 @@ public partial class SpokeLengthCalculatorHubMeasurementHelpView : UserControl
 
     private void OnThemeChanged(object? sender, EventArgs e)
     {
-        UpdateSvgColor();
+        UpdateDiagramsColor();
     }
 
-    private void UpdateSvgColor()
+    private void UpdateDiagramsColor()
     {
-        string diagramColor =  Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
-        string legendColor =  Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
-        Avalonia.Svg.Skia.Svg.SetCss(HubDiagram, $".lineColor {{ fill: {diagramColor}; }} .legendColor {{ fill: {legendColor}; stroke: {legendColor} }}");
+        string diagramSideViewColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
+        string diagramSideViewLegendColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
+        Avalonia.Svg.Skia.Svg.SetCss(HubDiagramSideView,
+            $".lineColor {{ fill: {diagramSideViewColor}; stroke: {diagramSideViewColor}}}" +
+            $".legendColor {{ fill: {diagramSideViewLegendColor}; stroke: {diagramSideViewLegendColor} }}");
+
+        string diagramFrontViewColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
+        string diagramFrontViewLegendColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
+        Avalonia.Svg.Skia.Svg.SetCss(HubDiagramFrontView,
+            $".lineColor {{ fill: {diagramFrontViewColor}; stroke: {diagramFrontViewColor}; }}" +
+            $".legendColor {{ fill: {diagramSideViewLegendColor}; stroke: {diagramFrontViewLegendColor}; }}");
     }
 }
