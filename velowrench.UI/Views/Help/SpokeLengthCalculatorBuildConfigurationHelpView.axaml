@@ -11,17 +11,17 @@
           ColumnDefinitions="*" RowDefinitions="Auto, Auto,Auto, Auto">
 
         <TextBlock Grid.Row="0"
-                   FontSize="20" FontWeight="Light" Text="Number of spokes" TextWrapping="Wrap" />
+                   FontSize="20" FontWeight="Light" Text="{x:Static res:Languages.NumberOfSpokesTitle}" TextWrapping="Wrap" />
         <TextBlock Grid.Row="1" Grid.Column="1"
                    Margin="0,5,0,0"
-                   Text="The number of spokes per wheel (hole count)." TextWrapping="Wrap" />
+                   Text="{x:Static res:Languages.NumberOfSpokesDescription}" TextWrapping="Wrap" />
 
         <TextBlock Grid.Row="2"
                    Margin="0,15,0,0"
-                   FontSize="20" FontWeight="Light" Text="Lacing patterns" TextWrapping="Wrap" />
+                   FontSize="20" FontWeight="Light" Text="{x:Static res:Languages.LacingPatterns}" TextWrapping="Wrap" />
         <TextBlock Grid.Row="3" Grid.Column="1"
                    Margin="0,5,0,0"
-                   Text="Cross count: how many times each spoke crosses others (e.g., 3-cross, 2-cross, radial)." TextWrapping="Wrap" />
+                   Text="{x:Static res:Languages.LacingPatternsDescription}" TextWrapping="Wrap" />
     </Grid>
 
 </UserControl>

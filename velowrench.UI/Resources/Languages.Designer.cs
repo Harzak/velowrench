@@ -70,6 +70,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compute the baseline chord from the law of cosines:.
+        /// </summary>
+        public static string BaselineChordCalculation {
+            get {
+                return ResourceManager.GetString("BaselineChordCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Build configuration.
         /// </summary>
         public static string BuildConfiguration {
@@ -129,6 +138,60 @@ namespace velowrench.UI.Resources {
         public static string Calculations {
             get {
                 return ResourceManager.GetString("Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center to flange.
+        /// </summary>
+        public static string CenterToFlange {
+            get {
+                return ResourceManager.GetString("CenterToFlange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = Center to flange distances (left/right).
+        /// </summary>
+        public static string CenterToFlangeDistances {
+            get {
+                return ResourceManager.GetString("CenterToFlangeDistances", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WR= Center to flange gear side.
+        /// </summary>
+        public static string CenterToFlangeGearSide {
+            get {
+                return ResourceManager.GetString("CenterToFlangeGearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The distance from the hub centerline to the right flange..
+        /// </summary>
+        public static string CenterToFlangeGearSideDescription {
+            get {
+                return ResourceManager.GetString("CenterToFlangeGearSideDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WL= Center to flange non-gear side.
+        /// </summary>
+        public static string CenterToFlangeNonGearSide {
+            get {
+                return ResourceManager.GetString("CenterToFlangeNonGearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The distance from the hub centerline to the left flange..
+        /// </summary>
+        public static string CenterToFlangeNonGearSideDescription {
+            get {
+                return ResourceManager.GetString("CenterToFlangeNonGearSideDescription", resourceCulture);
             }
         }
         
@@ -241,6 +304,24 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = Cross count.
+        /// </summary>
+        public static string CrossCount {
+            get {
+                return ResourceManager.GetString("CrossCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definitions:.
+        /// </summary>
+        public static string Definitions {
+            get {
+                return ResourceManager.GetString("Definitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Development.
         /// </summary>
         public static string Development {
@@ -268,6 +349,33 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = Effective Rim Diameter.
+        /// </summary>
+        public static string EffectiveRimDiameter {
+            get {
+                return ResourceManager.GetString("EffectiveRimDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERD= Effective Rim Diameter.
+        /// </summary>
+        public static string EffectiveRimDiameterAbbreviation {
+            get {
+                return ResourceManager.GetString("EffectiveRimDiameterAbbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The diameter measured at the nipple seats inside the rim (not the outside diameter)..
+        /// </summary>
+        public static string EffectiveRimDiameterDescription {
+            get {
+                return ResourceManager.GetString("EffectiveRimDiameterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the values.
         /// </summary>
         public static string EnterValues {
@@ -282,6 +390,15 @@ namespace velowrench.UI.Resources {
         public static string FrontChainringTeethFormula {
             get {
                 return ResourceManager.GetString("FrontChainringTeethFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Front hubs may also be slightly different if they have a disc brake (rotor side inboard)..
+        /// </summary>
+        public static string FrontHubDiscBrakeNote {
+            get {
+                return ResourceManager.GetString("FrontHubDiscBrakeNote", resourceCulture);
             }
         }
         
@@ -367,6 +484,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gear side.
+        /// </summary>
+        public static string GearSide {
+            get {
+                return ResourceManager.GetString("GearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This tool uses two common methods to estimate the correct bicycle chain length:.
         /// </summary>
         public static string HelpChainLengthCalculationHeader {
@@ -430,6 +556,78 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help Page.
+        /// </summary>
+        public static string HelpPage {
+            get {
+                return ResourceManager.GetString("HelpPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Due to the gear, rear hubs are asymmetrical..
+        /// </summary>
+        public static string HubAsymmetryNote {
+            get {
+                return ResourceManager.GetString("HubAsymmetryNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hub diameter.
+        /// </summary>
+        public static string HubDiameter {
+            get {
+                return ResourceManager.GetString("HubDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DR= Hub diameter gear side.
+        /// </summary>
+        public static string HubDiameterGearSide {
+            get {
+                return ResourceManager.GetString("HubDiameterGearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The diameter of the circle through the centers of the spoke holes on the right flange..
+        /// </summary>
+        public static string HubDiameterGearSideDescription {
+            get {
+                return ResourceManager.GetString("HubDiameterGearSideDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DL= Hub diameter non-gear side.
+        /// </summary>
+        public static string HubDiameterNonGearSide {
+            get {
+                return ResourceManager.GetString("HubDiameterNonGearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The diameter of the circle through the centers of the spoke holes on the left flange..
+        /// </summary>
+        public static string HubDiameterNonGearSideDescription {
+            get {
+                return ResourceManager.GetString("HubDiameterNonGearSideDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = Hub diameters (left/right).
+        /// </summary>
+        public static string HubDiameters {
+            get {
+                return ResourceManager.GetString("HubDiameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hub measurements.
         /// </summary>
         public static string HubMeasurements {
@@ -439,11 +637,56 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = Hub spoke hole diameter (fixed at 2.5mm).
+        /// </summary>
+        public static string HubSpokeHoleDiameter {
+            get {
+                return ResourceManager.GetString("HubSpokeHoleDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inputs.
         /// </summary>
         public static string Inputs {
             get {
                 return ResourceManager.GetString("Inputs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal diameter.
+        /// </summary>
+        public static string InternalDiameter {
+            get {
+                return ResourceManager.GetString("InternalDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lacing pattern.
+        /// </summary>
+        public static string LacingPattern {
+            get {
+                return ResourceManager.GetString("LacingPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lacing patterns.
+        /// </summary>
+        public static string LacingPatterns {
+            get {
+                return ResourceManager.GetString("LacingPatterns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cross count: how many times each spoke crosses others (e.g., 3-cross, 2-cross, radial)..
+        /// </summary>
+        public static string LacingPatternsDescription {
+            get {
+                return ResourceManager.GetString("LacingPatternsDescription", resourceCulture);
             }
         }
         
@@ -466,6 +709,51 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left spoke length:.
+        /// </summary>
+        public static string LeftSpokeLength {
+            get {
+                return ResourceManager.GetString("LeftSpokeLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non-gear side.
+        /// </summary>
+        public static string NonGearSide {
+            get {
+                return ResourceManager.GetString("NonGearSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = Number of spokes.
+        /// </summary>
+        public static string NumberOfSpokes {
+            get {
+                return ResourceManager.GetString("NumberOfSpokes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of spokes per wheel (hole count)..
+        /// </summary>
+        public static string NumberOfSpokesDescription {
+            get {
+                return ResourceManager.GetString("NumberOfSpokesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of spokes.
+        /// </summary>
+        public static string NumberOfSpokesTitle {
+            get {
+                return ResourceManager.GetString("NumberOfSpokesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output format.
         /// </summary>
         public static string OutputFormat {
@@ -480,6 +768,15 @@ namespace velowrench.UI.Resources {
         public static string RearSprocketTeethFormula {
             get {
                 return ResourceManager.GetString("RearSprocketTeethFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended spoke length.
+        /// </summary>
+        public static string RecommendedSpokeLength {
+            get {
+                return ResourceManager.GetString("RecommendedSpokeLength", resourceCulture);
             }
         }
         
@@ -507,6 +804,15 @@ namespace velowrench.UI.Resources {
         public static string Results {
             get {
                 return ResourceManager.GetString("Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right spoke length:.
+        /// </summary>
+        public static string RightSpokeLength {
+            get {
+                return ResourceManager.GetString("RightSpokeLength", resourceCulture);
             }
         }
         
@@ -583,11 +889,47 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to That final - d/2 slightly shortens for the spoke-hole radius at the hub..
+        /// </summary>
+        public static string SpokeHoleRadiusNote {
+            get {
+                return ResourceManager.GetString("SpokeHoleRadiusNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This tool uses the standard side specific spoke-length formula with one shared &quot;core&quot; triangle and then a side by side step..
+        /// </summary>
+        public static string SpokeLengthCalculationDescription {
+            get {
+                return ResourceManager.GetString("SpokeLengthCalculationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spoke Length Calculator.
         /// </summary>
         public static string SpokeLengthCalculator {
             get {
                 return ResourceManager.GetString("SpokeLengthCalculator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calculate the recommended wheel spoke length using your hub and rim measurements..
+        /// </summary>
+        public static string SpokeLengthCalculatorHeader {
+            get {
+                return ResourceManager.GetString("SpokeLengthCalculatorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The calculator provides the recommended spoke length, based on the inputs, for the gear side and the non-gear side. The two values may differ due to the presence of a cassette/freewheel or a disc brake rotor..
+        /// </summary>
+        public static string SpokeLengthResultsDescription {
+            get {
+                return ResourceManager.GetString("SpokeLengthResultsDescription", resourceCulture);
             }
         }
         

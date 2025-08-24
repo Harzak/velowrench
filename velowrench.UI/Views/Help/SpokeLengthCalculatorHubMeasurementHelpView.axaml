@@ -11,14 +11,14 @@
 
     <StackPanel Margin="20,10" Orientation="Vertical">
 
-        <TextBlock Text="Due to the gear, rear hubs are asymmetrical." TextWrapping="Wrap" />
+        <TextBlock Text="{x:Static res:Languages.HubAsymmetryNote}" TextWrapping="Wrap" />
         <TextBlock Margin="0,0,0,15"
-                   Text="Front hubs may also be slightly different if they have a disc brake (rotor side inboard)." TextWrapping="Wrap" />
+                   Text="{x:Static res:Languages.FrontHubDiscBrakeNote}" TextWrapping="Wrap" />
 
         <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto,Auto, Auto,Auto, Auto">
 
             <TextBlock Grid.Row="0"
-                       FontSize="20" FontWeight="Light" Text="Center to flange" TextWrapping="Wrap" />
+                       FontSize="20" FontWeight="Light" Text="{x:Static res:Languages.CenterToFlange}" TextWrapping="Wrap" />
 
             <Svg x:Name="HubDiagramSideView"
                  Grid.Row="1" Grid.Column="0"
@@ -27,22 +27,22 @@
 
             <TextBlock Grid.Row="2" Grid.Column="1"
                        Margin="0,15,0,0"
-                       FontWeight="Bold" Text="WL= Center to flange non-gear side " TextWrapping="Wrap" />
+                       FontWeight="Bold" Text="{x:Static res:Languages.CenterToFlangeNonGearSide}" TextWrapping="Wrap" />
             <TextBlock Grid.Row="3" Grid.Column="1"
-                       Text="The distance from the hub centerline to the left flange." TextWrapping="Wrap" />
+                       Text="{x:Static res:Languages.CenterToFlangeNonGearSideDescription}" TextWrapping="Wrap" />
 
             <TextBlock Grid.Row="4" Grid.Column="1"
                        Margin="0,10,0,0"
-                       FontWeight="Bold" Text="WR= Center to flange gear side " TextWrapping="Wrap" />
+                       FontWeight="Bold" Text="{x:Static res:Languages.CenterToFlangeGearSide}" TextWrapping="Wrap" />
             <TextBlock Grid.Row="5" Grid.Column="1"
-                       Text="The distance from the hub centerline to the right flange." TextWrapping="Wrap" />
+                       Text="{x:Static res:Languages.CenterToFlangeGearSideDescription}" TextWrapping="Wrap" />
         </Grid>
 
         <Grid Margin="0,15,0,0"
               ColumnDefinitions="*" RowDefinitions="Auto, Auto,Auto, Auto,Auto, Auto, Auto, Auto">
 
             <TextBlock Grid.Row="0"
-                       FontSize="20" FontWeight="Light" Text="Hub diameter" TextWrapping="Wrap" />
+                       FontSize="20" FontWeight="Light" Text="{x:Static res:Languages.HubDiameter}" TextWrapping="Wrap" />
 
             <Svg x:Name="HubDiagramFrontView"
                  Grid.Row="1" Grid.Column="0"
@@ -51,15 +51,15 @@
 
             <TextBlock Grid.Row="2" Grid.Column="1"
                        Margin="0,15,0,0"
-                       FontWeight="Bold" Text="DL= Hub diameter non-gear side " TextWrapping="Wrap" />
+                       FontWeight="Bold" Text="{x:Static res:Languages.HubDiameterNonGearSide}" TextWrapping="Wrap" />
             <TextBlock Grid.Row="3" Grid.Column="1"
-                       Text="The diameter of the circle through the centers of the spoke holes on the right flange." TextWrapping="Wrap" />
+                       Text="{x:Static res:Languages.HubDiameterNonGearSideDescription}" TextWrapping="Wrap" />
 
             <TextBlock Grid.Row="4" Grid.Column="1"
                        Margin="0,10,0,0"
-                       FontWeight="Bold" Text="DR= Hub diameter gear side " TextWrapping="Wrap" />
+                       FontWeight="Bold" Text="{x:Static res:Languages.HubDiameterGearSide}" TextWrapping="Wrap" />
             <TextBlock Grid.Row="5" Grid.Column="1"
-                       Text="The diameter of the circle through the centers of the spoke holes on the left flange." TextWrapping="Wrap" />
+                       Text="{x:Static res:Languages.HubDiameterGearSideDescription}" TextWrapping="Wrap" />
 
         </Grid>
 
