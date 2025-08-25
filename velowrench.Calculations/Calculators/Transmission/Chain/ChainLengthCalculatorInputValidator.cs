@@ -53,6 +53,8 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     /// </summary>
     public bool Validate(ChainLengthCalculatorInput input)
     {
+        _errorMessage.Clear();
+
         if (input == null)
         {
             _errorMessage.Add(

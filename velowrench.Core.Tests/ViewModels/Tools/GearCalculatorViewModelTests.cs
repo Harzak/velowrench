@@ -454,4 +454,87 @@ public class GearCalculatorViewModelTests
         _viewModel.GearCalculResultRows.Should().HaveCount(1);
         _viewModel.GearCalculResultRows[0].ValueUnit.Should().Be(LengthUnit.Centimeter);
     }
+
+    [TestMethod]
+    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    {
+        // Arrange & Act
+        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().BeEmpty();
+        _viewModel.CurrentState.Should().Be(ECalculatorState.NotStarted);
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    {
+        // Arrange
+        string errorMessage = "Chainring teeth count must be between 10 and 120.";
+        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "TeethNumberLargeOrUniqueChainring", errorMessage }
+    });
+
+        // Act
+        _viewModel.Chainring1TeethCount = 5; // Below minimum
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().NotBeEmpty();
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    {
+        // Arrange
+        string errorMessage1 = "Chainring teeth count must be between 10 and 120.";
+        string errorMessage2 = "Tyre outer diameter must be between 7 and 38 inches.";
+        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "TeethNumberLargeOrUniqueChainring", errorMessage1 },
+        { "TyreOuterDiameterIn", errorMessage2 }
+    });
+
+        // Act 
+        _viewModel.Chainring1TeethCount = 5; // Below minimum
+        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); // Below minimum diameter
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().HaveCount(2);
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage1));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserCorrectsInvalidValue_ShouldClearSpecificError()
+    {
+        // Arrange
+        string errorMessage1 = "Chainring teeth count must be between 10 and 120.";
+        string errorMessage2 = "Tyre outer diameter must be between 7 and 38 inches.";
+        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "TeethNumberLargeOrUniqueChainring", errorMessage1 },
+        { "TyreOuterDiameterIn", errorMessage2 }
+    });
+
+        // Act
+        _viewModel.Chainring1TeethCount = 5; // Invalid
+        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); // Invalid
+
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "TyreOuterDiameterIn", errorMessage2 }
+    });
+        _viewModel.Chainring1TeethCount = 46; // Valid - corrected value
+        _viewModel.SelectedWheel = new WheelSpecificationModel("Valid wheel", 26.0, 2.0); // Valid
+
+        // Assert - Only the corrected error is removed
+        _viewModel.InputErrorMessages.Should().HaveCount(1);
+        _viewModel.InputErrorMessages.Should().NotContain(msg => msg.Contains(errorMessage1));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
+    }
 }

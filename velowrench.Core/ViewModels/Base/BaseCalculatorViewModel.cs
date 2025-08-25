@@ -75,24 +75,25 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         ICalculatorInputValidation<TInput> validation = this.Calculator.GetValidation();
         bool isValid = validation.Validate(CalculatorInput);
 
-        if (_inputErrors.ContainsKey(propertyName) && !validation.ErrorMessages.ContainsKey(propertyName))
+        if (_inputErrors.TryGetValue(propertyName, out _))
         {
             _inputErrors.Remove(propertyName);
-            base.OnPropertyChanged(nameof(this.InputErrorMessages));
         }
+
+        if (validation.ErrorMessages.TryGetValue(propertyName, out string? errorMessage))
+        {
+            _inputErrors[propertyName] = errorMessage;
+        }
+
+        base.OnPropertyChanged(nameof(this.InputErrorMessages));
 
         if (isValid)
         {
             this._refreshCalculationDebounced.Execute();
-            return;
         }
-
-        this.CurrentState = ECalculatorState.NotStarted;
-
-        if (validation.ErrorMessages.TryGetValue(propertyName, out string? value) && !_inputErrors.ContainsKey(propertyName))
+        else
         {
-            _inputErrors[propertyName] = value;
-            base.OnPropertyChanged(nameof(this.InputErrorMessages));
+            this.CurrentState = ECalculatorState.NotStarted;
         }
     }
 

@@ -463,4 +463,87 @@ public class SpokeLengthCalculatorViewModelTests
         _viewModel.RecommendedSpokeLengthNonGearSide.Value.Should().Be(290);
         _viewModel.RecommendedSpokeLengthNonGearSide.Unit.Should().Be(LengthUnit.Millimeter);
     }
+
+    [TestMethod]
+    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    {
+        // Arrange & Act
+        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().BeEmpty();
+        _viewModel.CurrentState.Should().Be(ECalculatorState.NotStarted);
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    {
+        // Arrange
+        string errorMessage = "Hub flange diameter for gear side must be between 20 mm and 80 mm.";
+        A.CallTo(() => _inputValidation.Validate(A<SpokeLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "HubFlangeDiameterGearSideMm", errorMessage }
+    });
+
+        // Act
+        _viewModel.HubFlangeDiameterGearSide.Value = 10; // Below minimum
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().NotBeEmpty();
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    {
+        // Arrange
+        string errorMessage1 = "Hub flange diameter for gear side must be between 20 mm and 80 mm.";
+        string errorMessage2 = "Rim internal diameter (ERD) must be between 200 mm and 800 mm.";
+        A.CallTo(() => _inputValidation.Validate(A<SpokeLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "HubFlangeDiameterGearSideMm", errorMessage1 },
+        { "RimInternalDiameterMm", errorMessage2 }
+    });
+
+        // Act 
+        _viewModel.HubFlangeDiameterGearSide.Value = 10; // Below minimum
+        _viewModel.RimInternalDiameter.Value = 100; // Below minimum
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().HaveCount(2);
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage1));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserCorrectsInvalidValue_ShouldClearSpecificError()
+    {
+        // Arrange
+        string errorMessage1 = "Hub flange diameter for gear side must be between 20 mm and 80 mm.";
+        string errorMessage2 = "Rim internal diameter (ERD) must be between 200 mm and 800 mm.";
+        A.CallTo(() => _inputValidation.Validate(A<SpokeLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "HubFlangeDiameterGearSideMm", errorMessage1 },
+        { "RimInternalDiameterMm", errorMessage2 }
+    });
+
+        // Act
+        _viewModel.HubFlangeDiameterGearSide.Value = 10; // Invalid
+        _viewModel.RimInternalDiameter.Value = 100; // Invalid
+
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+    {
+        { "RimInternalDiameterMm", errorMessage2 }
+    });
+        _viewModel.HubFlangeDiameterGearSide.Value = 45; // Valid - corrected value
+        _viewModel.RimInternalDiameter.Value = 600; // Valid
+
+        // Assert - Only the corrected error is removed
+        _viewModel.InputErrorMessages.Should().HaveCount(1);
+        _viewModel.InputErrorMessages.Should().NotContain(msg => msg.Contains(errorMessage1));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
+    }
 }

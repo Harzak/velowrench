@@ -101,7 +101,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        this.CalculatorInput.TeethLargestSprocket = this.TeethLargestSprocket ?? 0;
+        this.CalculatorInput.TeethLargestSprocket = value ?? 0;
         base.OnCalculationInputChanged(nameof(CalculatorInput.TeethLargestSprocket));
     }
 

@@ -81,6 +81,8 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     /// </summary>
     public bool Validate(GearCalculatorInput input)
     {
+        _errorMessage.Clear();
+
         if (input == null)
         {
             _errorMessage.Add(

@@ -72,6 +72,8 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
     /// </summary>
     public bool Validate(SpokeLengthCalculatorInput input)
     {
+        _errorMessage.Clear();
+
         if (input == null)
         {
             _errorMessage.Add(nameof(input), "Input cannot be null.");

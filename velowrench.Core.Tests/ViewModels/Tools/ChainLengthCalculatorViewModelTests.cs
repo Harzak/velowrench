@@ -272,6 +272,91 @@ public class ChainLengthCalculatorViewModelTests
         _viewModel.RecommendedChainLength.Unit.Should().Be(LengthUnit.Inch);
         _viewModel.RecommendedChainLinks.Should().Be(84);
     }
+
+    [TestMethod]
+    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    {
+        // Arrange & Act
+        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().BeEmpty();
+        _viewModel.CurrentState.Should().Be(ECalculatorState.NotStarted);
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    {
+        // Arrange
+        string errorMessage = "Chainstay length must be greater than 1 inch.";
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+        {
+            { "ChainStayLengthIn", errorMessage }
+        });
+
+        // Act
+        _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch);
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().NotBeEmpty();
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    {
+        // Arrange
+        string errorMessage1 = "Chainstay length must be greater than 1 inch.";
+        string errorMessage2 = "Largest chainring teeth must be between 10 and 120.";
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+        {
+            { "ChainStayLengthIn", errorMessage1 }  ,
+            { "TeethLargestChainring", errorMessage2 }
+        });
+
+        // Act 
+        _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch);
+        _viewModel.TeethLargestChainring = 5;
+
+        // Assert
+        _viewModel.InputErrorMessages.Should().HaveCount(2);
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage1));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
+    }
+
+    [TestMethod]
+    public void ValidationBehavior_UserCorrectsInvalidValue_ShouldClearSpecificError()
+    {
+        // Arrange
+
+        string errorMessage1 = "Chainstay length must be greater than 1 inch.";
+        string errorMessage2 = "Largest chainring teeth must be between 10 and 120.";
+        A.CallTo(() => _inputValidation.Validate(A<ChainLengthCalculatorInput>._)).Returns(false);
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+        {
+            { "ChainStayLengthIn", errorMessage1 }  ,
+            { "TeethLargestChainring", errorMessage2 }
+        });
+
+
+        // Act
+        _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch); 
+        _viewModel.TeethLargestChainring = 5;
+
+        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
+        {
+            { "ChainStayLengthIn", errorMessage1 },
+        });
+        _viewModel.TeethLargestChainring = 6;
+        _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(16, LengthUnit.Inch); 
+
+        // Assert - Only the corrected error is removed
+        _viewModel.InputErrorMessages.Should().HaveCount(1);
+        _viewModel.InputErrorMessages.Should().NotContain(msg => msg.Contains(errorMessage2));
+        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage1));
+    }
 }
 
 
