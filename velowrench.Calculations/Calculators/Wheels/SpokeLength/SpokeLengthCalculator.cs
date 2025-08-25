@@ -53,7 +53,7 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
                 SpokeLengthNonGearSideMm = Math.Round(spokeLengthNonGearSideMm, input.Precision),
                 SpokeLengthGearSideMm = Math.Round(spokeLengthGearSideMm, input.Precision),
                 CalculatedAt = DateTime.UtcNow,
-                UsedInputs = input,
+                UsedInputs = input.Copy(), //since we use mutable type for input, copy is necessary to avoid external mutations
             },
             IsSuccess = true
         };

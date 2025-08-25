@@ -26,7 +26,7 @@ public class SpokeLengthCalculatorTests
     public void Calculate_WithMininumInputValue_ShouldGive_ExpectedResults()
     {
         // Arrange
-        SpokeLengthCalculatorInput input = new()
+        SpokeLengthCalculatorInput input = new(precision:0)
         {
             HubCenterToFlangeDistanceGearSideMm = 32,
             HubCenterToFlangeDistanceNonGearSideMm = 32,
@@ -34,8 +34,7 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 45,
             RimInternalDiameterMm = 395,
             SpokeCount = 36,
-            SpokeLacingPattern = 2,
-            Precision = 0
+            SpokeLacingPattern = 2
         };
 
         // Act
@@ -53,7 +52,7 @@ public class SpokeLengthCalculatorTests
     public void Calculate_WithMostCommonInputValue_ShouldGive_ExpectedResults()
     {
         // Arrange
-        SpokeLengthCalculatorInput input = new()
+        SpokeLengthCalculatorInput input = new(precision:0)
         {
             HubCenterToFlangeDistanceGearSideMm = 36,
             HubCenterToFlangeDistanceNonGearSideMm = 17,
@@ -61,8 +60,7 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 45,
             RimInternalDiameterMm = 600,
             SpokeCount = 32,
-            SpokeLacingPattern = 3,
-            Precision = 0
+            SpokeLacingPattern = 3
         };
 
         // Act
@@ -80,7 +78,7 @@ public class SpokeLengthCalculatorTests
     public void Calculate_WithMaximumInputValue_ShouldGive_ExpectedResults()
     {
         // Arrange
-        SpokeLengthCalculatorInput input = new()
+        SpokeLengthCalculatorInput input = new(precision: 0)
         {
             HubCenterToFlangeDistanceGearSideMm = 60,
             HubCenterToFlangeDistanceNonGearSideMm = 60,
@@ -88,8 +86,7 @@ public class SpokeLengthCalculatorTests
             HubFlangeDiameterNonGearSideMm = 70,
             RimInternalDiameterMm = 560,
             SpokeCount = 32,
-            SpokeLacingPattern = 3,
-            Precision = 0
+            SpokeLacingPattern = 3
         };
 
         // Act

@@ -20,6 +20,11 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     private readonly IComponentStandardRepository _repository;
 
     /// <summary>
+    /// Gets the input parameters required for the spoke length calculation.
+    /// </summary>
+    protected override SpokeLengthCalculatorInput CalculatorInput { get; }
+
+    /// <summary>
     /// Gets the display name of this view model.
     /// </summary>
     public override string Name { get; }
@@ -99,7 +104,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     /// </summary>
     /// <remarks>User-defined value</remarks>
     [ObservableProperty]
-    private SpokeLacingPatternModel _selectedSpokeLacingPattern;
+    private SpokeLacingPatternModel? _selectedSpokeLacingPattern;
 
     /// <summary>
     ///  Gets or sets the recommended spoke length for the gear side, convertible in a specified length unit.
@@ -126,61 +131,77 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        _hubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
-        _hubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
-        _hubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
-        _hubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
-        _rimInternalDiameter = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Millimeter, OnInputValueChanged);
-
-        _hubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-        _rimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-        _availableSpokeCount = _repository.GetMostCommonWheelSpokeCount();
-        _selectedSpokeCount = this.AvailableSpokeCount.First();
-        _availableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern();
-        _selectedSpokeLacingPattern = this.AvailableSpokeLacingPatterns.First();
-
         this.Name = localizer.GetString("SpokeLengthCalculator");
+        this.CalculatorInput = new SpokeLengthCalculatorInput(precision: 0);
+
+        _hubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceGearSideChanged);
+        _hubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceNonGearSideChanged);
+        _hubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterGearSideChanged);
+        _hubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterNonGearSideChanged);
+        _rimInternalDiameter = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnRimInternalDiameterChanged);
+
+        this.FillDefaultValues();
     }
 
-    /// <summary>
-    /// Creates calculation input based on current view model state.
-    /// Maps UI properties to the gear calculation input structure required by the calculation engine.
-    /// </summary>
-    protected override SpokeLengthCalculatorInput GetInput()
+    /// Updates default values with arbitrary values until user configuration management is implemented.
+    private void FillDefaultValues()
     {
-        return new SpokeLengthCalculatorInput
-        {
-            HubCenterToFlangeDistanceGearSideMm = HubCenterToFlangeDistanceGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
-            HubCenterToFlangeDistanceNonGearSideMm = HubCenterToFlangeDistanceNonGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
-            HubFlangeDiameterGearSideMm = HubFlangeDiameterGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
-            HubFlangeDiameterNonGearSideMm = HubFlangeDiameterNonGearSide?.GetValueIn(LengthUnit.Millimeter) ?? 0,
-            RimInternalDiameterMm = RimInternalDiameter?.GetValueIn(LengthUnit.Millimeter) ?? 0,
-            SpokeCount = this.SelectedSpokeCount,
-            SpokeLacingPattern = this.SelectedSpokeLacingPattern.Crosses,
-            Precision = 0
-        };
+        this.HubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
+        this.RimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
+        this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount();
+        this.SelectedSpokeCount = this.AvailableSpokeCount.First(x => x == 32);
+        this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern();
+        this.SelectedSpokeLacingPattern = this.AvailableSpokeLacingPatterns.First(x => x.Crosses == 3);
     }
 
-    /// <summary>
-    /// Processes successful gear calculation results and updates the display data.
-    /// </summary>
+    partial void OnHubCenterToFlangeDistanceGearSideChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        this.CalculatorInput.HubCenterToFlangeDistanceGearSideMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.HubCenterToFlangeDistanceGearSideMm));
+    }
+
+    partial void OnHubCenterToFlangeDistanceNonGearSideChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        this.CalculatorInput.HubCenterToFlangeDistanceNonGearSideMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.HubCenterToFlangeDistanceNonGearSideMm));
+    }
+
+    partial void OnHubFlangeDiameterGearSideChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        this.CalculatorInput.HubFlangeDiameterGearSideMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.HubFlangeDiameterGearSideMm));
+    }
+
+    partial void OnHubFlangeDiameterNonGearSideChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        this.CalculatorInput.HubFlangeDiameterNonGearSideMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.HubFlangeDiameterNonGearSideMm));
+    }
+
+    partial void OnRimInternalDiameterChanged(ConvertibleDouble<LengthUnit>? value)
+    {
+        this.CalculatorInput.RimInternalDiameterMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.RimInternalDiameterMm));
+    }
+
+    partial void OnSelectedSpokeCountChanged(int value)
+    {
+        this.CalculatorInput.SpokeCount = value;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.SpokeCount));
+    }
+
+    partial void OnSelectedSpokeLacingPatternChanged(SpokeLacingPatternModel? value)
+    {
+        this.CalculatorInput.SpokeLacingPattern = value?.Crosses ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.SpokeLacingPattern));
+    }
+
     protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
     {
         this.RecommendedSpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthGearSideMm, LengthUnit.Millimeter);
         this.RecommendedSpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthNonGearSideMm, LengthUnit.Millimeter);
     }
 
-    /// <summary>
-    /// Handles changes to the input values (hub and rim measurement) and triggers a recalculation.
-    /// </summary>
-    private void OnInputValueChanged(double value)
-    {
-        base.RefreshCalculationDebounced.Execute();
-    }
-
-    /// <summary>
-    /// Updates the unit of measurement for all hub-related dimensions when the selected unit changes.
-    /// </summary>
     partial void OnHubMeasurementsSelectedUnitChanged(LengthUnit value)
     {
         if (this.HubCenterToFlangeDistanceGearSide != null)
@@ -201,10 +222,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         }
     }
 
-    /// <summary>
-    /// Invoked when the selected unit for the rim's internal diameter is about to change.
-    /// </summary>
-    partial void OnRimInternalDiameterSelectedUnitChanging(LengthUnit value)
+    partial void OnRimInternalDiameterSelectedUnitChanged(LengthUnit value)
     {
         if (this.RimInternalDiameter != null)
         {
@@ -212,25 +230,6 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         }
     }
 
-    /// <summary>
-    /// Invoked when the selected spoke count changes.
-    /// </summary>
-    partial void OnSelectedSpokeCountChanged(int value)
-    {
-        base.RefreshCalculationDebounced.Execute();
-    }
-
-    /// <summary>
-    /// Handles changes to the selected spoke lacing pattern.
-    /// </summary>
-    partial void OnSelectedSpokeLacingPatternChanged(SpokeLacingPatternModel value)
-    {
-        base.RefreshCalculationDebounced.Execute();
-    }
-
-    /// <summary>
-    /// Shows the help page for the spoke length calculator.
-    /// </summary>
     [RelayCommand]
     public override void ShowHelpPage()
     {

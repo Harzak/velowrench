@@ -26,6 +26,11 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     private readonly IComponentStandardRepository _repository;
 
     /// <summary>
+    /// Gets the input parameters required for the gear calculation process.
+    /// </summary>
+    protected override GearCalculatorInput CalculatorInput  { get; }
+
+    /// <summary>
     /// Gets the display name of this view model.
     /// </summary>
     public override string Name { get; }
@@ -65,7 +70,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// Gets or sets the currently selected wheel specification.
     /// </summary>
     [ObservableProperty]
-    private WheelSpecificationModel _selectedWheel;
+    private WheelSpecificationModel? _selectedWheel;
 
     /// <summary>
     /// Gets or sets the collection of available crankset specifications.
@@ -155,39 +160,25 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
         _repository = repository;
 
-        _selectedCalculatorType = EGearCalculatorType.GearInches;
-        _sourceWheels = new(_repository.GetMostCommonWheelSpecifications());
-        _selectedWheel = this.SourceWheels.GetMostUsedWheel();
-        _sourceCranks = new(_repository.GetAllCranksetSpecifications());
-        _selectedCrank = this.SourceCranks.GetMostUsedCrankset();
-        _sourceCadence = new(_repository.GetAllCandences());
-        _selectedCadence = this.SourceCadence.GetMostUsedCadence();
-        _sourceSprockets = new(_repository.GetMostCommonSprocketSpecifications().Select(x => new SelectibleModel<SprocketSpecificationModel>(x)));
-        _availableResultUnits = [];
-        _gearCalculResultRows = [];
-        _chainring1TeethCount = 10;
-
+        this.CalculatorInput = new GearCalculatorInput(precision:2);
         this.Name = localizer.GetString("GearCalculator");
+        this.AvailableResultUnits = [];
+        this.GearCalculResultRows = [];
+
+        this.FillDefaultValues();
     }
 
-    /// <summary>
-    /// Creates calculation input based on current view model state.
-    /// Maps UI properties to the gear calculation input structure required by the calculation engine.
-    /// </summary>
-    protected override GearCalculatorInput GetInput()
+    /// Updates default values with arbitrary values until user configuration management is implemented.
+    private void FillDefaultValues()
     {
-        return new GearCalculatorInput()
-        {
-            CalculatorType = this.SelectedCalculatorType,
-            TeethNumberLargeOrUniqueChainring = this.Chainring1TeethCount ?? 0,
-            TeethNumberMediumChainring = this.Chainring2TeethCount,
-            TeethNumberSmallChainring = this.Chainring3TeethCount,
-            NumberOfTeethBySprocket = [.. this.SourceSprockets.Where(x => x.IsSelected).OrderBy(x => x.Value.TeethCount).Select(x => x.Value.TeethCount)],
-            TyreOuterDiameterIn = this.SelectedWheel.TyreOuterDiameterInInch,
-            CrankLengthMm = this.SelectedCrank.Length,
-            RevolutionPerMinute = this.SelectedCadence.Rpm,
-            Precision = 2
-        };
+        this.SelectedCalculatorType = EGearCalculatorType.GearInches;
+        this.SourceWheels = new(_repository.GetMostCommonWheelSpecifications());
+        this.SelectedWheel = this.SourceWheels.GetMostUsedWheel();
+        this.SourceCranks = new(_repository.GetAllCranksetSpecifications());
+        this.SelectedCrank = this.SourceCranks.GetMostUsedCrankset();
+        this.SourceCadence = new(_repository.GetAllCandences());
+        this.SelectedCadence = this.SourceCadence.GetMostUsedCadence();
+        this.SourceSprockets = new(_repository.GetMostCommonSprocketSpecifications().Select(x => new SelectibleModel<SprocketSpecificationModel>(x)));
     }
 
     /// <summary>
@@ -208,84 +199,66 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             });
         }
 
-        this.AvailableResultUnits.Clear();
-        foreach (var item in UnitsStore.GetAvailableUnitForGearCalculation(result.Content.UsedInputs.CalculatorType))
-        {
-            this.AvailableResultUnits.Add(item);
-        }
+        IReadOnlyCollection<Enum> availableUnits = UnitsStore.GetAvailableUnitForGearCalculation(result.Content.UsedInputs.CalculatorType);
+        this.AvailableResultUnits = new ObservableCollection<Enum>(availableUnits);
         this.SelectedResultUnit = result.Content.Unit;
     }
 
-    /// <summary>
-    /// Handles sprocket selection changes in the user interface.
-    /// </summary>
     [RelayCommand]
     private void SprocketSelected(SelectibleModel<SprocketSpecificationModel> selectibleSprocket)
     {
-        SelectedSprocketsStr =  string.Join(", ", SourceSprockets.Where(x => x.IsSelected).OrderBy(x => x.Value.TeethCount).Select(x => x.Value.Label));
-        base.RefreshCalculationDebounced.Execute();
+        IEnumerable<int> selectedSprockets = this.SourceSprockets
+            .Where(x => x.IsSelected)
+            .OrderBy(x => x.Value.TeethCount)
+            .Select(x => x.Value.TeethCount);
+        
+        this.CalculatorInput.WithSprockets(selectedSprockets);
+        this.SelectedSprocketsStr = string.Join(", ", selectedSprockets);
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.NumberOfTeethBySprocket));
     }
 
-    /// <summary>
-    /// Handles changes to the calculation type selection.
-    /// Triggers input validation and potential recalculation when the calculation method changes.
-    /// </summary>
     partial void OnSelectedCalculatorTypeChanged(EGearCalculatorType value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.CalculatorType = value;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.CalculatorType));
     }
 
-    /// <summary>
-    /// Handles changes to the primary chainring teeth count.
-    /// </summary>
     partial void OnChainring1TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TeethNumberLargeOrUniqueChainring = value ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.TeethNumberLargeOrUniqueChainring));
     }
 
-    /// <summary>
-    /// Handles changes to the medium chainring teeth count.
-    /// </summary>
     partial void OnChainring2TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TeethNumberMediumChainring = value;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.TeethNumberMediumChainring));
     }
 
-    /// <summary>
-    /// Handles changes to the smallest chainring teeth count.
-    /// </summary>
     partial void OnChainring3TeethCountChanged(int? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TeethNumberSmallChainring = value;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.TeethNumberSmallChainring));
     }
 
-    /// <summary>
-    /// Handles changes to the selected cadence value.
-    /// </summary>
     partial void OnSelectedCadenceChanged(CadenceModel value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.RevolutionPerMinute = value.Rpm;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.RevolutionPerMinute));
     }
 
-    /// <summary>
-    /// Handles changes to the selected wheel specification.
-    /// </summary>
-    partial void OnSelectedWheelChanged(WheelSpecificationModel value)
+    partial void OnSelectedWheelChanged(WheelSpecificationModel? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TyreOuterDiameterIn = value?.TyreOuterDiameterInInch ?? 0;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.TyreOuterDiameterIn));
     }
 
-    /// <summary>
-    /// Handles changes to the selected crankset specification.
-    /// </summary>
     partial void OnSelectedCrankChanged(CranksetSpecificationModel value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.CrankLengthMm = value.Length;
+        base.OnCalculationInputChanged(nameof(this.CalculatorInput.CrankLengthMm));
     }
 
-    /// <summary>
-    /// Handles changes to the selected result unit and updates the unit of all gear calculation result rows accordingly.
-    /// </summary>
     partial void OnSelectedResultUnitChanged(Enum? value)
     {
         if (value != null && this.GearCalculResultRows.Count > 0 && this.GearCalculResultRows.First().ValueUnit != value)
@@ -297,9 +270,6 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         }
     }
 
-    /// <summary>
-    /// Shows the help page for the gear calculator.
-    /// </summary>
     [RelayCommand]
     public override void ShowHelpPage()
     {

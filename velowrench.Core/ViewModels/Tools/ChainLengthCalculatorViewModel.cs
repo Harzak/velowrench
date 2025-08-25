@@ -16,6 +16,11 @@ namespace velowrench.Core.ViewModels.Tools;
 public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewModel<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
     /// <summary>
+    /// Gets the input parameters required for the chain length calculation.
+    /// </summary>
+    protected override ChainLengthCalculatorInput CalculatorInput { get; }
+
+    /// <summary>
     /// Gets the display name of this view model.
     /// </summary>
     public override string Name { get; }
@@ -35,16 +40,12 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// Gets or sets the number of teeth on the largest chainring (front gear).
     /// </summary>
     [ObservableProperty]
-    [Range(1, 100, ErrorMessage = "Must be between 1 and 100 teeth")]
-    [NotifyDataErrorInfo]
     private int? _teethLargestChainring;
 
     /// <summary>
     /// Gets or sets the number of teeth on the largest sprocket (rear gear).
     /// </summary>
     [ObservableProperty]
-    [Range(1, 70, ErrorMessage = "Must be between 1 and 70 teeth")]
-    [NotifyDataErrorInfo]
     private int? _teethLargestSprocket;
 
     /// <summary>
@@ -68,61 +69,42 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
-        _chainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter, OnChainStayLengthValueChanged);
-
         this.Name = localizer.GetString("ChainLengthCalculator");
+        this.CalculatorInput = new ChainLengthCalculatorInput();
+
+        this.FillDefaultValues();
     }
 
-    /// <summary>
-    /// Creates calculation input based on current view model state.
-    /// Maps UI properties to the gear calculation input structure required by the calculation engine.
-    /// </summary>
-    protected override ChainLengthCalculatorInput GetInput()
+    /// Updates default values with arbitrary values until user configuration management is implemented.
+    private void FillDefaultValues()
     {
-        return new ChainLengthCalculatorInput()
-        {
-            ChainStayLengthIn = this.ChainStayLength?.GetValueIn(LengthUnit.Inch) ?? 0,
-            TeethLargestChainring = this.TeethLargestChainring ?? 0,
-            TeethLargestSprocket = this.TeethLargestSprocket ?? 0
-        };
+        this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
     }
 
-    /// <summary>
-    /// Processes successful gear calculation results and updates the display data.
-    /// </summary>
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
     {
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
         this.RecommendedChainLinks = result.Content.ChainLinks;
     }
 
-    /// <summary>
-    /// Handles changes to the chainstay length value and triggers calculation updates.
-    /// </summary>
-    private void OnChainStayLengthValueChanged(double value)
+    partial void OnChainStayLengthChanged(ConvertibleDouble<LengthUnit>? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.ChainStayLengthIn = value?.GetValueIn(LengthUnit.Inch) ?? 0;
+        base.OnCalculationInputChanged(nameof(CalculatorInput.ChainStayLengthIn));
     }
 
-    /// <summary>
-    /// Partial method called when the largest chainring teeth count changes.
-    /// </summary>
     partial void OnTeethLargestChainringChanged(int? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TeethLargestChainring = value ?? 0;
+        base.OnCalculationInputChanged(nameof(CalculatorInput.TeethLargestChainring));
     }
 
-    /// <summary>
-    /// Partial method called when the largest sprocket teeth count changes.
-    /// </summary>
     partial void OnTeethLargestSprocketChanged(int? value)
     {
-        base.RefreshCalculationDebounced.Execute();
+        this.CalculatorInput.TeethLargestSprocket = this.TeethLargestSprocket ?? 0;
+        base.OnCalculationInputChanged(nameof(CalculatorInput.TeethLargestSprocket));
     }
 
-    /// <summary>
-    /// Shows the help page for the chain length calculator.
-    /// </summary>
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);

@@ -34,6 +34,12 @@
 	</ItemGroup>
 	
   <ItemGroup>
+    <Compile Update="Controls\LengthTextBlockControl.axaml.cs">
+      <DependentUpon>LengthTextBlockControl.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Controls\LengthUpDownControl.axaml.cs">
+      <DependentUpon>LengthUpDownControl.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Languages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

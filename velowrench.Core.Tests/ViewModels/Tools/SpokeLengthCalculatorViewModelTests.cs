@@ -171,8 +171,8 @@ public class SpokeLengthCalculatorViewModelTests
             HubFlangeDiameterGearSideMm = 45,
             HubFlangeDiameterNonGearSideMm = 45,
             RimInternalDiameterMm = 600,
-            SpokeCount = 32,
-            SpokeLacingPattern = 3
+            SpokeCount = 30,
+            SpokeLacingPattern = 2
         };
 
         OperationResult<SpokeLengthCalculatorResult> result = new()
@@ -187,9 +187,9 @@ public class SpokeLengthCalculatorViewModelTests
             }
         };
 
-        A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).Returns(result);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
         A.CallTo(() => _inputValidation.Validate(A<SpokeLengthCalculatorInput>._)).Returns(true);
+        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+        A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).Returns(result);
 
         // Act - First calculation
         _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
@@ -197,8 +197,7 @@ public class SpokeLengthCalculatorViewModelTests
         _viewModel.HubFlangeDiameterGearSide.Value = 45;
         _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
         _viewModel.RimInternalDiameter.Value = 600;
-        _viewModel.SelectedSpokeCount = 32;
-        _viewModel.SelectedSpokeLacingPattern = new SpokeLacingPatternModel("3-cross", 3);
+        _viewModel.SelectedSpokeCount = 30;
 
         // Act - Second time with same inputs
         _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
@@ -206,8 +205,7 @@ public class SpokeLengthCalculatorViewModelTests
         _viewModel.HubFlangeDiameterGearSide.Value = 45;
         _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
         _viewModel.RimInternalDiameter.Value = 600;
-        _viewModel.SelectedSpokeCount = 32;
-        _viewModel.SelectedSpokeLacingPattern = new SpokeLacingPatternModel("3-cross", 3);
+        _viewModel.SelectedSpokeCount = 30;
 
         // Assert
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).MustHaveHappened(6, Times.Exactly);

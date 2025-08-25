@@ -8,7 +8,7 @@ namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 /// </summary>
 internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputValidation<SpokeLengthCalculatorInput>
 {
-    private readonly List<string> _errorMessage;
+    private readonly Dictionary<string, string> _errorMessage;
 
     /// <summary>
     /// The minimum allowable diameter, in millimeters, for a hub flange.
@@ -60,7 +60,7 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
     /// </summary>
     private const int MAX_LACING_PATTERN = 4;
 
-    public IEnumerable<string> ErrorMessages => _errorMessage;
+    public Dictionary<string, string> ErrorMessages => _errorMessage;
 
     public SpokeLengthCalculatorInputValidation()
     {
@@ -74,35 +74,56 @@ internal sealed class SpokeLengthCalculatorInputValidation : ICalculatorInputVal
     {
         if (input == null)
         {
-            _errorMessage.Add("Input cannot be null.");
+            _errorMessage.Add(nameof(input), "Input cannot be null.");
             return false;
         }
 
-        if (!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSideMm)
-           || !HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSideMm))
+        if (!HubFlangeDiameterIsValid(input.HubFlangeDiameterGearSideMm))
         {
-            _errorMessage.Add($"Hub flange diameter must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
+            _errorMessage.Add(
+                nameof(input.HubFlangeDiameterGearSideMm), 
+                $"Hub flange diameter for gear side must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
+        }
+        if (!HubFlangeDiameterIsValid(input.HubFlangeDiameterNonGearSideMm))
+        {
+            _errorMessage.Add(
+                nameof(input.HubFlangeDiameterNonGearSideMm), 
+                $"Hub flange diameter for non-gear side must be between {MIN_HUB_FLANGE_DIAMETER_MM} mm and {MAX_HUB_FLANGE_DIAMETER_MM} mm.");
         }
 
-        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSideMm)
-            || !HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSideMm))
+        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceGearSideMm))
         {
-            _errorMessage.Add($"Hub center to flange distance must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
+            _errorMessage.Add(
+                nameof(input.HubCenterToFlangeDistanceGearSideMm),
+                $"Hub center to flange distance for gear side must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
+
+        }
+        if (!HubCenterToFlangeDistanceIsValid(input.HubCenterToFlangeDistanceNonGearSideMm))
+        {
+            _errorMessage.Add(
+                nameof(input.HubCenterToFlangeDistanceNonGearSideMm),
+                $"Hub center to flange distance for non-gear side must be between {MIN_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm and {MAX_HUB_CENTER_TO_FLANGE_DISTANCE_MM} mm.");
         }
 
         if (!ERDIsValid(input.RimInternalDiameterMm))
         {
-            _errorMessage.Add($"Rim internal diameter (ERD) must be between {MIN_ERD_MM} mm and {MAX_ERD_MM} mm.");
+            _errorMessage.Add(
+                nameof(input.RimInternalDiameterMm),
+                $"Rim internal diameter (ERD) must be between {MIN_ERD_MM} mm and {MAX_ERD_MM} mm.");
         }
 
         if (!SpokeCountIsValid(input.SpokeCount))
         {
-            _errorMessage.Add($"Spoke count must be between {MIN_SPOKE_COUNT} and {MAX_SPOKE_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.SpokeCount),
+                $"Spoke count must be between {MIN_SPOKE_COUNT} and {MAX_SPOKE_COUNT}.");
         }
 
         if (!LacingPatternIsValid(input.SpokeLacingPattern))
         {
-            _errorMessage.Add($"Lacing pattern must be between {MIN_LACING_PATTERN} and {MAX_LACING_PATTERN}.");
+            _errorMessage.Add(
+                nameof(input.SpokeLacingPattern),
+                $"Lacing pattern must be between {MIN_LACING_PATTERN} and {MAX_LACING_PATTERN}.");
         }
 
         return _errorMessage.Count == 0;

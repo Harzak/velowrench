@@ -10,8 +10,9 @@ namespace velowrench.Core.Units;
 /// <typeparam name="T">The enum type representing the unit system (e.g., LengthUnit, VolumeUnit).</typeparam>
 public sealed partial class ConvertibleDouble<T> : ObservableObject where T : Enum
 {
-    private readonly Action<double>? _onValueChanged;
+    private readonly Action<ConvertibleDouble<T>>? _onValueChanged;
 
+    public bool IsEmpty { get; private set; }
     /// <summary>
     /// Gets or sets the unit of measurement for this value.
     /// </summary>
@@ -50,9 +51,19 @@ public sealed partial class ConvertibleDouble<T> : ObservableObject where T : En
         _unit = unit;
     }
 
-    public ConvertibleDouble(double value, T unit, Action<double> OnValueChanged) : this(value, unit)
+    public ConvertibleDouble(T unit) : this(0, unit)
+    {
+        this.IsEmpty = true;
+    }
+
+    public ConvertibleDouble(double value, T unit, Action<ConvertibleDouble<T>> OnValueChanged) : this(value, unit)
     {
         _onValueChanged = OnValueChanged;
+    }
+
+    public ConvertibleDouble(T unit, Action<ConvertibleDouble<T>> OnValueChanged) : this(0, unit, OnValueChanged)
+    {
+        this.IsEmpty = true;
     }
 
     /// <summary>
@@ -60,7 +71,7 @@ public sealed partial class ConvertibleDouble<T> : ObservableObject where T : En
     /// </summary>
     partial void OnValueChanged(double value)
     {
-        _onValueChanged?.Invoke(value);
+        _onValueChanged?.Invoke(this);
     }
 
     /// <summary>

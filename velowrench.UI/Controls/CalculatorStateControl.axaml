@@ -23,10 +23,26 @@
                                                                         Kind="AccountQuestionOutline" />
                                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                                                        Text="{x:Static res:Languages.EnterValues}" />
-                                            <TextBlock Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                       Foreground="{DynamicResource SemiColorWarning}"
-                                                       Text="{Binding #CalculatorStateControlRoot.ErrorMessage}"
-                                                       TextWrapping="Wrap" />
+                                            <ListBox Margin="0,15,0,0"
+                                                     IsHitTestVisible="False"
+                                                     ItemsSource="{Binding #CalculatorStateControlRoot.ErrorMessage}">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid ColumnDefinitions="40, *" RowDefinitions="Auto">
+                                                            <materialIcons:MaterialIcon Grid.Row="0" Grid.Column="0"
+                                                                                        Width="25" Height="25"
+                                                                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                                        Foreground="{DynamicResource SemiColorWarning}"
+                                                                                        Kind="AlertOutline" />
+                                                            <TextBlock Grid.Row="0" Grid.Column="1"
+                                                                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                       Foreground="{DynamicResource SemiColorWarning}"
+                                                                       Text="{Binding}"
+                                                                       TextWrapping="Wrap" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
                                         </StackPanel>
                                     </DataTemplate>
                                 </Setter.Value>

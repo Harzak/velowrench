@@ -11,7 +11,7 @@ public interface ICalculatorInputValidation<TInput>
     /// Gets a collection of error messages generated during the last validation operation.
     /// This collection is populated when <see cref="Validate"/> returns false.
     /// </summary>
-    IEnumerable<string> ErrorMessages { get; }
+    Dictionary<string, string> ErrorMessages { get; }
 
     /// <summary>
     /// Validates the specified input data against defined business rules and constraints.

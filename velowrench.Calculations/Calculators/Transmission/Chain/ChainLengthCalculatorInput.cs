@@ -1,29 +1,50 @@
-﻿namespace velowrench.Calculations.Calculators.Transmission.Chain;
+﻿using velowrench.Calculations.Constants;
+
+namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
 /// <summary>
 /// Represents the input parameters required for chain length calculations.
 /// </summary>
-public sealed record ChainLengthCalculatorInput
+public sealed class ChainLengthCalculatorInput : IEquatable<ChainLengthCalculatorInput>
 {
     /// <summary>
     /// Gets the chainstay length in inches.
     /// which is the horizontal distance between the bottom bracket and rear axle.
     /// </summary>
-    public required double ChainStayLengthIn { get; init; }
+    public double ChainStayLengthIn { get; set; }
 
     /// <summary>
     /// Gets the number of teeth on the largest chainring (front gear).
     /// </summary>
-    public required int TeethLargestChainring { get; init; }
+    public int TeethLargestChainring { get; set; }
 
     /// <summary>
     /// Gets the number of teeth on the largest sprocket (rear gear).
     /// </summary>
-    public required int TeethLargestSprocket { get; init; }
+    public int TeethLargestSprocket { get; set; }
 
-    /// <summary>
-    /// Custom equality implementation with floating-point tolerance.
-    /// </summary>
+    public int Precision { get;  }
+
+    public ChainLengthCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
+    {
+
+    }
+
+    public ChainLengthCalculatorInput(int precision)
+    {
+        this.Precision = precision;
+    }
+
+    internal ChainLengthCalculatorInput Copy()
+    {
+        return new ChainLengthCalculatorInput(this.Precision)
+        {
+            ChainStayLengthIn = this.ChainStayLengthIn,
+            TeethLargestChainring = this.TeethLargestChainring,
+            TeethLargestSprocket = this.TeethLargestSprocket
+        };
+    }
+
     public bool Equals(ChainLengthCalculatorInput? other)
     {
         if (other is null) return false;
@@ -34,6 +55,8 @@ public sealed record ChainLengthCalculatorInput
             && TeethLargestChainring == other.TeethLargestChainring
             && TeethLargestSprocket == other.TeethLargestSprocket;
     }
+
+    public override bool Equals(object? obj) => Equals(obj as ChainLengthCalculatorInput);
 
     public override int GetHashCode()
     {

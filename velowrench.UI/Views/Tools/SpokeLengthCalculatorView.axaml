@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
              xmlns:controls="using:velowrench.UI.Controls"
+			        xmlns:const="using:velowrench.UI.Constants"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
@@ -14,6 +15,7 @@
 
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
+		<converters:ConvertibleDoubleLengthToDecimalConverter x:Key="ConvertibleDoubleLengthToDecimalConverter" />
 
         <!--  Empty template for computed state - to be implemented later  -->
         <DataTemplate x:Key="SpokeLengthComputedContentTemplate" x:DataType="vm:Tools.SpokeLengthCalculatorViewModel">
@@ -28,7 +30,8 @@
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                    Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                   FontSize="14" FontWeight="Light" Text="{x:Static res:Languages.RecommendedSpokeLength}" />
+                                   FontSize="14" FontWeight="Light"
+                                   Text="{x:Static res:Languages.RecommendedSpokeLength}" />
 
 
 
@@ -37,23 +40,23 @@
                                    FontWeight="DemiBold"
                                    Foreground="{DynamicResource SemiColorText0}"
                                    Text="{x:Static res:Languages.GearSide}" />
-                        <controls:LengthTextBlock Grid.Row="1" Grid.Column="1"
-                                                  HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                  FontWeight="Bold"
-                                                  Foreground="{DynamicResource SemiColorSuccess}"
-                                                  Format="0.00"
-                                                  Value="{Binding RecommendedSpokeLengthGearSide}" />
+                        <controls:LengthTextBlockControl Grid.Row="1" Grid.Column="1"
+                                                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                         FontWeight="Bold"
+                                                         Foreground="{DynamicResource SemiColorSuccess}"
+                                                         Format="0.00"
+                                                         Value="{Binding RecommendedSpokeLengthGearSide}" />
                         <TextBlock Grid.Row="2" Grid.Column="0"
                                    Margin="0,10,10,0" VerticalAlignment="Center"
                                    FontWeight="DemiBold"
                                    Foreground="{DynamicResource SemiColorText0}"
                                    Text="{x:Static res:Languages.NonGearSide}" />
-                        <controls:LengthTextBlock Grid.Row="2" Grid.Column="1"
-                                                  Margin="0,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                  FontWeight="Bold"
-                                                  Foreground="{DynamicResource SemiColorSuccess}"
-                                                  Format="0.00"
-                                                  Value="{Binding RecommendedSpokeLengthNonGearSide}" />
+                        <controls:LengthTextBlockControl Grid.Row="2" Grid.Column="1"
+                                                         Margin="0,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                         FontWeight="Bold"
+                                                         Foreground="{DynamicResource SemiColorSuccess}"
+                                                         Format="0.00"
+                                                         Value="{Binding RecommendedSpokeLengthNonGearSide}" />
                     </Grid>
                 </Border>
             </StackPanel>
@@ -109,10 +112,12 @@
 
             <TextBlock Grid.Row="1" Grid.Column="1"
                        HorizontalAlignment="Left" VerticalAlignment="Center"
-                       FontSize="12" Text="{x:Static res:Languages.NonGearSide}" />
+                       FontSize="12"
+                       Text="{x:Static res:Languages.NonGearSide}" />
             <TextBlock Grid.Row="1" Grid.Column="2"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontSize="12" Text="{x:Static res:Languages.GearSide}" />
+                       FontSize="12"
+                       Text="{x:Static res:Languages.GearSide}" />
 
             <TextBlock Grid.Row="2" Grid.Column="0"
                        VerticalAlignment="Center"
@@ -120,11 +125,11 @@
             <NumericUpDown Grid.Row="2" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubCenterToFlangeDistanceNonGearSide.Value}" />
+                           Value="{Binding HubCenterToFlangeDistanceNonGearSide, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
             <NumericUpDown Grid.Row="2" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubCenterToFlangeDistanceGearSide.Value}" />
+                           Value="{Binding HubCenterToFlangeDistanceGearSide, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
 
             <TextBlock Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center"
@@ -132,11 +137,11 @@
             <NumericUpDown Grid.Row="3" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubFlangeDiameterNonGearSide.Value}" />
+                           Value="{Binding HubFlangeDiameterNonGearSide , Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
             <NumericUpDown Grid.Row="3" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubFlangeDiameterGearSide.Value}" />
+                           Value="{Binding HubFlangeDiameterGearSide ,Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS},  Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
         </Grid>
 
         <!--  Rim measurement  -->
@@ -161,7 +166,7 @@
             <NumericUpDown Grid.Row="1" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding RimInternalDiameter.Value}" />
+                           Value="{Binding RimInternalDiameter , Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
             <ComboBox Grid.Row="1" Grid.Column="2"
                       Margin="5,5,0,5" HorizontalAlignment="Stretch"
                       ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
@@ -216,7 +221,7 @@
         <!--  Calculation Status with Custom Control  -->
         <controls:CalculatorStateControl HorizontalAlignment="Stretch"
                                          ComputedContentTemplate="{StaticResource SpokeLengthComputedContentTemplate}"
-                                         ErrorMessage="{Binding CalculatorInputErrors}"
+                                         ErrorMessage="{Binding InputErrorMessages}"
                                          State="{Binding CurrentState}" />
 
     </StackPanel>

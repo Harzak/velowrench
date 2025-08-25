@@ -71,7 +71,7 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
                 ValuesSmallChainring = input.TeethNumberSmallChainring.HasValue ? new ReadOnlyCollection<double>(valuesSmallChainring) : null,
                 Unit = UnitsStore.GetDefaultUnitForGearCalculation(input.CalculatorType),
                 CalculatedAt = DateTime.UtcNow,
-                UsedInputs = input,
+                UsedInputs = input.Copy() //since we use mutable type for input, copy is necessary to avoid external mutations
             },
             IsSuccess = true
         };

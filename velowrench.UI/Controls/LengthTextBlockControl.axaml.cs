@@ -9,7 +9,7 @@ using velowrench.Core.Units;
 
 namespace velowrench.UI.Controls;
 
-public partial class LengthTextBlock : UserControl, INotifyPropertyChanged
+public partial class LengthTextBlockControl : UserControl, INotifyPropertyChanged
 {
     private readonly List<LengthUnit> _availableUnits =
     [
@@ -19,13 +19,13 @@ public partial class LengthTextBlock : UserControl, INotifyPropertyChanged
     ];
 
     public static readonly StyledProperty<string> FormatProperty =
-        AvaloniaProperty.Register<LengthUpDown, string>(nameof(Format), string.Empty);
+        AvaloniaProperty.Register<LengthUpDownControl, string>(nameof(Format), string.Empty);
 
     public static readonly StyledProperty<int> TextFontSizeProperty =
-        AvaloniaProperty.Register<LengthUpDown, int>(nameof(TextFontSize), 14);
+        AvaloniaProperty.Register<LengthUpDownControl, int>(nameof(TextFontSize), 14);
 
     public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ValueProperty =
-        AvaloniaProperty.Register<LengthUpDown, ConvertibleDouble<LengthUnit>?>(
+        AvaloniaProperty.Register<LengthUpDownControl, ConvertibleDouble<LengthUnit>?>(
             nameof(Value),
             defaultBindingMode: BindingMode.OneWay);
 
@@ -70,7 +70,7 @@ public partial class LengthTextBlock : UserControl, INotifyPropertyChanged
 
     public new event PropertyChangedEventHandler? PropertyChanged;
 
-    public LengthTextBlock()
+    public LengthTextBlockControl()
     {
         InitializeComponent();
         Value ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);

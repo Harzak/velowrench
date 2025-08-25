@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
@@ -18,13 +19,15 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     where TResult : BaseCalculatorResult<TInput>
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
+
     private OperationResult<TResult>? _lastResult;
+    private readonly Dictionary<string, string> _inputErrors;
 
     /// <summary>
     /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
     /// This prevents excessive calculations during rapid UI changes.
     /// </summary>
-    protected IDebounceAction RefreshCalculationDebounced { get; }
+    private IDebounceAction _refreshCalculationDebounced { get; }
 
     /// <summary>
     /// Gets the calculation engine instance used to perform calculations.
@@ -33,16 +36,20 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     protected ICalculator<TInput, TResult> Calculator { get; }
 
     /// <summary>
+    /// Gets the input required by the calculator to perform its operations.
+    /// </summary>
+    protected abstract TInput CalculatorInput { get; }
+
+    /// <summary>
     /// Gets or sets the current state of the calculation operation.
     /// </summary>
     [ObservableProperty]
     private ECalculatorState _currentState;
 
     /// <summary>
-    /// Gets or sets error messages from input validation failures.
+    /// Gets error messages from input validation failures.
     /// </summary>
-    [ObservableProperty]
-    private string? _calculatorInputErrors;
+    public IEnumerable<string> InputErrorMessages => _inputErrors.Values.ToList();
 
     protected BaseCalculatorViewModel(
         ICalculatorFactory<TInput, TResult> calculatorFactory,
@@ -50,11 +57,69 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         IDebounceActionFactory actionFactory) : base(navigationService)
     {
         ArgumentNullException.ThrowIfNull(actionFactory, nameof(actionFactory));
+
+        _inputErrors = [];
+
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
 
-        this.RefreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
+        this._refreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
+    }
+
+    /// <summary>
+    /// Handles changes to a calculation input property and updates the calculation state.
+    /// </summary>
+    protected void OnCalculationInputChanged(string propertyName)
+    {
+        ICalculatorInputValidation<TInput> validation = this.Calculator.GetValidation();
+        bool isValid = validation.Validate(CalculatorInput);
+
+        if (_inputErrors.ContainsKey(propertyName) && !validation.ErrorMessages.ContainsKey(propertyName))
+        {
+            _inputErrors.Remove(propertyName);
+            base.OnPropertyChanged(nameof(this.InputErrorMessages));
+        }
+
+        if (isValid)
+        {
+            this._refreshCalculationDebounced.Execute();
+            return;
+        }
+
+        this.CurrentState = ECalculatorState.NotStarted;
+
+        if (validation.ErrorMessages.TryGetValue(propertyName, out string? value) && !_inputErrors.ContainsKey(propertyName))
+        {
+            _inputErrors[propertyName] = value;
+            base.OnPropertyChanged(nameof(this.InputErrorMessages));
+        }
+    }
+
+    private void RefreshCalculation()
+    {
+        if (this.CanCalculate())
+        {
+            this.Calculate();
+        }
+    }
+
+    protected virtual bool CanCalculate()
+    {
+        return !base.HasErrors
+            && this.Calculator.GetValidation().Validate(CalculatorInput)
+            && this.Calculator.State != ECalculatorState.InProgress
+            && (_lastResult == null || !_lastResult.Content.UsedInputs.Equals(CalculatorInput));
+    }
+
+    private void Calculate()
+    {
+        _lastResult = this.Calculator.Start(CalculatorInput);
+
+        if (_lastResult.IsSuccess && _lastResult.HasContent)
+        {
+            this.OnCalculationSuccessful(_lastResult);
+        }
     }
 
     private async void OnCalculatorStateChanged(object? sender, CalculatorStateEventArgs e)
@@ -66,63 +131,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         this.CurrentState = e.State;
     }
 
-    /// <summary>
-    /// Handles input changes and triggers calculation if inputs are valid.
-    /// </summary>
-    private void RefreshCalculation()
-    {
-        TInput input = this.GetInput();
-        if (this.CanCalculate(input))
-        {
-            this.Calculate(input);
-        }
-    }
-
-    /// <summary>
-    /// Determines whether a calculation can be started based on current conditions.
-    /// </summary>
-    protected virtual bool CanCalculate(TInput input)
-    {
-        return !base.HasErrors
-            && this.InpuValidation(input)
-            && this.Calculator.State != ECalculatorState.InProgress
-            && (_lastResult == null || !_lastResult.Content.UsedInputs.Equals(input));
-    }
-
-    private void Calculate(TInput input)
-    {
-        _lastResult = this.Calculator.Start(input);
-
-        if (_lastResult.IsSuccess && _lastResult.HasContent)
-        {
-            this.OnCalculationSuccessful(_lastResult);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns the calculation input based on current view model state.
-    /// </summary>
-    protected abstract TInput GetInput();
-
-    /// <summary>
-    /// Processes successful calculation results and updates the view model state.
-    /// </summary>
     protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
-
-    /// <summary>
-    /// Validates that all required inputs have valid values.
-    /// </summary>
-    private bool InpuValidation(TInput input)
-    {
-        ICalculatorInputValidation<TInput> validation = this.Calculator.GetValidation();
-        if (!validation.Validate(input))
-        {
-            this.CalculatorInputErrors = string.Join(Environment.NewLine, validation.ErrorMessages);
-            this.CurrentState = ECalculatorState.NotStarted;
-            return false;
-        }
-        return true;
-    }
 
     protected override void Dispose(bool disposing)
     {
@@ -132,7 +141,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
             {
                 this.Calculator.StateChanged -= OnCalculatorStateChanged;
             }
-            RefreshCalculationDebounced?.Dispose();
+            _refreshCalculationDebounced?.Dispose();
         }
         base.Dispose(disposing);
     }

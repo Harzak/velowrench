@@ -9,7 +9,7 @@ namespace velowrench.Calculations.Calculators.Transmission.Gear;
 /// </summary>
 internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<GearCalculatorInput>
 {
-    private readonly List<string> _errorMessage;
+    private readonly Dictionary<string, string> _errorMessage;
 
     /// <summary>
     /// The minimum allowable crank length in millimeters.
@@ -69,7 +69,7 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     /// <summary>
     /// Gets a collection of validation error messages from the most recent validation attempt.
     /// </summary>
-    public IEnumerable<string> ErrorMessages => _errorMessage;
+    public Dictionary<string, string> ErrorMessages => _errorMessage;
 
     public GearCalculatorInputValidator()
     {
@@ -83,59 +83,81 @@ internal sealed class GearCalculatorInputValidator : ICalculatorInputValidation<
     {
         if (input == null)
         {
-            _errorMessage.Add("Input cannot be null.");
+            _errorMessage.Add(
+                nameof(input),
+                "Input cannot be null.");
             return false;
         }
 
         if (input.CalculatorType == EGearCalculatorType.GainRatio && !CrankLengthIsValid(input.CrankLengthMm))
         {
-            _errorMessage.Add($"Crank length must be between {MIN_CRANK_LENGTH_MM} mm and {MAX_CRANK_LENGTH_MM} mm.");
+            _errorMessage.Add(
+                nameof(input.CrankLengthMm),
+                $"Crank length must be between {MIN_CRANK_LENGTH_MM} mm and {MAX_CRANK_LENGTH_MM} mm.");
         }
 
         if (input.CalculatorType == EGearCalculatorType.Speed)
         {
             if (!input.RevolutionPerMinute.HasValue)
             {
-                _errorMessage.Add("Revolution per minute is required for Speed calculations.");
+                _errorMessage.Add(
+                    nameof(input.RevolutionPerMinute),
+                    "Revolution per minute is required for Speed calculations.");
             }
             else if (!RpmIsValid(input.RevolutionPerMinute.Value))
             {
-                _errorMessage.Add($"Revolution per minute must be between {MIN_RPM} and {MAX_RPM}.");
+                _errorMessage.Add(
+                    nameof(input.RevolutionPerMinute),
+                    $"Revolution per minute must be between {MIN_RPM} and {MAX_RPM}.");
             }
         }
 
         if (input.NumberOfTeethBySprocket.Count < 1)
         {
-            _errorMessage.Add("At least one sprocket is required.");
+            _errorMessage.Add(
+                nameof(input.NumberOfTeethBySprocket),
+                "At least one sprocket is required.");
         }
         else if (input.NumberOfTeethBySprocket.Count > MAX_SPROCKETS_COUNT)
         {
-            _errorMessage.Add($"Maximum {MAX_SPROCKETS_COUNT} sprockets allowed ({input.NumberOfTeethBySprocket.Count} entered).");
+            _errorMessage.Add(
+                nameof(input.NumberOfTeethBySprocket),
+                $"Maximum {MAX_SPROCKETS_COUNT} sprockets allowed ({input.NumberOfTeethBySprocket.Count} entered).");
         }
 
         if (input.NumberOfTeethBySprocket.Any(x => !SprocketTeethCountIsValid(x)))
         {
-            _errorMessage.Add($"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.NumberOfTeethBySprocket),
+                $"Sprocket teeth counts must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }
 
         if (!WheelDiameterIsValid(input.TyreOuterDiameterIn))
         {
-            _errorMessage.Add($"Tyre outer diameter must be between {MIN_TYRE_DIAMETER_INCH} and {MAX_TYRE_DIAMETER_INCH} inches.");
+            _errorMessage.Add(
+                nameof(input.TyreOuterDiameterIn),
+                $"Tyre outer diameter must be between {MIN_TYRE_DIAMETER_INCH} and {MAX_TYRE_DIAMETER_INCH} inches.");
         }
 
         if (!ChainringTeethCountIsValid(input.TeethNumberLargeOrUniqueChainring))
         {
-            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.TeethNumberLargeOrUniqueChainring),
+                $"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
         if (input.TeethNumberMediumChainring.HasValue && !ChainringTeethCountIsValid(input.TeethNumberMediumChainring.Value))
         {
-            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.TeethNumberMediumChainring),
+                $"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
         if (input.TeethNumberSmallChainring.HasValue && !ChainringTeethCountIsValid(input.TeethNumberSmallChainring.Value))
         {
-            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.TeethNumberSmallChainring),
+                $"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
         return _errorMessage.Count == 0;

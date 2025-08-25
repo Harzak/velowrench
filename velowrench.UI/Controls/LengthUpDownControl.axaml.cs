@@ -9,7 +9,7 @@ using velowrench.Core.Units;
 
 namespace velowrench.UI.Controls;
 
-public partial class LengthUpDown : UserControl, INotifyPropertyChanged
+public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
 {
     private readonly List<LengthUnit> _availableUnits =
     [
@@ -19,19 +19,10 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
     ];
 
     public static readonly StyledProperty<string> TitleProperty =
-        AvaloniaProperty.Register<LengthUpDown, string>(nameof(Title), string.Empty);
-
-    public static readonly StyledProperty<double> MinimumProperty =
-        AvaloniaProperty.Register<LengthUpDown, double>(nameof(Minimum), 0.0);
-
-    public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<LengthUpDown, double>(nameof(Maximum), 1000.0);
-
-    public static readonly StyledProperty<double> IncrementProperty =
-        AvaloniaProperty.Register<LengthUpDown, double>(nameof(Increment), 1.0);
+        AvaloniaProperty.Register<LengthUpDownControl, string>(nameof(Title), string.Empty);
 
     public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ConvertibleDoubleProperty =
-        AvaloniaProperty.Register<LengthUpDown, ConvertibleDouble<LengthUnit>?>(
+        AvaloniaProperty.Register<LengthUpDownControl, ConvertibleDouble<LengthUnit>?>(
             nameof(ConvertibleDouble),
             defaultBindingMode: BindingMode.TwoWay);
 
@@ -39,24 +30,6 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
     {
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
-    }
-
-    public double Minimum
-    {
-        get => GetValue(MinimumProperty);
-        set => SetValue(MinimumProperty, value);
-    }
-
-    public double Maximum
-    {
-        get => GetValue(MaximumProperty);
-        set => SetValue(MaximumProperty, value);
-    }
-
-    public double Increment
-    {
-        get => GetValue(IncrementProperty);
-        set => SetValue(IncrementProperty, value);
     }
 
     public ConvertibleDouble<LengthUnit>? ConvertibleDouble
@@ -81,22 +54,27 @@ public partial class LengthUpDown : UserControl, INotifyPropertyChanged
         }
     }
 
-    public double? DisplayValue
+    public decimal? DisplayValue
     {
-        get => ConvertibleDouble?.Value ?? 0;
+        get => (decimal?)ConvertibleDouble?.Value ?? 0;
         set
         {
-            if (value.HasValue && ConvertibleDouble != null && ConvertibleDouble.Value != value.Value)
+            if (value.HasValue)
             {
-                ConvertibleDouble.Value = value.Value;
-                RaisePropertyChanged(nameof(DisplayValue));
+                double convertedValue = (double)value;
+                if (ConvertibleDouble != null && ConvertibleDouble.Value != convertedValue  && ConvertibleDouble.Value != double.NaN)
+                {
+
+                    ConvertibleDouble.Value =convertedValue;
+                    RaisePropertyChanged(nameof(DisplayValue));
+                }
             }
         }
     }
 
     public new event PropertyChangedEventHandler? PropertyChanged;
 
-    public LengthUpDown()
+    public LengthUpDownControl()
     {
         InitializeComponent();
         ConvertibleDouble ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);

@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
+             xmlns:const="using:velowrench.UI.Constants"
              xmlns:controls="using:velowrench.UI.Controls"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:enums="using:velowrench.Utils.Enums"
@@ -22,7 +23,8 @@
 
         <!--  DataTemplate when calculation is computed  -->
         <DataTemplate x:Key="GearCalculatorComputedContentTemplate" x:DataType="vm:Tools.GearCalculatorViewModel">
-            <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
+            <Grid HorizontalAlignment="Center"
+                  ColumnDefinitions="Auto" RowDefinitions="Auto, Auto">
 
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           HorizontalAlignment="Center"
@@ -168,18 +170,18 @@
 
             <NumericUpDown Grid.Row="1" Grid.Column="0"
                            Margin="0,0,10,0"
-                           Increment="1" ShowButtonSpinner="False"
-                           Value="{Binding Chainring1TeethCount, Delay=1000}" />
+                           ShowButtonSpinner="False"
+                           Value="{Binding Chainring1TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="1"
                            Margin="10,0,10,0"
-                           Increment="1" ShowButtonSpinner="False"
-                           Value="{Binding Chainring2TeethCount, Delay=1000}" />
+                           ShowButtonSpinner="False"
+                           Value="{Binding Chainring2TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="2"
                            Margin="10,0,0,0"
-                           Increment="1" ShowButtonSpinner="False"
-                           Value="{Binding Chainring3TeethCount, Delay=1000}" />
+                           ShowButtonSpinner="False"
+                           Value="{Binding Chainring3TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
         </Grid>
 
         <!--  Sprockets Input  -->
@@ -214,7 +216,7 @@
         <!--  Calculation Status  -->
         <controls:CalculatorStateControl Margin="20,10" HorizontalAlignment="Stretch"
                                          ComputedContentTemplate="{StaticResource GearCalculatorComputedContentTemplate}"
-                                         ErrorMessage="{Binding CalculatorInputErrors}"
+                                         ErrorMessage="{Binding InputErrorMessages}"
                                          State="{Binding CurrentState}" />
 
     </StackPanel>

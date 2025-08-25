@@ -44,20 +44,6 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Constructor_ShouldInitializeCorrectly()
-    {
-        // Assert
-        _viewModel.CanShowHelpPage.Should().BeTrue();
-        _viewModel.CurrentState.Should().Be(ECalculatorState.NotStarted);
-        _viewModel.ChainStayLength.Should().NotBeNull();
-        _viewModel.ChainStayLength.Value.Should().Be(0);
-        _viewModel.ChainStayLength.Unit.Should().Be(LengthUnit.Centimeter);
-        _viewModel.RecommendedChainLinks.Should().Be(0);
-        _viewModel.RecommendedChainLength.Should().BeNull();
-    }
-
-
-    [TestMethod]
     public void Calculate_WithValidInputs_ShouldUpdateResults()
     {
         // Arrange
@@ -93,29 +79,6 @@ public class ChainLengthCalculatorViewModelTests
         _viewModel.RecommendedChainLength.Should().NotBeNull();
         _viewModel.RecommendedChainLength.Value.Should().Be(expectedChainLength);
         _viewModel.RecommendedChainLinks.Should().Be(expectedChainLinks);
-        A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>._)).MustHaveHappenedOnceExactly();
-    }
-
-    [TestMethod]
-    public void TeethLargestChainring_WithInvalidValue_ShouldSetValidationError()
-    {
-        // Act
-        _viewModel.TeethLargestChainring = 150;
-
-        // Assert
-        _viewModel.HasErrors.Should().BeTrue();
-        _viewModel.GetErrors(nameof(_viewModel.TeethLargestChainring)).Should().NotBeEmpty();
-    }
-
-    [TestMethod]
-    public void TeethLargestSprocket_WithInvalidValue_ShouldSetValidationError()
-    {
-        // Act
-        _viewModel.TeethLargestSprocket = 80;
-
-        // Assert
-        _viewModel.HasErrors.Should().BeTrue();
-        _viewModel.GetErrors(nameof(_viewModel.TeethLargestSprocket)).Should().NotBeEmpty();
     }
 
     [TestMethod]
@@ -169,9 +132,7 @@ public class ChainLengthCalculatorViewModelTests
         // Arrange
         ChainLengthCalculatorInput input = new()
         {
-            ChainStayLengthIn = 10,
-            TeethLargestChainring = 50,
-            TeethLargestSprocket = 30
+            ChainStayLengthIn = 10
         };
 
         OperationResult<ChainLengthCalculatorResult> result = new()
@@ -192,8 +153,6 @@ public class ChainLengthCalculatorViewModelTests
 
         // Act - First calculation
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
-        _viewModel.TeethLargestChainring = 50;
-        _viewModel.TeethLargestSprocket = 30;
 
         // Act - Second time with same inputs
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);

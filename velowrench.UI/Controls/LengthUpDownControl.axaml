@@ -1,9 +1,9 @@
-<UserControl x:Class="velowrench.UI.Controls.LengthUpDown"
+<UserControl x:Class="velowrench.UI.Controls.LengthUpDownControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:velowrench.UI.Converters"
              xmlns:units="using:UnitsNet.Units"
-             x:Name="LengthUpDownControl">
+             x:Name="LengthUpDownControlRoot">
 
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
@@ -13,24 +13,20 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    Margin="0,10,0,3"
-                   Text="{Binding Title, ElementName=LengthUpDownControl}" />
+                   Text="{Binding Title, ElementName=LengthUpDownControlRoot}" />
 
         <NumericUpDown Name="ValueUpDown"
                        Grid.Row="1" Grid.Column="0"
-                       AllowSpin="True" ButtonSpinnerLocation="Right" FormatString="0.00"
-                       Increment="{Binding Increment, ElementName=LengthUpDownControl}"
-                       Maximum="{Binding Maximum, ElementName=LengthUpDownControl}"
-                       Minimum="{Binding Minimum, ElementName=LengthUpDownControl}"
-                       ShowButtonSpinner="False"
-                       Theme="{StaticResource LengthUpDown}"
-                       Value="{Binding DisplayValue, ElementName=LengthUpDownControl}" />
+                       AllowSpin="True" ButtonSpinnerLocation="Right" FormatString="0.00" ShowButtonSpinner="False"
+                       Theme="{StaticResource LengthUpDownControl}"
+                       Value="{Binding DisplayValue, ElementName=LengthUpDownControlRoot}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"
+                  Width="100"
                   HorizontalAlignment="Stretch"
-				  Width="100"
-                  ItemsSource="{Binding AvailableUnits, ElementName=LengthUpDownControl}"
-                  SelectedItem="{Binding SelectedUnit, ElementName=LengthUpDownControl}">
+                  ItemsSource="{Binding AvailableUnits, ElementName=LengthUpDownControlRoot}"
+                  SelectedItem="{Binding SelectedUnit, ElementName=LengthUpDownControlRoot}">
             <ComboBox.ItemTemplate>
                 <DataTemplate DataType="units:LengthUnit">
                     <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />

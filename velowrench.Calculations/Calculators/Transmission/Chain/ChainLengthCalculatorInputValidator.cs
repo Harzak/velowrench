@@ -11,7 +11,7 @@ namespace velowrench.Calculations.Calculators.Transmission.Chain;
 /// </summary>
 internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputValidation<ChainLengthCalculatorInput>
 {
-    private readonly List<string> _errorMessage;
+    private readonly Dictionary<string, string> _errorMessage;
 
     /// <summary>
     /// The minimum allowable chainstay length in inches.
@@ -41,7 +41,7 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     /// <summary>
     /// Gets a collection of validation error messages from the most recent validation attempt.
     /// </summary>
-    public IEnumerable<string> ErrorMessages => _errorMessage;
+    public Dictionary<string, string> ErrorMessages => _errorMessage;
 
     public ChainLengthCalculatorInputValidator()
     {
@@ -55,23 +55,31 @@ internal sealed class ChainLengthCalculatorInputValidator : ICalculatorInputVali
     {
         if (input == null)
         {
-            _errorMessage.Add("Input cannot be null.");
+            _errorMessage.Add(
+                nameof(input),
+                "Input cannot be null.");
             return false;
         }
 
         if (!ChainStayLengthIsValid(input.ChainStayLengthIn))
         {
-            _errorMessage.Add($"Chainstay length must be greater than {MIN_CHAINSTAY_LENGTH_INCH}.");
+            _errorMessage.Add(
+                nameof(input.ChainStayLengthIn),
+                $"Chainstay length must be greater than {MIN_CHAINSTAY_LENGTH_INCH} inch.");
         }
 
         if (!ChainringTeethCountIsValid(input.TeethLargestChainring))
         {
-            _errorMessage.Add($"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.TeethLargestChainring),
+                $"Chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
         }
 
         if (!SprocketTeethCountIsValid(input.TeethLargestSprocket))
         {
-            _errorMessage.Add($"Sprocket teeth count must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
+            _errorMessage.Add(
+                nameof(input.TeethLargestSprocket),
+                $"Sprocket teeth count must be between {MIN_SPROCKET_TEETH_COUNT} and {MAX_SPROCKET_TEETH_COUNT}.");
         }
 
         return _errorMessage.Count == 0;

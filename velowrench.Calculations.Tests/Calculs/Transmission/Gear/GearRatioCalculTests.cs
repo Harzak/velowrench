@@ -32,12 +32,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 27,
             CrankLengthMm = 175,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 24,
             TeethNumberMediumChainring = 34,
             TeethNumberLargeOrUniqueChainring = 46,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -61,12 +61,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 24,
             CrankLengthMm = 115,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 20,
             TeethNumberMediumChainring = 24,
             TeethNumberLargeOrUniqueChainring = 28,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -91,12 +91,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 35.65,
             CrankLengthMm = 190,
-            NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
             TeethNumberSmallChainring = 26,
             TeethNumberMediumChainring = 32,
             TeethNumberLargeOrUniqueChainring = 52,
             Precision = 1
         };
+        input.WithSprockets([10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -123,12 +123,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = 90,
             TyreOuterDiameterIn = 27,
             CrankLengthMm = 0,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 24,
             TeethNumberMediumChainring = 34,
             TeethNumberLargeOrUniqueChainring = 46,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -152,12 +152,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = 40,
             TyreOuterDiameterIn = 24,
             CrankLengthMm = 0,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 20,
             TeethNumberMediumChainring = 24,
             TeethNumberLargeOrUniqueChainring = 28,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -181,12 +181,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = 120,
             TyreOuterDiameterIn = 35.65,
             CrankLengthMm = 0,
-            NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
             TeethNumberSmallChainring = 26,
             TeethNumberMediumChainring = 32,
             TeethNumberLargeOrUniqueChainring = 52,
             Precision = 1
         };
+        input.WithSprockets([10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -213,12 +213,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 27,
             CrankLengthMm = 175,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 24,
             TeethNumberMediumChainring = 34,
             TeethNumberLargeOrUniqueChainring = 46,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -242,12 +242,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 24,
             CrankLengthMm = 115,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 20,
             TeethNumberMediumChainring = 24,
             TeethNumberLargeOrUniqueChainring = 28,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -271,12 +271,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 35.65,
             CrankLengthMm = 190,
-            NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
             TeethNumberSmallChainring = 26,
             TeethNumberMediumChainring = 32,
             TeethNumberLargeOrUniqueChainring = 52,
             Precision = 1
         };
+        input.WithSprockets([10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -303,12 +303,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 27,
             CrankLengthMm = 175,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 24,
             TeethNumberMediumChainring = 34,
             TeethNumberLargeOrUniqueChainring = 46,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -332,12 +332,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 24,
             CrankLengthMm = 115,
-            NumberOfTeethBySprocket = [11, 12, 13, 14, 16, 18, 21, 24, 28],
             TeethNumberSmallChainring = 20,
             TeethNumberMediumChainring = 24,
             TeethNumberLargeOrUniqueChainring = 28,
             Precision = 1
         };
+        input.WithSprockets([11, 12, 13, 14, 16, 18, 21, 24, 28]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);
@@ -361,12 +361,12 @@ public class GearRatioCalculTests
             RevolutionPerMinute = null,
             TyreOuterDiameterIn = 35.65,
             CrankLengthMm = 190,
-            NumberOfTeethBySprocket = [10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50],
             TeethNumberSmallChainring = 26,
             TeethNumberMediumChainring = 32,
             TeethNumberLargeOrUniqueChainring = 52,
             Precision = 1
         };
+        input.WithSprockets([10, 12, 14, 16, 18, 21, 24, 28, 32, 36, 42, 50]);
 
         // Act
         OperationResult<GearCalculatorResult> result = _calculator.Start(input);

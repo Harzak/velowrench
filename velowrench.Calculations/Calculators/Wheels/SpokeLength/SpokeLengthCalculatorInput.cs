@@ -1,61 +1,78 @@
-﻿using velowrench.Calculations.Constants;
+﻿using velowrench.Calculations.Calculators.Transmission.Chain;
+using velowrench.Calculations.Constants;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
 /// <summary>
 /// Represents the input parameters required for calculating spoke lengths in a wheel-building context.
 /// </summary>
-public sealed record SpokeLengthCalculatorInput
+public sealed class SpokeLengthCalculatorInput : IEquatable<SpokeLengthCalculatorInput>
 {
     /// <summary>
     /// Gets the distance from the hub center to the flange on the gear (right) side.
     /// </summary>
-    public required double HubCenterToFlangeDistanceGearSideMm { get; init; }
+    public double HubCenterToFlangeDistanceGearSideMm { get; set; }
 
     /// <summary>
     /// Gets the distance from the hub center to the flange on the non-gear (left) side.
     /// </summary>
-    public required double HubCenterToFlangeDistanceNonGearSideMm { get; init; }
+    public double HubCenterToFlangeDistanceNonGearSideMm { get; set; }
 
     /// <summary>
     /// Gets the diameter of the circle through the centers of the spoke holes on the gear side (right) flange.
     /// </summary>
-    public required double HubFlangeDiameterGearSideMm { get; init; }
+    public double HubFlangeDiameterGearSideMm { get; set; }
 
     /// <summary>
     /// Gets the diameter of the circle through the centers of the spoke holes on the non-gear side (left) flange.
     /// </summary>
-    public required double HubFlangeDiameterNonGearSideMm { get; init; }
+    public double HubFlangeDiameterNonGearSideMm { get; set; }
 
     /// <summary>
     /// Gets the internal diameter / effective Rim Diameter (ERD) of the rim. The diameter measured at the nipple seats inside the rim
     /// </summary>
-    public required double RimInternalDiameterMm { get; init; }
+    public double RimInternalDiameterMm { get; set; }
 
     /// <summary>
     /// Gets the number of spokes in the wheel (hole count).
     /// </summary>
-    public required int SpokeCount { get; init; }
+    public int SpokeCount { get; set; }
 
     /// <summary>
     /// Gets the spoke lacing pattern (cross count). How many times each spoke crosses others (e.g., 3-cross, 2-cross, radial).
     /// </summary>
-    public required int SpokeLacingPattern { get; init; }
+    public int SpokeLacingPattern { get; set; }
 
     /// <summary>
     /// Gets the number of decimal places to include in calculation results.
     /// Controls the precision of the output values.
     /// </summary>
-    public int Precision { get; init; }
+    public int Precision { get; }
 
-    public SpokeLengthCalculatorInput()
+    public SpokeLengthCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
     {
-        this.Precision = CalculationConstants.DEFAULT_PRECISION;
+
     }
 
-    /// <summary>
-    /// Custom equality implementation with floating-point tolerance.
-    /// </summary>
+    public SpokeLengthCalculatorInput(int precision)
+    {
+        this.Precision = precision;
+    }
+
+    internal SpokeLengthCalculatorInput Copy()
+    {
+        return new SpokeLengthCalculatorInput(this.Precision)
+        {
+            HubCenterToFlangeDistanceGearSideMm = this.HubCenterToFlangeDistanceGearSideMm,
+            HubCenterToFlangeDistanceNonGearSideMm = this.HubCenterToFlangeDistanceNonGearSideMm,
+            HubFlangeDiameterGearSideMm = this.HubFlangeDiameterGearSideMm,
+            HubFlangeDiameterNonGearSideMm = this.HubFlangeDiameterNonGearSideMm,
+            RimInternalDiameterMm = this.RimInternalDiameterMm,
+            SpokeCount = this.SpokeCount,
+            SpokeLacingPattern = this.SpokeLacingPattern
+        };
+    }
+
     public bool Equals(SpokeLengthCalculatorInput? other)
     {
         if (other is null) return false;
@@ -76,6 +93,8 @@ public sealed record SpokeLengthCalculatorInput
             && SpokeCount == other.SpokeCount
             && SpokeLacingPattern == other.SpokeLacingPattern;
     }
+
+    public override bool Equals(object? obj) => Equals(obj as SpokeLengthCalculatorInput);
 
     public override int GetHashCode()
     {

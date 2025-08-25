@@ -1,9 +1,9 @@
-<UserControl x:Class="velowrench.UI.Controls.LengthTextBlock"
+<UserControl x:Class="velowrench.UI.Controls.LengthTextBlockControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:velowrench.UI.Converters"
              xmlns:units="using:UnitsNet.Units"
-             x:Name="LengthTextBlockControl">
+             x:Name="LengthTextBlockControlRoot">
 
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
@@ -15,8 +15,8 @@
                    Grid.Row="1" Grid.Column="0"
                    Width="70"
                    Margin="0,0,5,0" VerticalAlignment="Center"
-                   FontSize="{Binding TextFontSize, ElementName=LengthTextBlockControl}"
-                   Text="{Binding DisplayValue, ElementName=LengthTextBlockControl}" />
+                   FontSize="{Binding TextFontSize, ElementName=LengthTextBlockControlRoot}"
+                   Text="{Binding DisplayValue, ElementName=LengthTextBlockControlRoot}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"
@@ -24,8 +24,8 @@
                   HorizontalAlignment="Stretch" VerticalAlignment="Center"
                   FontSize="14" FontWeight="Regular"
                   Foreground="{DynamicResource SemiColorText0}"
-                  ItemsSource="{Binding AvailableUnits, ElementName=LengthTextBlockControl}"
-                  SelectedItem="{Binding SelectedUnit, ElementName=LengthTextBlockControl}">
+                  ItemsSource="{Binding AvailableUnits, ElementName=LengthTextBlockControlRoot}"
+                  SelectedItem="{Binding SelectedUnit, ElementName=LengthTextBlockControlRoot}">
             <ComboBox.ItemTemplate>
                 <DataTemplate DataType="units:LengthUnit">
                     <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
