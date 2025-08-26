@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
+using velowrench.Core.Validation.Enhanced;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Wheels.SpokeLength;
@@ -10,7 +12,7 @@ namespace velowrench.Calculations.Tests.Calculs.Wheels.SpokeLength;
 public class SpokeLengthCalculatorTests
 {
     private ILogger _logger;
-    private ICalculatorInputValidation<SpokeLengthCalculatorInput> _inputValidation;
+    private IEnhancedCalculatorInputValidation<SpokeLengthCalculatorInput> _inputValidation;
     private SpokeLengthCalculator _calculator;
 
 
@@ -18,7 +20,7 @@ public class SpokeLengthCalculatorTests
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = new SpokeLengthCalculatorInputValidation();
+        _inputValidation = new EnhancedSpokeLengthCalculatorInputValidator();
         _calculator = new SpokeLengthCalculator(() => _inputValidation, _logger);
     }
 

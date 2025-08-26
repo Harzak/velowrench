@@ -1,4 +1,5 @@
-﻿using velowrench.Utils.Results;
+﻿using velowrench.Core.Validation.Pipeline;
+using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Interfaces;
 
@@ -17,5 +18,5 @@ public interface ICalculator<TInput, TResult> : ICalculator where TInput : class
     /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
     OperationResult<TResult> Start(TInput input);
 
-    Func<ICalculatorInputValidation<TInput>> GetValidation { get; }
+    public abstract Interfaces.ICalculatorInputValidator<TInput> InputValidator { get; }
 }

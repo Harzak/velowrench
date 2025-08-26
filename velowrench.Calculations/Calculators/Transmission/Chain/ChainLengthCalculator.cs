@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Constants;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
@@ -24,22 +27,16 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
 
     protected override string CalculatorName => nameof(ChainLengthCalculator);
 
-    public ChainLengthCalculator(Func<ICalculatorInputValidation<ChainLengthCalculatorInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
+    public override ICalculatorInputValidator<ChainLengthCalculatorInput> InputValidator { get; }
+
+    public ChainLengthCalculator(ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator, ILogger logger) : base(logger)
     {
+        this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
 
     }
 
     protected override OperationResult<ChainLengthCalculatorResult> Calculate(ChainLengthCalculatorInput input)
     {
-        ArgumentNullException.ThrowIfNull(input, nameof(input));
-
-        ICalculatorInputValidation<ChainLengthCalculatorInput> validator = base.GetValidation();
-        if (!validator.Validate(input))
-        {
-            throw new CalculatorInputException(validator.ErrorMessages);
-        }
-
-
         OperationResult<ChainLengthCalculatorResult> result = new();
 
         double calculatedLength;

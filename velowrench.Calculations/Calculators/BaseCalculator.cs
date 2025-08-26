@@ -2,6 +2,8 @@
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.LogMessages;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -19,6 +21,11 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
     protected abstract string CalculatorName { get; }
 
     /// <summary>
+    /// Gets the input validator used to validate the input used for the calculation.
+    /// </summary>
+    public abstract ICalculatorInputValidator<TInput> InputValidator { get; }
+
+    /// <summary>
     /// Gets the current state of the calculation.
     /// </summary>
     public ECalculatorState State { get; private set; }
@@ -33,11 +40,8 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
     /// </summary>
     public event EventHandler<CalculatorStateEventArgs>? StateChanged;
 
-    public Func<ICalculatorInputValidation<TInput>> GetValidation { get; }
-
-    protected BaseCalculator(Func<ICalculatorInputValidation<TInput>> validationProvider, ILogger logger)
+    protected BaseCalculator(ILogger logger)
     {
-        this.GetValidation = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
         this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         this.State = ECalculatorState.NotStarted;
     }
@@ -52,9 +56,15 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
         ArgumentNullException.ThrowIfNull(input, nameof(input));
         InvalidCalculatorOperationException.ThrowIfCalculInProgress(this);
 
+        ValidationResult validationResult = this.InputValidator.ValidateWithResults(input);
+        if (!validationResult.IsValid)
+        {
+            throw new CalculatorInputException(validationResult.ErrorMessages);
+        }
+
         this.SetState(ECalculatorState.InProgress);
 
-        OperationResult<TResult> result = Calculate(input);
+        OperationResult<TResult> result = this.Calculate(input);
         if (result.IsSuccess)
         {
             LastResult = result.Content;

@@ -17,7 +17,7 @@ public class CalculatorInputException : Exception
 
     }
 
-    public CalculatorInputException(Dictionary<string, string> messages) : base(string.Join(Environment.NewLine, messages))
+    public CalculatorInputException(IEnumerable<string> messages) : base(string.Join(Environment.NewLine, messages))
     {
 
     }

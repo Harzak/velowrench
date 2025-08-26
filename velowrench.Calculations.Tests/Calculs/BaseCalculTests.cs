@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Interfaces;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -13,14 +14,14 @@ namespace velowrench.Calculations.Tests.Calculs;
 public class BaseCalculTests
 {
     private ILogger _logger;
-    private ICalculatorInputValidation<TestInput> _inputValidation;
+    private IEnhancedCalculatorInputValidation<TestInput> _inputValidation;
     private TestableCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = A.Fake<ICalculatorInputValidation<TestInput>>();
+        _inputValidation = A.Fake<IEnhancedCalculatorInputValidation<TestInput>>();
         _calculator = new TestableCalculator(() => _inputValidation, _logger);
     }
 
@@ -184,7 +185,7 @@ public class TestableCalculator : BaseCalculator<TestInput, TestResult>
 {
     protected override string CalculatorName => "TestableCalcul";
 
-    public TestableCalculator(Func<ICalculatorInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
+    public TestableCalculator(Func<IEnhancedCalculatorInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
     {
 
     }

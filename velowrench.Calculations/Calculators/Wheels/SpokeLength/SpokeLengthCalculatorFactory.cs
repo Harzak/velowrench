@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
+using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
@@ -8,12 +10,12 @@ namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 /// </summary>
 public sealed class SpokeLengthCalculatorFactory : ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>
 {
-    private readonly Func<ICalculatorInputValidation<SpokeLengthCalculatorInput>> _validationProvider;
+    private readonly ICalculatorInputValidator<SpokeLengthCalculatorInput> _inputValidator;
     private readonly ILogger _logger;
 
-    public SpokeLengthCalculatorFactory(Func<ICalculatorInputValidation<SpokeLengthCalculatorInput>> validationProvider, ILogger<SpokeLengthCalculatorFactory> logger)
+    public SpokeLengthCalculatorFactory(ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, ILogger<SpokeLengthCalculatorFactory> logger)
     {
-        _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
+        _inputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -22,6 +24,6 @@ public sealed class SpokeLengthCalculatorFactory : ICalculatorFactory<SpokeLengt
     /// </summary>
     public ICalculator<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> CreateCalculator()
     {
-        return new SpokeLengthCalculator(_validationProvider, _logger);
+        return new SpokeLengthCalculator(_inputValidator, _logger);
     }
 }

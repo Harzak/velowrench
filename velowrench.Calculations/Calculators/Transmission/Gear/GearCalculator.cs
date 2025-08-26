@@ -2,10 +2,13 @@
 using System.Collections.ObjectModel;
 using UnitsNet;
 using UnitsNet.Units;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Units;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
@@ -14,15 +17,17 @@ namespace velowrench.Calculations.Calculators.Transmission.Gear;
 /// Performs gear ratio calculations for bicycle drivetrains.
 /// Calculates various gear metrics including gear inches, development, gain ratio, and speed
 /// </summary>
-public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculatorResult>
+public sealed class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculatorResult>
 {
     private const int INNER_CALCULATION_PRECISION = 4;
 
     protected override string CalculatorName => nameof(GearCalculator);
 
-    public GearCalculator(Func<ICalculatorInputValidation<GearCalculatorInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
-    {
+    public override ICalculatorInputValidator<GearCalculatorInput> InputValidator { get; }
 
+    public GearCalculator(ICalculatorInputValidator<GearCalculatorInput> inputValidator, ILogger logger) : base(logger)
+    {
+        this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
     }
 
     /// <summary>
@@ -32,14 +37,6 @@ public class GearCalculator : BaseCalculator<GearCalculatorInput, GearCalculator
     /// </summary>
     protected override OperationResult<GearCalculatorResult> Calculate(GearCalculatorInput input)
     {
-        ArgumentNullException.ThrowIfNull(input, nameof(input));
-
-        ICalculatorInputValidation<GearCalculatorInput> validator = base.GetValidation();
-        if (!validator.Validate(input))
-        {
-            throw new CalculatorInputException(validator.ErrorMessages);
-        }
-
         List<double> valuesLargeOrUniqueChainring = [];
         List<double> valuesMediumChainring = [];
         List<double> valuesSmallChainring = [];

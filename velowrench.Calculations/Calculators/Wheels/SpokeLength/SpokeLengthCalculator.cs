@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
@@ -17,21 +21,15 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
 
     protected override string CalculatorName => nameof(SpokeLengthCalculator);
 
-    public SpokeLengthCalculator(Func<ICalculatorInputValidation<SpokeLengthCalculatorInput>> validationProvider, ILogger logger) : base(validationProvider, logger)
-    {
+    public override ICalculatorInputValidator<SpokeLengthCalculatorInput> InputValidator { get; }
 
+    public SpokeLengthCalculator(ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, ILogger logger) : base(logger)
+    {
+        this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));    
     }
 
     protected override OperationResult<SpokeLengthCalculatorResult> Calculate(SpokeLengthCalculatorInput input)
     {
-        ArgumentNullException.ThrowIfNull(input, nameof(input));
-
-        ICalculatorInputValidation<SpokeLengthCalculatorInput> validator = base.GetValidation();
-        if (!validator.Validate(input))
-        {
-            throw new CalculatorInputException(validator.ErrorMessages);
-        }
-
         double spokeLengthNonGearSideMm = this.GetCorrectedSpokeLength(
             input.RimInternalDiameterMm,
             input.HubCenterToFlangeDistanceNonGearSideMm,
