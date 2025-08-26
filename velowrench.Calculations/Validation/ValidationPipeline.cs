@@ -2,6 +2,7 @@ using System.Reflection;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation;
 using velowrench.Calculations.Validation.Results;
+using velowrench.Utils.Enums;
 
 namespace velowrench.Core.Validation.Pipeline;
 
@@ -16,7 +17,7 @@ internal sealed class ValidationPipeline<TInput>
     public ValidationPipeline(ValidationContext? defaultContext = null)
     {
         _rules = [];
-        _defaultContext = defaultContext ?? new ValidationContext();
+        _defaultContext = defaultContext ?? new ValidationContext(EValidationMode.Immediate);
     }
 
     internal ValidationPipeline<TInput> AddRule(IValidationRule<TInput> rule)

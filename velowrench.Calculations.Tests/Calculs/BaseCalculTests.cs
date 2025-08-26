@@ -2,7 +2,10 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation;
 using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
@@ -14,15 +17,18 @@ namespace velowrench.Calculations.Tests.Calculs;
 public class BaseCalculTests
 {
     private ILogger _logger;
-    private IEnhancedCalculatorInputValidation<TestInput> _inputValidation;
+    private ICalculatorInputValidator<TestInput> _inputValidator;
     private TestableCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = A.Fake<IEnhancedCalculatorInputValidation<TestInput>>();
-        _calculator = new TestableCalculator(() => _inputValidation, _logger);
+        _inputValidator = A.Fake<ICalculatorInputValidator<TestInput>>();
+        _calculator = new TestableCalculator(_inputValidator, _logger);
+
+        A.CallTo(() => _inputValidator.ValidateWithResults(A<TestInput>._, A<ValidationContext?>._))
+            .Returns(ValidationResult.WithSuccess());
     }
 
     [TestMethod]
@@ -185,9 +191,11 @@ public class TestableCalculator : BaseCalculator<TestInput, TestResult>
 {
     protected override string CalculatorName => "TestableCalcul";
 
-    public TestableCalculator(Func<IEnhancedCalculatorInputValidation<TestInput>> inputValidation, ILogger logger) : base(inputValidation, logger)
-    {
+    public override ICalculatorInputValidator<TestInput> InputValidator { get; }    
 
+    public TestableCalculator(ICalculatorInputValidator<TestInput> inputValidation, ILogger logger) : base(logger)
+    {
+        this.InputValidator = inputValidation;  
     }
 
     protected override OperationResult<TestResult> Calculate(TestInput input)

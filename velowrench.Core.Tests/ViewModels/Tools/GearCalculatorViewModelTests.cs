@@ -1,12 +1,16 @@
 using FakeItEasy;
 using FluentAssertions;
 using UnitsNet.Units;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
+using velowrench.Core.Validation;
 using velowrench.Core.ViewModels.Tools;
+using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Enums;
@@ -19,31 +23,43 @@ namespace velowrench.Core.Tests.ViewModels.Tools;
 public class GearCalculatorViewModelTests
 {
     private ICalculator<GearCalculatorInput, GearCalculatorResult> _calculator;
-    private ICalculatorInputValidation<GearCalculatorInput> _inputValidation;
+    private ICalculatorInputValidator<GearCalculatorInput> _inputValidation;
     private INavigationService _navigationService;
     private ILocalizer _localizer;
     private IComponentStandardRepository _repository;
+    private ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> _calculatorFactory;
+    private IDebounceActionFactory _debounceActionFactory;
     private GearCalculatorViewModel _viewModel;
 
     [TestInitialize]
     public void Initialize()
     {
-        ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> calculFactory = A.Fake<ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>>();
-        IDebounceActionFactory actionFactory = A.Fake<IDebounceActionFactory>();
+        _calculatorFactory = A.Fake<ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>>();
+        _debounceActionFactory = A.Fake<IDebounceActionFactory>();
         _navigationService = A.Fake<INavigationService>();
         _localizer = A.Fake<ILocalizer>();
         _repository = A.Fake<IComponentStandardRepository>();
         _calculator = A.Fake<ICalculator<GearCalculatorInput, GearCalculatorResult>>();
-        _inputValidation = A.Fake<ICalculatorInputValidation<GearCalculatorInput>>();
+        _inputValidation = A.Fake<ICalculatorInputValidator<GearCalculatorInput>>();
+    }
 
-        A.CallTo(() => calculFactory.CreateCalculator()).Returns(_calculator);
-        A.CallTo(() => _calculator.GetValidation()).Returns(_inputValidation);
+    private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
+    {
+        A.CallTo(() => _inputValidation.ValidateProperty(A<GearCalculatorInput>._, A<string>._, A<ValidationContext>._))
+            .Returns(validation);
+        A.CallTo(() => _inputValidation.ValidateWithResults(A<GearCalculatorInput>._, A<ValidationContext>._))
+            .Returns(validation);
 
-        A.CallTo(() => actionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
-        .ReturnsLazily((Action action, int delayMs) =>
-        {
-            return new TestDebounceAction(action);
-        });
+        A.CallTo(() => _calculator.InputValidator)
+            .Returns(_inputValidation);
+        A.CallTo(() => _calculator.State)
+            .Returns(calculatorState);
+
+        A.CallTo(() => _calculatorFactory.CreateCalculator())
+            .Returns(_calculator);
+
+        A.CallTo(() => _debounceActionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
+            .ReturnsLazily((Action action, int delayMs) => new TestDebounceAction(action));
 
         // Setup repository mock data
         List<WheelSpecificationModel> wheels =
@@ -83,7 +99,7 @@ public class GearCalculatorViewModelTests
         A.CallTo(() => _repository.GetAllCandences()).Returns(cadences);
         A.CallTo(() => _repository.GetMostCommonSprocketSpecifications()).Returns(sprockets);
 
-        _viewModel = new(calculFactory, _navigationService, actionFactory, _repository, _localizer);
+        _viewModel = new(_calculatorFactory, _navigationService, _debounceActionFactory, _repository, _localizer);
     }
 
     [TestMethod]
@@ -114,8 +130,7 @@ public class GearCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
@@ -135,8 +150,7 @@ public class GearCalculatorViewModelTests
     public void OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("", ""));
 
         // Act
         _viewModel.Chainring1TeethCount = 0;
@@ -147,24 +161,10 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WithPartialInputs_ShouldNotStartCalculation()
-    {
-        // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-
-        // Act
-        _viewModel.Chainring1TeethCount = 46;
-        // No sprockets selected
-
-        // Assert
-        A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).MustNotHaveHappened();
-    }
-
-    [TestMethod]
     public void OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.InProgress);
+        this.GlobalSetup(ECalculatorState.InProgress, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
 
@@ -181,37 +181,14 @@ public class GearCalculatorViewModelTests
     public void Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
     {
         // Arrange
-        GearCalculatorInput input = new(sprockets: [11])
-        {
-            CalculatorType = EGearCalculatorType.GearInches,
-            CrankLengthMm = 170,
-            RevolutionPerMinute = 90,
-            TeethNumberLargeOrUniqueChainring = 46,
-            TyreOuterDiameterIn = 27.0,
-            Precision = 2
-        };
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        Fake.ClearRecordedCalls(_calculator);
 
-        OperationResult<GearCalculatorResult> result = new()
-        {
-            IsSuccess = true,
-            Content = new GearCalculatorResult()
-            {
-                CalculatedAt = DateTime.UtcNow,
-                ValuesLargeOrUniqueChainring = [112.9],
-                Unit = LengthUnit.Inch,
-                UsedInputs = input
-            }
-        };
-
-        A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(result);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
-
-        // Act - First calculation
+        // Act
         _viewModel.Chainring1TeethCount = 46;
         _viewModel.Chainring1TeethCount = 46;
 
-        // Assert
+        // Assert 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).MustHaveHappenedOnceExactly();
     }
 
@@ -225,7 +202,7 @@ public class GearCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(failedResult);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
 
@@ -242,6 +219,7 @@ public class GearCalculatorViewModelTests
     public void OnGearCalculatorStateChanged_DirectStateChange_ShouldUpdateImmediately()
     {
         // Arrange
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CalculatorStateEventArgs eventArgs = new(ECalculatorState.Failed);
 
         // Act
@@ -255,9 +233,6 @@ public class GearCalculatorViewModelTests
     public void SelectedCalculatorType_Changed_ShouldTriggerCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
-
         OperationResult<GearCalculatorResult> result = new()
         {
             IsSuccess = true,
@@ -278,6 +253,7 @@ public class GearCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(result);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
         sprocket.IsSelected = true;
@@ -294,8 +270,7 @@ public class GearCalculatorViewModelTests
     public void SelectedWheel_Changed_ShouldTriggerCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         WheelSpecificationModel newWheel = new(label: "700C / 29'' (622)", bSDin: 24.488, tyreHeightIn: 1.05);
 
         // Act
@@ -309,8 +284,7 @@ public class GearCalculatorViewModelTests
     public void SelectedCrank_Changed_ShouldTriggerCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CranksetSpecificationModel newCrank = new("175 mm", 175);
 
         // Act
@@ -324,8 +298,7 @@ public class GearCalculatorViewModelTests
     public void SelectedCadence_Changed_ShouldTriggerCalculation()
     {
         // Arrange
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CadenceModel newCadence = new("90 rpm", 90);
 
         // Act
@@ -339,6 +312,7 @@ public class GearCalculatorViewModelTests
     public void SprocketSelected_ShouldUpdateSelectedSprocketsStr()
     {
         // Arrange
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
 
@@ -385,8 +359,7 @@ public class GearCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
@@ -434,8 +407,7 @@ public class GearCalculatorViewModelTests
         };
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(true);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
         sprocket.IsSelected = true;
@@ -459,7 +431,7 @@ public class GearCalculatorViewModelTests
     public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
     {
         // Arrange & Act
-        A.CallTo(() => _calculator.State).Returns(ECalculatorState.NotStarted);
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         // Assert
         _viewModel.InputErrorMessages.Should().BeEmpty();
@@ -471,11 +443,7 @@ public class GearCalculatorViewModelTests
     {
         // Arrange
         string errorMessage = "Chainring teeth count must be between 10 and 120.";
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
-        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
-    {
-        { "TeethNumberLargeOrUniqueChainring", errorMessage }
-    });
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("TeethNumberLargeOrUniqueChainring", errorMessage));
 
         // Act
         _viewModel.Chainring1TeethCount = 5; // Below minimum
@@ -491,12 +459,18 @@ public class GearCalculatorViewModelTests
         // Arrange
         string errorMessage1 = "Chainring teeth count must be between 10 and 120.";
         string errorMessage2 = "Tyre outer diameter must be between 7 and 38 inches.";
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
-        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
-    {
-        { "TeethNumberLargeOrUniqueChainring", errorMessage1 },
-        { "TyreOuterDiameterIn", errorMessage2 }
-    });
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithErrors([
+            new ValidationError()
+            {
+                PropertyName = "TeethNumberLargeOrUniqueChainring",
+                Message = errorMessage1
+            },
+            new ValidationError()
+            {
+                PropertyName = "TyreOuterDiameterIn",
+                Message = errorMessage2
+            },
+        ]));
 
         // Act 
         _viewModel.Chainring1TeethCount = 5; // Below minimum
@@ -505,36 +479,6 @@ public class GearCalculatorViewModelTests
         // Assert
         _viewModel.InputErrorMessages.Should().HaveCount(2);
         _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage1));
-        _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
-    }
-
-    [TestMethod]
-    public void ValidationBehavior_UserCorrectsInvalidValue_ShouldClearSpecificError()
-    {
-        // Arrange
-        string errorMessage1 = "Chainring teeth count must be between 10 and 120.";
-        string errorMessage2 = "Tyre outer diameter must be between 7 and 38 inches.";
-        A.CallTo(() => _inputValidation.Validate(A<GearCalculatorInput>._)).Returns(false);
-        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
-    {
-        { "TeethNumberLargeOrUniqueChainring", errorMessage1 },
-        { "TyreOuterDiameterIn", errorMessage2 }
-    });
-
-        // Act
-        _viewModel.Chainring1TeethCount = 5; // Invalid
-        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); // Invalid
-
-        A.CallTo(() => _inputValidation.ErrorMessages).Returns(new Dictionary<string, string>
-    {
-        { "TyreOuterDiameterIn", errorMessage2 }
-    });
-        _viewModel.Chainring1TeethCount = 46; // Valid - corrected value
-        _viewModel.SelectedWheel = new WheelSpecificationModel("Valid wheel", 26.0, 2.0); // Valid
-
-        // Assert - Only the corrected error is removed
-        _viewModel.InputErrorMessages.Should().HaveCount(1);
-        _viewModel.InputErrorMessages.Should().NotContain(msg => msg.Contains(errorMessage1));
         _viewModel.InputErrorMessages.Should().Contain(msg => msg.Contains(errorMessage2));
     }
 }

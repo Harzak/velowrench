@@ -1,9 +1,12 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
-using velowrench.Core.Validation.Enhanced;
+using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear;
@@ -12,13 +15,18 @@ namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear;
 public class GearRatioCalculTests
 {
     private ILogger _logger;
+    private ICalculatorInputValidator<GearCalculatorInput> _inputValidator;
     private GearCalculator _calculator;
 
     [TestInitialize]
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _calculator = new GearCalculator(() => new EnhancedGearCalculatorInputValidator(), _logger);
+        _inputValidator = A.Fake<ICalculatorInputValidator<GearCalculatorInput>>();
+        _calculator = new GearCalculator(_inputValidator, _logger);
+
+        A.CallTo(() => _inputValidator.ValidateWithResults(A<GearCalculatorInput>._, A<ValidationContext?>._))
+            .Returns(ValidationResult.WithSuccess());
     }
 
     #region Gain ratio

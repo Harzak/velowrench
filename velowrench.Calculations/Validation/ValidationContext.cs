@@ -14,9 +14,9 @@ public sealed record ValidationContext
     public object? SessionContext { get; init; }
     public CultureInfo Culture { get; init; }   
 
-    public ValidationContext()
+    public ValidationContext(EValidationMode mode)
     {
-        this.ValidationMode = EValidationMode.Immediate;
+        this.ValidationMode = mode;
         this.Culture = CultureInfo.InvariantCulture;
     }
 }

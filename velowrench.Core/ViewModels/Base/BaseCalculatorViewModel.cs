@@ -1,8 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Reflection.Emit;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
+using velowrench.Core.State;
+using velowrench.Core.Validation;
+using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -21,7 +27,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
     private OperationResult<TResult>? _lastResult;
-    private readonly Dictionary<string, string> _inputErrors;
+    private readonly List<ValidationError> _inputErrors;
 
     /// <summary>
     /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
@@ -49,7 +55,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// <summary>
     /// Gets error messages from input validation failures.
     /// </summary>
-    public IEnumerable<string> InputErrorMessages => _inputErrors.Values.ToList();
+    public IEnumerable<string> InputErrorMessages => _inputErrors.Select(e => e.Message);
 
     protected BaseCalculatorViewModel(
         ICalculatorFactory<TInput, TResult> calculatorFactory,
@@ -59,35 +65,37 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         ArgumentNullException.ThrowIfNull(actionFactory, nameof(actionFactory));
 
         _inputErrors = [];
+        _refreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
 
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
-
-        this._refreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
     }
 
     /// <summary>
     /// Handles changes to a calculation input property and updates the calculation state.
+    /// This method now integrates with the enhanced validation system.
     /// </summary>
     protected void OnCalculationInputChanged(string propertyName)
     {
-        ICalculatorInputValidation<TInput> validation = this.Calculator.GetValidation();
-        bool isValid = validation.Validate(CalculatorInput);
+        ValidationResult result = this.Calculator.InputValidator.ValidateProperty(CalculatorInput, propertyName, new ValidationContext(EValidationMode.Progressive));
 
-        if (_inputErrors.TryGetValue(propertyName, out _))
+        ValidationError? previousError = _inputErrors.FirstOrDefault(e => e.PropertyName == propertyName);
+        if (previousError != null)
         {
-            _inputErrors.Remove(propertyName);
+            _inputErrors.Remove(previousError);
         }
 
-        if (validation.ErrorMessages.TryGetValue(propertyName, out string? errorMessage))
+        ValidationError? currentError = result.Errors.FirstOrDefault(e => e.PropertyName == propertyName);
+
+        if (currentError != null)
         {
-            _inputErrors[propertyName] = errorMessage;
+            _inputErrors.Add(currentError);
         }
 
         base.OnPropertyChanged(nameof(this.InputErrorMessages));
 
-        if (isValid)
+        if (result.IsValid)
         {
             this._refreshCalculationDebounced.Execute();
         }
@@ -95,6 +103,16 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         {
             this.CurrentState = ECalculatorState.NotStarted;
         }
+    }
+
+    private bool IsInputValid()
+    {
+        if (_inputErrors.Count > 0)
+        {
+            return false;
+        }
+        ValidationResult result = this.Calculator.InputValidator.ValidateWithResults(CalculatorInput, new ValidationContext(EValidationMode.Immediate));
+        return result.IsValid;
     }
 
     private void RefreshCalculation()
@@ -108,9 +126,9 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     protected virtual bool CanCalculate()
     {
         return !base.HasErrors
-            && this.Calculator.GetValidation().Validate(CalculatorInput)
+            && IsInputValid()
             && this.Calculator.State != ECalculatorState.InProgress
-            && (_lastResult == null || !_lastResult.Content.UsedInputs.Equals(CalculatorInput));
+            && (_lastResult?.Content?.UsedInputs == null || !_lastResult.Content.UsedInputs.Equals(CalculatorInput));
     }
 
     private void Calculate()

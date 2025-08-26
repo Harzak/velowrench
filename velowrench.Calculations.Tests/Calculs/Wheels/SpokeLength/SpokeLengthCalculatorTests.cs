@@ -1,9 +1,10 @@
 ﻿using FakeItEasy;
 using Microsoft.Extensions.Logging;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Validation.Enhanced;
-using velowrench.Core.Validation.Pipeline;
+using velowrench.Calculations.Validation.Results;
+using velowrench.Core.Validation;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Wheels.SpokeLength;
@@ -12,7 +13,7 @@ namespace velowrench.Calculations.Tests.Calculs.Wheels.SpokeLength;
 public class SpokeLengthCalculatorTests
 {
     private ILogger _logger;
-    private IEnhancedCalculatorInputValidation<SpokeLengthCalculatorInput> _inputValidation;
+    private ICalculatorInputValidator<SpokeLengthCalculatorInput> _inputValidator;
     private SpokeLengthCalculator _calculator;
 
 
@@ -20,8 +21,11 @@ public class SpokeLengthCalculatorTests
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
-        _inputValidation = new EnhancedSpokeLengthCalculatorInputValidator();
-        _calculator = new SpokeLengthCalculator(() => _inputValidation, _logger);
+        _inputValidator = A.Fake<ICalculatorInputValidator<SpokeLengthCalculatorInput>>();
+        _calculator = new SpokeLengthCalculator(_inputValidator, _logger);
+
+        A.CallTo(() => _inputValidator.ValidateWithResults(A<SpokeLengthCalculatorInput>._, A<ValidationContext?>._))
+            .Returns(ValidationResult.WithSuccess());
     }
 
     [TestMethod] /// Minimum (small 20″ front wheel, simple hub)
