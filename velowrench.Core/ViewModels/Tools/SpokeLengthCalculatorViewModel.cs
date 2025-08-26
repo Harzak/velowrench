@@ -207,18 +207,22 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         if (this.HubCenterToFlangeDistanceGearSide != null)
         {
             this.HubCenterToFlangeDistanceGearSide.Unit = value;
+            OnPropertyChanged(nameof(this.HubCenterToFlangeDistanceGearSide));
         }
         if (this.HubCenterToFlangeDistanceNonGearSide != null)
         {
             this.HubCenterToFlangeDistanceNonGearSide.Unit = value;
+            OnPropertyChanged(nameof(this.HubCenterToFlangeDistanceNonGearSide));
         }
         if (this.HubFlangeDiameterGearSide != null)
         {
             this.HubFlangeDiameterGearSide.Unit = value;
+            OnPropertyChanged(nameof(this.HubFlangeDiameterGearSide));
         }
         if (this.HubFlangeDiameterNonGearSide != null)
         {
             this.HubFlangeDiameterNonGearSide.Unit = value;
+            OnPropertyChanged(nameof(this.HubFlangeDiameterNonGearSide));
         }
     }
 
@@ -227,6 +231,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         if (this.RimInternalDiameter != null)
         {
             this.RimInternalDiameter.Unit = value;
+            OnPropertyChanged(nameof(this.RimInternalDiameter));
         }
     }
 

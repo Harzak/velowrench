@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Validation;
-using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
@@ -25,7 +20,7 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
 
     public SpokeLengthCalculator(ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, ILogger logger) : base(logger)
     {
-        this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));    
+        this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
     }
 
     protected override OperationResult<SpokeLengthCalculatorResult> Calculate(SpokeLengthCalculatorInput input)

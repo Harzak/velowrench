@@ -1,8 +1,6 @@
 using FakeItEasy;
 using FluentAssertions;
 using UnitsNet.Units;
-using velowrench.Calculations.Calculators.Transmission.Chain;
-using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
@@ -130,7 +128,7 @@ public class SpokeLengthCalculatorViewModelTests
     public void OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
     {
         // Arrange
-        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("",""));
+        this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("", ""));
 
         // Act
         _viewModel.HubCenterToFlangeDistanceGearSide.Value = 0;

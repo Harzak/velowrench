@@ -2,11 +2,9 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;
@@ -191,11 +189,11 @@ public class TestableCalculator : BaseCalculator<TestInput, TestResult>
 {
     protected override string CalculatorName => "TestableCalcul";
 
-    public override ICalculatorInputValidator<TestInput> InputValidator { get; }    
+    public override ICalculatorInputValidator<TestInput> InputValidator { get; }
 
     public TestableCalculator(ICalculatorInputValidator<TestInput> inputValidation, ILogger logger) : base(logger)
     {
-        this.InputValidator = inputValidation;  
+        this.InputValidator = inputValidation;
     }
 
     protected override OperationResult<TestResult> Calculate(TestInput input)

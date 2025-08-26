@@ -1,7 +1,6 @@
 using FakeItEasy;
 using FluentAssertions;
 using UnitsNet.Units;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
@@ -10,7 +9,6 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
 using velowrench.Core.Validation;
 using velowrench.Core.ViewModels.Tools;
-using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Enums;

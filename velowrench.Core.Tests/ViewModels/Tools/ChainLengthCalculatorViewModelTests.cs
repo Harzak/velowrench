@@ -2,7 +2,6 @@
 using FluentAssertions;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
-using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Interfaces;

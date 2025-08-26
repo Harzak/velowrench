@@ -23,7 +23,7 @@ public sealed class ChainLengthCalculatorInput : IEquatable<ChainLengthCalculato
     /// </summary>
     public int TeethLargestSprocket { get; set; }
 
-    public int Precision { get;  }
+    public int Precision { get; }
 
     public ChainLengthCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
     {

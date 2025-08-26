@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 

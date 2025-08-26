@@ -3,7 +3,6 @@ using velowrench.Calculations.Exceptions;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.LogMessages;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation.Pipeline;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;

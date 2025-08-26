@@ -69,6 +69,10 @@ public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
                     RaisePropertyChanged(nameof(DisplayValue));
                 }
             }
+            else
+            {
+                ConvertibleDouble = null;
+            }
         }
     }
 

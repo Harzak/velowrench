@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;

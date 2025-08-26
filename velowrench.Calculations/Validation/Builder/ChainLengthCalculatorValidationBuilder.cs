@@ -1,6 +1,5 @@
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Validation.Builder;
 
@@ -34,7 +33,7 @@ internal sealed class ChainLengthcalculatorValidationBuilder : BaseCalculatorVal
     /// </summary>
     public const int MAX_SPROCKET_TEETH_COUNT = 54;
 
-    public ChainLengthcalculatorValidationBuilder(ValidationContext? validationContext = null): base(validationContext)
+    public ChainLengthcalculatorValidationBuilder(ValidationContext? validationContext = null) : base(validationContext)
     {
 
     }

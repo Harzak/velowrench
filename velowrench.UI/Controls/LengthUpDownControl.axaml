@@ -1,9 +1,12 @@
 <UserControl x:Class="velowrench.UI.Controls.LengthUpDownControl"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:const="using:velowrench.UI.Constants"
              xmlns:converters="using:velowrench.UI.Converters"
              xmlns:units="using:UnitsNet.Units"
-             x:Name="LengthUpDownControlRoot">
+             xmlns:controls="using:velowrench.UI.Controls"
+             x:Name="LengthUpDownControlRoot"
+             x:DataType="controls:LengthUpDownControl">
 
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
@@ -19,7 +22,7 @@
                        Grid.Row="1" Grid.Column="0"
                        AllowSpin="True" ButtonSpinnerLocation="Right" FormatString="0.00" ShowButtonSpinner="False"
                        Theme="{StaticResource LengthUpDownControl}"
-                       Value="{Binding DisplayValue, ElementName=LengthUpDownControlRoot}" />
+                       Value="{Binding DisplayValue, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, ElementName=LengthUpDownControlRoot}" />
 
         <ComboBox Name="UnitComboBox"
                   Grid.Row="1" Grid.Column="2"

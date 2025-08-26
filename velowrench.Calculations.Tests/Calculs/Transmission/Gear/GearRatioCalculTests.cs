@@ -1,7 +1,6 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;

@@ -2,8 +2,8 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:calculatorEnums="using:velowrench.Calculations.Enums"
+             xmlns:const="using:velowrench.UI.Constants"
              xmlns:controls="using:velowrench.UI.Controls"
-			        xmlns:const="using:velowrench.UI.Constants"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
@@ -15,7 +15,6 @@
 
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
-		<converters:ConvertibleDoubleLengthToDecimalConverter x:Key="ConvertibleDoubleLengthToDecimalConverter" />
 
         <!--  Empty template for computed state - to be implemented later  -->
         <DataTemplate x:Key="SpokeLengthComputedContentTemplate" x:DataType="vm:Tools.SpokeLengthCalculatorViewModel">
@@ -125,11 +124,13 @@
             <NumericUpDown Grid.Row="2" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubCenterToFlangeDistanceNonGearSide, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
+						    FormatString="0.00"
+                           Value="{Binding HubCenterToFlangeDistanceNonGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <NumericUpDown Grid.Row="2" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubCenterToFlangeDistanceGearSide, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
+						    FormatString="0.00"
+                           Value="{Binding HubCenterToFlangeDistanceGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <TextBlock Grid.Row="3" Grid.Column="0"
                        VerticalAlignment="Center"
@@ -137,11 +138,13 @@
             <NumericUpDown Grid.Row="3" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubFlangeDiameterNonGearSide , Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
+						    FormatString="0.00"
+                           Value="{Binding HubFlangeDiameterNonGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <NumericUpDown Grid.Row="3" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding HubFlangeDiameterGearSide ,Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS},  Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
+						    FormatString="0.00"
+                           Value="{Binding HubFlangeDiameterGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
         </Grid>
 
         <!--  Rim measurement  -->
@@ -166,11 +169,12 @@
             <NumericUpDown Grid.Row="1" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
                            ShowButtonSpinner="False"
-                           Value="{Binding RimInternalDiameter , Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}, Converter={StaticResource ConvertibleDoubleLengthToDecimalConverter}}" />
+						    FormatString="0.00"
+                           Value="{Binding RimInternalDiameter.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <ComboBox Grid.Row="1" Grid.Column="2"
                       Margin="5,5,0,5" HorizontalAlignment="Stretch"
                       ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
-                      SelectedItem="{Binding RimInternalDiameterSelectedUnit}">
+                      SelectedItem="{Binding RimInternalDiameter.Unit}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />

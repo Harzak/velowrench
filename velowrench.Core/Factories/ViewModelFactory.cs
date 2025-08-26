@@ -80,8 +80,8 @@ public sealed class ViewModelFactory : IViewModelFactory
                 return new ChainLengthCalculatorHelpViewModel(navigationService, _localizer);
             case EVeloWrenchTools.GearCalculator:
                 return new GearCalculatorHelpViewModel(navigationService, _localizer);
-                case EVeloWrenchTools.SpokeLengthCalculator:
-                    return new SpokeLengthCalculatorHelpViewModel(navigationService, _localizer);
+            case EVeloWrenchTools.SpokeLengthCalculator:
+                return new SpokeLengthCalculatorHelpViewModel(navigationService, _localizer);
             default:
                 throw new NotSupportedException(type.ToString());
         }

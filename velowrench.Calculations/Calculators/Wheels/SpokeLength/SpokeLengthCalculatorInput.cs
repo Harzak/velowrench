@@ -1,5 +1,4 @@
-﻿using velowrench.Calculations.Calculators.Transmission.Chain;
-using velowrench.Calculations.Constants;
+﻿using velowrench.Calculations.Constants;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 

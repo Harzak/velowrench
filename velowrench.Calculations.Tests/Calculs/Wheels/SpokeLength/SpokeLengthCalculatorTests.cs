@@ -1,6 +1,5 @@
 ﻿using FakeItEasy;
 using Microsoft.Extensions.Logging;
-using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
@@ -32,7 +31,7 @@ public class SpokeLengthCalculatorTests
     public void Calculate_WithMininumInputValue_ShouldGive_ExpectedResults()
     {
         // Arrange
-        SpokeLengthCalculatorInput input = new(precision:0)
+        SpokeLengthCalculatorInput input = new(precision: 0)
         {
             HubCenterToFlangeDistanceGearSideMm = 32,
             HubCenterToFlangeDistanceNonGearSideMm = 32,
@@ -58,7 +57,7 @@ public class SpokeLengthCalculatorTests
     public void Calculate_WithMostCommonInputValue_ShouldGive_ExpectedResults()
     {
         // Arrange
-        SpokeLengthCalculatorInput input = new(precision:0)
+        SpokeLengthCalculatorInput input = new(precision: 0)
         {
             HubCenterToFlangeDistanceGearSideMm = 36,
             HubCenterToFlangeDistanceNonGearSideMm = 17,

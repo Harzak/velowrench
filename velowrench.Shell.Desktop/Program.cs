@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using Avalonia.Svg.Skia;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;

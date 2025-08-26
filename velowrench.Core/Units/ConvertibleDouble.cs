@@ -35,15 +35,10 @@ public sealed partial class ConvertibleDouble<T> : ObservableObject where T : En
     [ObservableProperty]
     private double _value;
 
-    public ConvertibleDouble()
-    {
-        this.Value = 0;
-        _unit = (T)GetDefault();
-    }
-
-    public ConvertibleDouble(double value) : this()
+    public ConvertibleDouble(double value)
     {
         this.Value = value;
+        _unit = (T)GetDefault();
     }
 
     public ConvertibleDouble(double value, T unit) : this(value)
@@ -82,7 +77,7 @@ public sealed partial class ConvertibleDouble<T> : ObservableObject where T : En
         if (UnitConverter.TryConvert(Value, _unit, newValue, out double convertedValue))
         {
             _unit = newValue;
-            Value = convertedValue;
+            Value =convertedValue;
         }
     }
 

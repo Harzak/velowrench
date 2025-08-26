@@ -23,8 +23,8 @@ public partial class CalculatorStateControl : UserControl
     /// <summary>
     /// Defines the ErrorMessage property for displaying validation errors.
     /// </summary>
-    public static readonly StyledProperty<IList<string>> ErrorMessageProperty =
-        AvaloniaProperty.Register<CalculatorStateControl, IList<string>>(nameof(ErrorMessage));
+    public static readonly StyledProperty<IEnumerable<string>> ErrorMessageProperty =
+        AvaloniaProperty.Register<CalculatorStateControl, IEnumerable<string>>(nameof(ErrorMessage));
 
     /// <summary>
     /// Gets or sets the current calculator state.
@@ -47,7 +47,7 @@ public partial class CalculatorStateControl : UserControl
     /// <summary>
     /// Gets or sets the error message to display when validation fails.
     /// </summary>
-    public IList<string> ErrorMessage
+    public IEnumerable<string> ErrorMessage
     {
         get => GetValue(ErrorMessageProperty);
         set => SetValue(ErrorMessageProperty, value);

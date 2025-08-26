@@ -1,15 +1,9 @@
 ﻿using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation;
 using velowrench.Calculations.Validation.Builder;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Tests.Validation.Builder;
 
@@ -21,7 +15,7 @@ public class ChainLengthCalculatorValidationBuilderTests
     [TestInitialize]
     public void Initialize()
     {
-        ChainLengthcalculatorValidationBuilder builder = new ();
+        ChainLengthcalculatorValidationBuilder builder = new();
         _validator = new CalulatorInputValidator<ChainLengthCalculatorInput>(builder);
     }
 
@@ -56,7 +50,7 @@ public class ChainLengthCalculatorValidationBuilderTests
         };
 
         // Act
-        ValidationResult result =_validator.ValidateWithResults(input);
+        ValidationResult result = _validator.ValidateWithResults(input);
 
         // Assert
         result.IsValid.Should().BeFalse();
@@ -76,7 +70,7 @@ public class ChainLengthCalculatorValidationBuilderTests
         };
 
         // Act
-        ValidationResult result =_validator.ValidateWithResults(input);
+        ValidationResult result = _validator.ValidateWithResults(input);
 
         // Assert
         result.IsValid.Should().BeFalse();
@@ -92,11 +86,11 @@ public class ChainLengthCalculatorValidationBuilderTests
         {
             ChainStayLengthIn = 16.5,
             TeethLargestChainring = 50,
-            TeethLargestSprocket = 60 
+            TeethLargestSprocket = 60
         };
 
         // Act
-        ValidationResult result =_validator.ValidateWithResults(input);
+        ValidationResult result = _validator.ValidateWithResults(input);
 
         // Assert
         result.IsValid.Should().BeFalse();
@@ -111,12 +105,12 @@ public class ChainLengthCalculatorValidationBuilderTests
         var input = new ChainLengthCalculatorInput
         {
             ChainStayLengthIn = 0.5,
-            TeethLargestChainring = 5, 
-            TeethLargestSprocket = 60 
+            TeethLargestChainring = 5,
+            TeethLargestSprocket = 60
         };
 
         // Act
-        ValidationResult result =_validator.ValidateWithResults(input);
+        ValidationResult result = _validator.ValidateWithResults(input);
 
         // Assert
         result.IsValid.Should().BeFalse();
@@ -133,13 +127,13 @@ public class ChainLengthCalculatorValidationBuilderTests
         // Arrange
         var input = new ChainLengthCalculatorInput
         {
-            ChainStayLengthIn = 0.5, 
-            TeethLargestChainring = 5, 
-            TeethLargestSprocket = 28 
+            ChainStayLengthIn = 0.5,
+            TeethLargestChainring = 5,
+            TeethLargestSprocket = 28
         };
 
         // Act
-        ValidationResult result =_validator.ValidateProperty(input, nameof(input.TeethLargestSprocket));
+        ValidationResult result = _validator.ValidateProperty(input, nameof(input.TeethLargestSprocket));
 
         // Assert
         result.IsValid.Should().BeTrue();

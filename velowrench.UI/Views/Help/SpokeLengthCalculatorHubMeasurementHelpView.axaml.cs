@@ -1,12 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media;
-using Avalonia.Platform;
-using Avalonia.Svg.Skia;
 using Avalonia.Styling;
 using System;
-using System.Diagnostics;
 
 namespace velowrench.UI.Views.Help;
 
@@ -21,7 +16,7 @@ public partial class SpokeLengthCalculatorHubMeasurementHelpView : UserControl
     {
         base.OnAttachedToVisualTree(e);
         UpdateDiagramsColor();
-        
+
         if (Application.Current != null)
         {
             Application.Current.ActualThemeVariantChanged += OnThemeChanged;

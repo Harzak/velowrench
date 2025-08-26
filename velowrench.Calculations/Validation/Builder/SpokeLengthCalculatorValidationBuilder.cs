@@ -1,6 +1,5 @@
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Validation.Builder;
 
@@ -59,7 +58,7 @@ internal sealed class SpokeLengthCalculatorValidationBuilder : BaseCalculatorVal
     /// </summary>
     public const int MAX_LACING_PATTERN = 4;
 
-    public SpokeLengthCalculatorValidationBuilder(ValidationContext? validationContext = null)   : base(validationContext)
+    public SpokeLengthCalculatorValidationBuilder(ValidationContext? validationContext = null) : base(validationContext)
     {
 
     }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Calculations.Interfaces;
-using velowrench.Core.Validation;
+﻿using System.Collections.ObjectModel;
 
 namespace velowrench.Calculations.Validation.Results;
 

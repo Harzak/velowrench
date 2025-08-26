@@ -28,7 +28,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// <summary>
     /// Gets the input parameters required for the gear calculation process.
     /// </summary>
-    protected override GearCalculatorInput CalculatorInput  { get; }
+    protected override GearCalculatorInput CalculatorInput { get; }
 
     /// <summary>
     /// Gets the display name of this view model.
@@ -160,7 +160,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
         _repository = repository;
 
-        this.CalculatorInput = new GearCalculatorInput(precision:2);
+        this.CalculatorInput = new GearCalculatorInput(precision: 2);
         this.Name = localizer.GetString("GearCalculator");
         this.AvailableResultUnits = [];
         this.GearCalculResultRows = [];
@@ -211,7 +211,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             .Where(x => x.IsSelected)
             .OrderBy(x => x.Value.TeethCount)
             .Select(x => x.Value.TeethCount);
-        
+
         this.CalculatorInput.WithSprockets(selectedSprockets);
         this.SelectedSprocketsStr = string.Join(", ", selectedSprockets);
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.NumberOfTeethBySprocket));

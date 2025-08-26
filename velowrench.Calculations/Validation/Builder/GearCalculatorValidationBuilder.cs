@@ -2,7 +2,6 @@ using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Validation.Builder;
 
@@ -66,7 +65,7 @@ internal sealed class GearCalculatorValidationBuilder : BaseCalculatorValidation
     /// </summary>
     public const int MAX_RPM = 150;
 
-    public GearCalculatorValidationBuilder(ValidationContext? validationContext = null)  : base(validationContext)
+    public GearCalculatorValidationBuilder(ValidationContext? validationContext = null) : base(validationContext)
     {
 
     }
@@ -91,14 +90,11 @@ internal sealed class GearCalculatorValidationBuilder : BaseCalculatorValidation
             "MediumChainringRange",
             (input, value, context) =>
             {
-                if (value is int mediumChainring && mediumChainring > 0)
+                if (value is int mediumChainring && (mediumChainring < MIN_CHAINRING_TEETH_COUNT || mediumChainring > MAX_CHAINRING_TEETH_COUNT))
                 {
-                    if (mediumChainring < MIN_CHAINRING_TEETH_COUNT || mediumChainring > MAX_CHAINRING_TEETH_COUNT)
-                    {
-                        return ValidationResult.WithError(
-                            nameof(GearCalculatorInput.TeethNumberMediumChainring),
-                            $"Medium chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
-                    }
+                    return ValidationResult.WithError(
+                        nameof(GearCalculatorInput.TeethNumberMediumChainring),
+                        $"Medium chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
                 }
                 return ValidationResult.WithSuccess();
             });
@@ -108,14 +104,12 @@ internal sealed class GearCalculatorValidationBuilder : BaseCalculatorValidation
             "SmallChainringRange",
             (input, value, context) =>
             {
-                if (value is int smallChainring && smallChainring > 0)
+                if (value is int smallChainring && (smallChainring < MIN_CHAINRING_TEETH_COUNT || smallChainring > MAX_CHAINRING_TEETH_COUNT))
                 {
-                    if (smallChainring < MIN_CHAINRING_TEETH_COUNT || smallChainring > MAX_CHAINRING_TEETH_COUNT)
-                    {
-                        return ValidationResult.WithError(
-                            nameof(GearCalculatorInput.TeethNumberSmallChainring),
-                            $"Small chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
-                    }
+                    return ValidationResult.WithError(
+                        nameof(GearCalculatorInput.TeethNumberSmallChainring),
+                        $"Small chainring teeth count must be between {MIN_CHAINRING_TEETH_COUNT} and {MAX_CHAINRING_TEETH_COUNT}.");
+
                 }
                 return ValidationResult.WithSuccess();
             });

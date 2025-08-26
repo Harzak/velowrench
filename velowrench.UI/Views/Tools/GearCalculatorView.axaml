@@ -170,17 +170,17 @@
 
             <NumericUpDown Grid.Row="1" Grid.Column="0"
                            Margin="0,0,10,0"
-                           ShowButtonSpinner="False"
+                           Minimum="0" ShowButtonSpinner="False"
                            Value="{Binding Chainring1TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="1"
                            Margin="10,0,10,0"
-                           ShowButtonSpinner="False"
+                           Minimum="0" ShowButtonSpinner="False"
                            Value="{Binding Chainring2TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <NumericUpDown Grid.Row="1" Grid.Column="2"
                            Margin="10,0,0,0"
-                           ShowButtonSpinner="False"
+                           Minimum="0" ShowButtonSpinner="False"
                            Value="{Binding Chainring3TeethCount, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
         </Grid>
 

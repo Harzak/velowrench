@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using velowrench.Calculations.Constants;
+﻿using velowrench.Calculations.Constants;
 using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
@@ -7,7 +6,7 @@ namespace velowrench.Calculations.Calculators.Transmission.Gear;
 /// <summary>
 /// Represents the input parameters required for gear ratio calculations.
 /// </summary>
-public sealed class GearCalculatorInput: IEquatable<GearCalculatorInput>
+public sealed class GearCalculatorInput : IEquatable<GearCalculatorInput>
 {
     /// <summary>
     /// Gets the number of teeth on the largest or unique chainring (front gear).
