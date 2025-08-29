@@ -21,14 +21,11 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
-    private OperationResult<TResult>? _lastResult;
-    private readonly List<ValidationError> _inputErrors;
-
-    /// <summary>
     /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
     /// This prevents excessive calculations during rapid UI changes.
-    /// </summary>
-    private IDebounceAction _refreshCalculationDebounced { get; }
+    private readonly IDebounceAction _refreshCalculationDebounced;
+    private OperationResult<TResult>? _lastResult;
+    private readonly List<ValidationError> _inputErrors;
 
     /// <summary>
     /// Gets the calculation engine instance used to perform calculations.

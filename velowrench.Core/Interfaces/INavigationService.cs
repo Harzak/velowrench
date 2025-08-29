@@ -11,27 +11,27 @@ public interface INavigationService
     /// <summary>
     /// Navigates to the home page and clears the navigation stack.
     /// </summary>
-    void NavigateToHome();
+    Task NavigateToHomeAsync();
 
     /// <summary>
     /// Navigates to a specific tool page.
     /// </summary>
-    void NavigateToTool(EVeloWrenchTools toolType);
+    Task NavigateToToolAsync(EVeloWrenchTools toolType);
 
     /// <summary>
     /// Navigates to the help page for a specific tool.
     /// </summary>
-    void NavigateToHelp(EVeloWrenchTools toolType);
+    Task NavigateToHelpAsync(EVeloWrenchTools toolType);
 
     /// <summary>
     /// Navigates to the specified view model.
     /// </summary>
-    void NavigateTo(IRoutableViewModel viewModel);
+    Task NavigateToAsync(IRoutableViewModel viewModel);
 
     /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
-    void NavigateBack();
+    Task NavigateBackAsync();
 
     /// <summary>
     /// Gets a value indicating whether backward navigation is possible.

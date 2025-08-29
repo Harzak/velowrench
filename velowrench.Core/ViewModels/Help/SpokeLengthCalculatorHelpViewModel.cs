@@ -37,20 +37,20 @@ public sealed partial class SpokeLengthCalculatorHelpViewModel : BaseRoutableVie
     private void ShowHubMeasurementsHelpPage()
     {
         using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowRimMeasurementsHelpPage()
     {
         using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowBuildConfigurationHelpPage()
     {
         using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 }

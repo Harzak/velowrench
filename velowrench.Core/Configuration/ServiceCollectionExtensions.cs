@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using velowrench.Core.Factories;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Services;
@@ -24,8 +25,17 @@ public static class ServiceCollectionExtensions
         collection.AddRepositoryServices();
 
         collection.AddSingleton<MainViewModel>();
-        collection.AddSingleton<INavigationService, NavigationService>();
+        collection.AddSingleton<IHostViewModel>(provider => provider.GetRequiredService<MainViewModel>());
+
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
         collection.AddSingleton<IDebounceActionFactory, DebounceActionFactory>();
+
+        collection.AddSingleton<INavigationService>(provider =>
+        {
+            var hostViewModel = provider.GetRequiredService<IHostViewModel>();
+            var viewModelFactory = provider.GetRequiredService<IViewModelFactory>();
+            var logger = provider.GetRequiredService<ILogger<NavigationService>>();
+            return new NavigationService(hostViewModel, viewModelFactory, logger);
+        });
     }
 }

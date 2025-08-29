@@ -106,7 +106,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     public override void ShowHelpPage()
     {
-        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);
+        base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.ChainLengthCalculator);
     }
 
     public override void ResetToDefault()

@@ -270,7 +270,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     [RelayCommand]
     public override void ShowHelpPage()
     {
-        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.GearCalculator);
+        base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.GearCalculator);
     }
 
     public override void ResetToDefault()

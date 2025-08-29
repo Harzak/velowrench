@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Android;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 using velowrench.Core.Interfaces;
 using velowrench.UI;
 
@@ -22,13 +23,14 @@ public class MainActivity : AvaloniaMainActivity<App>
 
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
     {
-
         App.RegisterPlatformSpecificServices = services =>
         {
             services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.ClearProviders();
-                loggingBuilder.SetMinimumLevel(LogLevel.Information);
+                loggingBuilder.AddDebug();
+                loggingBuilder.SetMinimumLevel(LogLevel.Debug);
+                loggingBuilder.AddConsole();
             });
         };
 
@@ -47,7 +49,7 @@ public class MainActivity : AvaloniaMainActivity<App>
     {
         if (_navigationService?.CanNavigateBack == true)
         {
-            _navigationService.NavigateBack();
+            _navigationService.NavigateBackAsync();
         }
         else
         {

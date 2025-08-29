@@ -3,7 +3,7 @@
 /// <summary>
 /// Interface for view models that can be navigated to and managed by the navigation service.
 /// </summary>
-public interface IRoutableViewModel
+public interface IRoutableViewModel : IDisposable
 {
     /// <summary>
     /// Gets the display name of the view model for UI presentation.
@@ -24,6 +24,10 @@ public interface IRoutableViewModel
     /// Gets a value indicating whether the context (pop-up) menu can be displayed.
     /// </summary>
     public bool CanShowContextMenu { get; }
+
+    Task OnInitializedAsync();
+
+    Task OnDestroyAsync();
 
     /// <summary>
     /// Shows the help page associated with this view model.

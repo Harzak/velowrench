@@ -29,6 +29,6 @@ public sealed partial class HomeViewModel : BaseRoutableViewModel
     [RelayCommand]
     private void NavigateToSelectedTool(EVeloWrenchTools toolType)
     {
-        base.NavigationService.NavigateToTool(toolType);
+        base.NavigationService.NavigateToToolAsync(toolType);
     }
 }

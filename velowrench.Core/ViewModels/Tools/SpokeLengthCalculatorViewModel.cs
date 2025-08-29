@@ -234,28 +234,28 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     [RelayCommand]
     public override void ShowHelpPage()
     {
-        base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.SpokeLengthCalculator);
+        base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.SpokeLengthCalculator);
     }
 
     [RelayCommand]
     private void ShowHubMeasurementsHelpPage()
     {
         using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowRimMeasurementsHelpPage()
     {
         using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowBuildConfigurationHelpPage()
     {
         using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
-        base.NavigationService.NavigateTo(vm);
+        base.NavigationService.NavigateToAsync(vm);
     }
 }
 

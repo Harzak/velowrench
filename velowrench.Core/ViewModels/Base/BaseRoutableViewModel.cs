@@ -6,7 +6,7 @@ namespace velowrench.Core.ViewModels.Base;
 /// <summary>
 /// Abstract base class for view models that can be navigated to and support routing functionality.
 /// </summary>
-public abstract partial class BaseRoutableViewModel : ObservableValidator, IRoutableViewModel, IDisposable
+public abstract partial class BaseRoutableViewModel : ObservableValidator, IRoutableViewModel
 {
     private bool _disposedValue;
 
@@ -54,5 +54,15 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     {
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
+    }
+
+    public  Task OnInitializedAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task OnDestroyAsync()
+    {
+        return Task.CompletedTask;
     }
 }

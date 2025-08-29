@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using velowrench.Calculations.Configuration;
 using velowrench.Core.Configuration;
+using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels;
 using velowrench.UI.Configuration;
 using velowrench.UI.Resources;
@@ -39,6 +40,9 @@ public partial class App : Application
         ServiceProvider = collection.BuildServiceProvider();
 
         var vm = ServiceProvider.GetRequiredService<MainViewModel>();
+        var navigationService = ServiceProvider.GetRequiredService<INavigationService>();
+        vm.Initialize(navigationService);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();

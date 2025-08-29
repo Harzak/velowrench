@@ -8,9 +8,9 @@ namespace velowrench.Core.ViewModels;
 /// <summary>
 /// Main view model that orchestrates the application's primary user interface and navigation.
 /// </summary>
-public sealed partial class MainViewModel : ObservableObject
+public sealed partial class MainViewModel : ObservableObject, IHostViewModel
 {
-    private readonly INavigationService _navigationService;
+    private INavigationService? _navigationService;
 
     /// <summary>
     /// Gets or sets the currently displayed content view model.
@@ -20,6 +20,9 @@ public sealed partial class MainViewModel : ObservableObject
     /// </value>
     [ObservableProperty]
     private IRoutableViewModel? _currentContent;
+
+    [ObservableProperty]
+    private bool _isBusy;
 
     /// <summary>
     /// Gets or sets a value indicating whether backward navigation is possible.
@@ -35,15 +38,23 @@ public sealed partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(ShowHelpPageCommand))]
     private bool _canShowHelpPage;
 
-
     [ObservableProperty]
     private bool _canShowContextMenu;
 
-    public MainViewModel(INavigationService navigationService)
+    // Parameterless constructor
+    public MainViewModel()
+    {
+    }
+
+    /// <summary>
+    /// Initializes the main view model with the navigation service and navigates to the home page.
+    /// This should be called after the dependency injection container is fully configured.
+    /// </summary>
+    public void Initialize(INavigationService navigationService)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
         _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
-        _navigationService.NavigateToHome();
+        _navigationService.NavigateToHomeAsync();
     }
 
     /// <summary>
@@ -52,9 +63,9 @@ public sealed partial class MainViewModel : ObservableObject
     private void OnCurrentViewModelChanged(object? sender, ViewModelChangedEventArgs e)
     {
         this.CurrentContent = e.CurrentViewModel;
-        this.CanNavigateBack = _navigationService.CanNavigateBack;
-        this.CanShowHelpPage = _navigationService.CurrentViewModel?.CanShowHelpPage ?? false;
-        this.CanShowContextMenu = _navigationService.CurrentViewModel?.CanShowContextMenu ?? false;
+        this.CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
+        this.CanShowHelpPage = _navigationService?.CurrentViewModel?.CanShowHelpPage ?? false;
+        this.CanShowContextMenu = _navigationService?.CurrentViewModel?.CanShowContextMenu ?? false;
     }
 
     /// <summary>
@@ -63,8 +74,8 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanNavigateBack))]
     private void NavigateBack()
     {
-        _navigationService.NavigateBack();
-        CanNavigateBack = _navigationService.CanNavigateBack;
+        _navigationService?.NavigateBackAsync();
+        CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
     }
 
     /// <summary>
@@ -73,7 +84,7 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanShowHelpPage))]
     private void ShowHelpPage()
     {
-        _navigationService.CurrentViewModel?.ShowHelpPage();
+        _navigationService?.CurrentViewModel?.ShowHelpPage();
     }
 
     /// <summary>
@@ -82,6 +93,6 @@ public sealed partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void ResetToDefault()
     {
-        _navigationService.CurrentViewModel?.ResetToDefault();
+        _navigationService?.CurrentViewModel?.ResetToDefault();
     }
 }
