@@ -25,20 +25,17 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 {
     private readonly IComponentStandardRepository _repository;
 
-    /// <summary>
-    /// Gets the input parameters required for the gear calculation process.
-    /// </summary>
+    /// <inheritdoc/>
     protected override GearCalculatorInput CalculatorInput { get; }
 
-    /// <summary>
-    /// Gets the display name of this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether this view model has an associated help page.
-    /// </summary>
+    /// <inheritdoc/>
     public override bool CanShowHelpPage => true;
+
+    /// <inheritdoc/>
+    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// Gets all available gear calculation types for user selection.
@@ -274,5 +271,11 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.GearCalculator);
+    }
+
+    public override void ResetToDefault()
+    {
+        base.ResetToDefault();
+        this.FillDefaultValues();
     }
 }

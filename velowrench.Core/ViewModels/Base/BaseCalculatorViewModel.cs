@@ -147,6 +147,14 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 
     protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
 
+    public override void ResetToDefault()
+    {
+        base.ResetToDefault();
+        _lastResult = null;
+        _inputErrors.Clear();
+        this.CurrentState = ECalculatorState.NotStarted;
+    }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)

@@ -75,7 +75,6 @@
     </UserControl.Styles>
 
     <StackPanel Margin="20,10">
-
         <Border Classes="Group">
             <TextBlock Text="{x:Static res:Languages.SpokeLengthCalculatorHeader}" TextWrapping="Wrap" />
         </Border>
@@ -123,13 +122,11 @@
                        Text="{x:Static res:Languages.CenterToFlange}" />
             <NumericUpDown Grid.Row="2" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
-                           ShowButtonSpinner="False"
-						    FormatString="0.00"
+                           FormatString="0.00" ShowButtonSpinner="False"
                            Value="{Binding HubCenterToFlangeDistanceNonGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <NumericUpDown Grid.Row="2" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
-                           ShowButtonSpinner="False"
-						    FormatString="0.00"
+                           FormatString="0.00" ShowButtonSpinner="False"
                            Value="{Binding HubCenterToFlangeDistanceGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
 
             <TextBlock Grid.Row="3" Grid.Column="0"
@@ -137,13 +134,11 @@
                        Text="{x:Static res:Languages.HubDiameter}" />
             <NumericUpDown Grid.Row="3" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
-                           ShowButtonSpinner="False"
-						    FormatString="0.00"
+                           FormatString="0.00" ShowButtonSpinner="False"
                            Value="{Binding HubFlangeDiameterNonGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <NumericUpDown Grid.Row="3" Grid.Column="2"
                            Margin="5,5,0,5" VerticalAlignment="Center"
-                           ShowButtonSpinner="False"
-						    FormatString="0.00"
+                           FormatString="0.00" ShowButtonSpinner="False"
                            Value="{Binding HubFlangeDiameterGearSide.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
         </Grid>
 
@@ -168,8 +163,7 @@
                        Text="{x:Static res:Languages.InternalDiameter}" />
             <NumericUpDown Grid.Row="1" Grid.Column="1"
                            Margin="0,5,5,5" VerticalAlignment="Center"
-                           ShowButtonSpinner="False"
-						    FormatString="0.00"
+                           FormatString="0.00" ShowButtonSpinner="False"
                            Value="{Binding RimInternalDiameter.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <ComboBox Grid.Row="1" Grid.Column="2"
                       Margin="5,5,0,5" HorizontalAlignment="Stretch"

@@ -12,20 +12,17 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
 
     protected INavigationService NavigationService { get; }
 
-    /// <summary>
-    /// Gets the unique URL path segment identifier for this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public string UrlPathSegment { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether this view model has an associated help page.
-    /// </summary>
+    /// <inheritdoc/>
     public virtual bool CanShowHelpPage { get; }
 
-    /// <summary>
-    /// Gets the display name of this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public abstract string Name { get; }
+
+    /// <inheritdoc/>
+    public virtual bool CanShowContextMenu { get; }
 
     protected BaseRoutableViewModel(INavigationService navigationService)
     {
@@ -33,10 +30,14 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
         UrlPathSegment = Guid.NewGuid().ToString()[..5];
     }
 
-    /// <summary>
-    /// Shows the help page associated with this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public virtual void ShowHelpPage()
+    {
+
+    }
+
+    /// <inheritdoc/>
+    public virtual void ResetToDefault()
     {
 
     }

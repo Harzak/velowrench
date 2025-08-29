@@ -21,7 +21,17 @@ public interface IRoutableViewModel
     public bool CanShowHelpPage { get; }
 
     /// <summary>
+    /// Gets a value indicating whether the context (pop-up) menu can be displayed.
+    /// </summary>
+    public bool CanShowContextMenu { get; }
+
+    /// <summary>
     /// Shows the help page associated with this view model.
     /// </summary>
     void ShowHelpPage();
+
+    /// <summary>
+    /// Resets the viewmodel to its default state.
+    /// </summary>
+    void ResetToDefault();
 }

@@ -11,11 +11,11 @@
              Design.Width="360">
 
     <Grid Margin="8,8"
-          ColumnDefinitions="*" RowDefinitions="40, *">
+          ColumnDefinitions="Auto, *, Auto, Auto" RowDefinitions="40, *">
 
         <Button Grid.Row="0" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                Command="{Binding NavigateBackCommand, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding NavigateBackCommand}"
                 IsVisible="{Binding CanNavigateBack}"
                 Theme="{DynamicResource BorderlessButton}">
             <materialIcons:MaterialIcon Width="25" Height="25"
@@ -24,14 +24,17 @@
                                         Kind="ArrowLeft" />
         </Button>
 
-        <TextBlock Grid.Row="0" Grid.Column="0"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="18" FontWeight="SemiBold"
-                   Text="{Binding CurrentContent.Name}" />
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Margin="0,5"
+                       FontSize="18" FontWeight="SemiBold"
+                       Text="{Binding CurrentContent.Name}"
+                       TextAlignment="Center" TextWrapping="Wrap" />
+        </StackPanel>
 
-        <Button Grid.Row="0"
+        <Button Grid.Row="0" Grid.Column="2"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                Command="{Binding ShowHelpPageCommand, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding ShowHelpPageCommand}"
                 IsVisible="{Binding CanShowHelpPage}"
                 Theme="{DynamicResource BorderlessButton}">
             <materialIcons:MaterialIcon Width="25" Height="25"
@@ -39,8 +42,24 @@
                                         Kind="InfoOutline" />
         </Button>
 
+        <Button Grid.Row="0" Grid.Column="3"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                IsVisible="{Binding CanShowContextMenu}"
+                Theme="{DynamicResource BorderlessButton}">
+            <Button.Content>
+                <materialIcons:MaterialIcon Width="25" Height="25"
+                                            Foreground="{DynamicResource SemiColorText0}"
+                                            Kind="DotsVertical" />
+            </Button.Content>
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuItem Command="{Binding ResetToDefaultCommand}" Header="Reset to default" />
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="0">
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                      Margin="0,15,0,0">
             <ContentControl Content="{Binding CurrentContent}">
                 <ContentControl.DataTemplates>
                     <services:ViewLocator />

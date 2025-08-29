@@ -19,21 +19,17 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     private readonly ILocalizer _localizer;
     private readonly IComponentStandardRepository _repository;
 
-    /// <summary>
-    /// Gets the input parameters required for the spoke length calculation.
-    /// </summary>
+    /// <inheritdoc/>
     protected override SpokeLengthCalculatorInput CalculatorInput { get; }
 
-    /// <summary>
-    /// Gets the display name of this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
-    /// <summary>
-    /// User-defined: Gets a value indicating whether this view model has an associated help page.
-    /// </summary>
-    /// <remarks>User-defined value</remarks>
+    /// <inheritdoc/>
     public override bool CanShowHelpPage => true;
+
+    /// <inheritdoc/>
+    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// User-defined: Gets the distance from the hub center to the flange on the gear (right) side.

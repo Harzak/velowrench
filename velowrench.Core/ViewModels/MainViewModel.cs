@@ -35,6 +35,10 @@ public sealed partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(ShowHelpPageCommand))]
     private bool _canShowHelpPage;
 
+
+    [ObservableProperty]
+    private bool _canShowContextMenu;
+
     public MainViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
@@ -47,9 +51,10 @@ public sealed partial class MainViewModel : ObservableObject
     /// </summary>
     private void OnCurrentViewModelChanged(object? sender, ViewModelChangedEventArgs e)
     {
-        CurrentContent = e.CurrentViewModel;
-        CanNavigateBack = _navigationService.CanNavigateBack;
-        CanShowHelpPage = _navigationService.CurrentViewModel?.CanShowHelpPage ?? false;
+        this.CurrentContent = e.CurrentViewModel;
+        this.CanNavigateBack = _navigationService.CanNavigateBack;
+        this.CanShowHelpPage = _navigationService.CurrentViewModel?.CanShowHelpPage ?? false;
+        this.CanShowContextMenu = _navigationService.CurrentViewModel?.CanShowContextMenu ?? false;
     }
 
     /// <summary>
@@ -69,5 +74,14 @@ public sealed partial class MainViewModel : ObservableObject
     private void ShowHelpPage()
     {
         _navigationService.CurrentViewModel?.ShowHelpPage();
+    }
+
+    /// <summary>
+    /// Command to display the help page for the current view.
+    /// </summary>
+    [RelayCommand]
+    private void ResetToDefault()
+    {
+        _navigationService.CurrentViewModel?.ResetToDefault();
     }
 }

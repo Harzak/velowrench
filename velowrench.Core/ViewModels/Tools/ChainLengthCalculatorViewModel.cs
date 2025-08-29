@@ -14,20 +14,17 @@ namespace velowrench.Core.ViewModels.Tools;
 /// </summary>
 public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewModel<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
-    /// <summary>
-    /// Gets the input parameters required for the chain length calculation.
-    /// </summary>
+    /// <inheritdoc />
     protected override ChainLengthCalculatorInput CalculatorInput { get; }
 
-    /// <summary>
-    /// Gets the display name of this view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether this view model has an associated help page.
-    /// </summary>
+    /// <inheritdoc/>
     public override bool CanShowHelpPage => true;
+
+    /// <inheritdoc/>
+    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// Gets or sets the chainstay length measurement with unit conversion capabilities.
@@ -78,6 +75,9 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     private void FillDefaultValues()
     {
         this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
+        this.TeethLargestChainring = null;
+        this.TeethLargestSprocket = null;
+        this.RecommendedChainLength = null;
     }
 
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
@@ -107,5 +107,11 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     public override void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelp(Enums.EVeloWrenchTools.ChainLengthCalculator);
+    }
+
+    public override void ResetToDefault()
+    {
+        base.ResetToDefault();
+        this.FillDefaultValues();
     }
 }
