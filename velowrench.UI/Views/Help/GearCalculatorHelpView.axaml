@@ -1,6 +1,7 @@
 <UserControl x:Class="velowrench.UI.Views.Help.GearCalculatorHelpView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:velowrench.UI.Controls"
              xmlns:math="clr-namespace:AvaloniaMath.Controls;assembly=AvaloniaMath"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -87,26 +88,29 @@
                 <TextBlock Classes="Content"
                            Text="{x:Static res:Languages.GearInches}"
                            TextDecorations="Underline" />
-                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Formula="{Binding GearInchesFormula}"
-                                   Scale="20" />
+                <controls:LaTeXBitmapControl Width="120" Height="80"
+                                             Margin="0,0,0,10"
+                                             Formula="{Binding GearInchesFormula}" />
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="F" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="18" Height="15"
+                                                 Margin="0,5,14,5"
+                                                 Formula="F" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.FrontChainringTeethFormula}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="R" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="16" Height="18"
+                                                 Margin="0,10,17,5"
+                                                 Formula="R" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.RearSprocketTeethFormula}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="{}{D_w}" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="28" Height="30"
+                                                 Margin="0,0,5,0"
+                                                 Formula="{}{D_w}" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.WheelDiameterFormula}" />
@@ -117,19 +121,21 @@
                            Classes="Content"
                            Text="{x:Static res:Languages.GainRatio}"
                            TextDecorations="Underline" />
-                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Formula="{Binding GainRatioFormula}"
-                                   Scale="20" />
+                <controls:LaTeXBitmapControl Width="130" Height="80"
+                                             Margin="0,0,10,0"
+                                             Formula="{Binding GainRatioFormula}" />
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="{}{L_w}" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="28" Height="30"
+                                                 Margin="0,0,5,0"
+                                                 Formula="{}{L_w}" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.WheelRadiusFormula}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="{}{L_c}" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="26" Height="35"
+                                                 Margin="0,0,5,0"
+                                                 Formula="{}{L_c}" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.CrankLengthFormula}" />
@@ -140,12 +146,14 @@
                            Classes="Content"
                            Text="{x:Static res:Languages.Development}"
                            TextDecorations="Underline" />
-                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Formula="{Binding DevelopmentFormula}"
-                                   Scale="20" />
+                <controls:LaTeXBitmapControl Width="140" Height="80"
+                                             Margin="0,0,5,0"
+                                             Formula="{Binding DevelopmentFormula}" />
+
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="{}{C_w}" Scale="18" />
+                    <controls:LaTeXBitmapControl Width="28" Height="30"
+                                                 Margin="0,0,5,0"
+                                                 Formula="{}{C_w}" />
                     <TextBlock VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.WheelCircumferenceFormula}" />
@@ -156,20 +164,22 @@
                            Classes="Content"
                            Text="{x:Static res:Languages.Speed}"
                            TextDecorations="Underline" />
-                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Formula="{Binding SpeedFormula}"
-                                   Scale="20" />
+                <controls:LaTeXBitmapControl Width="160" Height="50"
+                                             Margin="0,10,0,0"
+                                             Formula="{Binding SpeedFormula}" />
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="RPM" Scale="18" />
-                    <TextBlock VerticalAlignment="Center"
+                    <controls:LaTeXBitmapControl Width="55" Height="20"
+                                                 Margin="0,10,0,0"
+                                                 Formula="RPM" />
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.CadenceRpmFormula}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                       Formula="Dev" Scale="18" />
-                    <TextBlock VerticalAlignment="Center"
+                    <controls:LaTeXBitmapControl Width="50" Height="17"
+                                                 Margin="0,10,0,0"
+                                                 Formula="Dev" />
+                    <TextBlock Margin="10,10,0,0" VerticalAlignment="Center"
                                Classes="Content"
                                Text="{x:Static res:Languages.DevelopmentFormula}" />
                 </StackPanel>

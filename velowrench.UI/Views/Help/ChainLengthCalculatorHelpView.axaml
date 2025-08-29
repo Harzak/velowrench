@@ -1,6 +1,7 @@
 <UserControl x:Class="velowrench.UI.Views.Help.ChainLengthCalculatorHelpView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:velowrench.UI.Controls"
              xmlns:math="clr-namespace:AvaloniaMath.Controls;assembly=AvaloniaMath"
              xmlns:res="clr-namespace:velowrench.UI.Resources"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -64,16 +65,15 @@
                 <TextBlock Classes="Content" Text="{x:Static res:Languages.HelpChainLengthCalculationHeader}" />
 
                 <TextBlock Classes="Header2" Text="{x:Static res:Languages.SimpleFormula}" />
-                <math:FormulaBlock Grid.Row="10"
-                                   Margin="0,5,0,5" HorizontalAlignment="Center"
-                                   Formula="{Binding SimpleEquationLaTeX}"
-                                   Scale="16" />
+                <controls:LaTeXBitmapControl Width="205" Height="70"
+                                             Margin="0,0,0,5"
+                                             Formula="{Binding SimpleEquationLaTeX}" />
                 <TextBlock Classes="Content" Text="{x:Static res:Languages.SimpleFormulaExplanation}" />
 
                 <TextBlock Classes="Header2" Text="{x:Static res:Languages.RigorousFormula}" />
-                <math:FormulaBlock Margin="0,5,0,5" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Formula="{Binding RigorousEquationLaTeX}"
-                                   Scale="14" />
+                <controls:LaTeXBitmapControl Width="350" Height="40"
+                                             Margin="0,0,0,10"
+                                             Formula="{Binding RigorousEquationLaTeX}" />
                 <TextBlock Classes="Content" Text="{x:Static res:Languages.RigorousFormulaExplanation}" />
             </StackPanel>
         </Border>

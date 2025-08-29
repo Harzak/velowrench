@@ -1,9 +1,11 @@
-﻿using velowrench.Calculations.Calculators.Transmission.Chain;
+﻿using Avalonia.Platform;
+using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
+using velowrench.Core.Services;
 using velowrench.Core.ViewModels.Help;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
@@ -30,6 +32,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         IDebounceActionFactory debounceActionFactory,
         IComponentStandardRepository componentStandardRepository)
     {
+
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _chainLengthCalculatorFactory = chainLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(chainLengthCalculatorFactory));
         _gearCalculatorFactory = gearCalculatorFactory ?? throw new ArgumentNullException(nameof(gearCalculatorFactory));
@@ -81,7 +84,7 @@ public sealed class ViewModelFactory : IViewModelFactory
             case EVeloWrenchTools.GearCalculator:
                 return new GearCalculatorHelpViewModel(navigationService, _localizer);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorHelpViewModel(navigationService, _localizer);
+                return new SpokeLengthCalculatorHelpViewModel(navigationService,  _localizer );
             default:
                 throw new NotSupportedException(type.ToString());
         }
