@@ -19,6 +19,7 @@ csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
+dotnet_diagnostic.CA1812.severity = none
 
 [*.{cs,vb}]
 #### Naming styles ####
@@ -90,3 +91,5 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 dotnet_diagnostic.CA1031.severity = silent
+dotnet_diagnostic.CA1054.severity = none
+dotnet_diagnostic.CA1716.severity = none

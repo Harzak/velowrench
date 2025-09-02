@@ -1,4 +1,4 @@
-﻿namespace velowrench.Core.Interfaces;
+﻿namespace velowrench.Utils.Interfaces;
 
 public interface IDebounceActionFactory
 {

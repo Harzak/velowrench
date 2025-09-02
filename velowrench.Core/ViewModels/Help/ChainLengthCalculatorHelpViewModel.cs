@@ -33,4 +33,9 @@ public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableVie
 
         this.Name = localizer.GetString("ChainLengthCalculator");
     }
+
+    public override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000).ConfigureAwait(false);
+    }
 }

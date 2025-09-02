@@ -10,6 +10,7 @@ using velowrench.Core.Validation;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
+using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.Tests.ViewModels.Tools;

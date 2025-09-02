@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
@@ -8,9 +10,9 @@ namespace velowrench.Core.ViewModels;
 /// <summary>
 /// Main view model that orchestrates the application's primary user interface and navigation.
 /// </summary>
-public sealed partial class MainViewModel : ObservableObject, IHostViewModel
+public sealed partial class MainViewModel : ObservableObject, IHostViewModel, IDisposable
 {
-    private INavigationService? _navigationService;
+    private INavigationService _navigationService;
 
     /// <summary>
     /// Gets or sets the currently displayed content view model.
@@ -41,9 +43,9 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel
     [ObservableProperty]
     private bool _canShowContextMenu;
 
-    // Parameterless constructor
     public MainViewModel()
     {
+        
     }
 
     /// <summary>
@@ -60,12 +62,15 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel
     /// <summary>
     /// Handles navigation events and updates the current content and navigation states.
     /// </summary>
-    private void OnCurrentViewModelChanged(object? sender, ViewModelChangedEventArgs e)
+    private void OnCurrentViewModelChanged(object? sender, EventArgs e)
     {
-        this.CurrentContent = e.CurrentViewModel;
-        this.CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
-        this.CanShowHelpPage = _navigationService?.CurrentViewModel?.CanShowHelpPage ?? false;
-        this.CanShowContextMenu = _navigationService?.CurrentViewModel?.CanShowContextMenu ?? false;
+        Dispatcher.UIThread.Invoke(() =>
+        {
+            this.CurrentContent = _navigationService.CurrentViewModel;
+            this.CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
+            this.CanShowHelpPage = _navigationService?.CurrentViewModel?.CanShowHelpPage ?? false;
+            this.CanShowContextMenu = _navigationService?.CurrentViewModel?.CanShowContextMenu ?? false;
+        });
     }
 
     /// <summary>
@@ -94,5 +99,14 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel
     private void ResetToDefault()
     {
         _navigationService?.CurrentViewModel?.ResetToDefault();
+    }
+
+    public void Dispose()
+    {
+        if(_navigationService != null)
+        {
+            _navigationService.CurrentViewModelChanged -= OnCurrentViewModelChanged;
+            _navigationService.Dispose();
+        }
     }
 }

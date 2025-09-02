@@ -42,6 +42,21 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
 
     }
 
+    public virtual Task OnInitializedAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public virtual Task OnDestroyAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public virtual Task OnForceDestroyAsync()
+    {
+        return Task.CompletedTask;
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposedValue)
@@ -54,15 +69,5 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     {
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
-    }
-
-    public  Task OnInitializedAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    public Task OnDestroyAsync()
-    {
-        return Task.CompletedTask;
     }
 }

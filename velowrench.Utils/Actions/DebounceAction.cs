@@ -1,6 +1,6 @@
-﻿using velowrench.Core.Interfaces;
+﻿using velowrench.Utils.Interfaces;
 
-namespace velowrench.Core.Services;
+namespace velowrench.Utils.Services;
 
 public sealed class DebounceAction : IDebounceAction
 {

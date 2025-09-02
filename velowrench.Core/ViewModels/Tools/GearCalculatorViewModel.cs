@@ -12,6 +12,7 @@ using velowrench.Core.ViewModels.Base;
 using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
+using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Tools;

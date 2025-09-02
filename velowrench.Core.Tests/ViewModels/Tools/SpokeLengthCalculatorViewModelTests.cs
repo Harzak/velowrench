@@ -12,6 +12,7 @@ using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
+using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.Tests.ViewModels.Tools;

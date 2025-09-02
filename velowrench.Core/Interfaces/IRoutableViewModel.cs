@@ -29,6 +29,8 @@ public interface IRoutableViewModel : IDisposable
 
     Task OnDestroyAsync();
 
+    Task OnForceDestroyAsync();
+
     /// <summary>
     /// Shows the help page associated with this view model.
     /// </summary>

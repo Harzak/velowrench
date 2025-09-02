@@ -44,7 +44,7 @@ public class ConvertibleDoubleTests
         double expectedValueInMeters = 1.0;
 
         // Act
-        double actualValueInMeters = convertible.GetValueIn(LengthUnit.Meter, precision: 2);
+        double actualValueInMeters = convertible.GetValueIn(LengthUnit.Meter);
 
         // Assert
         actualValueInMeters.Should().Be(expectedValueInMeters);

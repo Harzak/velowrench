@@ -1,37 +1,14 @@
 ﻿using velowrench.Core.Enums;
 using velowrench.Core.EventArg;
+using velowrench.Core.Navigation.Context;
 
 namespace velowrench.Core.Interfaces;
 
 /// <summary>
 /// Service interface for managing navigation between different views and view models in the application.
 /// </summary>
-public interface INavigationService
+public interface INavigationService : IDisposable
 {
-    /// <summary>
-    /// Navigates to the home page and clears the navigation stack.
-    /// </summary>
-    Task NavigateToHomeAsync();
-
-    /// <summary>
-    /// Navigates to a specific tool page.
-    /// </summary>
-    Task NavigateToToolAsync(EVeloWrenchTools toolType);
-
-    /// <summary>
-    /// Navigates to the help page for a specific tool.
-    /// </summary>
-    Task NavigateToHelpAsync(EVeloWrenchTools toolType);
-
-    /// <summary>
-    /// Navigates to the specified view model.
-    /// </summary>
-    Task NavigateToAsync(IRoutableViewModel viewModel);
-
-    /// <summary>
-    /// Navigates back to the previous view in the navigation stack.
-    /// </summary>
-    Task NavigateBackAsync();
 
     /// <summary>
     /// Gets a value indicating whether backward navigation is possible.
@@ -46,13 +23,31 @@ public interface INavigationService
     /// </value>
     IRoutableViewModel? CurrentViewModel { get; }
 
-    /// <summary>
-    /// Event raised when the current view model changes during navigation.
-    /// </summary>
-    event EventHandler<ViewModelChangedEventArgs> CurrentViewModelChanged;
+    event EventHandler<EventArgs>? CurrentViewModelChanged;
 
     /// <summary>
-    /// Clears the entire navigation stack and sets the current view model to null.
+    /// Navigates to the home page and clears the navigation stack.
     /// </summary>
-    void ClearNavigationStack();
+    Task NavigateToHomeAsync(NavigationParameters? parameters = null);
+
+    /// <summary>
+    /// Navigates to a specific tool page.
+    /// </summary>
+    Task NavigateToToolAsync(EVeloWrenchTools toolType, NavigationParameters? parameters = null);
+
+    /// <summary>
+    /// Navigates to the help page for a specific tool.
+    /// </summary>
+    Task NavigateToHelpAsync(EVeloWrenchTools toolType, NavigationParameters? parameters = null);
+
+    /// <summary>
+    /// Navigates to the specified view model.
+    /// </summary>
+    Task NavigateToAsync(IRoutableViewModel viewModel, NavigationParameters? parameters = null);
+
+    /// <summary>
+    /// Navigates back to the previous view in the navigation stack.
+    /// </summary>
+    Task NavigateBackAsync(NavigationParameters? parameters = null);
+
 }
