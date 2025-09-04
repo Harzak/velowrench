@@ -81,7 +81,7 @@ public sealed class NavigationService : INavigationService
     /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
-    public  async Task NavigateBackAsync (NavigationParameters? parameters = null)
+    public  async Task NavigateBackAsync(NavigationParameters? parameters = null)
     {
         if (!CanNavigateBack)
         {

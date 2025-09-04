@@ -162,8 +162,12 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.Name = localizer.GetString("GearCalculator");
         this.AvailableResultUnits = [];
         this.GearCalculResultRows = [];
+    }
 
+    public override Task OnInitializedAsync()
+    {
         this.FillDefaultValues();
+        return base.OnInitializedAsync();
     }
 
     /// Updates default values with arbitrary values until user configuration management is implemented.
@@ -278,5 +282,26 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     {
         base.ResetToDefault();
         this.FillDefaultValues();
+    }
+
+    private bool _disposed;
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !_disposed)
+        {
+            this.SourceSprockets?.Clear();
+            this.GearCalculResultRows?.Clear();
+            this.AvailableResultUnits?.Clear();
+            this.SourceWheels?.Clear();
+            this.SourceCranks?.Clear();
+            this.SourceCadence?.Clear();
+            this.SelectedSprocketsStr = null;
+            this.SelectedWheel = null;
+            this.SelectedResultUnit = null;
+            this.SelectedWheel = null;
+
+            _disposed = true;
+        }           
+        base.Dispose(disposing);
     }
 }

@@ -81,7 +81,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     /// Gets or sets the collection of available spoke counts.
     /// </summary>
     [ObservableProperty]
-    private IEnumerable<int> _availableSpokeCount;
+    private List<int> _availableSpokeCount;
 
     /// <summary>
     /// Gets the number of spokes in the wheel (hole count).
@@ -94,7 +94,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     /// Gets the collection of available spoke lacing patterns.
     /// </summary>
     [ObservableProperty]
-    private IEnumerable<SpokeLacingPatternModel> _availableSpokeLacingPatterns;
+    private List<SpokeLacingPatternModel> _availableSpokeLacingPatterns;
 
     /// <summary>
     /// Gets the spoke lacing pattern (cross count). How many times each spoke crosses others (e.g., 3-cross, 2-cross, radial).
@@ -136,8 +136,12 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         _hubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterGearSideChanged);
         _hubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterNonGearSideChanged);
         _rimInternalDiameter = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnRimInternalDiameterChanged);
+    }
 
+    public override Task OnInitializedAsync()
+    {
         this.FillDefaultValues();
+        return base.OnInitializedAsync();
     }
 
     /// Updates default values with arbitrary values until user configuration management is implemented.
@@ -145,9 +149,9 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     {
         this.HubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
         this.RimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-        this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount();
+        this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount().ToList();
         this.SelectedSpokeCount = this.AvailableSpokeCount.First(x => x == 32);
-        this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern();
+        this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern().ToList();
         this.SelectedSpokeLacingPattern = this.AvailableSpokeLacingPatterns.First(x => x.Crosses == 3);
     }
 
@@ -257,6 +261,27 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     {
         using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
         base.NavigationService.NavigateToAsync(vm);
+    }
+
+    private bool _disposed;
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !_disposed)
+        {
+            this.AvailableSpokeCount?.Clear();
+            this.AvailableSpokeLacingPatterns?.Clear();
+            this.HubCenterToFlangeDistanceGearSide = null;
+            this.HubCenterToFlangeDistanceNonGearSide = null;
+            this.HubFlangeDiameterGearSide = null;
+            this.HubFlangeDiameterNonGearSide = null;
+            this.RimInternalDiameter = null;
+            this.RecommendedSpokeLengthGearSide = null;
+            this.RecommendedSpokeLengthNonGearSide = null;
+
+            _disposed = true;
+        }
+
+        base.Dispose(disposing);
     }
 }
 

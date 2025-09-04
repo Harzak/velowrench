@@ -25,10 +25,21 @@ public interface IRoutableViewModel : IDisposable
     /// </summary>
     public bool CanShowContextMenu { get; }
 
+    /// <summary>
+    /// Asynchronously performs initialization logic when the component is first rendered.
+    /// </summary>
     Task OnInitializedAsync();
 
+    /// <summary>
+    /// Performs asynchronous cleanup operations when the object is being destroyed by the navigation flow.
+    /// </summary>
+    /// <remarks>This method is not intended for resource disposal, which should be handled in the Dispose method.</remarks>
     Task OnDestroyAsync();
 
+    /// <summary>
+    /// Performs asynchronous cleanup and resource disposal when the object is forcibly destroyed.
+    /// </summary>
+    /// <remarks>This method is not intended for resource disposal, which should be handled in the Dispose method.</remarks>
     Task OnForceDestroyAsync();
 
     /// <summary>

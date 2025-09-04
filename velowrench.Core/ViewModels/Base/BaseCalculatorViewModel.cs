@@ -153,15 +153,17 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         this.CurrentState = ECalculatorState.NotStarted;
     }
 
+    private bool _disposed;
     protected override void Dispose(bool disposing)
     {
-        if (disposing)
+        if (disposing && !_disposed)
         {
             if (this.Calculator != null)
             {
                 this.Calculator.StateChanged -= OnCalculatorStateChanged;
             }
             _refreshCalculationDebounced?.Dispose();
+            _disposed = true;
         }
         base.Dispose(disposing);
     }

@@ -13,6 +13,10 @@ using velowrench.Core.Navigation.Guards;
 
 namespace velowrench.Core.Navigation;
 
+/// <summary>
+/// Handles navigation between view models within the application, managing the navigation stack, enforcing navigation
+/// guards, and ensuring proper cleanup of resources.
+/// </summary>
 internal sealed class NavigationHandler : INavigationHandler
 {
     private readonly ILogger _logger;
@@ -38,14 +42,18 @@ internal sealed class NavigationHandler : INavigationHandler
                                   period: (int)TimeSpan.FromMinutes(2).TotalMilliseconds);
     }
 
+    /// <inheritdoc/>
     public async Task ClearAsync()
     {
         _stack.Clear();
-        await GracefullyCleanupAllAsync().ConfigureAwait(false);
+        await this.GracefullyCleanupAllAsync().ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public async Task PushAsync(IRoutableViewModel viewModel, NavigationContext context)
     {
+        _host.IsBusy = true;
+
         foreach (INavigationGuard guard in _navigationGuards)
         {
             NavigationGuardResult result = await guard.CanNavigateAsync(ActiveViewModel, viewModel, context).ConfigureAwait(false);
@@ -55,35 +63,34 @@ internal sealed class NavigationHandler : INavigationHandler
             }
         }
 
-        _host.IsBusy = true;
-
         _stack.Push(viewModel);
         await viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         _host.IsBusy = false;
-        ActiveViewModelChanged?.Invoke(this, EventArgs.Empty);
+        this.ActiveViewModelChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <inheritdoc/>
     public async Task PopAsync(NavigationContext context)
     {
         IRoutableViewModel? viewModel = _stack.Pop();
         if (viewModel != null)
         {
-            await GracefullyCleanupAsync(viewModel).ConfigureAwait(false);
-            ActiveViewModelChanged?.Invoke(this, EventArgs.Empty);
+            await this.GracefullyCleanupAsync(viewModel).ConfigureAwait(false);
+            this.ActiveViewModelChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 
     private async void OnCleanupTimerElapsed(object? state)
     {
-        await ForceCleanupAllAsync().ConfigureAwait(false);
+        await this.ForceCleanupAllAsync().ConfigureAwait(false);
     }
 
     private async Task GracefullyCleanupAllAsync()
     {
         foreach (IRoutableViewModel viewModel in _stack.Untracked)
         {
-            await GracefullyCleanupAsync(viewModel).ConfigureAwait(false);
+            await this.GracefullyCleanupAsync(viewModel).ConfigureAwait(false);
         }
     }
 
@@ -106,7 +113,7 @@ internal sealed class NavigationHandler : INavigationHandler
     {
         foreach (IRoutableViewModel viewModel in _stack.Untracked)
         {
-            await ForceCleanupAsync(viewModel).ConfigureAwait(false);
+            await this.ForceCleanupAsync(viewModel).ConfigureAwait(false);
         }
     }
 

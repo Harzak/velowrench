@@ -110,11 +110,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         // Act
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
         _viewModel.SelectedSpokeCount = 32;
         _viewModel.SelectedSpokeLacingPattern = new SpokeLacingPatternModel("3-cross", 3);
 
@@ -132,11 +132,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("", ""));
 
         // Act
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 0;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 0;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Assert
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).MustNotHaveHappened();
@@ -150,11 +150,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.InProgress, ValidationResult.WithSuccess());
 
         // Act
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Assert
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).MustNotHaveHappened();
@@ -168,19 +168,19 @@ public class SpokeLengthCalculatorViewModelTests
         Fake.ClearRecordedCalls(_calculator);
 
         // Act - First calculation
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
         _viewModel.SelectedSpokeCount = 30;
 
         // Act - Second time with same inputs
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
         _viewModel.SelectedSpokeCount = 30;
 
         // Assert
@@ -200,11 +200,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         // Act
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Assert
         _viewModel.RecommendedSpokeLengthGearSide.Should().BeNull();
@@ -235,10 +235,10 @@ public class SpokeLengthCalculatorViewModelTests
         _viewModel.HubMeasurementsSelectedUnit = LengthUnit.Inch;
 
         // Assert
-        _viewModel.HubCenterToFlangeDistanceGearSide.Unit.Should().Be(LengthUnit.Inch);
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Unit.Should().Be(LengthUnit.Inch);
-        _viewModel.HubFlangeDiameterGearSide.Unit.Should().Be(LengthUnit.Inch);
-        _viewModel.HubFlangeDiameterNonGearSide.Unit.Should().Be(LengthUnit.Inch);
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Unit.Should().Be(LengthUnit.Inch);
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Unit.Should().Be(LengthUnit.Inch);
+        _viewModel.HubFlangeDiameterGearSide!.Unit.Should().Be(LengthUnit.Inch);
+        _viewModel.HubFlangeDiameterNonGearSide!.Unit.Should().Be(LengthUnit.Inch);
     }
 
     [TestMethod]
@@ -251,7 +251,7 @@ public class SpokeLengthCalculatorViewModelTests
         _viewModel.RimInternalDiameterSelectedUnit = LengthUnit.Inch;
 
         // Assert
-        _viewModel.RimInternalDiameter.Unit.Should().Be(LengthUnit.Inch);
+        _viewModel.RimInternalDiameter!.Unit.Should().Be(LengthUnit.Inch);
     }
 
     [TestMethod]
@@ -261,11 +261,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         // Setup minimal valid inputs first
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Act
         _viewModel.SelectedSpokeCount = 36;
@@ -283,11 +283,11 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
         // Setup minimal valid inputs first
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 36;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Act
         _viewModel.SelectedSpokeLacingPattern = newLacingPattern;
@@ -306,10 +306,10 @@ public class SpokeLengthCalculatorViewModelTests
 
         // Setup minimal valid inputs first
         _viewModel.HubCenterToFlangeDistanceGearSide = hubCenterToFlangeDistanceGearSide;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value =17;
-        _viewModel.HubFlangeDiameterGearSide.Value = 45;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 45;
-        _viewModel.RimInternalDiameter.Value = 600;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 17;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 45;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 45;
+        _viewModel.RimInternalDiameter!.Value = 600;
 
         // Act
         hubCenterToFlangeDistanceGearSide.Value = 37;
@@ -349,11 +349,11 @@ public class SpokeLengthCalculatorViewModelTests
 
         // Act - Set inputs in inches, should be converted to millimeters for calculation
         _viewModel.HubMeasurementsSelectedUnit = LengthUnit.Inch;
-        _viewModel.HubCenterToFlangeDistanceGearSide.Value = 1.42;
-        _viewModel.HubCenterToFlangeDistanceNonGearSide.Value = 0.67;
-        _viewModel.HubFlangeDiameterGearSide.Value = 1.77;
-        _viewModel.HubFlangeDiameterNonGearSide.Value = 1.77;
-        _viewModel.RimInternalDiameter.Value = 23.62;
+        _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 1.42;
+        _viewModel.HubCenterToFlangeDistanceNonGearSide!.Value = 0.67;
+        _viewModel.HubFlangeDiameterGearSide!.Value = 1.77;
+        _viewModel.HubFlangeDiameterNonGearSide!.Value = 1.77;
+        _viewModel.RimInternalDiameter!.Value = 23.62;
         _viewModel.SelectedSpokeCount = 32;
         _viewModel.SelectedSpokeLacingPattern = new SpokeLacingPatternModel("3-cross", 3);
 
@@ -385,7 +385,7 @@ public class SpokeLengthCalculatorViewModelTests
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("HubFlangeDiameterGearSideMm", errorMessage));
 
         // Act
-        _viewModel.HubFlangeDiameterGearSide.Value = 10; // Below minimum
+        _viewModel.HubFlangeDiameterGearSide!.Value = 10; // Below minimum
 
         // Assert
         _viewModel.InputErrorMessages.Should().NotBeEmpty();
@@ -413,8 +413,8 @@ public class SpokeLengthCalculatorViewModelTests
         ]));
 
         // Act 
-        _viewModel.HubFlangeDiameterGearSide.Value = 10; // Below minimum
-        _viewModel.RimInternalDiameter.Value = 100; // Below minimum
+        _viewModel.HubFlangeDiameterGearSide!.Value = 10; // Below minimum
+        _viewModel.RimInternalDiameter!.Value = 100; // Below minimum
 
         // Assert
         _viewModel.InputErrorMessages.Should().HaveCount(2);

@@ -135,7 +135,7 @@ public class ChainLengthCalculatorViewModelTests
         Fake.ClearRecordedCalls(_calculator);
 
         // Act
-        _viewModel.ChainStayLength.Value = 10;
+        _viewModel.ChainStayLength!.Value = 10;
         _viewModel.ChainStayLength.Value = 10;
 
         // Assert

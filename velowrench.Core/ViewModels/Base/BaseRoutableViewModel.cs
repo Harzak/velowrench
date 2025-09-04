@@ -8,8 +8,6 @@ namespace velowrench.Core.ViewModels.Base;
 /// </summary>
 public abstract partial class BaseRoutableViewModel : ObservableValidator, IRoutableViewModel
 {
-    private bool _disposedValue;
-
     protected INavigationService NavigationService { get; }
 
     /// <inheritdoc/>
@@ -59,10 +57,7 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!_disposedValue)
-        {
-            _disposedValue = true;
-        }
+
     }
 
     public void Dispose()

@@ -68,8 +68,12 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
         this.Name = localizer.GetString("ChainLengthCalculator");
         this.CalculatorInput = new ChainLengthCalculatorInput();
+    }
 
+    public override Task OnInitializedAsync()
+    {
         this.FillDefaultValues();
+        return base.OnInitializedAsync();
     }
 
     /// Updates default values with arbitrary values until user configuration management is implemented.
@@ -114,5 +118,20 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         base.ResetToDefault();
         this.FillDefaultValues();
+    }
+
+    private bool _disposed;
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !_disposed)
+        {
+            this.TeethLargestChainring = null;
+            this.TeethLargestSprocket = null;
+            this.ChainStayLength = null;
+            this.RecommendedChainLength = null;
+
+            _disposed = true;
+        }
+        base.Dispose(disposing);
     }
 }

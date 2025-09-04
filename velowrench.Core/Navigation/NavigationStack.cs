@@ -11,6 +11,9 @@ using velowrench.Core.Interfaces;
 
 namespace velowrench.Core.Navigation;
 
+/// <summary>
+/// Represents a thread-safe stack for managing navigation states, with support for tracking and untracking view models.
+/// </summary>
 internal sealed class NavigationStack : IDisposable
 {
     private readonly Lock _lock;
