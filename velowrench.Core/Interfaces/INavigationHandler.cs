@@ -39,5 +39,7 @@ public interface INavigationHandler : IDisposable
     /// </summary>
     Task PopAsync(NavigationContext context);
 
+    event EventHandler<EventArgs>? ActiveViewModelChanging;
+
     event EventHandler<EventArgs>? ActiveViewModelChanged;
 }

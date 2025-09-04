@@ -1,4 +1,6 @@
-﻿namespace velowrench.Core.Interfaces;
+﻿using velowrench.Core.ViewModels.Home;
+
+namespace velowrench.Core.Interfaces;
 
 /// <summary>
 /// Interface for view models that can be navigated to and managed by the navigation service.
@@ -15,20 +17,14 @@ public interface IRoutableViewModel : IDisposable
     /// </summary>
     public string UrlPathSegment { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether this view model has an associated help page.
-    /// </summary>
-    public bool CanShowHelpPage { get; }
-
-    /// <summary>
-    /// Gets a value indicating whether the context (pop-up) menu can be displayed.
-    /// </summary>
-    public bool CanShowContextMenu { get; }
+    public IToolbar Toolbar { get; }
 
     /// <summary>
     /// Asynchronously performs initialization logic when the component is first rendered.
     /// </summary>
     Task OnInitializedAsync();
+
+    Task OnResumeAsync();
 
     /// <summary>
     /// Performs asynchronous cleanup operations when the object is being destroyed by the navigation flow.
@@ -41,14 +37,4 @@ public interface IRoutableViewModel : IDisposable
     /// </summary>
     /// <remarks>This method is not intended for resource disposal, which should be handled in the Dispose method.</remarks>
     Task OnForceDestroyAsync();
-
-    /// <summary>
-    /// Shows the help page associated with this view model.
-    /// </summary>
-    void ShowHelpPage();
-
-    /// <summary>
-    /// Resets the viewmodel to its default state.
-    /// </summary>
-    void ResetToDefault();
 }

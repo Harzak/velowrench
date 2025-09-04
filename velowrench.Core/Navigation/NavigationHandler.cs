@@ -25,6 +25,7 @@ internal sealed class NavigationHandler : INavigationHandler
     private readonly Timer _cleanupTimer;
     private readonly NavigationStack _stack;
 
+    public event EventHandler<EventArgs>? ActiveViewModelChanging;
     public event EventHandler<EventArgs>? ActiveViewModelChanged;
 
     public IRoutableViewModel? ActiveViewModel => _stack.Items.FirstOrDefault();
@@ -63,6 +64,8 @@ internal sealed class NavigationHandler : INavigationHandler
             }
         }
 
+        this.ActiveViewModelChanging?.Invoke(this, EventArgs.Empty);
+
         _stack.Push(viewModel);
         await viewModel.OnInitializedAsync().ConfigureAwait(false);
 
@@ -73,10 +76,17 @@ internal sealed class NavigationHandler : INavigationHandler
     /// <inheritdoc/>
     public async Task PopAsync(NavigationContext context)
     {
-        IRoutableViewModel? viewModel = _stack.Pop();
-        if (viewModel != null)
+        IRoutableViewModel? previousViewModel = _stack.Pop();
+        if (previousViewModel != null)
         {
-            await this.GracefullyCleanupAsync(viewModel).ConfigureAwait(false);
+            this.ActiveViewModelChanging?.Invoke(this, EventArgs.Empty);
+
+            await this.GracefullyCleanupAsync(previousViewModel).ConfigureAwait(false);
+            if(this.ActiveViewModel != null)
+            {
+                await this.ActiveViewModel.OnResumeAsync().ConfigureAwait(false);
+            }
+
             this.ActiveViewModelChanged?.Invoke(this, EventArgs.Empty);
         }
     }

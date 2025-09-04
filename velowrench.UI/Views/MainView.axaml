@@ -16,7 +16,7 @@
     </UserControl.Resources>
 
     <Grid Margin="8,8"
-          ColumnDefinitions="Auto, *, Auto, Auto" RowDefinitions="40, *">
+          ColumnDefinitions="Auto, *, Auto, Auto, Auto" RowDefinitions="40, *">
 
         <Button Grid.Row="0" Grid.Column="0"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -39,17 +39,27 @@
 
         <Button Grid.Row="0" Grid.Column="2"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                Command="{Binding ShowHelpPageCommand}"
-                IsVisible="{Binding CanShowHelpPage}"
+                Command="{Binding Toolbar.ShowProfileCommand}"
+                IsVisible="{Binding Toolbar.CanShowProfile}"
+                Theme="{DynamicResource BorderlessButton}">
+            <materialIcons:MaterialIcon Width="25" Height="25"
+                                        Foreground="{DynamicResource SemiColorText0}"
+                                        Kind="AccountOutline" />
+        </Button>
+
+        <Button Grid.Row="0" Grid.Column="3"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Command="{Binding Toolbar.ShowHelpPageCommand}"
+                IsVisible="{Binding Toolbar.CanShowHelpPage}"
                 Theme="{DynamicResource BorderlessButton}">
             <materialIcons:MaterialIcon Width="25" Height="25"
                                         Foreground="{DynamicResource SemiColorText0}"
                                         Kind="InfoOutline" />
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="3"
+        <Button Grid.Row="0" Grid.Column="4"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
-                IsVisible="{Binding CanShowContextMenu}"
+                IsVisible="{Binding Toolbar.CanShowContextMenu}"
                 Theme="{DynamicResource BorderlessButton}">
             <Button.Content>
                 <materialIcons:MaterialIcon Width="25" Height="25"
@@ -58,12 +68,12 @@
             </Button.Content>
             <Button.Flyout>
                 <MenuFlyout>
-                    <MenuItem Command="{Binding ResetToDefaultCommand}" Header="Reset to default" />
+                    <MenuItem Command="{Binding Toolbar.ResetToDefaultCommand}" Header="Reset to default" />
                 </MenuFlyout>
             </Button.Flyout>
         </Button>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                       Margin="0,15,0,0"
                       IsVisible="{Binding IsBusy, Converter={StaticResource BoolToInverseConverter}}">
             <ContentControl Content="{Binding CurrentContent}">

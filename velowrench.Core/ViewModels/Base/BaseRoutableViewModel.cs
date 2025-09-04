@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using velowrench.Core.Interfaces;
+using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels.Base;
 
@@ -14,33 +15,24 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     public string UrlPathSegment { get; }
 
     /// <inheritdoc/>
-    public virtual bool CanShowHelpPage { get; }
-
-    /// <inheritdoc/>
     public abstract string Name { get; }
 
-    /// <inheritdoc/>
-    public virtual bool CanShowContextMenu { get; }
+    public IToolbar Toolbar { get; }
 
-    protected BaseRoutableViewModel(INavigationService navigationService)
+    protected BaseRoutableViewModel(INavigationService navigationService, IToolbar toolbar)
     {
-        NavigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
-        UrlPathSegment = Guid.NewGuid().ToString()[..5];
+        this.NavigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+        this.UrlPathSegment = Guid.NewGuid().ToString()[..5];
+        this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));  
     }
 
-    /// <inheritdoc/>
-    public virtual void ShowHelpPage()
-    {
-
-    }
-
-    /// <inheritdoc/>
-    public virtual void ResetToDefault()
-    {
-
-    }
 
     public virtual Task OnInitializedAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public virtual Task OnResumeAsync()
     {
         return Task.CompletedTask;
     }

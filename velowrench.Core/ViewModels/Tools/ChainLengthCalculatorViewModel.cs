@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
@@ -6,6 +7,7 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Core.ViewModels.Home;
 using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 
@@ -21,12 +23,6 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     /// <inheritdoc/>
     public override string Name { get; }
-
-    /// <inheritdoc/>
-    public override bool CanShowHelpPage => true;
-
-    /// <inheritdoc/>
-    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// Gets or sets the chainstay length measurement with unit conversion capabilities.
@@ -62,8 +58,9 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> calculatorFactory,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
-        ILocalizer localizer)
-    : base(calculatorFactory, navigationService, actionFactory)
+        ILocalizer localizer,
+        IToolbar toolbar)
+    : base(calculatorFactory, navigationService, actionFactory, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
@@ -73,6 +70,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     public override Task OnInitializedAsync()
     {
+        base.Toolbar.ShowHelpPageAction = () => base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.ChainLengthCalculator);
         this.FillDefaultValues();
         return base.OnInitializedAsync();
     }
@@ -111,11 +109,6 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         this.CalculatorInput.TeethLargestSprocket = value ?? 0;
         base.OnCalculationInputChanged(nameof(CalculatorInput.TeethLargestSprocket));
-    }
-
-    public override void ShowHelpPage()
-    {
-        base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.ChainLengthCalculator);
     }
 
     public override void ResetToDefault()

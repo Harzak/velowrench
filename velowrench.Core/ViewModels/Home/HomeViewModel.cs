@@ -15,12 +15,28 @@ public sealed partial class HomeViewModel : BaseRoutableViewModel
     /// </summary>
     public override string Name { get; }
 
-    public HomeViewModel(ILocalizer localizer, INavigationService navigationService) : base(navigationService)
+    public HomeViewModel(
+        ILocalizer localizer, 
+        INavigationService navigationService, 
+        IToolbar toolbar) 
+    : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         Name = localizer.GetString("VeloWrench");
+    }
+
+    public override Task OnResumeAsync()
+    {
+        Toolbar.ShowProfilAction = () => NavigationService.NavigateToProfileAsync();
+        return base.OnResumeAsync();
+    }
+
+    public override Task OnInitializedAsync()
+    {
+        Toolbar.ShowProfilAction = () => NavigationService.NavigateToProfileAsync();
+        return base.OnInitializedAsync();
     }
 
     /// <summary>

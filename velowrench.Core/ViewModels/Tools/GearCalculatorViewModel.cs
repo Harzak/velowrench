@@ -9,6 +9,7 @@ using velowrench.Calculations.Units;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Models;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Core.ViewModels.Home;
 using velowrench.Repository.Extensions;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
@@ -31,12 +32,6 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
     /// <inheritdoc/>
     public override string Name { get; }
-
-    /// <inheritdoc/>
-    public override bool CanShowHelpPage => true;
-
-    /// <inheritdoc/>
-    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// Gets all available gear calculation types for user selection.
@@ -150,8 +145,9 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
-        ILocalizer localizer)
-    : base(calculatorFactory, navigationService, actionFactory)
+        ILocalizer localizer,
+        IToolbar toolbar)
+    : base(calculatorFactory, navigationService, actionFactory, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
@@ -164,6 +160,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
     public override Task OnInitializedAsync()
     {
+        base.Toolbar.ShowHelpPageAction = ShowHelpPage;
         this.FillDefaultValues();
         return base.OnInitializedAsync();
     }
@@ -285,7 +282,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     }
 
     [RelayCommand]
-    public override void ShowHelpPage()
+    public void ShowHelpPage()
     {
         base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.GearCalculator);
     }
@@ -296,6 +293,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.FillDefaultValues();
         base.ResetToDefault();
     }
+
 
     private bool _disposed;
     protected override void Dispose(bool disposing)

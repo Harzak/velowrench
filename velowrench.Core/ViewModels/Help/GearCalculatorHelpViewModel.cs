@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels.Help;
 
@@ -23,7 +24,11 @@ public sealed partial class GearCalculatorHelpViewModel : BaseRoutableViewModel
     [ObservableProperty]
     private string _speedFormula = @"V = RPM \cdot Dev";
 
-    public GearCalculatorHelpViewModel(INavigationService navigationService, ILocalizer localizer) : base(navigationService)
+    public GearCalculatorHelpViewModel(
+        INavigationService navigationService, 
+        ILocalizer localizer,
+        IToolbar toolbar) 
+    : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 

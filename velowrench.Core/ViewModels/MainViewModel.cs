@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
+using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels;
 
@@ -33,19 +34,11 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
     [NotifyCanExecuteChangedFor(nameof(NavigateBackCommand))]
     private bool _canNavigateBack;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the current view has an associated help page.
-    /// </summary>
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(ShowHelpPageCommand))]
-    private bool _canShowHelpPage;
+    public ToolbarViewModel Toolbar { get; }
 
-    [ObservableProperty]
-    private bool _canShowContextMenu;
-
-    public MainViewModel()
+    public MainViewModel(ToolbarViewModel toolbar)
     {
-        
+        this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
     }
 
     /// <summary>
@@ -55,8 +48,14 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
     public void Initialize(INavigationService navigationService)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+        _navigationService.CurrentViewModelChanging += OnCurrentViewModelChanging;
         _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
         _navigationService.NavigateToHomeAsync();
+    }
+
+    private void OnCurrentViewModelChanging(object? sender, EventArgs e)
+    {
+        this.Toolbar.Reset();
     }
 
     /// <summary>
@@ -68,8 +67,6 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
         {
             this.CurrentContent = _navigationService.CurrentViewModel;
             this.CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
-            this.CanShowHelpPage = _navigationService?.CurrentViewModel?.CanShowHelpPage ?? false;
-            this.CanShowContextMenu = _navigationService?.CurrentViewModel?.CanShowContextMenu ?? false;
         });
     }
 
@@ -81,24 +78,6 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
     {
         _navigationService?.NavigateBackAsync();
         CanNavigateBack = _navigationService?.CanNavigateBack ?? false;
-    }
-
-    /// <summary>
-    /// Command to display the help page for the current view.
-    /// </summary>
-    [RelayCommand(CanExecute = nameof(CanShowHelpPage))]
-    private void ShowHelpPage()
-    {
-        _navigationService?.CurrentViewModel?.ShowHelpPage();
-    }
-
-    /// <summary>
-    /// Command to display the help page for the current view.
-    /// </summary>
-    [RelayCommand]
-    private void ResetToDefault()
-    {
-        _navigationService?.CurrentViewModel?.ResetToDefault();
     }
 
     public void Dispose()

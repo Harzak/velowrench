@@ -29,6 +29,7 @@ public sealed class NavigationService : INavigationService
     public bool CanNavigateBack => _handler.CanPop;
 
 
+    public event EventHandler<EventArgs>? CurrentViewModelChanging;
     public event EventHandler<EventArgs>? CurrentViewModelChanged;
 
     public NavigationService(INavigationHandler handler, IViewModelFactory viewModelFactory)
@@ -36,6 +37,7 @@ public sealed class NavigationService : INavigationService
         _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         _viewModelFactory = viewModelFactory ?? throw new ArgumentNullException(nameof(viewModelFactory));
 
+        _handler.ActiveViewModelChanging += OnActiveViewModelChanging;
         _handler.ActiveViewModelChanged += OnActiveViewModelChanged;
     }
 
@@ -47,6 +49,13 @@ public sealed class NavigationService : INavigationService
         IRoutableViewModel homeViewModel = _viewModelFactory.CreateHomeViewModel(this);
         await _handler.ClearAsync().ConfigureAwait(false);
         await NavigateToAsync(homeViewModel).ConfigureAwait(false);
+    }
+
+    public async Task NavigateToProfileAsync(NavigationParameters? parameters = null)
+    {
+        IRoutableViewModel profileViewModel = _viewModelFactory.CreateProfileViewModel(this);
+        await _handler.ClearAsync().ConfigureAwait(false);
+        await NavigateToAsync(profileViewModel).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -92,6 +101,11 @@ public sealed class NavigationService : INavigationService
         await _handler.PopAsync(context).ConfigureAwait(false);
     }
 
+    private void OnActiveViewModelChanging(object? sender, EventArgs e)
+    {
+        this.CurrentViewModelChanging?.Invoke(this, e);
+    }
+
     private void OnActiveViewModelChanged(object? sender, EventArgs e)
     {
         this.CurrentViewModelChanged?.Invoke(this, e);
@@ -101,6 +115,7 @@ public sealed class NavigationService : INavigationService
     {
         if(_handler != null)
         {
+            _handler.ActiveViewModelChanging -= OnActiveViewModelChanging;
             _handler.ActiveViewModelChanged -= OnActiveViewModelChanged;
             _handler.Dispose();
         }

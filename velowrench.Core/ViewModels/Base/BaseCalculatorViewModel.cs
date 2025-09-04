@@ -4,6 +4,7 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Validation;
+using velowrench.Core.ViewModels.Home;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Interfaces;
@@ -54,7 +55,8 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     protected BaseCalculatorViewModel(
         ICalculatorFactory<TInput, TResult> calculatorFactory,
         INavigationService navigationService,
-        IDebounceActionFactory actionFactory) : base(navigationService)
+        IDebounceActionFactory actionFactory,
+        IToolbar toolbar) : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(actionFactory, nameof(actionFactory));
 
@@ -64,6 +66,12 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
+    }
+
+    public override Task OnInitializedAsync()
+    {
+        base.Toolbar.ResetToDefaultAction = this.ResetToDefault;
+        return base.OnInitializedAsync();
     }
 
     /// <summary>
@@ -157,9 +165,8 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 
     protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
 
-    public override void ResetToDefault()
+    public virtual void ResetToDefault()
     {
-        base.ResetToDefault();
         _lastResult = null;
         _inputErrors.Clear();
         this.CurrentState = ECalculatorState.NotStarted;

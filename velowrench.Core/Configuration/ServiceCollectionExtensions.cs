@@ -4,6 +4,7 @@ using velowrench.Core.Factories;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Navigation;
 using velowrench.Core.ViewModels;
+using velowrench.Core.ViewModels.Home;
 using velowrench.Repository.Configuration;
 using velowrench.Utils.Interfaces;
 
@@ -27,6 +28,8 @@ public static class ServiceCollectionExtensions
 
         collection.AddSingleton<MainViewModel>();
         collection.AddSingleton<IHostViewModel>(provider => provider.GetRequiredService<MainViewModel>());
+        collection.AddSingleton<ToolbarViewModel>();
+        collection.AddSingleton<IToolbar>(provider => provider.GetRequiredService<ToolbarViewModel>());
 
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
         collection.AddSingleton<IDebounceActionFactory, DebounceActionFactory>();

@@ -8,6 +8,7 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
 using velowrench.Core.ViewModels.Help;
+using velowrench.Core.ViewModels.Home;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
 using velowrench.Utils.Interfaces;
@@ -25,12 +26,6 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
     /// <inheritdoc/>
     public override string Name { get; }
-
-    /// <inheritdoc/>
-    public override bool CanShowHelpPage => true;
-
-    /// <inheritdoc/>
-    public override bool CanShowContextMenu => true;
 
     /// <summary>
     /// User-defined: Gets the distance from the hub center to the flange on the gear (right) side.
@@ -121,9 +116,10 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> calculatorFactory,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
-                IComponentStandardRepository repository,
-        ILocalizer localizer)
-    : base(calculatorFactory, navigationService, actionFactory)
+        IComponentStandardRepository repository,
+        ILocalizer localizer,
+        IToolbar toolbar)
+    : base(calculatorFactory, navigationService, actionFactory, toolbar)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -134,6 +130,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
     public override Task OnInitializedAsync()
     {
+        base.Toolbar.ShowHelpPageAction = () => base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.SpokeLengthCalculator);
         this.FillDefaultValues();
         return base.OnInitializedAsync();
     }
@@ -240,29 +237,23 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     }
 
     [RelayCommand]
-    public override void ShowHelpPage()
-    {
-        base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.SpokeLengthCalculator);
-    }
-
-    [RelayCommand]
     private void ShowHubMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowRimMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowBuildConfigurationHelpPage()
     {
-        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 

@@ -24,13 +24,15 @@ public sealed class ViewModelFactory : IViewModelFactory
     private readonly ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> _spokeLengthCalculatorFactory;
     private readonly IComponentStandardRepository _componentStandardRepository;
     private readonly IDebounceActionFactory _debounceActionFactory;
+    private readonly IToolbar _toolbar;
 
     public ViewModelFactory(ILocalizer localizer,
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
         ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> gearCalculatorFactory,
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> spokeLengthCalculatorFactory,
         IDebounceActionFactory debounceActionFactory,
-        IComponentStandardRepository componentStandardRepository)
+        IComponentStandardRepository componentStandardRepository,
+        IToolbar toolbar)
     {
 
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
@@ -39,6 +41,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         _spokeLengthCalculatorFactory = spokeLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(spokeLengthCalculatorFactory));
         _debounceActionFactory = debounceActionFactory ?? throw new ArgumentNullException(nameof(debounceActionFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
+        _toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
     }
 
     /// <summary>
@@ -47,7 +50,12 @@ public sealed class ViewModelFactory : IViewModelFactory
     /// <returns>A routable view model instance for the home page.</returns>
     public IRoutableViewModel CreateHomeViewModel(INavigationService navigationService)
     {
-        return new HomeViewModel(_localizer, navigationService);
+        return new HomeViewModel(_localizer, navigationService, _toolbar);
+    }
+
+    public IRoutableViewModel CreateProfileViewModel(INavigationService navigationService)
+    {
+        return new ProfileViewModel(_localizer, navigationService, _toolbar);
     }
 
     /// <summary>
@@ -60,11 +68,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _debounceActionFactory, _localizer);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _debounceActionFactory, _localizer, _toolbar);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer);
+                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer);
+                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
             default:
                 throw new NotSupportedException(type.ToString());
         }
@@ -80,11 +88,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorHelpViewModel(navigationService, _localizer);
+                return new ChainLengthCalculatorHelpViewModel(navigationService, _localizer, _toolbar);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorHelpViewModel(navigationService, _localizer);
+                return new GearCalculatorHelpViewModel(navigationService, _localizer, _toolbar);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorHelpViewModel(navigationService,  _localizer );
+                return new SpokeLengthCalculatorHelpViewModel(navigationService,  _localizer, _toolbar);
             default:
                 throw new NotSupportedException(type.ToString());
         }

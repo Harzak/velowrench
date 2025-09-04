@@ -26,4 +26,6 @@ public interface IViewModelFactory
     /// </summary>
     /// <returns>A routable view model instance for the home page.</returns>
     IRoutableViewModel CreateHomeViewModel(INavigationService navigationService);
+
+    IRoutableViewModel CreateProfileViewModel(INavigationService navigationService);
 }

@@ -23,12 +23,16 @@ public interface INavigationService : IDisposable
     /// </value>
     IRoutableViewModel? CurrentViewModel { get; }
 
+    event EventHandler<EventArgs>? CurrentViewModelChanging;
+
     event EventHandler<EventArgs>? CurrentViewModelChanged;
 
     /// <summary>
     /// Navigates to the home page and clears the navigation stack.
     /// </summary>
     Task NavigateToHomeAsync(NavigationParameters? parameters = null);
+
+    Task NavigateToProfileAsync(NavigationParameters? parameters = null);
 
     /// <summary>
     /// Navigates to a specific tool page.

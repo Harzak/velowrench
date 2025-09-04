@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
+using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels.Help;
 
@@ -26,7 +27,11 @@ public sealed partial class SpokeLengthCalculatorHelpViewModel : BaseRoutableVie
     [ObservableProperty]
     private string _spokeLengthRightLaTeX = @"L_{R} = \sqrt{ C_{R}^{2} + \left(w_{R}\right)^{2} } - \frac{d}{2}";
 
-    public SpokeLengthCalculatorHelpViewModel(INavigationService navigationService, ILocalizer localizer) : base(navigationService)
+    public SpokeLengthCalculatorHelpViewModel(
+        INavigationService navigationService, 
+        ILocalizer localizer,
+        IToolbar toolbar) 
+    : base(navigationService, toolbar)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
 
@@ -36,21 +41,21 @@ public sealed partial class SpokeLengthCalculatorHelpViewModel : BaseRoutableVie
     [RelayCommand]
     private void ShowHubMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowRimMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowBuildConfigurationHelpPage()
     {
-        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer);
+        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 }
