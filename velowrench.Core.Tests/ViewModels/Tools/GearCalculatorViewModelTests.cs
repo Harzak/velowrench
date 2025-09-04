@@ -102,7 +102,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithValidInputs_ShouldUpdateResults()
+    public async Task Calculate_WithValidInputs_ShouldUpdateResults()
     {
         // Arrange
         List<double> expectedValues = [58.9, 54.0, 49.8];
@@ -130,6 +130,7 @@ public class GearCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
@@ -146,12 +147,13 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
+    public async Task OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("", ""));
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _viewModel.Chainring1TeethCount = 0;
         _viewModel.SelectedCalculatorType = EGearCalculatorType.GearInches;
 
@@ -160,10 +162,11 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
+    public async Task OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.InProgress, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
 
@@ -177,13 +180,14 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
+    public async Task Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         Fake.ClearRecordedCalls(_calculator);
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _viewModel.Chainring1TeethCount = 46;
         _viewModel.Chainring1TeethCount = 46;
 
@@ -192,7 +196,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithFailedResult_ShouldNotUpdateResults()
+    public async Task Calculate_WithFailedResult_ShouldNotUpdateResults()
     {
         // Arrange
         OperationResult<GearCalculatorResult> failedResult = new()
@@ -203,6 +207,7 @@ public class GearCalculatorViewModelTests
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(failedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
 
         // Act
@@ -215,13 +220,14 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnGearCalculatorStateChanged_DirectStateChange_ShouldUpdateImmediately()
+    public async Task OnGearCalculatorStateChanged_DirectStateChange_ShouldUpdateImmediately()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CalculatorStateEventArgs eventArgs = new(ECalculatorState.Failed);
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _calculator.StateChanged += Raise.With(_calculator, eventArgs);
 
         // Assert
@@ -229,7 +235,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedCalculatorType_Changed_ShouldTriggerCalculation()
+    public async Task SelectedCalculatorType_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         OperationResult<GearCalculatorResult> result = new()
@@ -253,6 +259,7 @@ public class GearCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(result);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
         sprocket.IsSelected = true;
@@ -266,13 +273,14 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedWheel_Changed_ShouldTriggerCalculation()
+    public async Task SelectedWheel_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         WheelSpecificationModel newWheel = new(label: "700C / 29'' (622)", bSDin: 24.488, tyreHeightIn: 1.05);
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _viewModel.SelectedWheel = newWheel;
 
         // Assert
@@ -280,13 +288,14 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedCrank_Changed_ShouldTriggerCalculation()
+    public async Task SelectedCrank_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CranksetSpecificationModel newCrank = new("175 mm", 175);
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _viewModel.SelectedCrank = newCrank;
 
         // Assert
@@ -294,13 +303,14 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedCadence_Changed_ShouldTriggerCalculation()
+    public async Task SelectedCadence_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CadenceModel newCadence = new("90 rpm", 90);
 
         // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         _viewModel.SelectedCadence = newCadence;
 
         // Assert
@@ -308,10 +318,11 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SprocketSelected_ShouldUpdateSelectedSprocketsStr()
+    public async Task SprocketSelected_ShouldUpdateSelectedSprocketsStr()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
 
@@ -326,7 +337,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithMultipleChainrings_ShouldPopulateAllColumns()
+    public async Task Calculate_WithMultipleChainrings_ShouldPopulateAllColumns()
     {
         // Arrange
         List<double> valuesChainring1 = [112.9, 103.5];
@@ -359,6 +370,7 @@ public class GearCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         SelectibleModel<SprocketSpecificationModel> sprocket11 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 11);
         SelectibleModel<SprocketSpecificationModel> sprocket28 = _viewModel.SourceSprockets.First(s => s.Value.TeethCount == 28);
@@ -382,7 +394,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedResultUnit_Changed_ShouldUpdateAllResultRows()
+    public async Task SelectedResultUnit_Changed_ShouldUpdateAllResultRows()
     {
         // Arrange
         OperationResult<GearCalculatorResult> expectedResult = new()
@@ -408,6 +420,8 @@ public class GearCalculatorViewModelTests
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
 
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
+
         SelectibleModel<SprocketSpecificationModel> sprocket = _viewModel.SourceSprockets.First();
         sprocket.IsSelected = true;
 
@@ -427,10 +441,13 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    public async Task ValidationBehavior_InitialState_ShouldHaveNoErrors()
     {
-        // Arrange & Act
+        // Arrange 
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+
+        // Act
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Assert
         _viewModel.InputErrorMessages.Should().BeEmpty();
@@ -438,14 +455,16 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    public async Task ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
     {
         // Arrange
         string errorMessage = "Chainring teeth count must be between 10 and 120.";
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("TeethNumberLargeOrUniqueChainring", errorMessage));
 
         // Act
-        _viewModel.Chainring1TeethCount = 5; // Below minimum
+
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
+        _viewModel.Chainring1TeethCount = 5;
 
         // Assert
         _viewModel.InputErrorMessages.Should().NotBeEmpty();
@@ -453,7 +472,7 @@ public class GearCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    public async Task ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
     {
         // Arrange
         string errorMessage1 = "Chainring teeth count must be between 10 and 120.";
@@ -472,8 +491,10 @@ public class GearCalculatorViewModelTests
         ]));
 
         // Act 
-        _viewModel.Chainring1TeethCount = 5; // Below minimum
-        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); // Below minimum diameter
+
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
+        _viewModel.Chainring1TeethCount = 5; 
+        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); 
 
         // Assert
         _viewModel.InputErrorMessages.Should().HaveCount(2);

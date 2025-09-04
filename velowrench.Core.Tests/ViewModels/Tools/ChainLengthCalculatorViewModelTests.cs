@@ -27,7 +27,7 @@ public class ChainLengthCalculatorViewModelTests
     private ChainLengthCalculatorViewModel _viewModel;
 
     [TestInitialize]
-    public void TestInitialize()
+    public void  TestInitialize()
     {
         _calculatorFactory = A.Fake<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
         _debounceActionFactory = A.Fake<IDebounceActionFactory>();
@@ -60,7 +60,7 @@ public class ChainLengthCalculatorViewModelTests
 
 
     [TestMethod]
-    public void Calculate_WithValidInputs_ShouldUpdateResults()
+    public async Task Calculate_WithValidInputs_ShouldUpdateResults()
     {
         // Arrange
         double expectedChainLength = 15;
@@ -84,6 +84,7 @@ public class ChainLengthCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>._)).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
@@ -97,10 +98,11 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
+    public async Task OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("ChainStayLength", "invalid"));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch);
@@ -113,10 +115,11 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
+    public async Task OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.InProgress, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
@@ -128,10 +131,11 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
+    public async Task Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         Fake.ClearRecordedCalls(_calculator);
 
         // Act
@@ -143,7 +147,7 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithFailedResult_ShouldNotUpdateResults()
+    public async Task Calculate_WithFailedResult_ShouldNotUpdateResults()
     {
         // Arrange
         OperationResult<ChainLengthCalculatorResult> failedResult = new()
@@ -154,6 +158,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>._))
             .Returns(failedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(10, LengthUnit.Inch);
@@ -166,11 +171,12 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnChainLengthCalculStateChanged_DirectStateChange_ShouldUpdateImmediately()
+    public async Task OnChainLengthCalculStateChanged_DirectStateChange_ShouldUpdateImmediately()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         CalculatorStateEventArgs eventArgs = new(ECalculatorState.Failed);
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _calculator.StateChanged += Raise.With(_calculator, eventArgs);
@@ -181,7 +187,7 @@ public class ChainLengthCalculatorViewModelTests
 
 
     [TestMethod]
-    public void ChainStayLengthValueChanged_ShouldTriggerInputValidation()
+    public async Task ChainStayLengthValueChanged_ShouldTriggerInputValidation()
     {
         // Arrange
         ConvertibleDouble<LengthUnit> chainStayLength = new(15, LengthUnit.Inch);
@@ -204,6 +210,7 @@ public class ChainLengthCalculatorViewModelTests
         };
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>._)).Returns(result);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = chainStayLength;
@@ -217,7 +224,7 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithUnitConversion_ShouldConvertCorrectly()
+    public async Task Calculate_WithUnitConversion_ShouldConvertCorrectly()
     {
         // Arrange
         OperationResult<ChainLengthCalculatorResult> expectedResult = new()
@@ -240,7 +247,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>.That.Matches(input =>
             Math.Abs(input.ChainStayLengthIn - 17.72) < 0.1))).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
-
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(45, LengthUnit.Centimeter);
@@ -255,10 +262,11 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    public async Task ValidationBehavior_InitialState_ShouldHaveNoErrors()
     {
         // Arrange & Act
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Assert
         _viewModel.InputErrorMessages.Should().BeEmpty();
@@ -266,11 +274,12 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    public async Task ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
     {
         // Arrange
         string errorMessage = "Chainstay length must be greater than 1 inch.";
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("ChainStayLengthIn", errorMessage));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch);
@@ -281,7 +290,7 @@ public class ChainLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    public async Task ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
     {
         // Arrange
         string errorMessage1 = "Chainstay length must be greater than 1 inch.";
@@ -298,6 +307,7 @@ public class ChainLengthCalculatorViewModelTests
                 Message = errorMessage2
             },
         ]));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act 
         _viewModel.ChainStayLength = new ConvertibleDouble<LengthUnit>(0, LengthUnit.Inch);

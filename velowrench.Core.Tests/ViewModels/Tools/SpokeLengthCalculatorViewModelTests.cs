@@ -80,7 +80,7 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithValidInputs_ShouldUpdateResults()
+    public async Task Calculate_WithValidInputs_ShouldUpdateResults()
     {
         // Arrange
         double expectedSpokeLengthGearSide = 295;
@@ -108,6 +108,7 @@ public class SpokeLengthCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
@@ -126,10 +127,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
+    public async Task OnInputsChanged_WithInvalidInputs_ShouldNotStartCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("", ""));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 0;
@@ -144,10 +146,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
+    public async Task OnInputsChanged_WhenCalculationInProgress_ShouldNotStartNewCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.InProgress, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
@@ -161,10 +164,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
+    public async Task Calculate_WithSameInputsAsPrevious_ShouldNotRecalculate()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         Fake.ClearRecordedCalls(_calculator);
 
         // Act - First calculation
@@ -188,7 +192,7 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithFailedResult_ShouldNotUpdateResults()
+    public async Task Calculate_WithFailedResult_ShouldNotUpdateResults()
     {
         // Arrange
         OperationResult<SpokeLengthCalculatorResult> failedResult = new()
@@ -198,6 +202,7 @@ public class SpokeLengthCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>._)).Returns(failedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
@@ -212,10 +217,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void OnSpokeLengthCalculatorStateChanged_DirectStateChange_ShouldUpdateImmediately()
+    public async Task OnSpokeLengthCalculatorStateChanged_DirectStateChange_ShouldUpdateImmediately()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
         CalculatorStateEventArgs eventArgs = new(ECalculatorState.Failed);
 
         // Act
@@ -226,10 +232,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void HubMeasurementsSelectedUnit_Changed_ShouldUpdateAllHubMeasurements()
+    public async Task HubMeasurementsSelectedUnit_Changed_ShouldUpdateAllHubMeasurements()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubMeasurementsSelectedUnit = LengthUnit.Inch;
@@ -242,10 +249,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void RimInternalDiameterSelectedUnit_Changed_ShouldUpdateRimDiameter()
+    public async Task RimInternalDiameterSelectedUnit_Changed_ShouldUpdateRimDiameter()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.RimInternalDiameterSelectedUnit = LengthUnit.Inch;
@@ -255,10 +263,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedSpokeCount_Changed_ShouldTriggerCalculation()
+    public async Task SelectedSpokeCount_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Setup minimal valid inputs first
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
@@ -276,11 +285,12 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void SelectedSpokeLacingPattern_Changed_ShouldTriggerCalculation()
+    public async Task SelectedSpokeLacingPattern_Changed_ShouldTriggerCalculation()
     {
         // Arrange
         SpokeLacingPatternModel newLacingPattern = new("2-cross", 2);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Setup minimal valid inputs first
         _viewModel.HubCenterToFlangeDistanceGearSide!.Value = 36;
@@ -298,11 +308,12 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void HubCenterToFlangeDistanceGearSideValueChanged_ShouldTriggerCalculation()
+    public async Task HubCenterToFlangeDistanceGearSideValueChanged_ShouldTriggerCalculation()
     {
         // Arrange
         ConvertibleDouble<LengthUnit> hubCenterToFlangeDistanceGearSide = new(36, LengthUnit.Millimeter);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Setup minimal valid inputs first
         _viewModel.HubCenterToFlangeDistanceGearSide = hubCenterToFlangeDistanceGearSide;
@@ -319,7 +330,7 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void Calculate_WithUnitConversion_ShouldConvertCorrectly()
+    public async Task Calculate_WithUnitConversion_ShouldConvertCorrectly()
     {
         // Arrange
         OperationResult<SpokeLengthCalculatorResult> expectedResult = new()
@@ -346,6 +357,7 @@ public class SpokeLengthCalculatorViewModelTests
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>.That.Matches(input =>
             Math.Abs(input.HubCenterToFlangeDistanceGearSideMm - 36) < 0.1))).Returns(expectedResult);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act - Set inputs in inches, should be converted to millimeters for calculation
         _viewModel.HubMeasurementsSelectedUnit = LengthUnit.Inch;
@@ -367,10 +379,11 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_InitialState_ShouldHaveNoErrors()
+    public async Task ValidationBehavior_InitialState_ShouldHaveNoErrors()
     {
         // Arrange & Act
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Assert
         _viewModel.InputErrorMessages.Should().BeEmpty();
@@ -378,11 +391,12 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
+    public async Task ValidationBehavior_UserEntersInvalidValue_ShouldShowError()
     {
         // Arrange
         string errorMessage = "Hub flange diameter for gear side must be between 20 mm and 80 mm.";
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithError("HubFlangeDiameterGearSideMm", errorMessage));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act
         _viewModel.HubFlangeDiameterGearSide!.Value = 10; // Below minimum
@@ -393,7 +407,7 @@ public class SpokeLengthCalculatorViewModelTests
     }
 
     [TestMethod]
-    public void ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
+    public async Task ValidationBehavior_MultipleInvalidInputs_ShouldShowCumulativeErrors()
     {
         // Arrange
         string errorMessage1 = "Hub flange diameter for gear side must be between 20 mm and 80 mm.";
@@ -411,6 +425,7 @@ public class SpokeLengthCalculatorViewModelTests
                 Message = errorMessage2
             },
         ]));
+        await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 
         // Act 
         _viewModel.HubFlangeDiameterGearSide!.Value = 10; // Below minimum
