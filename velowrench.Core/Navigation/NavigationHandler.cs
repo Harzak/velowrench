@@ -23,7 +23,7 @@ internal sealed class NavigationHandler : INavigationHandler
 
     public event EventHandler<EventArgs>? ActiveViewModelChanged;
 
-    public IRoutableViewModel? ActiveViewModel => _stack.Items.First();
+    public IRoutableViewModel? ActiveViewModel => _stack.Items.FirstOrDefault();
     public bool CanPop => _stack.Items.Count > 1;
 
     public NavigationHandler(IHostViewModel host, ILogger<NavigationHandler> logger)

@@ -16,7 +16,6 @@
     <UserControl.Resources>
         <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
 
-        <!--  Empty template for computed state - to be implemented later  -->
         <DataTemplate x:Key="SpokeLengthComputedContentTemplate" x:DataType="vm:Tools.SpokeLengthCalculatorViewModel">
             <StackPanel>
                 <Border HorizontalAlignment="Stretch"
@@ -61,18 +60,6 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-
-    <UserControl.Styles>
-        <Style Selector="Border.Group">
-            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="CornerRadius" Value="7" />
-        </Style>
-        <Style Selector="TextBlock.Title">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="FontWeight" Value="Light" />
-        </Style>
-    </UserControl.Styles>
 
     <StackPanel Margin="20,10">
         <Border Classes="Group">

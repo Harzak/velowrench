@@ -1,0 +1,89 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!--  Add Controls for Previewer Here  -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Avalonia overrides  -->
+    <Style Selector="NumericUpDown DataValidationErrors ItemsPresenter">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="DataGridColumnHeader">
+        <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+    </Style>
+
+
+    <!--  Custom Styles  -->
+    <!--  TextBlock  -->
+    <Style Selector="TextBlock.Title">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Light" />
+    </Style>
+
+    <Style Selector="TextBlock.Header2">
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="0,10,0,3" />
+    </Style>
+
+    <Style Selector="TextBlock.GroupHeader">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+        <Setter Property="Margin" Value="16,16,16,8" />
+    </Style>
+
+    <Style Selector="TextBlock.Content">
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style Selector="TextBlock.MenuItemText">
+        <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+    </Style>
+
+    <!--  Border  -->
+    <Style Selector="Border.Group">
+        <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+        <Setter Property="CornerRadius" Value="7" />
+        <Setter Property="Padding" Value="16,12" />
+    </Style>
+
+    <Style Selector="Border.MenuItemGroup">
+        <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
+        <Setter Property="CornerRadius" Value="7" />
+    </Style>
+
+    <Style Selector="Border.MenuGroup">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <!--  Button  -->
+    <Style Selector="Button.MenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
+    <Style Selector="Button.MenuItem:last-child">
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style Selector="Button.MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+    </Style>
+
+
+</Styles>

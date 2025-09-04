@@ -43,11 +43,6 @@
                           BorderBrush="Gray" BorderThickness="1" CanUserReorderColumns="False" CanUserResizeColumns="False"
                           CanUserSortColumns="False" GridLinesVisibility="All" IsReadOnly="True"
                           ItemsSource="{Binding GearCalculResultRows}">
-                    <DataGrid.Styles>
-                        <Style Selector="DataGridColumnHeader">
-                            <Setter Property="Foreground" Value="{StaticResource SemiColorTertiary}" />
-                        </Style>
-                    </DataGrid.Styles>
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding SprocketCount}"
                                             Foreground="{StaticResource SemiColorTertiary}"
@@ -66,14 +61,6 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-
-    <UserControl.Styles>
-        <Style Selector="Border.Group">
-            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="CornerRadius" Value="7" />
-        </Style>
-    </UserControl.Styles>
 
     <StackPanel Margin="20,10" Orientation="Vertical">
 

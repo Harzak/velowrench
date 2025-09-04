@@ -11,59 +11,17 @@
 
     <UserControl.Styles>
 
-        <Style Selector="Border.SettingsGroup">
-            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="8" />
-            <Setter Property="Padding" Value="0" />
-        </Style>
-
-        <Style Selector="TextBlock.GroupHeader">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
-            <Setter Property="Margin" Value="16,16,16,8" />
-        </Style>
-
-        <Style Selector="Border.Group">
-            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-            <Setter Property="CornerRadius" Value="7" />
-        </Style>
-
-        <Style Selector="Button.SettingsItem">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
-            <Setter Property="BorderBrush" Value="{DynamicResource DividerStrokeColorDefaultBrush}" />
-            <Setter Property="CornerRadius" Value="0" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        </Style>
-
-        <Style Selector="TextBlock.SettingsItemText">
-            <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="DemiBold" />
-        </Style>
-
-        <Style Selector="Button.SettingsItem:last-child">
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
-
-        <Style Selector="Button.SettingsItem:pointerover">
-            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
-        </Style>
+        
     </UserControl.Styles>
 
     <StackPanel Spacing="0">
 
-        <Border Classes="SettingsGroup">
+        <Border Classes="MenuGroup">
             <StackPanel>
                 <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.TransmissionAndDrivetrain}" />
-                <Border Classes="Group">
+                <Border Classes="MenuItemGroup">
                     <StackPanel>
-                        <Button Classes="SettingsItem"
+                        <Button Classes="MenuItem"
                                 Command="{Binding NavigateToSelectedToolCommand}"
                                 CommandParameter="{x:Static enums:EVeloWrenchTools.ChainLengthCalculator}">
 
@@ -75,7 +33,7 @@
                                                             Kind="Link" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.ChainLengthCalculator}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"
@@ -84,7 +42,7 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="SettingsItem"
+                        <Button Classes="MenuItem"
                                 Command="{Binding NavigateToSelectedToolCommand}"
                                 CommandParameter="{x:Static enums:EVeloWrenchTools.GearCalculator}">
                             <Grid ColumnDefinitions="25,*,20">
@@ -95,7 +53,7 @@
                                                             Kind="Cogs" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.GearCalculator}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"
@@ -109,12 +67,12 @@
             </StackPanel>
         </Border>
 
-        <Border Classes="SettingsGroup">
+        <Border Classes="MenuGroup">
             <StackPanel>
                 <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.WheelsAndSpoking}" />
-                <Border Classes="Group">
+                <Border Classes="MenuItemGroup">
                     <StackPanel>
-                        <Button Classes="SettingsItem"
+                        <Button Classes="MenuItem"
                                 Command="{Binding NavigateToSelectedToolCommand}"
                                 CommandParameter="{x:Static enums:EVeloWrenchTools.SpokeLengthCalculator}">
                             <Grid ColumnDefinitions="25,*,20">
@@ -125,7 +83,7 @@
                                                             Kind="Ruler" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.SpokeLengthCalculator}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"
@@ -134,7 +92,7 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="SettingsItem">
+                        <Button Classes="MenuItem">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
@@ -143,7 +101,7 @@
                                                             Kind="ChartBellCurveCumulative" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.SpokeTensionGuide}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"
@@ -157,12 +115,12 @@
             </StackPanel>
         </Border>
 
-        <Border Classes="SettingsGroup">
+        <Border Classes="MenuGroup">
             <StackPanel>
                 <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.CompatibilityAndStandards}" />
-                <Border Classes="Group">
+                <Border Classes="MenuItemGroup">
                     <StackPanel>
-                        <Button Classes="SettingsItem">
+                        <Button Classes="MenuItem">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
@@ -171,7 +129,7 @@
                                                             Kind="Connection" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.ComponentCompatibilityGuide}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"
@@ -180,7 +138,7 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="SettingsItem">
+                        <Button Classes="MenuItem">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
@@ -189,7 +147,7 @@
                                                             Kind="TableCheck" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           Classes="SettingsItemText"
+                                           Classes="MenuItemText"
                                            Text="{x:Static res:Languages.AxleAndHubStandardChecker}" />
                                 <materialIcons:MaterialIcon Grid.Column="2"
                                                             Width="20" Height="20"

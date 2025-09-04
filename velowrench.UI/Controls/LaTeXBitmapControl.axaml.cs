@@ -49,7 +49,7 @@ public partial class LaTeXBitmapControl : UserControl
     {
         WriteableBitmap bitmap = new(new PixelSize(this.RenderWidth, this.RenderHeight),
                                       new Vector(96, 96),
-                                      PixelFormat.Bgra8888,
+                                      PixelFormat.Rgba8888,
                                       AlphaFormat.Premul);
 
         var painter = new CSharpMath.SkiaSharp.MathPainter
@@ -73,7 +73,7 @@ public partial class LaTeXBitmapControl : UserControl
 
         using (ILockedFramebuffer lockedBitmap = bitmap.Lock())
         {
-            SKImageInfo info = new(this.RenderWidth, this.RenderHeight, SKColorType.Bgra8888, SKAlphaType.Premul);
+            SKImageInfo info = new(this.RenderWidth, this.RenderHeight, SKColorType.Rgba8888, SKAlphaType.Premul);
             using (var surface = SKSurface.Create(info, lockedBitmap.Address, lockedBitmap.RowBytes))
             {
                 surface.Canvas.Clear(SKColors.Transparent);

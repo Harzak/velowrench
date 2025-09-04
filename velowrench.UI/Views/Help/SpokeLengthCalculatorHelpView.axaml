@@ -10,33 +10,6 @@
              Design.Height="840"
              Design.Width="360">
 
-
-    <UserControl.Styles>
-        <Style Selector="TextBlock.Header2">
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Padding" Value="0,10,0,3" />
-
-        </Style>
-
-        <Style Selector="TextBlock.Content">
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-
-        <Style Selector="Border.Group">
-            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="CornerRadius" Value="7" />
-        </Style>
-
-        <Style Selector="TextBlock.GroupHeader">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
-            <Setter Property="Margin" Value="16,16,16,8" />
-        </Style>
-    </UserControl.Styles>
-
     <Grid RowDefinitions="Auto, Auto, Auto ,Auto, Auto, Auto">
 
         <!--  Inputs  -->

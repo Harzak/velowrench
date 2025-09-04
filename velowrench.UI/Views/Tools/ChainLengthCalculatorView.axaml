@@ -53,14 +53,6 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <UserControl.Styles>
-        <Style Selector="Border.Group">
-            <Setter Property="Background" Value="{DynamicResource SemiColorTertiaryLight}" />
-            <Setter Property="Padding" Value="16,12" />
-            <Setter Property="CornerRadius" Value="7" />
-        </Style>
-    </UserControl.Styles>
-
     <StackPanel Margin="20,10" Orientation="Vertical">
 
         <Border Classes="Group">
