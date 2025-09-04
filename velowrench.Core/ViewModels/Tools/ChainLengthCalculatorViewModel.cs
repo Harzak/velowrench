@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
@@ -16,7 +17,7 @@ namespace velowrench.Core.ViewModels.Tools;
 public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewModel<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
     /// <inheritdoc />
-    protected override ChainLengthCalculatorInput CalculatorInput { get; }
+    protected override ChainLengthCalculatorInput CalculatorInput { get; set; }
 
     /// <inheritdoc/>
     public override string Name { get; }
@@ -79,10 +80,13 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     /// Updates default values with arbitrary values until user configuration management is implemented.
     private void FillDefaultValues()
     {
-        this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
-        this.TeethLargestChainring = null;
-        this.TeethLargestSprocket = null;
-        this.RecommendedChainLength = null;
+        base.WithProgrammaticChange(() =>
+        {
+            this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
+            this.TeethLargestChainring = null;
+            this.TeethLargestSprocket = null;
+            this.RecommendedChainLength = null;
+        });
     }
 
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
@@ -116,8 +120,18 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     public override void ResetToDefault()
     {
-        base.ResetToDefault();
+        this.CalculatorInput = new ChainLengthCalculatorInput();
         this.FillDefaultValues();
+        base.ResetToDefault();
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        base.OnPropertyChanged(e);
     }
 
     private bool _disposed;
@@ -125,12 +139,12 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         if (disposing && !_disposed)
         {
-            this.TeethLargestChainring = null;
-            this.TeethLargestSprocket = null;
-            this.ChainStayLength = null;
-            this.RecommendedChainLength = null;
-
             _disposed = true;
+
+            _teethLargestChainring = null;
+            _teethLargestSprocket = null;
+            _chainStayLength = null;
+            _recommendedChainLength = null;
         }
         base.Dispose(disposing);
     }

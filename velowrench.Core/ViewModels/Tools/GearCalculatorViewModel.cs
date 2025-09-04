@@ -27,7 +27,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     private readonly IComponentStandardRepository _repository;
 
     /// <inheritdoc/>
-    protected override GearCalculatorInput CalculatorInput { get; }
+    protected override GearCalculatorInput CalculatorInput { get; set; }
 
     /// <inheritdoc/>
     public override string Name { get; }
@@ -82,7 +82,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// Required when calculation type is <see cref="EGearCalculatorType.GainRatio"/>.
     /// </summary>
     [ObservableProperty]
-    private CranksetSpecificationModel _selectedCrank;
+    private CranksetSpecificationModel? _selectedCrank;
 
     /// <summary>
     /// Gets or sets the collection of available cadence values.
@@ -96,7 +96,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// Required when calculation type is <see cref="EGearCalculatorType.Speed"/>.
     /// </summary>
     [ObservableProperty]
-    private CadenceModel _selectedCadence;
+    private CadenceModel? _selectedCadence;
 
     /// <summary>
     /// Gets or sets the collection of available sprocket specifications with selection state.
@@ -158,10 +158,8 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
         _repository = repository;
 
-        this.CalculatorInput = new GearCalculatorInput(precision: 2);
         this.Name = localizer.GetString("GearCalculator");
-        this.AvailableResultUnits = [];
-        this.GearCalculResultRows = [];
+        this.CalculatorInput = new GearCalculatorInput(precision: 2);
     }
 
     public override Task OnInitializedAsync()
@@ -173,14 +171,28 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     /// Updates default values with arbitrary values until user configuration management is implemented.
     private void FillDefaultValues()
     {
-        this.SelectedCalculatorType = EGearCalculatorType.GearInches;
-        this.SourceWheels = new(_repository.GetMostCommonWheelSpecifications());
-        this.SelectedWheel = this.SourceWheels.GetMostUsedWheel();
-        this.SourceCranks = new(_repository.GetAllCranksetSpecifications());
-        this.SelectedCrank = this.SourceCranks.GetMostUsedCrankset();
-        this.SourceCadence = new(_repository.GetAllCandences());
-        this.SelectedCadence = this.SourceCadence.GetMostUsedCadence();
-        this.SourceSprockets = new(_repository.GetMostCommonSprocketSpecifications().Select(x => new SelectibleModel<SprocketSpecificationModel>(x)));
+        base.WithProgrammaticChange(() =>
+        {
+            this.AvailableResultUnits = [];
+            this.GearCalculResultRows = [];
+            this.SourceWheels = [];
+            this.SourceCranks = [];
+            this.SourceCadence = [];
+            this.SourceSprockets = [];
+            this.Chainring1TeethCount = null;
+            this.Chainring2TeethCount = null;
+            this.Chainring3TeethCount = null;
+            this.SelectedSprocketsStr = null;
+
+            this.SelectedCalculatorType = EGearCalculatorType.GearInches;
+            this.SourceWheels = new(_repository.GetMostCommonWheelSpecifications());
+            this.SelectedWheel = this.SourceWheels.GetMostUsedWheel();
+            this.SourceCranks = new(_repository.GetAllCranksetSpecifications());
+            this.SelectedCrank = this.SourceCranks.GetMostUsedCrankset();
+            this.SourceCadence = new(_repository.GetAllCandences());
+            this.SelectedCadence = this.SourceCadence.GetMostUsedCadence();
+            this.SourceSprockets = new(_repository.GetMostCommonSprocketSpecifications().Select(x => new SelectibleModel<SprocketSpecificationModel>(x)));
+        });
     }
 
     /// <summary>
@@ -243,9 +255,9 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.TeethNumberSmallChainring));
     }
 
-    partial void OnSelectedCadenceChanged(CadenceModel value)
+    partial void OnSelectedCadenceChanged(CadenceModel? value)
     {
-        this.CalculatorInput.RevolutionPerMinute = value.Rpm;
+        this.CalculatorInput.RevolutionPerMinute = value?.Rpm ?? 0;
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.RevolutionPerMinute));
     }
 
@@ -255,9 +267,9 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.TyreOuterDiameterIn));
     }
 
-    partial void OnSelectedCrankChanged(CranksetSpecificationModel value)
+    partial void OnSelectedCrankChanged(CranksetSpecificationModel? value)
     {
-        this.CalculatorInput.CrankLengthMm = value.Length;
+        this.CalculatorInput.CrankLengthMm = value?.Length ?? 0;
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.CrankLengthMm));
     }
 
@@ -280,8 +292,9 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
     public override void ResetToDefault()
     {
-        base.ResetToDefault();
+        this.CalculatorInput = new GearCalculatorInput(precision: 2);
         this.FillDefaultValues();
+        base.ResetToDefault();
     }
 
     private bool _disposed;
@@ -295,13 +308,13 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             this.SourceWheels?.Clear();
             this.SourceCranks?.Clear();
             this.SourceCadence?.Clear();
-            this.SelectedSprocketsStr = null;
-            this.SelectedWheel = null;
-            this.SelectedResultUnit = null;
-            this.SelectedWheel = null;
+            _selectedSprocketsStr = null;
+            _selectedWheel = null;
+            _selectedResultUnit = null;
+            _selectedWheel = null;
 
             _disposed = true;
-        }           
+        }
         base.Dispose(disposing);
     }
 }

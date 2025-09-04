@@ -27,6 +27,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     private readonly IDebounceAction _refreshCalculationDebounced;
     private OperationResult<TResult>? _lastResult;
     private readonly List<ValidationError> _inputErrors;
+    private bool _isProgrammaticChange;
 
     /// <summary>
     /// Gets the calculation engine instance used to perform calculations.
@@ -37,7 +38,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// <summary>
     /// Gets the input required by the calculator to perform its operations.
     /// </summary>
-    protected abstract TInput CalculatorInput { get; }
+    protected abstract TInput CalculatorInput { get; set; }
 
     /// <summary>
     /// Gets or sets the current state of the calculation operation.
@@ -71,8 +72,12 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// </summary>
     protected void OnCalculationInputChanged(string propertyName)
     {
-        ValidationResult result = this.Calculator.InputValidator.ValidateProperty(CalculatorInput, propertyName, new ValidationContext(EValidationMode.Progressive));
+        if (_isProgrammaticChange)
+        {
+            return;
+        }
 
+        ValidationResult result = this.Calculator.InputValidator.ValidateProperty(CalculatorInput, propertyName, new ValidationContext(EValidationMode.Progressive));
         ValidationError? previousError = _inputErrors.FirstOrDefault(e => e.PropertyName == propertyName);
         if (previousError != null)
         {
@@ -98,13 +103,20 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         }
     }
 
+    protected void WithProgrammaticChange(Action? action)
+    {
+        _isProgrammaticChange = true;
+        action?.Invoke();
+        _isProgrammaticChange = false;
+    }
+
     private bool IsInputValid()
     {
         if (_inputErrors.Count > 0)
         {
             return false;
         }
-        ValidationResult result = this.Calculator.InputValidator.ValidateWithResults(CalculatorInput, new ValidationContext(EValidationMode.Immediate));
+        ValidationResult result = this.Calculator.InputValidator.ValidateWithResults(CalculatorInput);
         return result.IsValid;
     }
 

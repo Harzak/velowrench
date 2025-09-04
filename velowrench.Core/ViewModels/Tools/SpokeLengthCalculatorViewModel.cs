@@ -21,7 +21,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     private readonly IComponentStandardRepository _repository;
 
     /// <inheritdoc/>
-    protected override SpokeLengthCalculatorInput CalculatorInput { get; }
+    protected override SpokeLengthCalculatorInput CalculatorInput { get; set; }
 
     /// <inheritdoc/>
     public override string Name { get; }
@@ -130,12 +130,6 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
         this.Name = localizer.GetString("SpokeLengthCalculator");
         this.CalculatorInput = new SpokeLengthCalculatorInput(precision: 0);
-
-        _hubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceGearSideChanged);
-        _hubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceNonGearSideChanged);
-        _hubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterGearSideChanged);
-        _hubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterNonGearSideChanged);
-        _rimInternalDiameter = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnRimInternalDiameterChanged);
     }
 
     public override Task OnInitializedAsync()
@@ -147,12 +141,21 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     /// Updates default values with arbitrary values until user configuration management is implemented.
     private void FillDefaultValues()
     {
-        this.HubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-        this.RimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-        this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount().ToList();
-        this.SelectedSpokeCount = this.AvailableSpokeCount.First(x => x == 32);
-        this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern().ToList();
-        this.SelectedSpokeLacingPattern = this.AvailableSpokeLacingPatterns.First(x => x.Crosses == 3);
+        base.WithProgrammaticChange(() =>
+        {
+            this.HubCenterToFlangeDistanceGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceGearSideChanged);
+            this.HubCenterToFlangeDistanceNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubCenterToFlangeDistanceNonGearSideChanged);
+            this.HubFlangeDiameterGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterGearSideChanged);
+            this.HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterNonGearSideChanged);
+            this.RimInternalDiameter = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnRimInternalDiameterChanged);
+
+            this.HubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
+            this.RimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
+            this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount().ToList();
+            this.SelectedSpokeCount = this.AvailableSpokeCount.First(x => x == 32);
+            this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern().ToList();
+            this.SelectedSpokeLacingPattern = this.AvailableSpokeLacingPatterns.First(x => x.Crosses == 3);
+        });
     }
 
     partial void OnHubCenterToFlangeDistanceGearSideChanged(ConvertibleDouble<LengthUnit>? value)
@@ -263,20 +266,27 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         base.NavigationService.NavigateToAsync(vm);
     }
 
+    public override void ResetToDefault()
+    {
+        this.CalculatorInput = new SpokeLengthCalculatorInput(precision: 0);
+        this.FillDefaultValues();
+        base.ResetToDefault();
+    }
+
     private bool _disposed;
     protected override void Dispose(bool disposing)
     {
         if (disposing && !_disposed)
         {
-            this.AvailableSpokeCount?.Clear();
-            this.AvailableSpokeLacingPatterns?.Clear();
-            this.HubCenterToFlangeDistanceGearSide = null;
-            this.HubCenterToFlangeDistanceNonGearSide = null;
-            this.HubFlangeDiameterGearSide = null;
-            this.HubFlangeDiameterNonGearSide = null;
-            this.RimInternalDiameter = null;
-            this.RecommendedSpokeLengthGearSide = null;
-            this.RecommendedSpokeLengthNonGearSide = null;
+            _availableSpokeCount?.Clear();
+            _availableSpokeLacingPatterns?.Clear();
+            _hubCenterToFlangeDistanceGearSide = null;
+            _hubCenterToFlangeDistanceNonGearSide = null;
+            _hubFlangeDiameterGearSide = null;
+            _hubFlangeDiameterNonGearSide = null;
+            _rimInternalDiameter = null;
+            _recommendedSpokeLengthGearSide = null;
+            _recommendedSpokeLengthNonGearSide = null;
 
             _disposed = true;
         }

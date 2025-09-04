@@ -11,19 +11,9 @@ public enum EPropertyState
     Untouched,
 
     /// <summary>
-    /// The user has interacted with the property (focused/clicked) but not modified it.
-    /// </summary>
-    Touched,
-
-    /// <summary>
     /// The user has modified the property value.
     /// </summary>
-    Dirty,
-
-    /// <summary>
-    /// Validation is currently in progress for this property.
-    /// </summary>
-    Validating,
+    Touched,
 
     /// <summary>
     /// The property has been validated and is valid.
