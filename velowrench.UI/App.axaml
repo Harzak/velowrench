@@ -7,7 +7,7 @@
              RequestedThemeVariant="Dark">
 
     <Application.Styles>
-		<StyleInclude Source="Styles/CustomStyles.axaml" />
+        <StyleInclude Source="Styles/CustomStyles.axaml" />
         <semi:SemiTheme Locale="en-US" />
         <semi:DataGridSemiTheme />
         <materialIcons:MaterialIconStyles />
@@ -17,10 +17,10 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorFill1" />
+                    <StaticResource x:Key="CustomMainBackground" ResourceKey="CustomLightBackground" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <StaticResource x:Key="CustomMainBackground" ResourceKey="SemiColorBlack" />
+                    <StaticResource x:Key="CustomMainBackground" ResourceKey="CustomDarkBackground" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>

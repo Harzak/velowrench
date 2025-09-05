@@ -9,15 +9,29 @@
         </Border>
     </Design.PreviewWith>
 
-    <!--  Avalonia overrides  -->
-    <Style Selector="NumericUpDown DataValidationErrors ItemsPresenter">
-        <Setter Property="IsVisible" Value="False" />
-    </Style>
+	<!--  Avalonia overrides  -->
+	<Style Selector="NumericUpDown DataValidationErrors ItemsPresenter">
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
 
-    <Style Selector="DataGridColumnHeader">
-        <Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
-    </Style>
+	<Style Selector="DataGridColumnHeader">
+		<Setter Property="Foreground" Value="{DynamicResource SemiColorTertiary}" />
+	</Style>
 
+	
+	<!--  Custom Color Resources  -->
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="CustomLightBackground" Color="#EDEDEE" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="CustomDarkBackground" Color="#090909" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
 
     <!--  Custom Styles  -->
     <!--  TextBlock  -->
