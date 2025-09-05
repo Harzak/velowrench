@@ -5,7 +5,7 @@ namespace velowrench.Calculations.Calculators.Transmission.Chain;
 /// <summary>
 /// Represents the input parameters required for chain length calculations.
 /// </summary>
-public sealed class ChainLengthCalculatorInput : IEquatable<ChainLengthCalculatorInput>
+public sealed class ChainLengthCalculatorInput : BaseCalculatorInput, IEquatable<ChainLengthCalculatorInput>
 {
     /// <summary>
     /// Gets the chainstay length in inches.
@@ -23,21 +23,20 @@ public sealed class ChainLengthCalculatorInput : IEquatable<ChainLengthCalculato
     /// </summary>
     public int TeethLargestSprocket { get; set; }
 
-    public int Precision { get; }
 
-    public ChainLengthCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
+    public ChainLengthCalculatorInput() : base()
     {
 
     }
 
-    public ChainLengthCalculatorInput(int precision)
+    public ChainLengthCalculatorInput(int precision) : base(precision)
     {
-        this.Precision = precision;
+
     }
 
     internal ChainLengthCalculatorInput Copy()
     {
-        return new ChainLengthCalculatorInput(this.Precision)
+        return new ChainLengthCalculatorInput(base.Precision)
         {
             ChainStayLengthIn = this.ChainStayLengthIn,
             TeethLargestChainring = this.TeethLargestChainring,

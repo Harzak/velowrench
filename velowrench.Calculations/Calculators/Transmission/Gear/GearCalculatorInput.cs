@@ -6,7 +6,7 @@ namespace velowrench.Calculations.Calculators.Transmission.Gear;
 /// <summary>
 /// Represents the input parameters required for gear ratio calculations.
 /// </summary>
-public sealed class GearCalculatorInput : IEquatable<GearCalculatorInput>
+public sealed class GearCalculatorInput : BaseCalculatorInput, IEquatable<GearCalculatorInput>
 {
     /// <summary>
     /// Gets the number of teeth on the largest or unique chainring (front gear).
@@ -62,21 +62,19 @@ public sealed class GearCalculatorInput : IEquatable<GearCalculatorInput>
     /// </summary>
     public EGearCalculatorType CalculatorType { get; set; }
 
-    /// <summary>
-    /// Gets the number of decimal places to include in calculation results.
-    /// Controls the precision of the output values.
-    /// </summary>
-    public int Precision { get; set; }
-
-    public GearCalculatorInput(int precision = CalculationConstants.DEFAULT_PRECISION)
+    public GearCalculatorInput() : base()
     {
-        this.Precision = precision;
         this.NumberOfTeethBySprocket = [];
     }
 
-    public GearCalculatorInput(IEnumerable<int> sprockets, int precision = CalculationConstants.DEFAULT_PRECISION)
+    public GearCalculatorInput(int precision) : base(precision)
     {
-        this.Precision = precision;
+        this.NumberOfTeethBySprocket = [];
+    }
+
+    public GearCalculatorInput(IEnumerable<int> sprockets, int precision = CalculationConstants.DEFAULT_PRECISION) 
+        : base(precision)
+    {
         this.NumberOfTeethBySprocket = sprockets.ToList();
     }
 
@@ -87,7 +85,7 @@ public sealed class GearCalculatorInput : IEquatable<GearCalculatorInput>
 
     internal GearCalculatorInput Copy()
     {
-        return new GearCalculatorInput(this.Precision)
+        return new GearCalculatorInput(base.Precision)
         {
             CalculatorType = this.CalculatorType,
             CrankLengthMm = this.CrankLengthMm,

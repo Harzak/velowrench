@@ -5,7 +5,7 @@ namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 /// <summary>
 /// Represents the input parameters required for calculating spoke lengths in a wheel-building context.
 /// </summary>
-public sealed class SpokeLengthCalculatorInput : IEquatable<SpokeLengthCalculatorInput>
+public sealed class SpokeLengthCalculatorInput : BaseCalculatorInput, IEquatable<SpokeLengthCalculatorInput>
 {
     /// <summary>
     /// Gets the distance from the hub center to the flange on the gear (right) side.
@@ -42,25 +42,19 @@ public sealed class SpokeLengthCalculatorInput : IEquatable<SpokeLengthCalculato
     /// </summary>
     public int SpokeLacingPattern { get; set; }
 
-    /// <summary>
-    /// Gets the number of decimal places to include in calculation results.
-    /// Controls the precision of the output values.
-    /// </summary>
-    public int Precision { get; }
-
-    public SpokeLengthCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
+    public SpokeLengthCalculatorInput() : base()
     {
 
     }
 
-    public SpokeLengthCalculatorInput(int precision)
+    public SpokeLengthCalculatorInput(int precision) : base(precision)
     {
-        this.Precision = precision;
+
     }
 
     internal SpokeLengthCalculatorInput Copy()
     {
-        return new SpokeLengthCalculatorInput(this.Precision)
+        return new SpokeLengthCalculatorInput(base.Precision)
         {
             HubCenterToFlangeDistanceGearSideMm = this.HubCenterToFlangeDistanceGearSideMm,
             HubCenterToFlangeDistanceNonGearSideMm = this.HubCenterToFlangeDistanceNonGearSideMm,
