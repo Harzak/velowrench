@@ -9,11 +9,16 @@ namespace velowrench.Calculations.Calculators.Transmission.Gear;
 public class GearCalculatorFactory : ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>
 {
     private readonly ICalculatorInputValidator<GearCalculatorInput> _inputValidator;
+    private readonly IUnitStore _unitStore;
     private readonly ILogger _logger;
 
-    public GearCalculatorFactory(ICalculatorInputValidator<GearCalculatorInput> inputValidator, ILogger<GearCalculatorFactory> logger)
+    public GearCalculatorFactory(
+        ICalculatorInputValidator<GearCalculatorInput> inputValidator,
+        IUnitStore unitStore,
+        ILogger<GearCalculatorFactory> logger)
     {
         _inputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
+        _unitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -23,6 +28,6 @@ public class GearCalculatorFactory : ICalculatorFactory<GearCalculatorInput, Gea
     /// </summary>
     public ICalculator<GearCalculatorInput, GearCalculatorResult> CreateCalculator()
     {
-        return new GearCalculator(_inputValidator, _logger);
+        return new GearCalculator(_inputValidator, _unitStore, _logger);
     }
 }

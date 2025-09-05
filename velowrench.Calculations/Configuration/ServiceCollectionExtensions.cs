@@ -3,6 +3,7 @@ using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
+using velowrench.Calculations.Units;
 using velowrench.Calculations.Validation;
 using velowrench.Calculations.Validation.Builder;
 
@@ -32,5 +33,7 @@ public static class ServiceCollectionExtensions
         collection.AddSingleton<ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>, SpokeLengthCalculatorFactory>();
         collection.AddSingleton<ICalculatorValidationBuilder<SpokeLengthCalculatorInput>, SpokeLengthCalculatorValidationBuilder>();
         collection.AddSingleton<ICalculatorInputValidator<SpokeLengthCalculatorInput>, CalulatorInputValidator<SpokeLengthCalculatorInput>>();
+
+        collection.AddSingleton<IUnitStore, UnitStore>();
     }
 }

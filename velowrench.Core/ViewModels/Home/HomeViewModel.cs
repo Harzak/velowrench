@@ -22,7 +22,6 @@ public sealed partial class HomeViewModel : BaseRoutableViewModel
     : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
-        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         Name = localizer.GetString("VeloWrench");
     }

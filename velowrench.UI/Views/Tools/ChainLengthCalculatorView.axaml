@@ -33,6 +33,7 @@
                                    Text="{x:Static res:Languages.ChainLengthLabel}" />
                         <controls:LengthTextBlockControl Grid.Row="1" Grid.Column="1"
                                                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                         AvailableUnits="{Binding UnitStore.LengthAvailableUnits}"
                                                          FontWeight="Bold"
                                                          Foreground="{DynamicResource SemiColorSuccess}"
                                                          Format="0.00"
@@ -65,6 +66,7 @@
             <!--  Chain Stay Length  -->
             <controls:LengthUpDownControl Title="{x:Static res:Languages.ChainStayLength}"
                                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                          AvailableUnits="{Binding UnitStore.LengthAvailableUnits}"
                                           ConvertibleDouble="{Binding ChainStayLength}" />
 
             <!--  Largest front chainring  -->

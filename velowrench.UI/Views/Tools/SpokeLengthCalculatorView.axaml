@@ -40,6 +40,7 @@
                                    Text="{x:Static res:Languages.GearSide}" />
                         <controls:LengthTextBlockControl Grid.Row="1" Grid.Column="1"
                                                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                         AvailableUnits="{Binding UnitStore.LengthAvailableUnits}"
                                                          FontWeight="Bold"
                                                          Foreground="{DynamicResource SemiColorSuccess}"
                                                          Format="0.00"
@@ -51,6 +52,7 @@
                                    Text="{x:Static res:Languages.NonGearSide}" />
                         <controls:LengthTextBlockControl Grid.Row="2" Grid.Column="1"
                                                          Margin="0,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                         AvailableUnits="{Binding UnitStore.LengthAvailableUnits}"
                                                          FontWeight="Bold"
                                                          Foreground="{DynamicResource SemiColorSuccess}"
                                                          Format="0.00"
@@ -78,7 +80,7 @@
                 <ComboBox Grid.Row="0" Grid.Column="0"
                           Width="90"
                           HorizontalAlignment="Center"
-                          ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
+                          ItemsSource="{Binding UnitStore.LengthAvailableUnits}"
                           SelectedItem="{Binding HubMeasurementsSelectedUnit}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -154,7 +156,7 @@
                            Value="{Binding RimInternalDiameter.Value, Delay={x:Static const:UIConstants.BINDED_INPUT_DELAY_MS}}" />
             <ComboBox Grid.Row="1" Grid.Column="2"
                       Margin="5,5,0,5" HorizontalAlignment="Stretch"
-                      ItemsSource="{x:Static units:UnitsStore.WheelMeasurementsAvailableUnits}"
+                      ItemsSource="{Binding UnitStore.LengthAvailableUnits}"
                       SelectedItem="{Binding RimInternalDiameter.Unit}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

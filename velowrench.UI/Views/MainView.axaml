@@ -29,7 +29,8 @@
                                         Kind="ArrowLeft" />
         </Button>
 
-        <StackPanel Grid.Row="0" Grid.Column="1"
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                    Width="200"
                     HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Margin="0,5"
                        FontSize="18" FontWeight="SemiBold"
@@ -38,7 +39,8 @@
         </StackPanel>
 
         <Button Grid.Row="0" Grid.Column="2"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Width="30"
+                Margin="3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
                 Command="{Binding Toolbar.ShowProfileCommand}"
                 IsVisible="{Binding Toolbar.CanShowProfile}"
                 Theme="{DynamicResource BorderlessButton}">
@@ -48,7 +50,8 @@
         </Button>
 
         <Button Grid.Row="0" Grid.Column="3"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Width="30"
+                Margin="3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
                 Command="{Binding Toolbar.ShowHelpPageCommand}"
                 IsVisible="{Binding Toolbar.CanShowHelpPage}"
                 Theme="{DynamicResource BorderlessButton}">
@@ -58,7 +61,8 @@
         </Button>
 
         <Button Grid.Row="0" Grid.Column="4"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Width="30"
+                Margin="3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
                 IsVisible="{Binding Toolbar.CanShowContextMenu}"
                 Theme="{DynamicResource BorderlessButton}">
             <Button.Content>

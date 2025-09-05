@@ -52,8 +52,11 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// </summary>
     public IEnumerable<string> InputErrorMessages => _inputErrors.Select(e => e.Message);
 
+    public IUnitStore UnitStore { get; }
+
     protected BaseCalculatorViewModel(
         ICalculatorFactory<TInput, TResult> calculatorFactory,
+        IUnitStore unitStore,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         IToolbar toolbar) : base(navigationService, toolbar)
@@ -64,6 +67,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         _refreshCalculationDebounced = actionFactory.CreateDebounceUIAction(RefreshCalculation);
 
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
+        this.UnitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
     }

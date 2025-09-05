@@ -54,7 +54,6 @@ public sealed class NavigationService : INavigationService
     public async Task NavigateToProfileAsync(NavigationParameters? parameters = null)
     {
         IRoutableViewModel profileViewModel = _viewModelFactory.CreateProfileViewModel(this);
-        await _handler.ClearAsync().ConfigureAwait(false);
         await NavigateToAsync(profileViewModel).ConfigureAwait(false);
     }
 

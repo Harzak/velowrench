@@ -358,7 +358,7 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ERD= Effective Rim Diameter.
+        ///   Looks up a localized string similar to = Effective Rim Diameter.
         /// </summary>
         public static string EffectiveRimDiameterAbbreviation {
             get {
@@ -367,7 +367,7 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The diameter measured at the nipple seats inside the rim (not the outside diameter)..
+        ///   Looks up a localized string similar to = Effective Rim Diameter.
         /// </summary>
         public static string EffectiveRimDiameterDescription {
             get {
@@ -840,6 +840,15 @@ namespace velowrench.UI.Resources {
         public static string RimMeasurements {
             get {
                 return ResourceManager.GetString("RimMeasurements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

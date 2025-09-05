@@ -9,11 +9,16 @@ namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 public sealed class SpokeLengthCalculatorFactory : ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>
 {
     private readonly ICalculatorInputValidator<SpokeLengthCalculatorInput> _inputValidator;
+    private readonly IUnitStore _unitStore;
     private readonly ILogger _logger;
 
-    public SpokeLengthCalculatorFactory(ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, ILogger<SpokeLengthCalculatorFactory> logger)
+    public SpokeLengthCalculatorFactory(
+        ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, 
+        IUnitStore unitStore,
+        ILogger<SpokeLengthCalculatorFactory> logger)
     {
         _inputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
+        _unitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -22,6 +27,6 @@ public sealed class SpokeLengthCalculatorFactory : ICalculatorFactory<SpokeLengt
     /// </summary>
     public ICalculator<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> CreateCalculator()
     {
-        return new SpokeLengthCalculator(_inputValidator, _logger);
+        return new SpokeLengthCalculator(_inputValidator, _unitStore, _logger);
     }
 }

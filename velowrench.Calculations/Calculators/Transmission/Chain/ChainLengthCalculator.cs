@@ -25,7 +25,11 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
 
     public override ICalculatorInputValidator<ChainLengthCalculatorInput> InputValidator { get; }
 
-    public ChainLengthCalculator(ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator, ILogger logger) : base(logger)
+    public ChainLengthCalculator(
+        ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator,
+        IUnitStore unitStore,
+        ILogger logger) 
+    : base(unitStore, logger)
     {
         this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
 

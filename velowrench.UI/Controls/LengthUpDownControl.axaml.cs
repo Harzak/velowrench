@@ -11,15 +11,11 @@ namespace velowrench.UI.Controls;
 
 public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
 {
-    private readonly List<LengthUnit> _availableUnits =
-    [
-        LengthUnit.Millimeter,
-        LengthUnit.Centimeter,
-        LengthUnit.Inch
-    ];
-
     public static readonly StyledProperty<string> TitleProperty =
         AvaloniaProperty.Register<LengthUpDownControl, string>(nameof(Title), string.Empty);
+
+    public static readonly StyledProperty<IReadOnlyCollection<LengthUnit>?> AvailableUnitsProperty =
+        AvaloniaProperty.Register<LengthUpDownControl, IReadOnlyCollection<LengthUnit>?>(nameof(AvailableUnits), null);
 
     public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ConvertibleDoubleProperty =
         AvaloniaProperty.Register<LengthUpDownControl, ConvertibleDouble<LengthUnit>?>(
@@ -38,7 +34,11 @@ public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
         set => SetValue(ConvertibleDoubleProperty, value);
     }
 
-    public List<LengthUnit> AvailableUnits => _availableUnits;
+    public IReadOnlyCollection<LengthUnit>? AvailableUnits
+    {
+        get => GetValue(AvailableUnitsProperty);
+        set => SetValue(AvailableUnitsProperty, value);
+    }
 
     public LengthUnit SelectedUnit
     {
@@ -81,7 +81,7 @@ public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
     public LengthUpDownControl()
     {
         InitializeComponent();
-        ConvertibleDouble ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
+        ConvertibleDouble ??= new ConvertibleDouble<LengthUnit>((double)0);
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)

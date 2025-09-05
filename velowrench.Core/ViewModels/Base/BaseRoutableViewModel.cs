@@ -26,7 +26,6 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
         this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));  
     }
 
-
     public virtual Task OnInitializedAsync()
     {
         return Task.CompletedTask;

@@ -1,86 +1,109 @@
 ﻿using UnitsNet.Units;
 using velowrench.Calculations.Enums;
+using velowrench.Calculations.Interfaces;
 
 namespace velowrench.Calculations.Units;
 
 /// <summary>
-/// Provides a centralized store for units used in the app (calculations, user preferences)
+/// Provides a centralized store for units used in the app (default, supported, user preferred units)
 /// </summary>
-public static class UnitsStore
+public sealed class UnitStore : IUnitStore
 {
-    #region Gear Calculations
-    /// <summary>
-    /// Gets the collection of length units available for development calculation result.
-    /// </summary>
-    public static IReadOnlyCollection<LengthUnit> DevelopmentResultAvailableUnits => [
+    private LengthUnit _lengthDefaultUnit;
+    private LengthUnit _distanceDefaultUnit;
+    private SpeedUnit _speedDefaultUnit;
+
+    /// <inheritdoc/>
+    public LengthUnit LengthDefaultUnit
+    {
+        get => _lengthDefaultUnit;
+        set
+        {
+            if (_lengthDefaultUnit != value)
+            {
+                _lengthDefaultUnit = this.LengthAvailableUnits.Contains(value) ? value 
+                    : throw new InvalidOperationException("Unsupported unit");
+            }
+        }
+    }
+    /// <inheritdoc/>
+    public IReadOnlyCollection<LengthUnit> LengthAvailableUnits => [
+        LengthUnit.Millimeter,
         LengthUnit.Centimeter,
+        LengthUnit.Inch
+    ];
+
+    /// <inheritdoc/>
+    public LengthUnit DistanceDefaultUnit
+    {
+        get => _distanceDefaultUnit;
+        set
+        {
+            if (_distanceDefaultUnit != value)
+            {
+                _distanceDefaultUnit = this.DistanceAvailableUnits.Contains(value) ? value
+                    : throw new InvalidOperationException("Unsupported unit");
+            }
+        }
+    }
+    /// <inheritdoc/>
+    public IReadOnlyCollection<LengthUnit> DistanceAvailableUnits => [
         LengthUnit.Meter,
+        LengthUnit.Kilometer,
         LengthUnit.Inch,
         LengthUnit.Foot,
         LengthUnit.Yard
     ];
 
-    /// <summary>
-    /// Gets the default unit of measurement for development calculation result.
-    /// </summary>
-    public static LengthUnit DevelopmentResultDefaultUnit => LengthUnit.Meter;
-
-    /// <summary>
-    /// Gets the collection of speed units available for speed calculation result.
-    /// </summary>
-    public static IReadOnlyCollection<SpeedUnit> SpeedResultAvailableUnits => [
+    /// <inheritdoc/>
+    public SpeedUnit SpeedDefaultUnit
+    {
+        get => _speedDefaultUnit;
+        set
+        {
+            if (_speedDefaultUnit != value)
+            {
+                _speedDefaultUnit = this.SpeedAvailableUnits.Contains(value) ? value
+                    : throw new InvalidOperationException("Unsupported unit");
+            }
+        }
+    }
+    /// <inheritdoc/>
+    public IReadOnlyCollection<SpeedUnit> SpeedAvailableUnits => [
         SpeedUnit.KilometerPerHour,
         SpeedUnit.MilePerHour,
     ];
 
-    /// <summary>
-    /// Gets the default unit of measurement for speed calculation result.
-    /// </summary>
-    public static SpeedUnit SpeedResultDefaultUnit => SpeedUnit.KilometerPerHour;
+    public UnitStore()
+    {
+        _lengthDefaultUnit =  LengthUnit.Millimeter;
+        _distanceDefaultUnit = LengthUnit.Meter;
+        _speedDefaultUnit = SpeedUnit.KilometerPerHour;
+    }
 
-    /// <summary>
-    /// Retrieves the default unit associated with the specified gear calculation type.
-    /// </summary>
-    /// <returns>
-    /// The default unit for the specified gear calculation type, or <see langword="null"/> if no default unit is
-    /// defined.
-    /// </returns>
-    public static Enum? GetDefaultUnitForGearCalculation(EGearCalculatorType type)
+    /// <inheritdoc/>
+    public Enum? GetDefaultUnitForGearCalculation(EGearCalculatorType type)
     {
         return type switch
         {
-            EGearCalculatorType.Development => DevelopmentResultDefaultUnit,
-            EGearCalculatorType.Speed => SpeedResultDefaultUnit,
+            EGearCalculatorType.Development => this.DistanceDefaultUnit,
+            EGearCalculatorType.Speed => this.SpeedDefaultUnit,
             EGearCalculatorType.GearInches => null,
             EGearCalculatorType.GainRatio => null,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unsupported gear calculation type")
         };
     }
 
-    /// <summary>
-    /// Retrieves the collection of available units for the specified gear calculation type.
-    /// </summary>
-    public static IReadOnlyCollection<Enum> GetAvailableUnitForGearCalculation(EGearCalculatorType type)
+    /// <inheritdoc/>
+    public IReadOnlyCollection<Enum> GetAvailableUnitForGearCalculation(EGearCalculatorType type)
     {
         return type switch
         {
-            EGearCalculatorType.Development => [.. DevelopmentResultAvailableUnits.Cast<Enum>()],
-            EGearCalculatorType.Speed => [.. SpeedResultAvailableUnits.Cast<Enum>()],
+            EGearCalculatorType.Development => [.. this.DistanceAvailableUnits.Cast<Enum>()],
+            EGearCalculatorType.Speed => [.. this.SpeedAvailableUnits.Cast<Enum>()],
             EGearCalculatorType.GearInches => [],
             EGearCalculatorType.GainRatio => [],
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unsupported gear calculation type")
         };
     }
-
-    #endregion
-
-    #region Wheel Calculations
-    public static IReadOnlyCollection<LengthUnit> WheelMeasurementsAvailableUnits => [
-        LengthUnit.Millimeter,
-        LengthUnit.Centimeter,
-        LengthUnit.Inch
-    ];
-
-    public static LengthUnit WheelMeasurementsDefaultUnit => WheelMeasurementsAvailableUnits.First();
-    #endregion
 }

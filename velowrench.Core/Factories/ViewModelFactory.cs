@@ -22,6 +22,7 @@ public sealed class ViewModelFactory : IViewModelFactory
     private readonly ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _chainLengthCalculatorFactory;
     private readonly ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> _gearCalculatorFactory;
     private readonly ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> _spokeLengthCalculatorFactory;
+    private readonly IUnitStore _unitStore;
     private readonly IComponentStandardRepository _componentStandardRepository;
     private readonly IDebounceActionFactory _debounceActionFactory;
     private readonly IToolbar _toolbar;
@@ -30,6 +31,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
         ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> gearCalculatorFactory,
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> spokeLengthCalculatorFactory,
+        IUnitStore unitStore,
         IDebounceActionFactory debounceActionFactory,
         IComponentStandardRepository componentStandardRepository,
         IToolbar toolbar)
@@ -39,6 +41,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         _chainLengthCalculatorFactory = chainLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(chainLengthCalculatorFactory));
         _gearCalculatorFactory = gearCalculatorFactory ?? throw new ArgumentNullException(nameof(gearCalculatorFactory));
         _spokeLengthCalculatorFactory = spokeLengthCalculatorFactory ?? throw new ArgumentNullException(nameof(spokeLengthCalculatorFactory));
+        _unitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         _debounceActionFactory = debounceActionFactory ?? throw new ArgumentNullException(nameof(debounceActionFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
         _toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
@@ -55,7 +58,7 @@ public sealed class ViewModelFactory : IViewModelFactory
 
     public IRoutableViewModel CreateProfileViewModel(INavigationService navigationService)
     {
-        return new ProfileViewModel(_localizer, navigationService, _toolbar);
+        return new ProfileViewModel(_localizer, _unitStore, navigationService, _toolbar);
     }
 
     /// <summary>
@@ -68,11 +71,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, navigationService, _debounceActionFactory, _localizer, _toolbar);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _localizer, _toolbar);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(_gearCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
+                return new GearCalculatorViewModel(_gearCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
+                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
             default:
                 throw new NotSupportedException(type.ToString());
         }

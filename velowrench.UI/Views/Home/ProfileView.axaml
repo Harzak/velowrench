@@ -1,5 +1,154 @@
 <UserControl x:Class="velowrench.UI.Views.Home.ProfileView"
              xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    Welcome to Avalonia!
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:velowrench.UI.Converters"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:res="using:velowrench.UI.Resources"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Home.ProfileViewModel"
+             Design.Height="640"
+             Design.Width="360">
+
+    <UserControl.Resources>
+        <converters:UnitDisplayConverter x:Key="UnitDisplayConverter" />
+    </UserControl.Resources>
+    <StackPanel>
+
+        <!--  Languages  -->
+        <Border Classes="MenuGroup">
+            <StackPanel>
+                <TextBlock Classes="GroupHeader" Text="Language" />
+                <Border Classes="MenuItemGroup">
+                    <StackPanel>
+                        <Grid Margin="16,12"
+                              ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Classes="MenuItemText" Text="App Language" />
+                            <ComboBox Grid.Row="0" Grid.Column="1"
+                                      Width="150"
+                                      HorizontalAlignment="Right"
+                                      IsEnabled="False"
+                                      ItemsSource="{Binding SupportedCultures}"
+                                      SelectedItem="{Binding SelectedCulture}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NativeName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0,10,0,0"
+                                       Classes="Subtitle" Text="Select your default app language" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!--  Display  -->
+        <Border Classes="MenuGroup">
+            <StackPanel>
+                <TextBlock Classes="GroupHeader" Text="Display" />
+                <Border Classes="MenuItemGroup">
+                    <StackPanel>
+                        <Grid Margin="16,12"
+                              ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Classes="MenuItemText" Text="Appearance" />
+                            <ComboBox Grid.Row="0" Grid.Column="1"
+                                      Width="150"
+                                      HorizontalAlignment="Right"
+                                      ItemsSource="{Binding AvailableThemes}"
+                                      SelectedItem="{Binding SelectedTheme}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Key}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0,10,0,0"
+                                       Classes="Subtitle" Text="Select the app color scheme" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!--  Measurement Units  -->
+        <Border Classes="MenuGroup">
+            <StackPanel>
+                <TextBlock Classes="GroupHeader" Text="Measurement units" />
+                <Border Classes="MenuItemGroup">
+                    <StackPanel>
+                        <Grid Margin="16,12"
+                              ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0,5,0,10"
+                                       Classes="Subtitle" Text="Select the default units used in the app" />
+
+                            <!--  Length  -->
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Margin="0,10,0,0" VerticalAlignment="Center"
+                                       Classes="MenuItemText" Text="Length" />
+                            <ComboBox Grid.Row="1" Grid.Column="1"
+                                      Width="100"
+                                      Margin="0,10,0,0" HorizontalAlignment="Right"
+                                      ItemsSource="{Binding LengthAvailableUnits}"
+                                      SelectedItem="{Binding SelectedLengthUnit}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0,0,0,5"
+                                       Classes="Subtitle" Text="Measurement of hub, rim, frame etc." />
+
+                            <!--  Distance  -->
+                            <TextBlock Grid.Row="3" Grid.Column="0"
+                                       Margin="0,10,0,0" VerticalAlignment="Center"
+                                       Classes="MenuItemText" Text="Distance" />
+                            <ComboBox Grid.Row="3" Grid.Column="1"
+                                      Width="100"
+                                      Margin="0,10,0,0" HorizontalAlignment="Right"
+                                      ItemsSource="{Binding DistanceAvailableUnits}"
+                                      SelectedItem="{Binding SelectedDistanceUnit}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Margin="0,0,0,5"
+                                       Classes="Subtitle" Text="Distances traveled etc." />
+
+                            <!--  Speed  -->
+                            <TextBlock Grid.Row="5" Grid.Column="0"
+                                       Margin="0,10,0,0" VerticalAlignment="Center"
+                                       Classes="MenuItemText" Text="Speed" />
+                            <ComboBox Grid.Row="5" Grid.Column="1"
+                                      Width="100"
+                                      Margin="0,10,0,0" HorizontalAlignment="Right"
+                                      ItemsSource="{Binding SpeedAvailableUnits}"
+                                      SelectedItem="{Binding SelectedSpeedUnit}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource UnitDisplayConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Classes="Subtitle" Text="Cycling speed etc." />
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

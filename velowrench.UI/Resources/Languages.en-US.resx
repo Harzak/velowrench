@@ -324,4 +324,121 @@
   <data name="RimMeasurements" xml:space="preserve">
     <value>Rim measurements</value>
   </data>
+  <data name="SpokeLengthCalculatorHeader" xml:space="preserve">
+    <value>Calculate the recommended wheel spoke length using your hub and rim measurements.</value>
+  </data>
+  <data name="HelpPage" xml:space="preserve">
+    <value>Help Page</value>
+  </data>
+  <data name="CenterToFlangeDistances" xml:space="preserve">
+    <value>= Center to flange distances (left/right)</value>
+  </data>
+  <data name="HubDiameters" xml:space="preserve">
+    <value>= Hub diameters (left/right)</value>
+  </data>
+  <data name="EffectiveRimDiameter" xml:space="preserve">
+    <value>= Effective Rim Diameter</value>
+  </data>
+  <data name="NumberOfSpokes" xml:space="preserve">
+    <value>= Number of spokes</value>
+  </data>
+  <data name="CrossCount" xml:space="preserve">
+    <value>= Cross count</value>
+  </data>
+  <data name="HubSpokeHoleDiameter" xml:space="preserve">
+    <value>= Hub spoke hole diameter (fixed at 2.5mm)</value>
+  </data>
+  <data name="SpokeLengthCalculationDescription" xml:space="preserve">
+    <value>This tool uses the standard side specific spoke-length formula with one shared "core" triangle and then a side by side step.</value>
+  </data>
+  <data name="Definitions" xml:space="preserve">
+    <value>Definitions:</value>
+  </data>
+  <data name="BaselineChordCalculation" xml:space="preserve">
+    <value>Compute the baseline chord from the law of cosines:</value>
+  </data>
+  <data name="LeftSpokeLength" xml:space="preserve">
+    <value>Left spoke length:</value>
+  </data>
+  <data name="RightSpokeLength" xml:space="preserve">
+    <value>Right spoke length:</value>
+  </data>
+  <data name="SpokeHoleRadiusNote" xml:space="preserve">
+    <value>That final - d/2 slightly shortens for the spoke-hole radius at the hub.</value>
+  </data>
+  <data name="SpokeLengthResultsDescription" xml:space="preserve">
+    <value>The calculator provides the recommended spoke length, based on the inputs, for the gear side and the non-gear side. The two values may differ due to the presence of a cassette/freewheel or a disc brake rotor.</value>
+  </data>
+  <data name="HubAsymmetryNote" xml:space="preserve">
+    <value>Due to the gear, rear hubs are asymmetrical.</value>
+  </data>
+  <data name="FrontHubDiscBrakeNote" xml:space="preserve">
+    <value>Front hubs may also be slightly different if they have a disc brake (rotor side inboard).</value>
+  </data>
+  <data name="CenterToFlange" xml:space="preserve">
+    <value>Center to flange</value>
+  </data>
+  <data name="CenterToFlangeNonGearSide" xml:space="preserve">
+    <value>WL= Center to flange non-gear side</value>
+  </data>
+  <data name="CenterToFlangeNonGearSideDescription" xml:space="preserve">
+    <value>The distance from the hub centerline to the left flange.</value>
+  </data>
+  <data name="CenterToFlangeGearSide" xml:space="preserve">
+    <value>WR= Center to flange gear side</value>
+  </data>
+  <data name="CenterToFlangeGearSideDescription" xml:space="preserve">
+    <value>The distance from the hub centerline to the right flange.</value>
+  </data>
+  <data name="HubDiameter" xml:space="preserve">
+    <value>Hub diameter</value>
+  </data>
+  <data name="HubDiameterNonGearSide" xml:space="preserve">
+    <value>DL= Hub diameter non-gear side</value>
+  </data>
+  <data name="HubDiameterNonGearSideDescription" xml:space="preserve">
+    <value>The diameter of the circle through the centers of the spoke holes on the left flange.</value>
+  </data>
+  <data name="HubDiameterGearSide" xml:space="preserve">
+    <value>DR= Hub diameter gear side</value>
+  </data>
+  <data name="HubDiameterGearSideDescription" xml:space="preserve">
+    <value>The diameter of the circle through the centers of the spoke holes on the right flange.</value>
+  </data>
+  <data name="InternalDiameter" xml:space="preserve">
+    <value>Internal diameter</value>
+  </data>
+  <data name="EffectiveRimDiameterAbbreviation" xml:space="preserve">
+    <value>= Effective Rim Diameter</value>
+  </data>
+  <data name="EffectiveRimDiameterDescription" xml:space="preserve">
+    <value>= Effective Rim Diameter</value>
+  </data>
+  <data name="NumberOfSpokesTitle" xml:space="preserve">
+    <value>Number of spokes</value>
+  </data>
+  <data name="NumberOfSpokesDescription" xml:space="preserve">
+    <value>The number of spokes per wheel (hole count).</value>
+  </data>
+  <data name="LacingPatterns" xml:space="preserve">
+    <value>Lacing patterns</value>
+  </data>
+  <data name="LacingPatternsDescription" xml:space="preserve">
+    <value>Cross count: how many times each spoke crosses others (e.g., 3-cross, 2-cross, radial).</value>
+  </data>
+  <data name="NonGearSide" xml:space="preserve">
+    <value>Non-gear side</value>
+  </data>
+  <data name="GearSide" xml:space="preserve">
+    <value>Gear side</value>
+  </data>
+  <data name="LacingPattern" xml:space="preserve">
+    <value>Lacing pattern</value>
+  </data>
+  <data name="RecommendedSpokeLength" xml:space="preserve">
+    <value>Recommended spoke length</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

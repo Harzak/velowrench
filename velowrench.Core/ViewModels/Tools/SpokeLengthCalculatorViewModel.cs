@@ -114,12 +114,13 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
 
     public SpokeLengthCalculatorViewModel(
         ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> calculatorFactory,
+        IUnitStore unitStore,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
         ILocalizer localizer,
         IToolbar toolbar)
-    : base(calculatorFactory, navigationService, actionFactory, toolbar)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
     {
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -146,8 +147,8 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
             this.HubFlangeDiameterNonGearSide = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnHubFlangeDiameterNonGearSideChanged);
             this.RimInternalDiameter = new ConvertibleDouble<LengthUnit>(LengthUnit.Millimeter, OnRimInternalDiameterChanged);
 
-            this.HubMeasurementsSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
-            this.RimInternalDiameterSelectedUnit = UnitsStore.WheelMeasurementsDefaultUnit;
+            this.HubMeasurementsSelectedUnit = base.UnitStore.LengthDefaultUnit;
+            this.RimInternalDiameterSelectedUnit = base.UnitStore.LengthDefaultUnit;
             this.AvailableSpokeCount = _repository.GetMostCommonWheelSpokeCount().ToList();
             this.SelectedSpokeCount = this.AvailableSpokeCount.First(x => x == 32);
             this.AvailableSpokeLacingPatterns = _repository.GetMostCommonSpokeLacingPattern().ToList();
@@ -200,7 +201,9 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
     {
         this.RecommendedSpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthGearSideMm, LengthUnit.Millimeter);
+        this.RecommendedSpokeLengthGearSide.Unit = base.UnitStore.LengthDefaultUnit;
         this.RecommendedSpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthNonGearSideMm, LengthUnit.Millimeter);
+        this.RecommendedSpokeLengthNonGearSide.Unit = base.UnitStore.LengthDefaultUnit;
     }
 
     partial void OnHubMeasurementsSelectedUnitChanged(LengthUnit value)

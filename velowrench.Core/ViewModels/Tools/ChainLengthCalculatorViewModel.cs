@@ -56,11 +56,12 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
 
     public ChainLengthCalculatorViewModel(
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> calculatorFactory,
+        IUnitStore unitStore,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         ILocalizer localizer,
         IToolbar toolbar)
-    : base(calculatorFactory, navigationService, actionFactory, toolbar)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
 
@@ -81,6 +82,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         base.WithProgrammaticChange(() =>
         {
             this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
+            this.ChainStayLength.Unit = base.UnitStore.LengthDefaultUnit;
             this.TeethLargestChainring = null;
             this.TeethLargestSprocket = null;
             this.RecommendedChainLength = null;
@@ -90,6 +92,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     protected override void OnCalculationSuccessful(OperationResult<ChainLengthCalculatorResult> result)
     {
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
+        this.RecommendedChainLength.Unit = base.UnitStore.LengthDefaultUnit;
         this.RecommendedChainLinks = result.Content.ChainLinks;
     }
 

@@ -11,21 +11,18 @@ namespace velowrench.UI.Controls;
 
 public partial class LengthTextBlockControl : UserControl, INotifyPropertyChanged
 {
-    private readonly List<LengthUnit> _availableUnits =
-    [
-        LengthUnit.Millimeter,
-        LengthUnit.Centimeter,
-        LengthUnit.Inch
-    ];
 
     public static readonly StyledProperty<string> FormatProperty =
-        AvaloniaProperty.Register<LengthUpDownControl, string>(nameof(Format), string.Empty);
+        AvaloniaProperty.Register<LengthTextBlockControl, string>(nameof(Format), string.Empty);
 
     public static readonly StyledProperty<int> TextFontSizeProperty =
-        AvaloniaProperty.Register<LengthUpDownControl, int>(nameof(TextFontSize), 14);
+        AvaloniaProperty.Register<LengthTextBlockControl, int>(nameof(TextFontSize), 14);
+
+    public static readonly StyledProperty<IReadOnlyCollection<LengthUnit>?> AvailableUnitsProperty =
+        AvaloniaProperty.Register<LengthTextBlockControl, IReadOnlyCollection<LengthUnit>?>(nameof(AvailableUnits), null);
 
     public static readonly StyledProperty<ConvertibleDouble<LengthUnit>?> ValueProperty =
-        AvaloniaProperty.Register<LengthUpDownControl, ConvertibleDouble<LengthUnit>?>(
+        AvaloniaProperty.Register<LengthTextBlockControl, ConvertibleDouble<LengthUnit>?>(
             nameof(Value),
             defaultBindingMode: BindingMode.OneWay);
 
@@ -47,7 +44,11 @@ public partial class LengthTextBlockControl : UserControl, INotifyPropertyChange
         set => SetValue(ValueProperty, value);
     }
 
-    public List<LengthUnit> AvailableUnits => _availableUnits;
+    public IReadOnlyCollection<LengthUnit>? AvailableUnits
+    {
+        get => GetValue(AvailableUnitsProperty);
+        set => SetValue(AvailableUnitsProperty, value);
+    }
 
     public LengthUnit SelectedUnit
     {
@@ -73,7 +74,7 @@ public partial class LengthTextBlockControl : UserControl, INotifyPropertyChange
     public LengthTextBlockControl()
     {
         InitializeComponent();
-        Value ??= new ConvertibleDouble<LengthUnit>(0, LengthUnit.Centimeter);
+        Value ??= new ConvertibleDouble<LengthUnit>((double)0);
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)

@@ -409,10 +409,10 @@
     <value>Internal diameter</value>
   </data>
   <data name="EffectiveRimDiameterAbbreviation" xml:space="preserve">
-    <value>ERD= Effective Rim Diameter</value>
+    <value>= Effective Rim Diameter</value>
   </data>
   <data name="EffectiveRimDiameterDescription" xml:space="preserve">
-    <value>The diameter measured at the nipple seats inside the rim (not the outside diameter).</value>
+    <value>= Effective Rim Diameter</value>
   </data>
   <data name="NumberOfSpokesTitle" xml:space="preserve">
     <value>Number of spokes</value>
@@ -437,5 +437,8 @@
   </data>
   <data name="RecommendedSpokeLength" xml:space="preserve">
     <value>Recommended spoke length</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

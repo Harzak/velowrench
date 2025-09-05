@@ -9,11 +9,16 @@ namespace velowrench.Calculations.Calculators.Transmission.Chain;
 public sealed class ChainLengthCalculatorFactory : ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>
 {
     private readonly ICalculatorInputValidator<ChainLengthCalculatorInput> _inputValidator;
+    private readonly IUnitStore _unitStore;
     private readonly ILogger _logger;
 
-    public ChainLengthCalculatorFactory(ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator, ILogger<ChainLengthCalculatorFactory> logger)
+    public ChainLengthCalculatorFactory(
+        ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator,
+        IUnitStore unitStore,
+        ILogger<ChainLengthCalculatorFactory> logger)
     {
         _inputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
+        _unitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -23,6 +28,6 @@ public sealed class ChainLengthCalculatorFactory : ICalculatorFactory<ChainLengt
     /// <returns>A new <see cref="ChainLengthCalculator"/> instance ready to perform calculations.</returns>
     public ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult> CreateCalculator()
     {
-        return new ChainLengthCalculator(_inputValidator, _logger);
+        return new ChainLengthCalculator(_inputValidator, _unitStore, _logger);
     }
 }

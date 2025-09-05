@@ -9,11 +9,6 @@
              Design.Height="640"
              Design.Width="360">
 
-    <UserControl.Styles>
-
-        
-    </UserControl.Styles>
-
     <StackPanel Spacing="0">
 
         <Border Classes="MenuGroup">

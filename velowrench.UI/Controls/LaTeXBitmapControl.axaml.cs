@@ -15,7 +15,7 @@ public partial class LaTeXBitmapControl : UserControl
     private const float SCALE_FACTOR = 1.6f;
 
     public static readonly StyledProperty<string?> FormulaProperty =
-        AvaloniaProperty.Register<LengthUpDownControl, string?>(nameof(Formula), string.Empty);
+        AvaloniaProperty.Register<LaTeXBitmapControl, string?>(nameof(Formula), string.Empty);
 
     public string? Formula
     {

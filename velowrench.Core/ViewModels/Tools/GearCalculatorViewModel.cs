@@ -142,12 +142,13 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
 
     public GearCalculatorViewModel(
         ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> calculatorFactory,
+        IUnitStore unitStore,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
         ILocalizer localizer,
         IToolbar toolbar)
-    : base(calculatorFactory, navigationService, actionFactory, toolbar)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
@@ -210,9 +211,10 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
             });
         }
 
-        IReadOnlyCollection<Enum> availableUnits = UnitsStore.GetAvailableUnitForGearCalculation(result.Content.UsedInputs.CalculatorType);
+        IReadOnlyCollection<Enum> availableUnits = base.UnitStore.GetAvailableUnitForGearCalculation(result.Content.UsedInputs.CalculatorType);
         this.AvailableResultUnits = new ObservableCollection<Enum>(availableUnits);
         this.SelectedResultUnit = result.Content.Unit;
+        this.SelectedResultUnit = base.UnitStore.GetDefaultUnitForGearCalculation(result.Content.UsedInputs.CalculatorType);
     }
 
     [RelayCommand]

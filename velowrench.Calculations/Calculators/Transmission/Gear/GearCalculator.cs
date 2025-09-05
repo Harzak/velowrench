@@ -21,7 +21,11 @@ public sealed class GearCalculator : BaseCalculator<GearCalculatorInput, GearCal
 
     public override ICalculatorInputValidator<GearCalculatorInput> InputValidator { get; }
 
-    public GearCalculator(ICalculatorInputValidator<GearCalculatorInput> inputValidator, ILogger logger) : base(logger)
+    public GearCalculator(
+        ICalculatorInputValidator<GearCalculatorInput> inputValidator, 
+        IUnitStore unitStore, 
+        ILogger logger) 
+    : base(unitStore, logger)
     {
         this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));
     }
@@ -62,11 +66,26 @@ public sealed class GearCalculator : BaseCalculator<GearCalculatorInput, GearCal
                 ValuesLargeOrUniqueChainring = new ReadOnlyCollection<double>(valuesLargeOrUniqueChainring),
                 ValuesMediumChainring = input.TeethNumberMediumChainring.HasValue ? new ReadOnlyCollection<double>(valuesMediumChainring) : null,
                 ValuesSmallChainring = input.TeethNumberSmallChainring.HasValue ? new ReadOnlyCollection<double>(valuesSmallChainring) : null,
-                Unit = UnitsStore.GetDefaultUnitForGearCalculation(input.CalculatorType),
+                Unit = this.GetCalculationUnit(input.CalculatorType),
                 CalculatedAt = DateTime.UtcNow,
                 UsedInputs = input.Copy() //since we use mutable type for input, copy is necessary to avoid external mutations
             },
             IsSuccess = true
+        };
+    }
+
+    /// <summary>
+    /// Retrieves the unit of measurement used for a specific gear calulation.
+    /// </summary>
+    public Enum? GetCalculationUnit(EGearCalculatorType type)
+    {
+        return type switch
+        {
+            EGearCalculatorType.Development => LengthUnit.Meter,
+            EGearCalculatorType.Speed => SpeedUnit.KilometerPerHour,
+            EGearCalculatorType.GearInches => null,
+            EGearCalculatorType.GainRatio => null,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unsupported gear calculation type")
         };
     }
 

@@ -17,6 +17,7 @@ namespace velowrench.Calculations.Calculators;
 public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TResult> where TInput : class where TResult : class
 {
     protected ILogger Logger { get; }
+    protected IUnitStore UnitStore { get; }
     protected abstract string CalculatorName { get; }
 
     /// <summary>
@@ -39,8 +40,9 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
     /// </summary>
     public event EventHandler<CalculatorStateEventArgs>? StateChanged;
 
-    protected BaseCalculator(ILogger logger)
+    protected BaseCalculator(IUnitStore unitStore, ILogger logger)
     {
+        this.UnitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
         this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         this.State = ECalculatorState.NotStarted;
     }
