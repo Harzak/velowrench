@@ -13,6 +13,7 @@ public class SpokeLengthCalculatorTests
 {
     private ILogger _logger;
     private ICalculatorInputValidator<SpokeLengthCalculatorInput> _inputValidator;
+    private IUnitStore _unitStore;
     private SpokeLengthCalculator _calculator;
 
 
@@ -21,7 +22,8 @@ public class SpokeLengthCalculatorTests
     {
         _logger = A.Fake<ILogger>();
         _inputValidator = A.Fake<ICalculatorInputValidator<SpokeLengthCalculatorInput>>();
-        _calculator = new SpokeLengthCalculator(_inputValidator, _logger);
+        _unitStore = A.Fake<IUnitStore>();
+        _calculator = new SpokeLengthCalculator(_inputValidator, _unitStore, _logger);
 
         A.CallTo(() => _inputValidator.ValidateWithResults(A<SpokeLengthCalculatorInput>._, A<ValidationContext?>._))
             .Returns(ValidationResult.WithSuccess());

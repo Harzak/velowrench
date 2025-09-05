@@ -16,6 +16,7 @@ public class ChainLengthCalculTests
 {
     private ILogger _logger;
     private ICalculatorInputValidator<ChainLengthCalculatorInput> _inputValidator;
+    private IUnitStore _unitStore;
     private ChainLengthCalculator _calculator;
 
     [TestInitialize]
@@ -23,7 +24,8 @@ public class ChainLengthCalculTests
     {
         _logger = A.Fake<ILogger>();
         _inputValidator = A.Fake<ICalculatorInputValidator<ChainLengthCalculatorInput>>();
-        _calculator = new ChainLengthCalculator(_inputValidator, _logger);
+        _unitStore = A.Fake<IUnitStore>();
+        _calculator = new ChainLengthCalculator(_inputValidator, _unitStore, _logger);
 
         A.CallTo(() => _inputValidator.ValidateWithResults(A<ChainLengthCalculatorInput>._, A<ValidationContext?>._))
             .Returns(ValidationResult.WithSuccess());

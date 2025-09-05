@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using velowrench.Core.Interfaces;
-using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels.Base;
 
@@ -23,7 +22,7 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     {
         this.NavigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
         this.UrlPathSegment = Guid.NewGuid().ToString()[..5];
-        this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));  
+        this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
     }
 
     public virtual Task OnInitializedAsync()

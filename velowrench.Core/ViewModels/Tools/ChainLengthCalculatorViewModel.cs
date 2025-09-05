@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
@@ -7,7 +6,6 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
 using velowrench.Core.ViewModels.Base;
-using velowrench.Core.ViewModels.Home;
 using velowrench.Utils.Interfaces;
 using velowrench.Utils.Results;
 

@@ -4,7 +4,6 @@ using UnitsNet;
 using UnitsNet.Units;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
-using velowrench.Calculations.Units;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
@@ -22,9 +21,9 @@ public sealed class GearCalculator : BaseCalculator<GearCalculatorInput, GearCal
     public override ICalculatorInputValidator<GearCalculatorInput> InputValidator { get; }
 
     public GearCalculator(
-        ICalculatorInputValidator<GearCalculatorInput> inputValidator, 
-        IUnitStore unitStore, 
-        ILogger logger) 
+        ICalculatorInputValidator<GearCalculatorInput> inputValidator,
+        IUnitStore unitStore,
+        ILogger logger)
     : base(unitStore, logger)
     {
         this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));

@@ -1,5 +1,4 @@
-﻿using Avalonia.Platform;
-using velowrench.Calculations.Calculators.Transmission.Chain;
+﻿using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
@@ -95,7 +94,7 @@ public sealed class ViewModelFactory : IViewModelFactory
             case EVeloWrenchTools.GearCalculator:
                 return new GearCalculatorHelpViewModel(navigationService, _localizer, _toolbar);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorHelpViewModel(navigationService,  _localizer, _toolbar);
+                return new SpokeLengthCalculatorHelpViewModel(navigationService, _localizer, _toolbar);
             default:
                 throw new NotSupportedException(type.ToString());
         }

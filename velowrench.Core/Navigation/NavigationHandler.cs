@@ -1,11 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
 using velowrench.Core.LogMessages;
 using velowrench.Core.Navigation.Context;
@@ -37,9 +30,9 @@ internal sealed class NavigationHandler : INavigationHandler
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _stack = new();
         _navigationGuards = [new CalculationInProgressGuard()];
-        _cleanupTimer = new Timer(callback: OnCleanupTimerElapsed, 
-                                  state: null, 
-                                  dueTime: (int)TimeSpan.FromMinutes(2).TotalMilliseconds, 
+        _cleanupTimer = new Timer(callback: OnCleanupTimerElapsed,
+                                  state: null,
+                                  dueTime: (int)TimeSpan.FromMinutes(2).TotalMilliseconds,
                                   period: (int)TimeSpan.FromMinutes(2).TotalMilliseconds);
     }
 
@@ -82,7 +75,7 @@ internal sealed class NavigationHandler : INavigationHandler
             this.ActiveViewModelChanging?.Invoke(this, EventArgs.Empty);
 
             await this.GracefullyCleanupAsync(previousViewModel).ConfigureAwait(false);
-            if(this.ActiveViewModel != null)
+            if (this.ActiveViewModel != null)
             {
                 await this.ActiveViewModel.OnResumeAsync().ConfigureAwait(false);
             }

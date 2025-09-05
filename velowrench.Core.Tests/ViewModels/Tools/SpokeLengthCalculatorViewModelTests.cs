@@ -27,6 +27,8 @@ public class SpokeLengthCalculatorViewModelTests
     private IComponentStandardRepository _repository;
     private ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult> _calculatorFactory;
     private IDebounceActionFactory _debounceActionFactory;
+    private IUnitStore _unitStore;
+    private IToolbar _toolbar;
     private SpokeLengthCalculatorViewModel _viewModel;
 
     [TestInitialize]
@@ -39,6 +41,8 @@ public class SpokeLengthCalculatorViewModelTests
         _repository = A.Fake<IComponentStandardRepository>();
         _calculator = A.Fake<ICalculator<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>>();
         _inputValidation = A.Fake<ICalculatorInputValidator<SpokeLengthCalculatorInput>>();
+        _unitStore = A.Fake<IUnitStore>();
+        _toolbar = A.Fake<IToolbar>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -76,7 +80,7 @@ public class SpokeLengthCalculatorViewModelTests
         A.CallTo(() => _repository.GetMostCommonWheelSpokeCount()).Returns(spokeCounts);
         A.CallTo(() => _repository.GetMostCommonSpokeLacingPattern()).Returns(lacingPatterns);
 
-        _viewModel = new(_calculatorFactory, _navigationService, _debounceActionFactory, _repository, _localizer);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar);
     }
 
     [TestMethod]
@@ -356,6 +360,7 @@ public class SpokeLengthCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<SpokeLengthCalculatorInput>.That.Matches(input =>
             Math.Abs(input.HubCenterToFlangeDistanceGearSideMm - 36) < 0.1))).Returns(expectedResult);
+        A.CallTo(() => _unitStore.LengthDefaultUnit).Returns(LengthUnit.Millimeter);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 

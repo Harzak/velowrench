@@ -16,9 +16,9 @@ public sealed partial class HomeViewModel : BaseRoutableViewModel
     public override string Name { get; }
 
     public HomeViewModel(
-        ILocalizer localizer, 
-        INavigationService navigationService, 
-        IToolbar toolbar) 
+        ILocalizer localizer,
+        INavigationService navigationService,
+        IToolbar toolbar)
     : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));

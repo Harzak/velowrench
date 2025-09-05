@@ -1,6 +1,4 @@
-﻿using velowrench.Core.ViewModels.Home;
-
-namespace velowrench.Core.Interfaces;
+﻿namespace velowrench.Core.Interfaces;
 
 /// <summary>
 /// Interface for view models that can be navigated to and managed by the navigation service.

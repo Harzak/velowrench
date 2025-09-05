@@ -1,12 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnitsNet.Units;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;

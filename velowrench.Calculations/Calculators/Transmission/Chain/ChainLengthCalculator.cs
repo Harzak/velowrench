@@ -28,7 +28,7 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
     public ChainLengthCalculator(
         ICalculatorInputValidator<ChainLengthCalculatorInput> inputValidator,
         IUnitStore unitStore,
-        ILogger logger) 
+        ILogger logger)
     : base(unitStore, logger)
     {
         this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));

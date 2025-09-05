@@ -1,8 +1,6 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
+﻿using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using velowrench.Core.EventArg;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Home;
 
@@ -82,7 +80,7 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
 
     public void Dispose()
     {
-        if(_navigationService != null)
+        if (_navigationService != null)
         {
             _navigationService.CurrentViewModelChanged -= OnCurrentViewModelChanged;
             _navigationService.Dispose();

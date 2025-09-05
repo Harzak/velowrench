@@ -15,6 +15,7 @@ public class GearRatioCalculTests
 {
     private ILogger _logger;
     private ICalculatorInputValidator<GearCalculatorInput> _inputValidator;
+    private IUnitStore _unitStore;
     private GearCalculator _calculator;
 
     [TestInitialize]
@@ -22,7 +23,8 @@ public class GearRatioCalculTests
     {
         _logger = A.Fake<ILogger>();
         _inputValidator = A.Fake<ICalculatorInputValidator<GearCalculatorInput>>();
-        _calculator = new GearCalculator(_inputValidator, _logger);
+        _unitStore = A.Fake<IUnitStore>();
+        _calculator = new GearCalculator(_inputValidator, _unitStore, _logger);
 
         A.CallTo(() => _inputValidator.ValidateWithResults(A<GearCalculatorInput>._, A<ValidationContext?>._))
             .Returns(ValidationResult.WithSuccess());

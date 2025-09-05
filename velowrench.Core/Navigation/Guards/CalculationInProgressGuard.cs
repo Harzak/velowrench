@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Calculations.Calculators;
-using velowrench.Core.Interfaces;
+﻿using velowrench.Core.Interfaces;
 using velowrench.Core.Navigation.Context;
-using velowrench.Core.ViewModels.Base;
-using velowrench.Utils.Enums;
 
 namespace velowrench.Core.Navigation.Guards;
 

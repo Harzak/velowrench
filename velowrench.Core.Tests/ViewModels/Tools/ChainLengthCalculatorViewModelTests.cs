@@ -23,11 +23,13 @@ public class ChainLengthCalculatorViewModelTests
     private INavigationService _navigationService;
     private ILocalizer _localizer;
     private ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _calculatorFactory;
+    private IUnitStore _unitStore;
+    private IToolbar _toolbar;
     private IDebounceActionFactory _debounceActionFactory;
     private ChainLengthCalculatorViewModel _viewModel;
 
     [TestInitialize]
-    public void  TestInitialize()
+    public void TestInitialize()
     {
         _calculatorFactory = A.Fake<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
         _debounceActionFactory = A.Fake<IDebounceActionFactory>();
@@ -35,6 +37,8 @@ public class ChainLengthCalculatorViewModelTests
         _localizer = A.Fake<ILocalizer>();
         _calculator = A.Fake<ICalculator<ChainLengthCalculatorInput, ChainLengthCalculatorResult>>();
         _inputValidation = A.Fake<ICalculatorInputValidator<ChainLengthCalculatorInput>>();
+        _unitStore = A.Fake<IUnitStore>();
+        _toolbar = A.Fake<IToolbar>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -55,7 +59,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _debounceActionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
             .ReturnsLazily((Action action, int delayMs) => new TestDebounceAction(action));
 
-        _viewModel = new(_calculatorFactory, _navigationService, _debounceActionFactory, _localizer);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _localizer, _toolbar);
     }
 
 
@@ -246,6 +250,7 @@ public class ChainLengthCalculatorViewModelTests
 
         A.CallTo(() => _calculator.Start(A<ChainLengthCalculatorInput>.That.Matches(input =>
             Math.Abs(input.ChainStayLengthIn - 17.72) < 0.1))).Returns(expectedResult);
+        A.CallTo(() => _unitStore.LengthDefaultUnit).Returns(LengthUnit.Inch);
         this.GlobalSetup(ECalculatorState.NotStarted, ValidationResult.WithSuccess());
         await _viewModel.OnInitializedAsync().ConfigureAwait(false);
 

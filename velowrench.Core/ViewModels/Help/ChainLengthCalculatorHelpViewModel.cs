@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
-using velowrench.Core.ViewModels.Home;
 
 namespace velowrench.Core.ViewModels.Help;
 
@@ -29,9 +28,9 @@ public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableVie
     private string _rigorousEquationLaTeX = @"L = 0.25 \cdot \left(F + R\right) + 2 \cdot \sqrt{C^{2} + \left(0.0796 \cdot \left(F - R\right)\right)^{2}}";
 
     public ChainLengthCalculatorHelpViewModel(
-        INavigationService navigationService, 
+        INavigationService navigationService,
         ILocalizer localizer,
-        IToolbar toolbar) 
+        IToolbar toolbar)
     : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));

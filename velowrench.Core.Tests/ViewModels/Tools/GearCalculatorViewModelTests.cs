@@ -28,6 +28,8 @@ public class GearCalculatorViewModelTests
     private IComponentStandardRepository _repository;
     private ICalculatorFactory<GearCalculatorInput, GearCalculatorResult> _calculatorFactory;
     private IDebounceActionFactory _debounceActionFactory;
+    private IUnitStore _unitStore;
+    private IToolbar _toolbar;
     private GearCalculatorViewModel _viewModel;
 
     [TestInitialize]
@@ -40,6 +42,8 @@ public class GearCalculatorViewModelTests
         _repository = A.Fake<IComponentStandardRepository>();
         _calculator = A.Fake<ICalculator<GearCalculatorInput, GearCalculatorResult>>();
         _inputValidation = A.Fake<ICalculatorInputValidator<GearCalculatorInput>>();
+        _unitStore = A.Fake<IUnitStore>();
+        _toolbar = A.Fake<IToolbar>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -98,7 +102,7 @@ public class GearCalculatorViewModelTests
         A.CallTo(() => _repository.GetAllCandences()).Returns(cadences);
         A.CallTo(() => _repository.GetMostCommonSprocketSpecifications()).Returns(sprockets);
 
-        _viewModel = new(_calculatorFactory, _navigationService, _debounceActionFactory, _repository, _localizer);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar);
     }
 
     [TestMethod]
@@ -493,8 +497,8 @@ public class GearCalculatorViewModelTests
         // Act 
 
         await _viewModel.OnInitializedAsync().ConfigureAwait(false);
-        _viewModel.Chainring1TeethCount = 5; 
-        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0); 
+        _viewModel.Chainring1TeethCount = 5;
+        _viewModel.SelectedWheel = new WheelSpecificationModel("Invalid wheel", 3.0, 1.0);
 
         // Assert
         _viewModel.InputErrorMessages.Should().HaveCount(2);

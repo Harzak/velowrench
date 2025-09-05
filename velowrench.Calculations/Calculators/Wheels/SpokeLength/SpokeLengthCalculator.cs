@@ -19,9 +19,9 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
     public override ICalculatorInputValidator<SpokeLengthCalculatorInput> InputValidator { get; }
 
     public SpokeLengthCalculator(
-        ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, 
-        IUnitStore unitStore, 
-        ILogger logger) 
+        ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator,
+        IUnitStore unitStore,
+        ILogger logger)
     : base(unitStore, logger)
     {
         this.InputValidator = inputValidator ?? throw new ArgumentNullException(nameof(inputValidator));

@@ -1,26 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using velowrench.Core.Interfaces;
 
 namespace velowrench.Core.ViewModels.Home;
 
-public interface IToolbar
-{
-    public bool CanShowHelpPage { get; }
-    public bool CanShowContextMenu { get; }
-    public bool CanShowProfile { get; }
-
-    public Action? ShowHelpPageAction { get; set; }
-    public Action? ResetToDefaultAction { get; set; }
-    public Action? ShowProfilAction { get; set; }
-}
-
-
-public  sealed partial class ToolbarViewModel : ObservableObject, IToolbar
+public sealed partial class ToolbarViewModel : ObservableObject, IToolbar
 {
     private Action? _showHelpPageAction;
     private Action? _resetToDefaultAction;

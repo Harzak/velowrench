@@ -13,7 +13,7 @@ public sealed class SpokeLengthCalculatorFactory : ICalculatorFactory<SpokeLengt
     private readonly ILogger _logger;
 
     public SpokeLengthCalculatorFactory(
-        ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator, 
+        ICalculatorInputValidator<SpokeLengthCalculatorInput> inputValidator,
         IUnitStore unitStore,
         ILogger<SpokeLengthCalculatorFactory> logger)
     {

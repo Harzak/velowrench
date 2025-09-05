@@ -1,5 +1,4 @@
 ﻿using velowrench.Core.Enums;
-using velowrench.Core.EventArg;
 using velowrench.Core.Navigation.Context;
 
 namespace velowrench.Core.Interfaces;

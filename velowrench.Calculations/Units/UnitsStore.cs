@@ -21,7 +21,7 @@ public sealed class UnitStore : IUnitStore
         {
             if (_lengthDefaultUnit != value)
             {
-                _lengthDefaultUnit = this.LengthAvailableUnits.Contains(value) ? value 
+                _lengthDefaultUnit = this.LengthAvailableUnits.Contains(value) ? value
                     : throw new InvalidOperationException("Unsupported unit");
             }
         }

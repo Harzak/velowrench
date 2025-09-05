@@ -1,11 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using velowrench.Core.Enums;
-using velowrench.Core.EventArg;
+﻿using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
-using velowrench.Core.LogMessages;
 using velowrench.Core.Navigation.Context;
 
 namespace velowrench.Core.Navigation;
@@ -89,7 +83,7 @@ public sealed class NavigationService : INavigationService
     /// <summary>
     /// Navigates back to the previous view in the navigation stack.
     /// </summary>
-    public  async Task NavigateBackAsync(NavigationParameters? parameters = null)
+    public async Task NavigateBackAsync(NavigationParameters? parameters = null)
     {
         if (!CanNavigateBack)
         {
@@ -112,7 +106,7 @@ public sealed class NavigationService : INavigationService
 
     public void Dispose()
     {
-        if(_handler != null)
+        if (_handler != null)
         {
             _handler.ActiveViewModelChanging -= OnActiveViewModelChanging;
             _handler.ActiveViewModelChanged -= OnActiveViewModelChanged;

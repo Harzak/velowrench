@@ -5,7 +5,6 @@ using Avalonia;
 using Avalonia.Android;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Debug;
 using velowrench.Core.Interfaces;
 using velowrench.UI;
 

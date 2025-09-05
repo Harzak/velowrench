@@ -15,6 +15,7 @@ namespace velowrench.Calculations.Tests.Calculs;
 public class BaseCalculTests
 {
     private ILogger _logger;
+    private IUnitStore _unitStore;
     private ICalculatorInputValidator<TestInput> _inputValidator;
     private TestableCalculator _calculator;
 
@@ -22,8 +23,9 @@ public class BaseCalculTests
     public void Initialize()
     {
         _logger = A.Fake<ILogger>();
+        _unitStore = A.Fake<IUnitStore>();
         _inputValidator = A.Fake<ICalculatorInputValidator<TestInput>>();
-        _calculator = new TestableCalculator(_inputValidator, _logger);
+        _calculator = new TestableCalculator(_inputValidator, _unitStore, _logger);
 
         A.CallTo(() => _inputValidator.ValidateWithResults(A<TestInput>._, A<ValidationContext?>._))
             .Returns(ValidationResult.WithSuccess());
@@ -191,7 +193,7 @@ public class TestableCalculator : BaseCalculator<TestInput, TestResult>
 
     public override ICalculatorInputValidator<TestInput> InputValidator { get; }
 
-    public TestableCalculator(ICalculatorInputValidator<TestInput> inputValidation, ILogger logger) : base(logger)
+    public TestableCalculator(ICalculatorInputValidator<TestInput> inputValidation, IUnitStore unitStore, ILogger logger) : base(unitStore, logger)
     {
         this.InputValidator = inputValidation;
     }

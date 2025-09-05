@@ -4,7 +4,6 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Validation;
-using velowrench.Core.ViewModels.Home;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Interfaces;

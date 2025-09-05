@@ -17,7 +17,7 @@ sealed class Program
             services.AddLogging(builder =>
             {
                 builder.ClearProviders();
-                builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                builder.SetMinimumLevel(LogLevel.Trace);
                 builder.AddNLog();
             });
         };
