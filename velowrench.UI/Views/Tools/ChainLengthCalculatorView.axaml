@@ -21,11 +21,19 @@
                         Background="{DynamicResource SemiColorTertiaryLight}"
                         CornerRadius="7">
                     <Grid Margin="10,10"
-                          ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto, Auto">
+                          ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto, Auto">
                         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                    Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Center"
                                    FontSize="14" FontWeight="Light"
                                    Text="{x:Static res:Languages.RecommendedValue}" />
+                        <Button Grid.Row="0" Grid.Column="2"
+                                Margin="0,0,0,10" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Command="{Binding CopyResultToClipboardCommand}"
+                                Theme="{DynamicResource BorderlessButton}">
+                            <materialIcons:MaterialIcon Width="20" Height="20"
+                                                        Foreground="{DynamicResource SemiColorText0}"
+                                                        Kind="ContentCopy" />
+                        </Button>
                         <TextBlock Grid.Row="1" Grid.Column="0"
                                    Margin="0,0,10,0" VerticalAlignment="Center"
                                    FontWeight="DemiBold"

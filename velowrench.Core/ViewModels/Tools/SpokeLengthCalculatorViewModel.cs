@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Globalization;
+using System.Text;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
@@ -16,7 +18,6 @@ namespace velowrench.Core.ViewModels.Tools;
 
 public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewModel<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>
 {
-    private readonly ILocalizer _localizer;
     private readonly IComponentStandardRepository _repository;
 
     /// <inheritdoc/>
@@ -117,10 +118,10 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
         ILocalizer localizer,
-        IToolbar toolbar)
-    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
+        IToolbar toolbar,
+        IClipboardInterop clipboard)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, localizer, toolbar, clipboard)
     {
-        _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         this.Name = localizer.GetString("SpokeLengthCalculator");
@@ -241,22 +242,42 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     [RelayCommand]
     private void ShowHubMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
+        using SpokeLengthCalculatorHubMeasurementHelpViewModel vm = new(NavigationService, base.Localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowRimMeasurementsHelpPage()
     {
-        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
+        using SpokeLengthCalculatorRimMeasurementHelpViewModel vm = new(NavigationService, base.Localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
     }
 
     [RelayCommand]
     private void ShowBuildConfigurationHelpPage()
     {
-        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, _localizer, base.Toolbar);
+        using SpokeLengthCalculatorBuildConfigurationHelpViewModel vm = new(NavigationService, base.Localizer, base.Toolbar);
         base.NavigationService.NavigateToAsync(vm);
+    }
+
+    [RelayCommand]
+    private async Task CopyResultToClipboard()
+    {
+        StringBuilder builder = new();
+
+        builder.Append(base.Localizer.GetString("GearSide"))
+               .Append(' ')
+               .Append(this.RecommendedSpokeLengthGearSide?.GetValueIn(base.UnitStore.LengthDefaultUnit).ToString(CultureInfo.InvariantCulture))
+               .Append(' ')
+               .Append(base.UnitStore.LengthDefaultUnit)
+               .Append(Environment.NewLine)
+               .Append(base.Localizer.GetString("NonGearSide"))
+               .Append(' ')
+               .Append(this.RecommendedSpokeLengthNonGearSide?.GetValueIn(base.UnitStore.LengthDefaultUnit).ToString(CultureInfo.InvariantCulture))
+               .Append(' ')
+               .Append(base.UnitStore.LengthDefaultUnit);
+
+        await base.Clipboard.SetTextAsync(builder.ToString()).ConfigureAwait(false);
     }
 
     public override void ResetToDefault()

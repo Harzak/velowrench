@@ -198,6 +198,9 @@
   <data name="ComponentCompatibilityGuide" xml:space="preserve">
     <value>Component Compatibility Guide</value>
   </data>
+  <data name="CopyResultsLabel" xml:space="preserve">
+    <value>Copy results</value>
+  </data>
   <data name="CrankLength" xml:space="preserve">
     <value>Crank length</value>
   </data>

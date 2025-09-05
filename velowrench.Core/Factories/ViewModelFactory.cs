@@ -25,6 +25,7 @@ public sealed class ViewModelFactory : IViewModelFactory
     private readonly IComponentStandardRepository _componentStandardRepository;
     private readonly IDebounceActionFactory _debounceActionFactory;
     private readonly IToolbar _toolbar;
+    private readonly IClipboardInterop _clipboard;
 
     public ViewModelFactory(ILocalizer localizer,
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
@@ -33,7 +34,8 @@ public sealed class ViewModelFactory : IViewModelFactory
         IUnitStore unitStore,
         IDebounceActionFactory debounceActionFactory,
         IComponentStandardRepository componentStandardRepository,
-        IToolbar toolbar)
+        IToolbar toolbar,
+        IClipboardInterop clipboard)
     {
 
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
@@ -44,6 +46,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         _debounceActionFactory = debounceActionFactory ?? throw new ArgumentNullException(nameof(debounceActionFactory));
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
         _toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
+        _clipboard = clipboard ?? throw new ArgumentNullException(nameof(clipboard));
     }
 
     /// <inheritdoc/>
@@ -65,11 +68,11 @@ public sealed class ViewModelFactory : IViewModelFactory
         switch (type)
         {
             case EVeloWrenchTools.ChainLengthCalculator:
-                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _localizer, _toolbar);
+                return new ChainLengthCalculatorViewModel(_chainLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _localizer, _toolbar, _clipboard);
             case EVeloWrenchTools.GearCalculator:
-                return new GearCalculatorViewModel(_gearCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
+                return new GearCalculatorViewModel(_gearCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar, _clipboard);
             case EVeloWrenchTools.SpokeLengthCalculator:
-                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar);
+                return new SpokeLengthCalculatorViewModel(_spokeLengthCalculatorFactory, _unitStore, navigationService, _debounceActionFactory, _componentStandardRepository, _localizer, _toolbar, _clipboard);
             default:
                 throw new NotSupportedException(type.ToString());
         }

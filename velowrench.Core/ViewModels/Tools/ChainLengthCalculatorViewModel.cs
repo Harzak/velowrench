@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using System.Globalization;
+using System.Text;
 using UnitsNet.Units;
 using velowrench.Calculations.Calculators.Transmission.Chain;
 using velowrench.Calculations.Interfaces;
@@ -58,11 +61,10 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
         ILocalizer localizer,
-        IToolbar toolbar)
-    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
+        IToolbar toolbar,
+        IClipboardInterop clipboard)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, localizer, toolbar, clipboard)
     {
-        ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
-
         this.Name = localizer.GetString("ChainLengthCalculator");
         this.CalculatorInput = new ChainLengthCalculatorInput();
     }
@@ -118,6 +120,24 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         this.CalculatorInput = new ChainLengthCalculatorInput();
         this.FillDefaultValues();
         base.ResetToDefault();
+    }
+
+    [RelayCommand]
+    private async Task CopyResultToClipboard()
+    {
+        StringBuilder builder = new();
+
+        builder.Append(base.Localizer.GetString("ChainLengthLabel"))
+               .Append(' ')
+               .Append(this.RecommendedChainLength?.GetValueIn(base.UnitStore.LengthDefaultUnit).ToString(CultureInfo.InvariantCulture))
+               .Append(' ')
+               .Append(base.UnitStore.LengthDefaultUnit)
+               .Append(Environment.NewLine)
+               .Append(base.Localizer.GetString("ChainLinksLabel"))
+               .Append(' ')
+               .Append(this.RecommendedChainLinks);
+
+        await base.Clipboard.SetTextAsync(builder.ToString()).ConfigureAwait(false);
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)

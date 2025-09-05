@@ -304,6 +304,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy results.
+        /// </summary>
+        public static string CopyResultsLabel {
+            get {
+                return ResourceManager.GetString("CopyResultsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crank length.
         /// </summary>
         public static string CrankLength {

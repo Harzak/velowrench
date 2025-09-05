@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
@@ -22,8 +23,6 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 {
     private const int PROGRESS_INDICATOR_DELAY = 350;
 
-    /// Schedules a calculation to run after a brief delay, canceling any pending calculations.
-    /// This prevents excessive calculations during rapid UI changes.
     private readonly IDebounceAction _refreshCalculationDebounced;
     private OperationResult<TResult>? _lastResult;
     private readonly List<ValidationError> _inputErrors;
@@ -39,6 +38,13 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// Gets the input required by the calculator to perform its operations.
     /// </summary>
     protected abstract TInput CalculatorInput { get; set; }
+
+    /// <summary>
+    /// Gets the clipboard interop service used for interacting with the system clipboard.
+    /// </summary>
+    protected IClipboardInterop Clipboard { get; }
+
+    protected ILocalizer Localizer { get; }
 
     /// <summary>
     /// Gets or sets the current state of the calculation operation.
@@ -61,7 +67,9 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         IUnitStore unitStore,
         INavigationService navigationService,
         IDebounceActionFactory actionFactory,
-        IToolbar toolbar) : base(navigationService, toolbar)
+        ILocalizer localizer,
+        IToolbar toolbar,
+        IClipboardInterop clipboard) : base(navigationService, toolbar)
     {
         ArgumentNullException.ThrowIfNull(actionFactory, nameof(actionFactory));
 
@@ -70,6 +78,8 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
 
         this.Calculator = calculatorFactory?.CreateCalculator() ?? throw new ArgumentNullException(nameof(calculatorFactory));
         this.UnitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
+        this.Localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
+        this.Clipboard = clipboard ?? throw new ArgumentNullException(nameof(clipboard));
         this.Calculator.StateChanged += OnCalculatorStateChanged;
         this.CurrentState = ECalculatorState.NotStarted;
     }
@@ -118,37 +128,12 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         }
     }
 
-    protected void WithProgrammaticChange(Action? action)
-    {
-        _isProgrammaticChange = true;
-        action?.Invoke();
-        _isProgrammaticChange = false;
-    }
-
-    private bool IsInputValid()
-    {
-        if (_inputErrors.Count > 0)
-        {
-            return false;
-        }
-        ValidationResult result = this.Calculator.InputValidator.ValidateWithResults(CalculatorInput);
-        return result.IsValid;
-    }
-
     private void RefreshCalculation()
     {
         if (this.CanCalculate())
         {
             this.Calculate();
         }
-    }
-
-    protected virtual bool CanCalculate()
-    {
-        return !base.HasErrors
-            && IsInputValid()
-            && this.Calculator.State != ECalculatorState.InProgress
-            && (_lastResult?.Content?.UsedInputs == null || !_lastResult.Content.UsedInputs.Equals(CalculatorInput));
     }
 
     private void Calculate()
@@ -161,6 +146,16 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         }
     }
 
+    protected virtual bool CanCalculate()
+    {
+        return !base.HasErrors
+            && IsInputValid()
+            && this.Calculator.State != ECalculatorState.InProgress
+            && (_lastResult?.Content?.UsedInputs == null || !_lastResult.Content.UsedInputs.Equals(CalculatorInput));
+    }
+
+    protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
+
     private async void OnCalculatorStateChanged(object? sender, CalculatorStateEventArgs e)
     {
         if (this.CurrentState == ECalculatorState.InProgress && e.State == ECalculatorState.Computed)
@@ -170,13 +165,28 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         this.CurrentState = e.State;
     }
 
-    protected abstract void OnCalculationSuccessful(OperationResult<TResult> result);
+    private bool IsInputValid()
+    {
+        if (_inputErrors.Count > 0)
+        {
+            return false;
+        }
+        ValidationResult result = this.Calculator.InputValidator.ValidateWithResults(CalculatorInput);
+        return result.IsValid;
+    }
 
     public virtual void ResetToDefault()
     {
         _lastResult = null;
         _inputErrors.Clear();
         this.CurrentState = ECalculatorState.NotStarted;
+    }
+
+    protected void WithProgrammaticChange(Action? action)
+    {
+        _isProgrammaticChange = true;
+        action?.Invoke();
+        _isProgrammaticChange = false;
     }
 
     private bool _disposed;

@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Text;
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
@@ -145,10 +147,10 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         IDebounceActionFactory actionFactory,
         IComponentStandardRepository repository,
         ILocalizer localizer,
-        IToolbar toolbar)
-    : base(calculatorFactory, unitStore, navigationService, actionFactory, toolbar)
+        IToolbar toolbar,
+        IClipboardInterop clipboard)
+    : base(calculatorFactory, unitStore, navigationService, actionFactory, localizer, toolbar, clipboard)
     {
-        ArgumentNullException.ThrowIfNull(localizer, nameof(localizer));
         ArgumentNullException.ThrowIfNull(repository, nameof(repository));
 
         _repository = repository;
@@ -280,6 +282,31 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
                 row.ValueUnit = value;
             }
         }
+    }
+
+    [RelayCommand]
+    private async Task CopyResultToClipboard()
+    {
+        StringBuilder builder = new();
+
+        builder.Append(this.Chainring1TeethCount)
+               .Append(';')
+               .Append(this.Chainring2TeethCount)
+               .Append(';')
+               .Append(this.Chainring3TeethCount)
+               .Append(Environment.NewLine);
+
+        foreach (GearCalculResultRowModel row in _gearCalculResultRows)
+        {
+            builder.Append(row.ValueForChainring1)
+                   .Append(';')
+                   .Append(row.ValueForChainring2)
+                   .Append(';')
+                   .Append(row.ValueForChainring3)
+                   .Append(Environment.NewLine);    
+        }
+
+        await base.Clipboard.SetTextAsync(builder.ToString()).ConfigureAwait(false);
     }
 
     [RelayCommand]

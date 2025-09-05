@@ -5,6 +5,7 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.Navigation;
 using velowrench.Core.ViewModels;
 using velowrench.Core.ViewModels.Home;
+using velowrench.Core.Widgets;
 using velowrench.Repository.Configuration;
 using velowrench.Utils.Interfaces;
 
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
         collection.AddSingleton<IHostViewModel>(provider => provider.GetRequiredService<MainViewModel>());
         collection.AddSingleton<ToolbarViewModel>();
         collection.AddSingleton<IToolbar>(provider => provider.GetRequiredService<ToolbarViewModel>());
+        collection.AddSingleton<IClipboardInterop, ClipboardInterop>();
 
         collection.AddSingleton<IViewModelFactory, ViewModelFactory>();
         collection.AddSingleton<IDebounceActionFactory, DebounceActionFactory>();
