@@ -61,6 +61,24 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        public static string Appearance {
+            get {
+                return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App Language.
+        /// </summary>
+        public static string AppLanguage {
+            get {
+                return ResourceManager.GetString("AppLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Axle and Hub Standard Checker.
         /// </summary>
         public static string AxleAndHubStandardChecker {
@@ -313,6 +331,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cycling speed, etc..
+        /// </summary>
+        public static string CyclingSpeedDescription {
+            get {
+                return ResourceManager.GetString("CyclingSpeedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Definitions:.
         /// </summary>
         public static string Definitions {
@@ -345,6 +372,33 @@ namespace velowrench.UI.Resources {
         public static string DevelopmentFormula {
             get {
                 return ResourceManager.GetString("DevelopmentFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        public static string Display {
+            get {
+                return ResourceManager.GetString("Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance.
+        /// </summary>
+        public static string Distance {
+            get {
+                return ResourceManager.GetString("Distance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distances traveled, etc..
+        /// </summary>
+        public static string DistancesDescription {
+            get {
+                return ResourceManager.GetString("DistancesDescription", resourceCulture);
             }
         }
         
@@ -691,6 +745,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Largest front chainring.
         /// </summary>
         public static string LargestFrontChainring {
@@ -714,6 +777,33 @@ namespace velowrench.UI.Resources {
         public static string LeftSpokeLength {
             get {
                 return ResourceManager.GetString("LeftSpokeLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length.
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measurement of hub, rim, frame, etc..
+        /// </summary>
+        public static string LengthMeasurementDescription {
+            get {
+                return ResourceManager.GetString("LengthMeasurementDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measurement units.
+        /// </summary>
+        public static string MeasurementUnits {
+            get {
+                return ResourceManager.GetString("MeasurementUnits", resourceCulture);
             }
         }
         
@@ -840,6 +930,33 @@ namespace velowrench.UI.Resources {
         public static string RimMeasurements {
             get {
                 return ResourceManager.GetString("RimMeasurements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the app color scheme.
+        /// </summary>
+        public static string SelectAppColorScheme {
+            get {
+                return ResourceManager.GetString("SelectAppColorScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your default app language.
+        /// </summary>
+        public static string SelectDefaultAppLanguage {
+            get {
+                return ResourceManager.GetString("SelectDefaultAppLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the default units used in the app.
+        /// </summary>
+        public static string SelectDefaultUnitsDescription {
+            get {
+                return ResourceManager.GetString("SelectDefaultUnitsDescription", resourceCulture);
             }
         }
         

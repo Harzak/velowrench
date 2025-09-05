@@ -117,272 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChainLengthCalculator" xml:space="preserve">
-    <value>Chain Length Calculator</value>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
   </data>
-  <data name="GearCalculator" xml:space="preserve">
-    <value>Gear Calculator</value>
-  </data>
-  <data name="SpokeLengthCalculator" xml:space="preserve">
-    <value>Spoke Length Calculator</value>
-  </data>
-  <data name="SpokeTensionGuide" xml:space="preserve">
-    <value>Spoke Tension Guide</value>
-  </data>
-  <data name="TransmissionAndDrivetrain" xml:space="preserve">
-    <value>Transmission &amp; Drivetrain</value>
-  </data>
-  <data name="WheelsAndSpoking" xml:space="preserve">
-    <value>Wheels &amp; Spoking</value>
-  </data>
-  <data name="CompatibilityAndStandards" xml:space="preserve">
-    <value>Compatibility &amp; Standards</value>
-  </data>
-  <data name="ComponentCompatibilityGuide" xml:space="preserve">
-    <value>Component Compatibility Guide</value>
+  <data name="AppLanguage" xml:space="preserve">
+    <value>App Language</value>
   </data>
   <data name="AxleAndHubStandardChecker" xml:space="preserve">
     <value>Axle and Hub Standard Checker</value>
   </data>
-  <data name="VeloWrench" xml:space="preserve">
-    <value>veloWrench</value>
-  </data>
-  <data name="ChainLengthCalculatorHeader" xml:space="preserve">
-    <value>Calculate the recommended bicycle chain length using your bike's chain stay length and gear sizes.</value>
-  </data>
-  <data name="ChainStayLength" xml:space="preserve">
-    <value>Chain stay length</value>
-  </data>
-  <data name="LargestFrontChainring" xml:space="preserve">
-    <value>Largest front chainring</value>
-  </data>
-  <data name="Teeth" xml:space="preserve">
-    <value>Teeth</value>
-  </data>
-  <data name="LargestRearSprocket" xml:space="preserve">
-    <value>Largest rear sprocket</value>
-  </data>
-  <data name="EnterValues" xml:space="preserve">
-    <value>Please enter the values</value>
-  </data>
-  <data name="CalculationInProgress" xml:space="preserve">
-    <value>Calculation in progress...</value>
-  </data>
-  <data name="Calculated" xml:space="preserve">
-    <value>Calculated</value>
-  </data>
-  <data name="RecommendedValue" xml:space="preserve">
-    <value>Recommended value</value>
-  </data>
-  <data name="ChainLength" xml:space="preserve">
-    <value>Chain length</value>
-  </data>
-  <data name="ChainLinks" xml:space="preserve">
-    <value>Chain links</value>
-  </data>
-  <data name="CalculationFailed" xml:space="preserve">
-    <value>Calculation failed</value>
-  </data>
-  <data name="SomethingWentWrong" xml:space="preserve">
-    <value>Something went wrong</value>
-  </data>
-  <data name="ChainLengthLabel" xml:space="preserve">
-    <value>Chain length:</value>
-  </data>
-  <data name="ChainLinksLabel" xml:space="preserve">
-    <value>Chain links:</value>
-  </data>
-  <data name="Inputs" xml:space="preserve">
-    <value>Inputs</value>
-  </data>
-  <data name="HelpChainStayLengthHeader" xml:space="preserve">
-    <value>Chain stay length (C)</value>
-  </data>
-  <data name="HelpChainStayLength" xml:space="preserve">
-    <value>The distance between the center of the bottom bracket (pedal axle) and the center of the rear wheel axle. It is usually measured along the chain line.</value>
-  </data>
-  <data name="HelpFrontChainringHeader" xml:space="preserve">
-    <value>Largest front chainring (F)</value>
-  </data>
-  <data name="HelpFrontChainring" xml:space="preserve">
-    <value>The number of teeth on your bike's largest front chainring.</value>
-  </data>
-  <data name="HelpLargestRearSprocketHeader" xml:space="preserve">
-    <value>Largest rear sprocket (R)</value>
-  </data>
-  <data name="HelpLargestRearSprocket" xml:space="preserve">
-    <value>The number of teeth on the largest cog of your rear cassette/freewheel.</value>
-  </data>
-  <data name="Calculations" xml:space="preserve">
-    <value>Calculations</value>
-  </data>
-  <data name="HelpChainLengthCalculationHeader" xml:space="preserve">
-    <value>This tool uses two common methods to estimate the correct bicycle chain length:</value>
-  </data>
-  <data name="SimpleFormula" xml:space="preserve">
-    <value>Simple formula</value>
-  </data>
-  <data name="SimpleFormulaExplanation" xml:space="preserve">
-    <value>A quick approximation based on chainstay length and the sizes of your largest front chainring and largest rear sprocket. Best suited for standard bikes and quick calculations.</value>
-  </data>
-  <data name="RigorousFormula" xml:space="preserve">
-    <value>Rigorous formula</value>
-  </data>
-  <data name="RigorousFormulaExplanation" xml:space="preserve">
-    <value>A more accurate method that uses Pythagoras' theorem to take into account the actual path of the chain around the gears. This is more accurate for shorter chainstays or bikes with unusual gear sizes.</value>
-  </data>
-  <data name="Results" xml:space="preserve">
-    <value>Results</value>
-  </data>
-  <data name="ResultChainLengthCalculExplaination" xml:space="preserve">
-    <value>Both formulas give the recommended chain length, which can then be converted into the number of links required.</value>
-  </data>
-  <data name="OutputFormat" xml:space="preserve">
-    <value>Output format</value>
-  </data>
-  <data name="GearCalculatorOutputFormatDescription" xml:space="preserve">
-    <value>Represents the different ways of expressing the gear/transmission ratio.</value>
-  </data>
-  <data name="GearInches" xml:space="preserve">
-    <value>Gear inches</value>
-  </data>
-  <data name="GearInchesDescription" xml:space="preserve">
-    <value>Traditional gear inches calculation. Standard measurement for comparing gear ratios across different bicycle configurations.</value>
-  </data>
-  <data name="GainRatio" xml:space="preserve">
-    <value>Gain ratio</value>
-  </data>
-  <data name="GainRatioDescription" xml:space="preserve">
-    <value>Universal mechanical comparison between bikes. More mechanically accurate than gear inches.</value>
-  </data>
-  <data name="Development" xml:space="preserve">
-    <value>Development</value>
-  </data>
-  <data name="DevelopmentDescription" xml:space="preserve">
-    <value>Development calculation that measures the distance traveled per pedal revolution.</value>
-  </data>
-  <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
-  </data>
-  <data name="SpeedDescription" xml:space="preserve">
-    <value>Calculates the speed achievable at a specific pedaling rate (RPM).</value>
-  </data>
-  <data name="FrontChainringTeethFormula" xml:space="preserve">
-    <value>= number of teeth on the front chainring</value>
-  </data>
-  <data name="RearSprocketTeethFormula" xml:space="preserve">
-    <value>= number of teeth on the rear sprocket</value>
-  </data>
-  <data name="WheelDiameterFormula" xml:space="preserve">
-    <value>= wheel diameter in inches</value>
-  </data>
-  <data name="WheelRadiusFormula" xml:space="preserve">
-    <value>= wheel radius</value>
-  </data>
-  <data name="CrankLengthFormula" xml:space="preserve">
-    <value>= crank length</value>
-  </data>
-  <data name="WheelCircumferenceFormula" xml:space="preserve">
-    <value>= wheel circumference</value>
-  </data>
-  <data name="CadenceRpmFormula" xml:space="preserve">
-    <value>= cadence in revolutions per minute</value>
-  </data>
-  <data name="DevelopmentFormula" xml:space="preserve">
-    <value>= development</value>
-  </data>
-  <data name="GearCalculatorResultsDescription" xml:space="preserve">
-    <value>All results contain the values calculated for each combination of sprocket and chainring, sorted by chainring size and sprocket size.</value>
-  </data>
-  <data name="GearCalculatorUnitsDescription" xml:space="preserve">
-    <value>The results of the development and speed calculations can be converted into different units, while the results of the gear inches calculation are only expressed in inches and those of the gain ratio are unitless.</value>
-  </data>
-  <data name="WheelSize" xml:space="preserve">
-    <value>Wheel size</value>
-  </data>
-  <data name="CrankLength" xml:space="preserve">
-    <value>Crank length</value>
-  </data>
-  <data name="Cadence" xml:space="preserve">
-    <value>Cadence</value>
-  </data>
-  <data name="ChainringTeeth" xml:space="preserve">
-    <value>Chainring(s) teeth</value>
-  </data>
-  <data name="SprocketTeeth" xml:space="preserve">
-    <value>Sprocket(s) teeth</value>
-  </data>
-  <data name="GearCalculatorHeader" xml:space="preserve">
-    <value>Visualize your gear setup with different metrics: gear inches, gain ratio, development, and speed.</value>
+  <data name="BaselineChordCalculation" xml:space="preserve">
+    <value>Compute the baseline chord from the law of cosines:</value>
   </data>
   <data name="BuildConfiguration" xml:space="preserve">
     <value>Build configuration</value>
   </data>
-  <data name="HubMeasurements" xml:space="preserve">
-    <value>Hub measurements</value>
+  <data name="Cadence" xml:space="preserve">
+    <value>Cadence</value>
   </data>
-  <data name="RimMeasurements" xml:space="preserve">
-    <value>Rim measurements</value>
+  <data name="CadenceRpmFormula" xml:space="preserve">
+    <value>= cadence in revolutions per minute</value>
   </data>
-  <data name="SpokeLengthCalculatorHeader" xml:space="preserve">
-    <value>Calculate the recommended wheel spoke length using your hub and rim measurements.</value>
+  <data name="Calculated" xml:space="preserve">
+    <value>Calculated</value>
   </data>
-  <data name="HelpPage" xml:space="preserve">
-    <value>Help Page</value>
+  <data name="CalculationFailed" xml:space="preserve">
+    <value>Calculation failed</value>
   </data>
-  <data name="CenterToFlangeDistances" xml:space="preserve">
-    <value>= Center to flange distances (left/right)</value>
+  <data name="CalculationInProgress" xml:space="preserve">
+    <value>Calculation in progress...</value>
   </data>
-  <data name="HubDiameters" xml:space="preserve">
-    <value>= Hub diameters (left/right)</value>
-  </data>
-  <data name="EffectiveRimDiameter" xml:space="preserve">
-    <value>= Effective Rim Diameter</value>
-  </data>
-  <data name="NumberOfSpokes" xml:space="preserve">
-    <value>= Number of spokes</value>
-  </data>
-  <data name="CrossCount" xml:space="preserve">
-    <value>= Cross count</value>
-  </data>
-  <data name="HubSpokeHoleDiameter" xml:space="preserve">
-    <value>= Hub spoke hole diameter (fixed at 2.5mm)</value>
-  </data>
-  <data name="SpokeLengthCalculationDescription" xml:space="preserve">
-    <value>This tool uses the standard side specific spoke-length formula with one shared "core" triangle and then a side by side step.</value>
-  </data>
-  <data name="Definitions" xml:space="preserve">
-    <value>Definitions:</value>
-  </data>
-  <data name="BaselineChordCalculation" xml:space="preserve">
-    <value>Compute the baseline chord from the law of cosines:</value>
-  </data>
-  <data name="LeftSpokeLength" xml:space="preserve">
-    <value>Left spoke length:</value>
-  </data>
-  <data name="RightSpokeLength" xml:space="preserve">
-    <value>Right spoke length:</value>
-  </data>
-  <data name="SpokeHoleRadiusNote" xml:space="preserve">
-    <value>That final - d/2 slightly shortens for the spoke-hole radius at the hub.</value>
-  </data>
-  <data name="SpokeLengthResultsDescription" xml:space="preserve">
-    <value>The calculator provides the recommended spoke length, based on the inputs, for the gear side and the non-gear side. The two values may differ due to the presence of a cassette/freewheel or a disc brake rotor.</value>
-  </data>
-  <data name="HubAsymmetryNote" xml:space="preserve">
-    <value>Due to the gear, rear hubs are asymmetrical.</value>
-  </data>
-  <data name="FrontHubDiscBrakeNote" xml:space="preserve">
-    <value>Front hubs may also be slightly different if they have a disc brake (rotor side inboard).</value>
+  <data name="Calculations" xml:space="preserve">
+    <value>Calculations</value>
   </data>
   <data name="CenterToFlange" xml:space="preserve">
     <value>Center to flange</value>
   </data>
-  <data name="CenterToFlangeNonGearSide" xml:space="preserve">
-    <value>WL= Center to flange non-gear side</value>
-  </data>
-  <data name="CenterToFlangeNonGearSideDescription" xml:space="preserve">
-    <value>The distance from the hub centerline to the left flange.</value>
+  <data name="CenterToFlangeDistances" xml:space="preserve">
+    <value>= Center to flange distances (left/right)</value>
   </data>
   <data name="CenterToFlangeGearSide" xml:space="preserve">
     <value>WR= Center to flange gear side</value>
@@ -390,23 +162,77 @@
   <data name="CenterToFlangeGearSideDescription" xml:space="preserve">
     <value>The distance from the hub centerline to the right flange.</value>
   </data>
-  <data name="HubDiameter" xml:space="preserve">
-    <value>Hub diameter</value>
+  <data name="CenterToFlangeNonGearSide" xml:space="preserve">
+    <value>WL= Center to flange non-gear side</value>
   </data>
-  <data name="HubDiameterNonGearSide" xml:space="preserve">
-    <value>DL= Hub diameter non-gear side</value>
+  <data name="CenterToFlangeNonGearSideDescription" xml:space="preserve">
+    <value>The distance from the hub centerline to the left flange.</value>
   </data>
-  <data name="HubDiameterNonGearSideDescription" xml:space="preserve">
-    <value>The diameter of the circle through the centers of the spoke holes on the left flange.</value>
+  <data name="ChainLength" xml:space="preserve">
+    <value>Chain length</value>
   </data>
-  <data name="HubDiameterGearSide" xml:space="preserve">
-    <value>DR= Hub diameter gear side</value>
+  <data name="ChainLengthCalculator" xml:space="preserve">
+    <value>Chain Length Calculator</value>
   </data>
-  <data name="HubDiameterGearSideDescription" xml:space="preserve">
-    <value>The diameter of the circle through the centers of the spoke holes on the right flange.</value>
+  <data name="ChainLengthCalculatorHeader" xml:space="preserve">
+    <value>Calculate the recommended bicycle chain length using your bike's chain stay length and gear sizes.</value>
   </data>
-  <data name="InternalDiameter" xml:space="preserve">
-    <value>Internal diameter</value>
+  <data name="ChainLengthLabel" xml:space="preserve">
+    <value>Chain length:</value>
+  </data>
+  <data name="ChainLinks" xml:space="preserve">
+    <value>Chain links</value>
+  </data>
+  <data name="ChainLinksLabel" xml:space="preserve">
+    <value>Chain links:</value>
+  </data>
+  <data name="ChainringTeeth" xml:space="preserve">
+    <value>Chainring(s) teeth</value>
+  </data>
+  <data name="ChainStayLength" xml:space="preserve">
+    <value>Chain stay length</value>
+  </data>
+  <data name="CompatibilityAndStandards" xml:space="preserve">
+    <value>Compatibility &amp; Standards</value>
+  </data>
+  <data name="ComponentCompatibilityGuide" xml:space="preserve">
+    <value>Component Compatibility Guide</value>
+  </data>
+  <data name="CrankLength" xml:space="preserve">
+    <value>Crank length</value>
+  </data>
+  <data name="CrankLengthFormula" xml:space="preserve">
+    <value>= crank length</value>
+  </data>
+  <data name="CrossCount" xml:space="preserve">
+    <value>= Cross count</value>
+  </data>
+  <data name="CyclingSpeedDescription" xml:space="preserve">
+    <value>Cycling speed, etc.</value>
+  </data>
+  <data name="Definitions" xml:space="preserve">
+    <value>Definitions:</value>
+  </data>
+  <data name="Development" xml:space="preserve">
+    <value>Development</value>
+  </data>
+  <data name="DevelopmentDescription" xml:space="preserve">
+    <value>Development calculation that measures the distance traveled per pedal revolution.</value>
+  </data>
+  <data name="DevelopmentFormula" xml:space="preserve">
+    <value>= development</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="DistancesDescription" xml:space="preserve">
+    <value>Distances traveled, etc.</value>
+  </data>
+  <data name="EffectiveRimDiameter" xml:space="preserve">
+    <value>= Effective Rim Diameter</value>
   </data>
   <data name="EffectiveRimDiameterAbbreviation" xml:space="preserve">
     <value>= Effective Rim Diameter</value>
@@ -414,11 +240,104 @@
   <data name="EffectiveRimDiameterDescription" xml:space="preserve">
     <value>= Effective Rim Diameter</value>
   </data>
-  <data name="NumberOfSpokesTitle" xml:space="preserve">
-    <value>Number of spokes</value>
+  <data name="EnterValues" xml:space="preserve">
+    <value>Please enter the values</value>
   </data>
-  <data name="NumberOfSpokesDescription" xml:space="preserve">
-    <value>The number of spokes per wheel (hole count).</value>
+  <data name="FrontChainringTeethFormula" xml:space="preserve">
+    <value>= number of teeth on the front chainring</value>
+  </data>
+  <data name="FrontHubDiscBrakeNote" xml:space="preserve">
+    <value>Front hubs may also be slightly different if they have a disc brake (rotor side inboard).</value>
+  </data>
+  <data name="GainRatio" xml:space="preserve">
+    <value>Gain ratio</value>
+  </data>
+  <data name="GainRatioDescription" xml:space="preserve">
+    <value>Universal mechanical comparison between bikes. More mechanically accurate than gear inches.</value>
+  </data>
+  <data name="GearCalculator" xml:space="preserve">
+    <value>Gear Calculator</value>
+  </data>
+  <data name="GearCalculatorHeader" xml:space="preserve">
+    <value>Visualize your gear setup with different metrics: gear inches, gain ratio, development, and speed.</value>
+  </data>
+  <data name="GearCalculatorOutputFormatDescription" xml:space="preserve">
+    <value>Represents the different ways of expressing the gear/transmission ratio.</value>
+  </data>
+  <data name="GearCalculatorResultsDescription" xml:space="preserve">
+    <value>All results contain the values calculated for each combination of sprocket and chainring, sorted by chainring size and sprocket size.</value>
+  </data>
+  <data name="GearCalculatorUnitsDescription" xml:space="preserve">
+    <value>The results of the development and speed calculations can be converted into different units, while the results of the gear inches calculation are only expressed in inches and those of the gain ratio are unitless.</value>
+  </data>
+  <data name="GearInches" xml:space="preserve">
+    <value>Gear inches</value>
+  </data>
+  <data name="GearInchesDescription" xml:space="preserve">
+    <value>Traditional gear inches calculation. Standard measurement for comparing gear ratios across different bicycle configurations.</value>
+  </data>
+  <data name="GearSide" xml:space="preserve">
+    <value>Gear side</value>
+  </data>
+  <data name="HelpChainLengthCalculationHeader" xml:space="preserve">
+    <value>This tool uses two common methods to estimate the correct bicycle chain length:</value>
+  </data>
+  <data name="HelpChainStayLength" xml:space="preserve">
+    <value>The distance between the center of the bottom bracket (pedal axle) and the center of the rear wheel axle. It is usually measured along the chain line.</value>
+  </data>
+  <data name="HelpChainStayLengthHeader" xml:space="preserve">
+    <value>Chain stay length (C)</value>
+  </data>
+  <data name="HelpFrontChainring" xml:space="preserve">
+    <value>The number of teeth on your bike's largest front chainring.</value>
+  </data>
+  <data name="HelpFrontChainringHeader" xml:space="preserve">
+    <value>Largest front chainring (F)</value>
+  </data>
+  <data name="HelpLargestRearSprocket" xml:space="preserve">
+    <value>The number of teeth on the largest cog of your rear cassette/freewheel.</value>
+  </data>
+  <data name="HelpLargestRearSprocketHeader" xml:space="preserve">
+    <value>Largest rear sprocket (R)</value>
+  </data>
+  <data name="HelpPage" xml:space="preserve">
+    <value>Help Page</value>
+  </data>
+  <data name="HubAsymmetryNote" xml:space="preserve">
+    <value>Due to the gear, rear hubs are asymmetrical.</value>
+  </data>
+  <data name="HubDiameter" xml:space="preserve">
+    <value>Hub diameter</value>
+  </data>
+  <data name="HubDiameterGearSide" xml:space="preserve">
+    <value>DR= Hub diameter gear side</value>
+  </data>
+  <data name="HubDiameterGearSideDescription" xml:space="preserve">
+    <value>The diameter of the circle through the centers of the spoke holes on the right flange.</value>
+  </data>
+  <data name="HubDiameterNonGearSide" xml:space="preserve">
+    <value>DL= Hub diameter non-gear side</value>
+  </data>
+  <data name="HubDiameterNonGearSideDescription" xml:space="preserve">
+    <value>The diameter of the circle through the centers of the spoke holes on the left flange.</value>
+  </data>
+  <data name="HubDiameters" xml:space="preserve">
+    <value>= Hub diameters (left/right)</value>
+  </data>
+  <data name="HubMeasurements" xml:space="preserve">
+    <value>Hub measurements</value>
+  </data>
+  <data name="HubSpokeHoleDiameter" xml:space="preserve">
+    <value>= Hub spoke hole diameter (fixed at 2.5mm)</value>
+  </data>
+  <data name="Inputs" xml:space="preserve">
+    <value>Inputs</value>
+  </data>
+  <data name="InternalDiameter" xml:space="preserve">
+    <value>Internal diameter</value>
+  </data>
+  <data name="LacingPattern" xml:space="preserve">
+    <value>Lacing pattern</value>
   </data>
   <data name="LacingPatterns" xml:space="preserve">
     <value>Lacing patterns</value>
@@ -426,19 +345,139 @@
   <data name="LacingPatternsDescription" xml:space="preserve">
     <value>Cross count: how many times each spoke crosses others (e.g., 3-cross, 2-cross, radial).</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LargestFrontChainring" xml:space="preserve">
+    <value>Largest front chainring</value>
+  </data>
+  <data name="LargestRearSprocket" xml:space="preserve">
+    <value>Largest rear sprocket</value>
+  </data>
+  <data name="LeftSpokeLength" xml:space="preserve">
+    <value>Left spoke length:</value>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="LengthMeasurementDescription" xml:space="preserve">
+    <value>Measurement of hub, rim, frame, etc.</value>
+  </data>
+  <data name="MeasurementUnits" xml:space="preserve">
+    <value>Measurement units</value>
+  </data>
   <data name="NonGearSide" xml:space="preserve">
     <value>Non-gear side</value>
   </data>
-  <data name="GearSide" xml:space="preserve">
-    <value>Gear side</value>
+  <data name="NumberOfSpokes" xml:space="preserve">
+    <value>= Number of spokes</value>
   </data>
-  <data name="LacingPattern" xml:space="preserve">
-    <value>Lacing pattern</value>
+  <data name="NumberOfSpokesDescription" xml:space="preserve">
+    <value>The number of spokes per wheel (hole count).</value>
+  </data>
+  <data name="NumberOfSpokesTitle" xml:space="preserve">
+    <value>Number of spokes</value>
+  </data>
+  <data name="OutputFormat" xml:space="preserve">
+    <value>Output format</value>
+  </data>
+  <data name="RearSprocketTeethFormula" xml:space="preserve">
+    <value>= number of teeth on the rear sprocket</value>
   </data>
   <data name="RecommendedSpokeLength" xml:space="preserve">
     <value>Recommended spoke length</value>
   </data>
+  <data name="RecommendedValue" xml:space="preserve">
+    <value>Recommended value</value>
+  </data>
+  <data name="ResultChainLengthCalculExplaination" xml:space="preserve">
+    <value>Both formulas give the recommended chain length, which can then be converted into the number of links required.</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="RightSpokeLength" xml:space="preserve">
+    <value>Right spoke length:</value>
+  </data>
+  <data name="RigorousFormula" xml:space="preserve">
+    <value>Rigorous formula</value>
+  </data>
+  <data name="RigorousFormulaExplanation" xml:space="preserve">
+    <value>A more accurate method that uses Pythagoras' theorem to take into account the actual path of the chain around the gears. This is more accurate for shorter chainstays or bikes with unusual gear sizes.</value>
+  </data>
+  <data name="RimMeasurements" xml:space="preserve">
+    <value>Rim measurements</value>
+  </data>
+  <data name="SelectAppColorScheme" xml:space="preserve">
+    <value>Select the app color scheme</value>
+  </data>
+  <data name="SelectDefaultAppLanguage" xml:space="preserve">
+    <value>Select your default app language</value>
+  </data>
+  <data name="SelectDefaultUnitsDescription" xml:space="preserve">
+    <value>Select the default units used in the app</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SimpleFormula" xml:space="preserve">
+    <value>Simple formula</value>
+  </data>
+  <data name="SimpleFormulaExplanation" xml:space="preserve">
+    <value>A quick approximation based on chainstay length and the sizes of your largest front chainring and largest rear sprocket. Best suited for standard bikes and quick calculations.</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="SpeedDescription" xml:space="preserve">
+    <value>Calculates the speed achievable at a specific pedaling rate (RPM).</value>
+  </data>
+  <data name="SpokeHoleRadiusNote" xml:space="preserve">
+    <value>That final - d/2 slightly shortens for the spoke-hole radius at the hub.</value>
+  </data>
+  <data name="SpokeLengthCalculationDescription" xml:space="preserve">
+    <value>This tool uses the standard side specific spoke-length formula with one shared "core" triangle and then a side by side step.</value>
+  </data>
+  <data name="SpokeLengthCalculator" xml:space="preserve">
+    <value>Spoke Length Calculator</value>
+  </data>
+  <data name="SpokeLengthCalculatorHeader" xml:space="preserve">
+    <value>Calculate the recommended wheel spoke length using your hub and rim measurements.</value>
+  </data>
+  <data name="SpokeLengthResultsDescription" xml:space="preserve">
+    <value>The calculator provides the recommended spoke length, based on the inputs, for the gear side and the non-gear side. The two values may differ due to the presence of a cassette/freewheel or a disc brake rotor.</value>
+  </data>
+  <data name="SpokeTensionGuide" xml:space="preserve">
+    <value>Spoke Tension Guide</value>
+  </data>
+  <data name="SprocketTeeth" xml:space="preserve">
+    <value>Sprocket(s) teeth</value>
+  </data>
+  <data name="Teeth" xml:space="preserve">
+    <value>Teeth</value>
+  </data>
+  <data name="TransmissionAndDrivetrain" xml:space="preserve">
+    <value>Transmission &amp; Drivetrain</value>
+  </data>
+  <data name="VeloWrench" xml:space="preserve">
+    <value>veloWrench</value>
+  </data>
+  <data name="WheelCircumferenceFormula" xml:space="preserve">
+    <value>= wheel circumference</value>
+  </data>
+  <data name="WheelDiameterFormula" xml:space="preserve">
+    <value>= wheel diameter in inches</value>
+  </data>
+  <data name="WheelRadiusFormula" xml:space="preserve">
+    <value>= wheel radius</value>
+  </data>
+  <data name="WheelsAndSpoking" xml:space="preserve">
+    <value>Wheels &amp; Spoking</value>
+  </data>
+  <data name="WheelSize" xml:space="preserve">
+    <value>Wheel size</value>
   </data>
 </root>
