@@ -46,24 +46,19 @@ public sealed class ViewModelFactory : IViewModelFactory
         _toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
     }
 
-    /// <summary>
-    /// Creates the home page view model.
-    /// </summary>
-    /// <returns>A routable view model instance for the home page.</returns>
+    /// <inheritdoc/>
     public IRoutableViewModel CreateHomeViewModel(INavigationService navigationService)
     {
         return new HomeViewModel(_localizer, navigationService, _toolbar);
     }
 
+    /// <inheritdoc/>
     public IRoutableViewModel CreateProfileViewModel(INavigationService navigationService)
     {
         return new ProfileViewModel(_localizer, _unitStore, navigationService, _toolbar);
     }
 
-    /// <summary>
-    /// Creates a tool-specific view model for the specified tool type.
-    /// </summary>
-    /// <returns>A routable view model instance for the specified tool.</returns>
+    /// <inheritdoc/>
     /// <exception cref="NotSupportedException">Thrown when the specified tool type is not supported.</exception>
     public IRoutableViewModel CreateToolViewModel(EVeloWrenchTools type, INavigationService navigationService)
     {
@@ -80,10 +75,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         }
     }
 
-    /// <summary>
-    /// Creates a help view model for the specified tool type.
-    /// </summary>
-    /// <returns>A routable view model instance for the tool's help page.</returns>
+    /// <inheritdoc/>
     /// <exception cref="NotSupportedException">Thrown when the specified tool type does not have help documentation.</exception>
     public IRoutableViewModel CreateHelpViewModel(EVeloWrenchTools type, INavigationService navigationService)
     {
@@ -99,5 +91,4 @@ public sealed class ViewModelFactory : IViewModelFactory
                 throw new NotSupportedException(type.ToString());
         }
     }
-
 }

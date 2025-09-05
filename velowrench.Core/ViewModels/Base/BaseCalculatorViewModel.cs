@@ -51,6 +51,9 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
     /// </summary>
     public IEnumerable<string> InputErrorMessages => _inputErrors.Select(e => e.Message);
 
+    /// <summary>
+    /// Gets the unit store used to manage and retrieve units of measurements.
+    /// </summary>
     public IUnitStore UnitStore { get; }
 
     protected BaseCalculatorViewModel(
@@ -71,6 +74,7 @@ public abstract partial class BaseCalculatorViewModel<TInput, TResult> : BaseRou
         this.CurrentState = ECalculatorState.NotStarted;
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         base.Toolbar.ResetToDefaultAction = this.ResetToDefault;

@@ -6,9 +6,7 @@ namespace velowrench.Core.ViewModels.Help;
 
 public sealed partial class GearCalculatorHelpViewModel : BaseRoutableViewModel
 {
-    /// <summary>
-    /// Gets the display name of the help view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
     [ObservableProperty]

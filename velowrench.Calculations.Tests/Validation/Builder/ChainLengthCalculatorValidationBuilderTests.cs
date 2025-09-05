@@ -16,7 +16,7 @@ public class ChainLengthCalculatorValidationBuilderTests
     public void Initialize()
     {
         ChainLengthcalculatorValidationBuilder builder = new();
-        _validator = new CalulatorInputValidator<ChainLengthCalculatorInput>(builder);
+        _validator = new CalculatorInputValidator<ChainLengthCalculatorInput>(builder);
     }
 
     [TestMethod]

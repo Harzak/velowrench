@@ -16,6 +16,7 @@ public sealed class SpokeLengthCalculator : BaseCalculator<SpokeLengthCalculator
 
     protected override string CalculatorName => nameof(SpokeLengthCalculator);
 
+    /// <inheritdoc/>
     public override ICalculatorInputValidator<SpokeLengthCalculatorInput> InputValidator { get; }
 
     public SpokeLengthCalculator(

@@ -19,6 +19,8 @@ internal sealed class CustomValidationRule<TInput> : BaseValidationRule<TInput>
         _validationFunc = validationFunc ?? throw new ArgumentNullException(nameof(validationFunc));
     }
 
+
+    /// <inheritdoc/>
     public override ValidationResult Validate(TInput input, object? value, ValidationContext context)
     {
         return _validationFunc(input, value, context);

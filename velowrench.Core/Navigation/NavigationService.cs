@@ -12,18 +12,16 @@ public sealed class NavigationService : INavigationService
     private readonly INavigationHandler _handler;
     private readonly IViewModelFactory _viewModelFactory;
 
-    /// <summary>
-    /// Gets the currently active view model.
-    /// </summary>
+    /// <inheritdoc/>
     public IRoutableViewModel? CurrentViewModel => _handler.ActiveViewModel;
 
-    /// <summary>
-    /// Gets a value indicating whether backward navigation is possible.
-    /// </summary>
+    /// <inheritdoc/>
     public bool CanNavigateBack => _handler.CanPop;
 
-
+    /// <inheritdoc/>
     public event EventHandler<EventArgs>? CurrentViewModelChanging;
+
+    /// <inheritdoc/>
     public event EventHandler<EventArgs>? CurrentViewModelChanged;
 
     public NavigationService(INavigationHandler handler, IViewModelFactory viewModelFactory)
@@ -35,9 +33,7 @@ public sealed class NavigationService : INavigationService
         _handler.ActiveViewModelChanged += OnActiveViewModelChanged;
     }
 
-    /// <summary>
-    /// Navigates to the home page and clears the navigation stack.
-    /// </summary>
+    /// <inheritdoc/>
     public async Task NavigateToHomeAsync(NavigationParameters? parameters = null)
     {
         IRoutableViewModel homeViewModel = _viewModelFactory.CreateHomeViewModel(this);
@@ -45,33 +41,28 @@ public sealed class NavigationService : INavigationService
         await NavigateToAsync(homeViewModel).ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public async Task NavigateToProfileAsync(NavigationParameters? parameters = null)
     {
         IRoutableViewModel profileViewModel = _viewModelFactory.CreateProfileViewModel(this);
         await NavigateToAsync(profileViewModel).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Navigates to a specific tool page.
-    /// </summary>
+    /// <inheritdoc/>
     public async Task NavigateToToolAsync(EVeloWrenchTools toolType, NavigationParameters? parameters = null)
     {
         IRoutableViewModel toolViewModel = _viewModelFactory.CreateToolViewModel(toolType, this);
         await NavigateToAsync(toolViewModel).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Navigates to the help page for a specific tool.
-    /// </summary>
+    /// <inheritdoc/>
     public async Task NavigateToHelpAsync(EVeloWrenchTools toolType, NavigationParameters? parameters = null)
     {
         IRoutableViewModel toolViewModel = _viewModelFactory.CreateHelpViewModel(toolType, this);
         await NavigateToAsync(toolViewModel).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Navigates to the specified view model by adding it to the navigation stack.
-    /// </summary>
+    /// <inheritdoc/>
     public async Task NavigateToAsync(IRoutableViewModel viewModel, NavigationParameters? parameters = null)
     {
         ArgumentNullException.ThrowIfNull(viewModel);
@@ -80,9 +71,7 @@ public sealed class NavigationService : INavigationService
         await _handler.PushAsync(viewModel, context).ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Navigates back to the previous view in the navigation stack.
-    /// </summary>
+    /// <inheritdoc/>
     public async Task NavigateBackAsync(NavigationParameters? parameters = null)
     {
         if (!CanNavigateBack)

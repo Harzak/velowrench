@@ -38,6 +38,7 @@ internal sealed class ChainLengthcalculatorValidationBuilder : BaseCalculatorVal
 
     }
 
+    /// <inheritdoc/>
     protected override void ConfigureValidationRules()
     {
         HasRange(

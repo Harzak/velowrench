@@ -20,14 +20,10 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
     protected IUnitStore UnitStore { get; }
     protected abstract string CalculatorName { get; }
 
-    /// <summary>
-    /// Gets the input validator used to validate the input used for the calculation.
-    /// </summary>
+    /// <inheritdoc/>
     public abstract ICalculatorInputValidator<TInput> InputValidator { get; }
 
-    /// <summary>
-    /// Gets the current state of the calculation.
-    /// </summary>
+    /// <inheritdoc/>
     public ECalculatorState State { get; private set; }
 
     /// <summary>
@@ -35,9 +31,7 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
     /// </summary>
     public TResult? LastResult { get; protected set; }
 
-    /// <summary>
-    /// Event raised when the calculation state changes.
-    /// </summary>
+    /// <inheritdoc/>
     public event EventHandler<CalculatorStateEventArgs>? StateChanged;
 
     protected BaseCalculator(IUnitStore unitStore, ILogger logger)
@@ -47,10 +41,7 @@ public abstract class BaseCalculator<TInput, TResult> : ICalculator<TInput, TRes
         this.State = ECalculatorState.NotStarted;
     }
 
-    /// <summary>
-    /// Starts the calculation with the specified input data.
-    /// </summary>
-    /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
+    /// <inheritdoc/>
     /// <exception cref="InvalidCalculatorOperationException">Thrown when a calculation is already in progress.</exception>
     public OperationResult<TResult> Start(TInput input)
     {

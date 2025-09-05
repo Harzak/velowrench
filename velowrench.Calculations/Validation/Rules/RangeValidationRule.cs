@@ -27,6 +27,8 @@ internal sealed class RangeValidationRule<TInput> : BaseValidationRule<TInput>
         _unitName = unitName;
     }
 
+
+    /// <inheritdoc/>
     public override ValidationResult Validate(TInput input, object? value, ValidationContext context)
     {
         if (value is null)

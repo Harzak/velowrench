@@ -8,6 +8,7 @@ namespace velowrench.Core.Navigation.Guards;
 /// </summary>
 public sealed class CalculationInProgressGuard : INavigationGuard
 {
+    /// <inheritdoc/>
     public Task<NavigationGuardResult> CanNavigateAsync(IRoutableViewModel? from, IRoutableViewModel to, NavigationContext context)
     {
         //if (from is BaseCalculatorViewModel calculatorViewModel)

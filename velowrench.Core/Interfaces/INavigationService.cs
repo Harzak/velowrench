@@ -22,8 +22,14 @@ public interface INavigationService : IDisposable
     /// </value>
     IRoutableViewModel? CurrentViewModel { get; }
 
+    /// <summary>
+    /// Occurs when the current view model is about to change.
+    /// </summary>
     event EventHandler<EventArgs>? CurrentViewModelChanging;
 
+    /// <summary>
+    /// Occurs when the current view model changes.
+    /// </summary>
     event EventHandler<EventArgs>? CurrentViewModelChanged;
 
     /// <summary>
@@ -31,6 +37,9 @@ public interface INavigationService : IDisposable
     /// </summary>
     Task NavigateToHomeAsync(NavigationParameters? parameters = null);
 
+    /// <summary>
+    /// Navigates to the user profile page asynchronously.
+    /// </summary>
     Task NavigateToProfileAsync(NavigationParameters? parameters = null);
 
     /// <summary>

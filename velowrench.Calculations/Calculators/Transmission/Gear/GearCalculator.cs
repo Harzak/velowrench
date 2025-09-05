@@ -18,6 +18,7 @@ public sealed class GearCalculator : BaseCalculator<GearCalculatorInput, GearCal
 
     protected override string CalculatorName => nameof(GearCalculator);
 
+    /// <inheritdoc/>
     public override ICalculatorInputValidator<GearCalculatorInput> InputValidator { get; }
 
     public GearCalculator(

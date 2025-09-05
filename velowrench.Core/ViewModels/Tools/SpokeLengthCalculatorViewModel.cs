@@ -127,6 +127,7 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         this.CalculatorInput = new SpokeLengthCalculatorInput(precision: 0);
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         base.Toolbar.ShowHelpPageAction = () => base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.SpokeLengthCalculator);

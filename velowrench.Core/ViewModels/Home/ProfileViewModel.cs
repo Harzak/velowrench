@@ -16,9 +16,7 @@ public sealed partial class ProfileViewModel : BaseRoutableViewModel
 {
     private readonly IUnitStore _unitStore;
 
-    /// <summary>
-    /// Gets the display name of the home view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
     [ObservableProperty]
@@ -68,6 +66,7 @@ public sealed partial class ProfileViewModel : BaseRoutableViewModel
         Name = localizer.GetString("Settings");
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         this.SupportedCultures = [new("en-US"), new("fr-FR")];

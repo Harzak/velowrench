@@ -23,6 +23,7 @@ public sealed class ChainLengthCalculator : BaseCalculator<ChainLengthCalculator
 
     protected override string CalculatorName => nameof(ChainLengthCalculator);
 
+    /// <inheritdoc/>
     public override ICalculatorInputValidator<ChainLengthCalculatorInput> InputValidator { get; }
 
     public ChainLengthCalculator(

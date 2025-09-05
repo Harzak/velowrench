@@ -18,6 +18,8 @@ internal sealed class RequiredValidationRule<TInput> : BaseValidationRule<TInput
         _errorMessage = errorMessage;
     }
 
+
+    /// <inheritdoc/>
     public override ValidationResult Validate(TInput input, object? value, ValidationContext context)
     {
         if (value is null)

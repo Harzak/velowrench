@@ -9,9 +9,7 @@ public sealed partial class SpokeLengthCalculatorHelpViewModel : BaseRoutableVie
 {
     private readonly ILocalizer _localizer;
 
-    /// <summary>
-    /// Gets the display name of the help view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
     [ObservableProperty]

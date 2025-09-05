@@ -63,6 +63,7 @@ internal sealed class SpokeLengthCalculatorValidationBuilder : BaseCalculatorVal
 
     }
 
+    /// <inheritdoc/>
     protected override void ConfigureValidationRules()
     {
         HasRange(

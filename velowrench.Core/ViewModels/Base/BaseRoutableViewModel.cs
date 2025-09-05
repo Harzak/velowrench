@@ -8,6 +8,7 @@ namespace velowrench.Core.ViewModels.Base;
 /// </summary>
 public abstract partial class BaseRoutableViewModel : ObservableValidator, IRoutableViewModel
 {
+    /// <inheritdoc/>
     protected INavigationService NavigationService { get; }
 
     /// <inheritdoc/>
@@ -16,6 +17,7 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
     /// <inheritdoc/>
     public abstract string Name { get; }
 
+    /// <inheritdoc/>
     public IToolbar Toolbar { get; }
 
     protected BaseRoutableViewModel(INavigationService navigationService, IToolbar toolbar)
@@ -25,21 +27,25 @@ public abstract partial class BaseRoutableViewModel : ObservableValidator, IRout
         this.Toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
     }
 
+    /// <inheritdoc/>
     public virtual Task OnInitializedAsync()
     {
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc/>
     public virtual Task OnResumeAsync()
     {
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc/>
     public virtual Task OnDestroyAsync()
     {
         return Task.CompletedTask;
     }
 
+    /// <inheritdoc/>
     public virtual Task OnForceDestroyAsync()
     {
         return Task.CompletedTask;

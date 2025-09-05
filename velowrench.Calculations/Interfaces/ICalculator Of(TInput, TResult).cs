@@ -13,9 +13,11 @@ public interface ICalculator<TInput, TResult> : ICalculator where TInput : class
     /// <summary>
     /// Starts the calculation with the specified input data.
     /// </summary>
-    /// <param name="input">The input data for the calculation.</param>
     /// <returns>An operation result containing the calculation result if successful, or error information if failed.</returns>
     OperationResult<TResult> Start(TInput input);
 
-    public abstract Interfaces.ICalculatorInputValidator<TInput> InputValidator { get; }
+    /// <summary>
+    /// Gets the input validator used to validate the input used for the calculation.
+    /// </summary>
+    public abstract ICalculatorInputValidator<TInput> InputValidator { get; }
 }

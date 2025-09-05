@@ -70,6 +70,7 @@ internal sealed class GearCalculatorValidationBuilder : BaseCalculatorValidation
 
     }
 
+    /// <inheritdoc/>
     protected override void ConfigureValidationRules()
     {
         HasRange(

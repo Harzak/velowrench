@@ -10,5 +10,9 @@ internal interface IValidationRule<TInput>
 {
     string PropertyName { get; }
     string RuleName { get; }
+
+    /// <summary>
+    /// Validates the specified input value against the provided validation context.
+    /// </summary>
     ValidationResult Validate(TInput input, object? value, ValidationContext context);
 }

@@ -67,6 +67,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         this.CalculatorInput = new ChainLengthCalculatorInput();
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         base.Toolbar.ShowHelpPageAction = () => base.NavigationService.NavigateToHelpAsync(Enums.EVeloWrenchTools.ChainLengthCalculator);

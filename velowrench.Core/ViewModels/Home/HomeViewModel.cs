@@ -10,9 +10,7 @@ namespace velowrench.Core.ViewModels.Home;
 /// </summary>
 public sealed partial class HomeViewModel : BaseRoutableViewModel
 {
-    /// <summary>
-    /// Gets the display name of the home view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
     public HomeViewModel(
@@ -26,12 +24,14 @@ public sealed partial class HomeViewModel : BaseRoutableViewModel
         Name = localizer.GetString("VeloWrench");
     }
 
+    /// <inheritdoc/>
     public override Task OnResumeAsync()
     {
         Toolbar.ShowProfilAction = () => NavigationService.NavigateToProfileAsync();
         return base.OnResumeAsync();
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         Toolbar.ShowProfilAction = () => NavigationService.NavigateToProfileAsync();

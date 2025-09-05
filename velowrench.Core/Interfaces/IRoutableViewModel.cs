@@ -15,6 +15,9 @@ public interface IRoutableViewModel : IDisposable
     /// </summary>
     public string UrlPathSegment { get; }
 
+    /// <summary>
+    /// Gets the toolbar associated with the application, providing access to toolbar-specific functionality and controls.
+    /// </summary>
     public IToolbar Toolbar { get; }
 
     /// <summary>
@@ -22,6 +25,9 @@ public interface IRoutableViewModel : IDisposable
     /// </summary>
     Task OnInitializedAsync();
 
+    /// <summary>
+    /// Performs asynchronous cleanup operations when the object is being activated again (mostly in the context of go back navigation).
+    /// </summary>
     Task OnResumeAsync();
 
     /// <summary>

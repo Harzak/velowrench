@@ -9,9 +9,7 @@ namespace velowrench.Core.ViewModels.Help;
 /// </summary>
 public sealed partial class ChainLengthCalculatorHelpViewModel : BaseRoutableViewModel
 {
-    /// <summary>
-    /// Gets the display name of the help view model.
-    /// </summary>
+    /// <inheritdoc/>
     public override string Name { get; }
 
     /// <summary>

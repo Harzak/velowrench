@@ -22,6 +22,9 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
     [ObservableProperty]
     private IRoutableViewModel? _currentContent;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the system is currently performing a task.
+    /// </summary>
     [ObservableProperty]
     private bool _isBusy;
 

@@ -4,6 +4,7 @@ using velowrench.Core.ViewModels.Base;
 namespace velowrench.Core.ViewModels.Help;
 public sealed partial class SpokeLengthCalculatorHubMeasurementHelpViewModel : BaseRoutableViewModel
 {
+    /// <inheritdoc/>
     public override string Name { get; }
 
     public SpokeLengthCalculatorHubMeasurementHelpViewModel(

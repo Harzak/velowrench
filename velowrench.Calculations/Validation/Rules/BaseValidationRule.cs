@@ -18,6 +18,7 @@ internal abstract class BaseValidationRule<TInput> : IValidationRule<TInput>
         this.RuleName = ruleName;
     }
 
+    /// <inheritdoc/>
     public abstract ValidationResult Validate(TInput input, object? value, ValidationContext context);
 
     protected ValidationResult WithError(string message, object? context = null)

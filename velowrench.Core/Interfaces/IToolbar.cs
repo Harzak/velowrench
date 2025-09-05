@@ -1,5 +1,8 @@
 ﻿namespace velowrench.Core.Interfaces;
 
+/// <summary>
+/// Represents a toolbar interface that defines properties and actions for managing toolbar functionality.
+/// </summary>
 public interface IToolbar
 {
     public bool CanShowHelpPage { get; }

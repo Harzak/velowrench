@@ -5,11 +5,14 @@ using velowrench.Core.Validation.Pipeline;
 
 namespace velowrench.Calculations.Validation;
 
-internal sealed class CalulatorInputValidator<TInput> : ICalculatorInputValidator<TInput> where TInput : class
+/// <summary>
+/// Provides validation for calculator input using a configurable validation pipeline.
+/// </summary>
+internal sealed class CalculatorInputValidator<TInput> : ICalculatorInputValidator<TInput> where TInput : class
 {
     private readonly ValidationPipeline<TInput> _validationPipeline;
 
-    public CalulatorInputValidator(ICalculatorValidationBuilder<TInput> validationBuilder)
+    public CalculatorInputValidator(ICalculatorValidationBuilder<TInput> validationBuilder)
     {
         _validationPipeline = validationBuilder.Build();
     }

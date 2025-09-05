@@ -19,15 +19,16 @@ internal abstract class BaseCalculatorValidationBuilder<TInput> : ICalculatorVal
         this.Pipeline = new ValidationPipeline<TInput>(validationContext);
     }
 
-    /// <summary>
-    /// Builds the validation pipeline.
-    /// </summary>
+    /// <inheritdoc/>
     public ValidationPipeline<TInput> Build()
     {
         ConfigureValidationRules();
         return Pipeline;
     }
 
+    /// <summary>
+    /// Configures the validation rules.
+    /// </summary>
     protected abstract void ConfigureValidationRules();
 
     /// <summary>

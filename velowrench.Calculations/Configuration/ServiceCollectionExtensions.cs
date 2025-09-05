@@ -24,15 +24,15 @@ public static class ServiceCollectionExtensions
     {
         collection.AddSingleton<ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult>, ChainLengthCalculatorFactory>();
         collection.AddSingleton<ICalculatorValidationBuilder<ChainLengthCalculatorInput>, ChainLengthcalculatorValidationBuilder>();
-        collection.AddSingleton<ICalculatorInputValidator<ChainLengthCalculatorInput>, CalulatorInputValidator<ChainLengthCalculatorInput>>();
+        collection.AddSingleton<ICalculatorInputValidator<ChainLengthCalculatorInput>, CalculatorInputValidator<ChainLengthCalculatorInput>>();
 
         collection.AddSingleton<ICalculatorFactory<GearCalculatorInput, GearCalculatorResult>, GearCalculatorFactory>();
         collection.AddSingleton<ICalculatorValidationBuilder<GearCalculatorInput>, GearCalculatorValidationBuilder>();
-        collection.AddSingleton<ICalculatorInputValidator<GearCalculatorInput>, CalulatorInputValidator<GearCalculatorInput>>();
+        collection.AddSingleton<ICalculatorInputValidator<GearCalculatorInput>, CalculatorInputValidator<GearCalculatorInput>>();
 
         collection.AddSingleton<ICalculatorFactory<SpokeLengthCalculatorInput, SpokeLengthCalculatorResult>, SpokeLengthCalculatorFactory>();
         collection.AddSingleton<ICalculatorValidationBuilder<SpokeLengthCalculatorInput>, SpokeLengthCalculatorValidationBuilder>();
-        collection.AddSingleton<ICalculatorInputValidator<SpokeLengthCalculatorInput>, CalulatorInputValidator<SpokeLengthCalculatorInput>>();
+        collection.AddSingleton<ICalculatorInputValidator<SpokeLengthCalculatorInput>, CalculatorInputValidator<SpokeLengthCalculatorInput>>();
 
         collection.AddSingleton<IUnitStore, UnitStore>();
     }

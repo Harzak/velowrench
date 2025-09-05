@@ -157,6 +157,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.CalculatorInput = new GearCalculatorInput(precision: 2);
     }
 
+    /// <inheritdoc/>
     public override Task OnInitializedAsync()
     {
         base.Toolbar.ShowHelpPageAction = ShowHelpPage;
