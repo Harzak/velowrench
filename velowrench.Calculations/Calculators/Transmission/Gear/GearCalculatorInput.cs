@@ -1,4 +1,5 @@
-﻿using velowrench.Calculations.Constants;
+﻿using System.Text;
+using velowrench.Calculations.Constants;
 using velowrench.Calculations.Enums;
 
 namespace velowrench.Calculations.Calculators.Transmission.Gear;
@@ -131,5 +132,53 @@ public sealed class GearCalculatorInput : BaseCalculatorInput, IEquatable<GearCa
         foreach (var tooth in NumberOfTeethBySprocket)
             hash.Add(tooth);
         return hash.ToHashCode();
+    }
+
+    public override string ToString()
+    {
+        StringBuilder builder = new();
+        builder.Append(CalculatorType);
+        builder.Append(" metric");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(Math.Round(TyreOuterDiameterIn, 2));
+        builder.Append(" in tyre outer diameter");
+        builder.Append(Environment.NewLine);
+
+        if(CalculatorType == EGearCalculatorType.GainRatio)
+        {
+            builder.Append(Math.Round(CrankLengthMm,2));
+            builder.Append(" mm crank length");
+            builder.Append(Environment.NewLine);
+        }
+
+        if(CalculatorType == EGearCalculatorType.Speed)
+        {
+            builder.Append(RevolutionPerMinute);
+            builder.Append(" rpm cadence");
+            builder.Append(Environment.NewLine);
+        }
+
+        builder.Append(TeethNumberLargeOrUniqueChainring);
+        builder.Append("-tooth front chainring");
+        builder.Append(Environment.NewLine);
+
+        if (TeethNumberMediumChainring.HasValue)
+        {
+            builder.Append(TeethNumberMediumChainring.Value);
+            builder.Append("-tooth middle chainring");
+            builder.Append(Environment.NewLine);
+        }
+
+        if (TeethNumberSmallChainring.HasValue)
+        {
+            builder.Append(TeethNumberSmallChainring.Value);
+            builder.Append("-tooth small chainring");
+            builder.Append(Environment.NewLine);
+        }
+
+        builder.Append(string.Join(", ", NumberOfTeethBySprocket));
+        builder.Append(" teeth sprocket");
+        return builder.ToString();
     }
 }

@@ -1,4 +1,5 @@
-﻿using velowrench.Calculations.Constants;
+﻿using System.Text;
+using velowrench.Calculations.Constants;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
@@ -99,6 +100,41 @@ public sealed class SpokeLengthCalculatorInput : BaseCalculatorInput, IEquatable
             Math.Round(RimInternalDiameterMm, 10),
             SpokeCount,
             SpokeLacingPattern);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder builder = new();
+
+        builder.Append(Math.Round(HubCenterToFlangeDistanceGearSideMm, 2));
+        builder.Append(" mm hub center to flange distance (gear side)");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(Math.Round(HubCenterToFlangeDistanceNonGearSideMm, 2));
+        builder.Append(" mm hub center to flange distance (non-gear side)");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(Math.Round(HubFlangeDiameterGearSideMm, 2));
+        builder.Append(" mm hub flange diameter (gear side)");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(Math.Round(HubFlangeDiameterNonGearSideMm, 2));
+        builder.Append(" mm hub flange diameter (non-gear side)");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(Math.Round(RimInternalDiameterMm, 2));
+        builder.Append(" mm rim internal diameter");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(SpokeCount);
+        builder.Append(" spokes");
+        builder.Append(Environment.NewLine);
+
+        builder.Append(SpokeLacingPattern);
+        builder.Append("-cross spoke lacing");
+        builder.Append(Environment.NewLine);
+
+        return builder.ToString();  
     }
 }
 

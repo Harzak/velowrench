@@ -98,6 +98,12 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     private SpokeLacingPatternModel? _selectedSpokeLacingPattern;
 
     /// <summary>
+    /// Gets or sets the summary of the input.
+    /// </summary>
+    [ObservableProperty]
+    private string? _inputSummary;
+
+    /// <summary>
     ///  Gets or sets the recommended spoke length for the gear side, convertible in a specified length unit.
     /// </summary>
     /// <remarks>Calculation result value</remarks>
@@ -156,6 +162,15 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
         });
     }
 
+    protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
+    {
+        this.RecommendedSpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthGearSideMm, LengthUnit.Millimeter);
+        this.RecommendedSpokeLengthGearSide.Unit = base.UnitStore.LengthDefaultUnit;
+        this.RecommendedSpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthNonGearSideMm, LengthUnit.Millimeter);
+        this.RecommendedSpokeLengthNonGearSide.Unit = base.UnitStore.LengthDefaultUnit;
+        this.InputSummary = result.Content.UsedInputs.ToString();
+    }
+
     partial void OnHubCenterToFlangeDistanceGearSideChanged(ConvertibleDouble<LengthUnit>? value)
     {
         this.CalculatorInput.HubCenterToFlangeDistanceGearSideMm = value?.GetValueIn(LengthUnit.Millimeter) ?? 0;
@@ -196,14 +211,6 @@ public sealed partial class SpokeLengthCalculatorViewModel : BaseCalculatorViewM
     {
         this.CalculatorInput.SpokeLacingPattern = value?.Crosses ?? 0;
         base.OnCalculationInputChanged(nameof(this.CalculatorInput.SpokeLacingPattern));
-    }
-
-    protected override void OnCalculationSuccessful(OperationResult<SpokeLengthCalculatorResult> result)
-    {
-        this.RecommendedSpokeLengthGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthGearSideMm, LengthUnit.Millimeter);
-        this.RecommendedSpokeLengthGearSide.Unit = base.UnitStore.LengthDefaultUnit;
-        this.RecommendedSpokeLengthNonGearSide = new ConvertibleDouble<LengthUnit>(result.Content.SpokeLengthNonGearSideMm, LengthUnit.Millimeter);
-        this.RecommendedSpokeLengthNonGearSide.Unit = base.UnitStore.LengthDefaultUnit;
     }
 
     partial void OnHubMeasurementsSelectedUnitChanged(LengthUnit value)

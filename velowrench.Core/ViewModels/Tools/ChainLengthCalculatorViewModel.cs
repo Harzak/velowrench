@@ -44,6 +44,12 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     private int? _teethLargestSprocket;
 
     /// <summary>
+    /// Gets or sets the summary of the input.
+    /// </summary>
+    [ObservableProperty]
+    private string? _inputSummary;
+
+    /// <summary>
     /// Gets or sets the recommended number of chain links for the specified drivetrain configuration.
     /// </summary>
     [ObservableProperty]
@@ -95,6 +101,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
         this.RecommendedChainLength.Unit = base.UnitStore.LengthDefaultUnit;
         this.RecommendedChainLinks = result.Content.ChainLinks;
+        this.InputSummary = result.Content.UsedInputs.ToString(); 
     }
 
     partial void OnChainStayLengthChanged(ConvertibleDouble<LengthUnit>? value)

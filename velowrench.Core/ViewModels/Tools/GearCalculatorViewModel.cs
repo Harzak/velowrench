@@ -123,6 +123,12 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
     private int? _chainring3TeethCount;
 
     /// <summary>
+    /// Gets or sets the summary of the input.
+    /// </summary>
+    [ObservableProperty]
+    private string? _inputSummary;
+
+    /// <summary>
     /// Gets or sets the collection of units that can be applied to the calculation results.
     /// </summary>
     [ObservableProperty]
@@ -216,6 +222,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.AvailableResultUnits = new ObservableCollection<Enum>(availableUnits);
         this.SelectedResultUnit = result.Content.Unit;
         this.SelectedResultUnit = base.UnitStore.GetDefaultUnitForGearCalculation(result.Content.UsedInputs.CalculatorType);
+        this.InputSummary = result.Content.UsedInputs.ToString();
     }
 
     [RelayCommand]

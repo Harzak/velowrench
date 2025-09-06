@@ -1,4 +1,7 @@
-﻿using velowrench.Calculations.Constants;
+﻿using System.Net.Sockets;
+using System.Text;
+using velowrench.Calculations.Constants;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
@@ -61,5 +64,19 @@ public sealed class ChainLengthCalculatorInput : BaseCalculatorInput, IEquatable
     {
         double roundedLength = Math.Round(ChainStayLengthIn, 10);
         return HashCode.Combine(roundedLength, TeethLargestChainring, TeethLargestSprocket);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder builder = new();
+        builder.Append(Math.Round(ChainStayLengthIn,2))
+               .Append(" in chainstay")
+               .Append(Environment.NewLine)
+               .Append(TeethLargestChainring)
+               .Append("-tooth front chainring")
+               .Append(Environment.NewLine)
+               .Append(TeethLargestSprocket)
+               .Append("-tooth rear sprocket");
+        return builder.ToString();  
     }
 }
