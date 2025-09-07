@@ -18,26 +18,41 @@
     <Grid Margin="8,8"
           ColumnDefinitions="Auto, *, Auto, Auto, Auto" RowDefinitions="40, *">
 
-        <Button Grid.Row="0" Grid.Column="0"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Command="{Binding NavigateBackCommand}"
-                IsVisible="{Binding CanNavigateBack}"
-                Theme="{DynamicResource BorderlessButton}">
-            <materialIcons:MaterialIcon Width="25" Height="25"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{DynamicResource SemiColorText0}"
-                                        Kind="ArrowLeft" />
-        </Button>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
-                    Width="200"
-                    HorizontalAlignment="Center" VerticalAlignment="Top">
-            <TextBlock Margin="0,5"
-                       FontSize="18" FontWeight="SemiBold"
-                       Text="{Binding CurrentContent.Name}"
-                       TextAlignment="Center" TextWrapping="Wrap" />
+        <!--  Page Name  -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    IsVisible="{Binding CanNavigateBack, Converter={StaticResource BoolToInverseConverter}}"
+                    Orientation="Horizontal">
+            <Image x:Name="logo"
+                   Width="30"
+                   Margin="0,2,5,0" HorizontalAlignment="Center" VerticalAlignment="Top"
+                   IsVisible="{Binding CanNavigateBack, Converter={StaticResource BoolToInverseConverter}}"
+                   Stretch="Uniform" />
+            <TextBlock Margin="0,5" HorizontalAlignment="Center"
+                       FontSize="18" FontWeight="SemiBold" Text="veloWrench" TextAlignment="Center"
+                       TextWrapping="Wrap" />
         </StackPanel>
 
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    IsVisible="{Binding CanNavigateBack}"
+                    Orientation="Horizontal">
+            <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Command="{Binding NavigateBackCommand}"
+                    Theme="{DynamicResource BorderlessButton}">
+                <materialIcons:MaterialIcon Width="25" Height="25"
+                                            HorizontalAlignment="Center"
+                                            Foreground="{DynamicResource SemiColorText0}"
+                                            Kind="ArrowLeft" />
+            </Button>
+            <StackPanel Width="200">
+                <TextBlock Margin="0,5" HorizontalAlignment="Center"
+                           FontSize="18" FontWeight="SemiBold"
+                           Text="{Binding CurrentContent.Name}"
+                           TextAlignment="Center" TextWrapping="Wrap" />
+            </StackPanel>
+        </StackPanel>
+
+        <!--  Action Buttons  -->
         <Button Grid.Row="0" Grid.Column="2"
                 Width="30"
                 Margin="3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -77,6 +92,7 @@
             </Button.Flyout>
         </Button>
 
+        <!--  Main Content  -->
         <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                       Margin="0,15,0,0"
                       IsVisible="{Binding IsBusy, Converter={StaticResource BoolToInverseConverter}}">
@@ -87,6 +103,7 @@
             </ContentControl>
         </ScrollViewer>
 
+        <!--  Loading State  -->
         <ProgressBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                      Width="100" Height="100"
                      Margin="0,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"

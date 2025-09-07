@@ -31,6 +31,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Core.Tests", "ve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "velowrench.Repository", "velowrench.Repository\velowrench.Repository.csproj", "{44549A81-DDCF-42DD-9140-E110C49B6AC8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ressources", "Ressources", "{6BF5A184-9D4C-4B26-871B-5C9D171D2F74}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.ico = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.ico
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.png = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.png
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.svg = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-dark.svg
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.ico = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.ico
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.png = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.png
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.svg = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-border-light.svg
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark-safe.png = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark-safe.png
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark-safe.svg = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark-safe.svg
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.ico = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.ico
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.png = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.png
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.svg = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-dark.svg
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-light.png = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-light.png
+		..\..\Users\Aurelien\Desktop\icon\velowrench-logo-light.svg = ..\..\Users\Aurelien\Desktop\icon\velowrench-logo-light.svg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

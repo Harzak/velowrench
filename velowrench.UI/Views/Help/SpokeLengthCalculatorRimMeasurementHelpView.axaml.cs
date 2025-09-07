@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Styling;
 using System;
+using velowrench.UI.Services;
 
 namespace velowrench.UI.Views.Help;
 
@@ -39,11 +40,12 @@ public partial class SpokeLengthCalculatorRimMeasurementHelpView : UserControl
 
     private void UpdateDiagramsColor()
     {
-        string diagramSideViewColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
-        string diagramSideViewLegendColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
+        string diagramColor = ThemeBasedResourcesLocator.GetDiagramColor();
+        string diagramLegendColor = ThemeBasedResourcesLocator.GetDiagramLegendColor();
+
         Avalonia.Svg.Skia.Svg.SetCss(RimDiagram,
-            $".lineColor {{ fill: {diagramSideViewColor}; stroke: {diagramSideViewColor}; }}" +
-            $".legendColor {{ fill: {diagramSideViewLegendColor}; stroke: {diagramSideViewLegendColor} }}");
+            $".lineColor {{ fill: {diagramColor}; stroke: {diagramColor}; }}" +
+            $".legendColor {{ fill: {diagramLegendColor}; stroke: {diagramLegendColor} }}");
 
     }
 }

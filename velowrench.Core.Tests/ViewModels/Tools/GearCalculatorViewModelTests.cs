@@ -30,6 +30,7 @@ public class GearCalculatorViewModelTests
     private IDebounceActionFactory _debounceActionFactory;
     private IUnitStore _unitStore;
     private IToolbar _toolbar;
+    private IClipboardInterop _clipboardInterop;
     private GearCalculatorViewModel _viewModel;
 
     [TestInitialize]
@@ -44,6 +45,7 @@ public class GearCalculatorViewModelTests
         _inputValidation = A.Fake<ICalculatorInputValidator<GearCalculatorInput>>();
         _unitStore = A.Fake<IUnitStore>();
         _toolbar = A.Fake<IToolbar>();
+        _clipboardInterop = A.Fake<IClipboardInterop>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -102,7 +104,7 @@ public class GearCalculatorViewModelTests
         A.CallTo(() => _repository.GetAllCandences()).Returns(cadences);
         A.CallTo(() => _repository.GetMostCommonSprocketSpecifications()).Returns(sprockets);
 
-        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar, _clipboardInterop);
     }
 
     [TestMethod]

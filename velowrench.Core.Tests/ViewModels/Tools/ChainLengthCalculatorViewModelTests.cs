@@ -25,6 +25,7 @@ public class ChainLengthCalculatorViewModelTests
     private ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> _calculatorFactory;
     private IUnitStore _unitStore;
     private IToolbar _toolbar;
+    private IClipboardInterop _clipboardInterop;
     private IDebounceActionFactory _debounceActionFactory;
     private ChainLengthCalculatorViewModel _viewModel;
 
@@ -39,6 +40,7 @@ public class ChainLengthCalculatorViewModelTests
         _inputValidation = A.Fake<ICalculatorInputValidator<ChainLengthCalculatorInput>>();
         _unitStore = A.Fake<IUnitStore>();
         _toolbar = A.Fake<IToolbar>();
+        _clipboardInterop = A.Fake<IClipboardInterop>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -59,7 +61,7 @@ public class ChainLengthCalculatorViewModelTests
         A.CallTo(() => _debounceActionFactory.CreateDebounceUIAction(A<Action>._, A<int>._))
             .ReturnsLazily((Action action, int delayMs) => new TestDebounceAction(action));
 
-        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _localizer, _toolbar);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _localizer, _toolbar, _clipboardInterop);
     }
 
 

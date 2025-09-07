@@ -29,6 +29,7 @@ public class SpokeLengthCalculatorViewModelTests
     private IDebounceActionFactory _debounceActionFactory;
     private IUnitStore _unitStore;
     private IToolbar _toolbar;
+    private IClipboardInterop _clipboardInterop;
     private SpokeLengthCalculatorViewModel _viewModel;
 
     [TestInitialize]
@@ -43,6 +44,7 @@ public class SpokeLengthCalculatorViewModelTests
         _inputValidation = A.Fake<ICalculatorInputValidator<SpokeLengthCalculatorInput>>();
         _unitStore = A.Fake<IUnitStore>();
         _toolbar = A.Fake<IToolbar>();
+        _clipboardInterop = A.Fake<IClipboardInterop>();
     }
 
     private void GlobalSetup(ECalculatorState calculatorState, ValidationResult validation)
@@ -80,7 +82,7 @@ public class SpokeLengthCalculatorViewModelTests
         A.CallTo(() => _repository.GetMostCommonWheelSpokeCount()).Returns(spokeCounts);
         A.CallTo(() => _repository.GetMostCommonSpokeLacingPattern()).Returns(lacingPatterns);
 
-        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar);
+        _viewModel = new(_calculatorFactory, _unitStore, _navigationService, _debounceActionFactory, _repository, _localizer, _toolbar, _clipboardInterop);
     }
 
     [TestMethod]

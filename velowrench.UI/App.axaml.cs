@@ -7,6 +7,7 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Linq;
 using velowrench.Calculations.Configuration;
 using velowrench.Core.Configuration;
@@ -14,25 +15,21 @@ using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels;
 using velowrench.UI.Configuration;
 using velowrench.UI.Resources;
+using velowrench.UI.Services;
 using velowrench.UI.Views;
 
 namespace velowrench.UI;
 
 public partial class App : Application
 {
+    private Window? _mainWindow;
+
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static Action<IServiceCollection>? RegisterPlatformSpecificServices { get; set; }
-
-    private Window? _mainWindow;
-    private WindowIcon? _lightThemeIcon;
-    private WindowIcon? _darkThemeIcon;
 
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        
-        _lightThemeIcon = new WindowIcon(AssetLoader.Open(new Uri("avares://velowrench.UI/Assets/velowrench-logo-light.ico")));
-        _darkThemeIcon = new WindowIcon(AssetLoader.Open(new Uri("avares://velowrench.UI/Assets/velowrench-logo-dark.ico")));
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -59,7 +56,7 @@ public partial class App : Application
             {
                 Height = 640,
                 Width = 360,
-                Icon = GetIconForCurrentTheme(),
+                Icon = new WindowIcon(AssetLoader.Open(ThemeBasedResourcesLocator.GetAppLogoUri())),
                 Content = new MainView()
                 {
                     DataContext = vm
@@ -83,13 +80,8 @@ public partial class App : Application
     {
         if (_mainWindow != null)
         {
-            _mainWindow.Icon = GetIconForCurrentTheme();
+            _mainWindow.Icon = new WindowIcon(AssetLoader.Open(ThemeBasedResourcesLocator.GetAppLogoUri()));
         }
-    }
-
-    private WindowIcon GetIconForCurrentTheme()
-    {
-        return this.ActualThemeVariant == ThemeVariant.Dark ? _darkThemeIcon! : _lightThemeIcon!;
     }
 
     private void DisableAvaloniaDataAnnotationValidation()

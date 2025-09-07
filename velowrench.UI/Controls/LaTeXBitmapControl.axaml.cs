@@ -5,6 +5,7 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using SkiaSharp;
 using System;
+using velowrench.UI.Services;
 
 namespace velowrench.UI.Controls;
 
@@ -23,8 +24,6 @@ public partial class LaTeXBitmapControl : UserControl
 
     public int RenderWidth => (int)(base.Width * SCALE_FACTOR);
     public int RenderHeight => (int)(base.Height * SCALE_FACTOR);
-    public SKColor FontColorLightMode => new(28, 31, 35);
-    public SKColor FontColorDarkMode => new(198, 202, 205);
 
     public LaTeXBitmapControl()
     {
@@ -55,7 +54,7 @@ public partial class LaTeXBitmapControl : UserControl
             AntiAlias = true,
             LaTeX = this.Formula!,
             FontSize = (float)base.FontSize * SCALE_FACTOR,
-            TextColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? this.FontColorDarkMode : this.FontColorLightMode
+            TextColor = ThemeBasedResourcesLocator.GetSKColorFont()
         };
 
         var bounds = painter.Measure();

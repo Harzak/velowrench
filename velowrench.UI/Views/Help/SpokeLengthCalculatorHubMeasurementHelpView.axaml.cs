@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Styling;
 using System;
+using velowrench.UI.Services;
 
 namespace velowrench.UI.Views.Help;
 
@@ -39,16 +40,15 @@ public partial class SpokeLengthCalculatorHubMeasurementHelpView : UserControl
 
     private void UpdateDiagramsColor()
     {
-        string diagramSideViewColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
-        string diagramSideViewLegendColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
-        Avalonia.Svg.Skia.Svg.SetCss(HubDiagramSideView,
-            $".lineColor {{ fill: {diagramSideViewColor}; stroke: {diagramSideViewColor}}}" +
-            $".legendColor {{ fill: {diagramSideViewLegendColor}; stroke: {diagramSideViewLegendColor} }}");
+        string diagramColor = ThemeBasedResourcesLocator.GetDiagramColor();
+        string diagramLegendColor = ThemeBasedResourcesLocator.GetDiagramLegendColor();
 
-        string diagramFrontViewColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#C6CACD" : "#1C1F23";
-        string diagramFrontViewLegendColor = Application.Current?.ActualThemeVariant == ThemeVariant.Dark ? "#40B4F3" : "#0095EE";
+        Avalonia.Svg.Skia.Svg.SetCss(HubDiagramSideView,
+            $".lineColor {{ fill: {diagramColor}; stroke: {diagramColor}}}" +
+            $".legendColor {{ fill: {diagramLegendColor}; stroke: {diagramLegendColor} }}");
+
         Avalonia.Svg.Skia.Svg.SetCss(HubDiagramFrontView,
-            $".lineColor {{ fill: {diagramFrontViewColor}; stroke: {diagramFrontViewColor}; }}" +
-            $".legendColor {{ fill: {diagramSideViewLegendColor}; stroke: {diagramFrontViewLegendColor}; }}");
+            $".lineColor {{ fill: {diagramColor}; stroke: {diagramColor}; }}" +
+            $".legendColor {{ fill: {diagramLegendColor}; stroke: {diagramLegendColor}; }}");
     }
 }
