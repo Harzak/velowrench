@@ -10,26 +10,23 @@ Cross-platform application that provides a set of tools for amateur bicycle mech
 
 Tool for calculating optimal bicycle chain length based on drivetrain specifications.
 
-<img width="30%" alt="Screenshot_1756991057" src="https://github.com/user-attachments/assets/37081dcc-28c5-4a64-bcdc-ddcedb78bf27" />
-<img width="30%" alt="Screenshot_1756991107" src="https://github.com/user-attachments/assets/5d11a3ea-8c86-4dce-835e-202e0194a801" />
-<img width="30%" alt="Screenshot_1756991131" src="https://github.com/user-attachments/assets/e8357266-c5a5-4c7c-aab7-79d378d8c382" />
-
+<img width="30%" alt="Screenshot_1757279302" src="https://github.com/user-attachments/assets/3f525cdb-1b56-4c46-ac94-6a80fbebadaa" />
+<img width="30%" alt="Screenshot_1757279344" src="https://github.com/user-attachments/assets/8d41327f-3667-4651-af47-495ec8ec12d6" />
+<img width="30%" alt="Screenshot_1757279351" src="https://github.com/user-attachments/assets/cb3aa67d-e881-4cc8-88d8-9dbf38c14773" />
 
 ## Gear calculator
 
 Tool for calculating different gear ratio metrics: gain ratios, gear inches, development, speed.
-
-<img width="30%" alt="Screenshot_1756991618" src="https://github.com/user-attachments/assets/5b700ca1-703d-4196-b126-9b9e36f1dd62" />
-<img width="30%" alt="Screenshot_1756991634" src="https://github.com/user-attachments/assets/f0955152-0dc4-4267-83fb-3a7b4781bba3" />
-<img width="30%" alt="Screenshot_1756991659" src="https://github.com/user-attachments/assets/489120b8-93a6-43ba-84f4-1075903dd41c" />
+<img width="30%" alt="Screenshot_1757280911" src="https://github.com/user-attachments/assets/9f6c3a5e-c772-43b2-88d6-2f9ae9dcc80d" />
+<img width="30%" alt="Screenshot_1757280955" src="https://github.com/user-attachments/assets/42ae9dd0-cef2-4e78-9fb3-3f1881971d00" />
+<img width="30%" alt="Screenshot_1757280962" src="https://github.com/user-attachments/assets/6507e576-b798-45b6-b234-a94435c503b6" />
 
 ## Spoke length calculator
 
 Tool for calculating proper spoke length for wheel building.
-
-<img width="30%" alt="Screenshot_1756991946" src="https://github.com/user-attachments/assets/d7aabd0b-ffa2-4449-a50d-843a118bb6a9" />
-<img width="30%" alt="Screenshot_1756992053" src="https://github.com/user-attachments/assets/d7b7eb2d-3000-4b70-b418-2d4c5990dd17" />
-<img width="30%" alt="Screenshot_1756991969" src="https://github.com/user-attachments/assets/f881392e-160a-4a6c-ad41-1a7d86a4407b" />
+<img width="30%" alt="Screenshot_1757281077" src="https://github.com/user-attachments/assets/b0b5afc9-e10d-4cea-9ad5-19db4da40755" />
+<img width="30%" alt="Screenshot_1757281130" src="https://github.com/user-attachments/assets/a4719d15-5ea7-4dd7-8b21-4d3e880c7539" />
+<img width="30%" alt="Screenshot_1757281139" src="https://github.com/user-attachments/assets/6ef9e41b-09e8-4e49-b628-e97d94f38392" />
 
 # :rocket: Tech Stack
 
