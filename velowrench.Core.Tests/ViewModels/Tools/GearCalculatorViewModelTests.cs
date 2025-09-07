@@ -145,7 +145,7 @@ public class GearCalculatorViewModelTests
         _viewModel.Chainring1TeethCount = 46;
         sprocket11.IsSelected = true;
         sprocket28.IsSelected = true;
-        _viewModel.SprocketSelectedCommand.Execute(sprocket11);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Assert
         _viewModel.GearCalculResultRows.Should().HaveCount(expectedValues.Count);
@@ -179,7 +179,7 @@ public class GearCalculatorViewModelTests
         // Act
         _viewModel.Chainring1TeethCount = 46;
         sprocket.IsSelected = true;
-        _viewModel.SprocketSelectedCommand.Execute(sprocket);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Assert
         A.CallTo(() => _calculator.Start(A<GearCalculatorInput>._)).MustNotHaveHappened();
@@ -219,7 +219,7 @@ public class GearCalculatorViewModelTests
         // Act
         _viewModel.Chainring1TeethCount = 46;
         sprocket.IsSelected = true;
-        _viewModel.SprocketSelectedCommand.Execute(sprocket);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Assert
         _viewModel.GearCalculResultRows.Should().BeEmpty();
@@ -335,7 +335,7 @@ public class GearCalculatorViewModelTests
         // Act
         sprocket11.IsSelected = true;
         sprocket28.IsSelected = true;
-        _viewModel.SprocketSelectedCommand.Execute(sprocket11);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Assert
         _viewModel.SelectedSprocketsStr.Should().Contain("11");
@@ -387,7 +387,7 @@ public class GearCalculatorViewModelTests
         _viewModel.Chainring3TeethCount = 24;
         sprocket11.IsSelected = true;
         sprocket28.IsSelected = true;
-        _viewModel.SprocketSelectedCommand.Execute(sprocket11);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Assert
         _viewModel.GearCalculResultRows.Should().HaveCount(2);
@@ -436,7 +436,7 @@ public class GearCalculatorViewModelTests
         _viewModel.AvailableResultUnits.Add(LengthUnit.Centimeter);
 
         // Act - First trigger calculation to populate result rows
-        _viewModel.SprocketSelectedCommand.Execute(sprocket);
+        _viewModel.OnSprocketSelectionChanged();
 
         // Act - Change result unit
         _viewModel.SelectedResultUnit = LengthUnit.Centimeter;

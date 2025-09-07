@@ -75,7 +75,8 @@
 
                     </StackPanel>
                 </Button>
-                <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,10,0,0"
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           Margin="0,10,0,0"
                            Classes="Subtitle"
                            Text="{Binding InputSummary}" />
             </Grid>
@@ -200,13 +201,12 @@
                        Text="{x:Static res:Languages.SprocketTeeth}" />
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
+                      DropDownClosed="OnSprocketDropDownClosed"
                       ItemsSource="{Binding SourceSprockets}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Height="35"
                                   Margin="0,-8" HorizontalAlignment="Stretch"
-                                  Command="{Binding $parent[UserControl].DataContext.SprocketSelectedCommand}"
-                                  CommandParameter="{Binding}"
                                   IsChecked="{Binding IsSelected}">
                             <TextBlock Margin="10,0,0,0" Text="{Binding Value.Label}" />
                         </CheckBox>

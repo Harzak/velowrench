@@ -225,8 +225,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.InputSummary = result.Content.UsedInputs.ToString();
     }
 
-    [RelayCommand]
-    private void SprocketSelected(SelectibleModel<SprocketSpecificationModel> selectibleSprocket)
+    public void OnSprocketSelectionChanged()
     {
         IEnumerable<int> selectedSprockets = this.SourceSprockets
             .Where(x => x.IsSelected)
@@ -310,7 +309,7 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
                    .Append(row.ValueForChainring2)
                    .Append(';')
                    .Append(row.ValueForChainring3)
-                   .Append(Environment.NewLine);    
+                   .Append(Environment.NewLine);
         }
 
         await base.Clipboard.SetTextAsync(builder.ToString()).ConfigureAwait(false);
