@@ -35,10 +35,12 @@ Tool for calculating proper spoke length for wheel building.
 Cross-platform app (Windows, Android, iOS). <br/>
 Globalization (English, French). <br/>
 Light and dark mode. <br/>
-Selection of preferred units of measurement (default app units).
+Selection of preferred units of measurement (default app units).  <br/>
+Strong input verification and error management.
 
-<img width="30%" alt="Screenshot_1757281706" src="https://github.com/user-attachments/assets/3e0298a6-734a-43ae-b354-016b203a16c1" />
+<img width="30%" alt="Screenshot_1757282553" src="https://github.com/user-attachments/assets/c485e1f0-7afd-428c-9fc8-df7459e3d94f" />
 <img width="30%" alt="Screenshot_1757281666" src="https://github.com/user-attachments/assets/bb2c3f87-ba83-44c4-bfc3-ccc4bc4d658e" />
+<img width="30%" alt="Screenshot_1757282448" src="https://github.com/user-attachments/assets/6adbbcf3-84de-47af-bbe0-e77c7dcfded5" />
 
 
 
