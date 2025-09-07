@@ -30,6 +30,18 @@ Tool for calculating proper spoke length for wheel building.
 <img width="30%" alt="Screenshot_1757281130" src="https://github.com/user-attachments/assets/a4719d15-5ea7-4dd7-8b21-4d3e880c7539" />
 <img width="30%" alt="Screenshot_1757281139" src="https://github.com/user-attachments/assets/6ef9e41b-09e8-4e49-b628-e97d94f38392" />
 
+## Customization & Accessibility
+
+Cross-platform app (Windows, Android, iOS). <br/>
+Globalization (English, French). <br/>
+Light and dark mode. <br/>
+Selection of preferred units of measurement (default app units).
+
+<img width="30%" alt="Screenshot_1757281706" src="https://github.com/user-attachments/assets/3e0298a6-734a-43ae-b354-016b203a16c1" />
+<img width="30%" alt="Screenshot_1757281666" src="https://github.com/user-attachments/assets/bb2c3f87-ba83-44c4-bfc3-ccc4bc4d658e" />
+
+
+
 # :rocket: Tech Stack
 
 - **Frontend**: Avalonia ([Avalonia](https://github.com/AvaloniaUI/Avalonia)), Semi Avalonia ([Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia))
