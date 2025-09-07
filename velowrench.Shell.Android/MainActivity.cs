@@ -11,7 +11,7 @@ using velowrench.UI;
 namespace velowrench.Shell.Android;
 
 [Activity(
-    Label = "velowrench.Android",
+    Label = "velowrench",
     Theme = "@style/MyTheme.NoActionBar",
     Icon = "@mipmap/ic_launcher",
     MainLauncher = true,
