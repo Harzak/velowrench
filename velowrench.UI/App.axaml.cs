@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
+using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -21,9 +23,16 @@ public partial class App : Application
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static Action<IServiceCollection>? RegisterPlatformSpecificServices { get; set; }
 
+    private Window? _mainWindow;
+    private WindowIcon? _lightThemeIcon;
+    private WindowIcon? _darkThemeIcon;
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        
+        _lightThemeIcon = new WindowIcon(AssetLoader.Open(new Uri("avares://velowrench.UI/Assets/velowrench-logo-light.ico")));
+        _darkThemeIcon = new WindowIcon(AssetLoader.Open(new Uri("avares://velowrench.UI/Assets/velowrench-logo-dark.ico")));
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -46,15 +55,18 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new Window
+            _mainWindow = new Window
             {
                 Height = 640,
                 Width = 360,
+                Icon = GetIconForCurrentTheme(),
                 Content = new MainView()
                 {
                     DataContext = vm
                 }
             };
+            desktop.MainWindow = _mainWindow;
+            this.ActualThemeVariantChanged += OnThemeChanged;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
@@ -65,6 +77,19 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void OnThemeChanged(object? sender, EventArgs e)
+    {
+        if (_mainWindow != null)
+        {
+            _mainWindow.Icon = GetIconForCurrentTheme();
+        }
+    }
+
+    private WindowIcon GetIconForCurrentTheme()
+    {
+        return this.ActualThemeVariant == ThemeVariant.Dark ? _darkThemeIcon! : _lightThemeIcon!;
     }
 
     private void DisableAvaloniaDataAnnotationValidation()
