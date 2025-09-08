@@ -24,7 +24,8 @@
                               ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
                             <TextBlock Grid.Row="0" Grid.Column="0"
                                        VerticalAlignment="Center"
-                                       Classes="MenuItemText" Text="{x:Static res:Languages.AppLanguage}" />
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.AppLanguage}" />
                             <ComboBox Grid.Row="0" Grid.Column="1"
                                       Width="150"
                                       HorizontalAlignment="Right"
@@ -39,7 +40,8 @@
                             </ComboBox>
                             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                        Margin="0,10,0,0"
-                                       Classes="Subtitle" Text="{x:Static res:Languages.SelectDefaultAppLanguage}" />
+                                       Classes="Subtitle"
+                                       Text="{x:Static res:Languages.SelectDefaultAppLanguage}" />
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -56,7 +58,8 @@
                               ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
                             <TextBlock Grid.Row="0" Grid.Column="0"
                                        VerticalAlignment="Center"
-                                       Classes="MenuItemText" Text="{x:Static res:Languages.Appearance}" />
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.Appearance}" />
                             <ComboBox Grid.Row="0" Grid.Column="1"
                                       Width="150"
                                       HorizontalAlignment="Right"
@@ -70,7 +73,8 @@
                             </ComboBox>
                             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                        Margin="0,10,0,0"
-                                       Classes="Subtitle" Text="{x:Static res:Languages.SelectAppColorScheme}" />
+                                       Classes="Subtitle"
+                                       Text="{x:Static res:Languages.SelectAppColorScheme}" />
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -87,12 +91,14 @@
                               ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                        Margin="0,5,0,10"
-                                       Classes="Content" Text="{x:Static res:Languages.SelectDefaultUnitsDescription}" />
+                                       Classes="Content"
+                                       Text="{x:Static res:Languages.SelectDefaultUnitsDescription}" />
 
                             <!--  Length  -->
                             <TextBlock Grid.Row="1" Grid.Column="0"
                                        Margin="0,10,0,0" VerticalAlignment="Center"
-                                       Classes="MenuItemText" Text="{x:Static res:Languages.Length}" />
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.Length}" />
                             <ComboBox Grid.Row="1" Grid.Column="1"
                                       Width="100"
                                       Margin="0,10,0,0" HorizontalAlignment="Right"
@@ -106,12 +112,14 @@
                             </ComboBox>
                             <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                        Margin="0,0,0,5"
-                                       Classes="Subtitle" Text="{x:Static res:Languages.LengthMeasurementDescription}" />
+                                       Classes="Subtitle"
+                                       Text="{x:Static res:Languages.LengthMeasurementDescription}" />
 
                             <!--  Distance  -->
                             <TextBlock Grid.Row="3" Grid.Column="0"
                                        Margin="0,10,0,0" VerticalAlignment="Center"
-                                       Classes="MenuItemText" Text="{x:Static res:Languages.Distance}" />
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.Distance}" />
                             <ComboBox Grid.Row="3" Grid.Column="1"
                                       Width="100"
                                       Margin="0,10,0,0" HorizontalAlignment="Right"
@@ -125,12 +133,14 @@
                             </ComboBox>
                             <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                        Margin="0,0,0,5"
-                                       Classes="Subtitle" Text="{x:Static res:Languages.DistancesDescription}" />
+                                       Classes="Subtitle"
+                                       Text="{x:Static res:Languages.DistancesDescription}" />
 
                             <!--  Speed  -->
                             <TextBlock Grid.Row="5" Grid.Column="0"
                                        Margin="0,10,0,0" VerticalAlignment="Center"
-                                       Classes="MenuItemText" Text="{x:Static res:Languages.Speed}" />
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.Speed}" />
                             <ComboBox Grid.Row="5" Grid.Column="1"
                                       Width="100"
                                       Margin="0,10,0,0" HorizontalAlignment="Right"
@@ -143,12 +153,49 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
-                                       Classes="Subtitle" Text="{x:Static res:Languages.CyclingSpeedDescription}" />
+                                       Classes="Subtitle"
+                                       Text="{x:Static res:Languages.CyclingSpeedDescription}" />
 
                         </Grid>
                     </StackPanel>
                 </Border>
             </StackPanel>
         </Border>
+
+        <!--  Info  -->
+        <Border Classes="MenuGroup">
+            <StackPanel>
+                <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.Info}" />
+                <Border Classes="MenuItemGroup">
+                    <StackPanel>
+                        <Grid Margin="16,12"
+                              ColumnDefinitions="Auto, *" RowDefinitions="Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       Classes="MenuItemText"
+                                       Text="{x:Static res:Languages.Version}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1"
+                                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Classes="Content"
+                                       Text="{Binding Version}" />
+                        </Grid>
+                        <Button Classes="MenuItem" Command="{Binding ShowAboutPageCommand}">
+                            <Grid ColumnDefinitions="*,20">
+                                <TextBlock Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Classes="MenuItemText"
+                                           Text="{x:Static res:Languages.About}" />
+                                <materialIcons:MaterialIcon Grid.Column="1"
+                                                            Width="20" Height="20"
+                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Foreground="{DynamicResource SemiColorTertiary}"
+                                                            Kind="ChevronRight" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
     </StackPanel>
 </UserControl>

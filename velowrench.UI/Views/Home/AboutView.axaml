@@ -1,0 +1,38 @@
+<UserControl x:Class="velowrench.UI.Views.Home.AboutView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:velowrench.UI.Converters"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:res="using:velowrench.UI.Resources"
+             xmlns:vm="using:velowrench.Core.ViewModels"
+             x:DataType="vm:Home.AboutViewModel"
+             Design.Height="640"
+             Design.Width="360">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+
+        <!--  Disclaimer  -->
+        <TextBlock Grid.Row="0"
+                   Classes="GroupHeader" Text="{x:Static res:Languages.Disclaimer}" />
+        <Border Grid.Row="1" Classes="Group">
+            <StackPanel>
+                <TextBlock Classes="Content" Text="{x:Static res:Languages.DisclaimerText}" />
+            </StackPanel>
+        </Border>
+
+        <!--  Credit  -->
+        <TextBlock Grid.Row="2"
+                   Classes="GroupHeader" Text="{x:Static res:Languages.Credit}" />
+        <Border Grid.Row="3" Classes="Group">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Classes="Content" Text="{x:Static res:Languages.CreditDescription}" />
+                <TextBlock Margin="0,10,0,0"
+                           Classes="Content" Text="{x:Static res:Languages.CreditKnowledgeBase}" />
+                <HyperlinkButton Margin="0,10,0,0"
+                                 Content="https://sheldonbrown.com" NavigateUri="https://sheldonbrown.com/" />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+
+</UserControl>

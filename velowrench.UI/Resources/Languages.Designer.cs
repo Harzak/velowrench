@@ -61,6 +61,15 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance.
         /// </summary>
         public static string Appearance {
@@ -331,6 +340,33 @@ namespace velowrench.UI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credit.
+        /// </summary>
+        public static string Credit {
+            get {
+                return ResourceManager.GetString("Credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This app uses calculations and observations published by the legendary bicycle mechanic and cycling guru: Sheldon Brown.
+        /// </summary>
+        public static string CreditDescription {
+            get {
+                return ResourceManager.GetString("CreditDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You will find a huge knowledge base on his website for an in-depth understanding of all aspects of bicycle mechanics:.
+        /// </summary>
+        public static string CreditKnowledgeBase {
+            get {
+                return ResourceManager.GetString("CreditKnowledgeBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to = Cross count.
         /// </summary>
         public static string CrossCount {
@@ -381,6 +417,24 @@ namespace velowrench.UI.Resources {
         public static string DevelopmentFormula {
             get {
                 return ResourceManager.GetString("DevelopmentFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disclaimer.
+        /// </summary>
+        public static string Disclaimer {
+            get {
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to veloWrench cannot be held responsible for the use of this online calculator, the data entered, the results obtained by any party using this tool, or the decisions made based on these results..
+        /// </summary>
+        public static string DisclaimerText {
+            get {
+                return ResourceManager.GetString("DisclaimerText", resourceCulture);
             }
         }
         
@@ -705,6 +759,15 @@ namespace velowrench.UI.Resources {
         public static string HubSpokeHoleDiameter {
             get {
                 return ResourceManager.GetString("HubSpokeHoleDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
             }
         }
         
@@ -1110,6 +1173,15 @@ namespace velowrench.UI.Resources {
         public static string VeloWrench {
             get {
                 return ResourceManager.GetString("VeloWrench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

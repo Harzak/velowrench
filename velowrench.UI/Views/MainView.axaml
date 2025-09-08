@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:velowrench.UI.Converters"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:res="using:velowrench.UI.Resources"
              xmlns:services="clr-namespace:velowrench.UI.Services"
              xmlns:views="clr-namespace:velowrench.UI.Views"
              xmlns:vm="using:velowrench.Core.ViewModels"
@@ -29,8 +30,9 @@
                    IsVisible="{Binding CanNavigateBack, Converter={StaticResource BoolToInverseConverter}}"
                    Stretch="Uniform" />
             <TextBlock Margin="0,5" HorizontalAlignment="Center"
-                       FontSize="18" FontWeight="SemiBold" Text="veloWrench" TextAlignment="Center"
-                       TextWrapping="Wrap" />
+                       FontSize="18" FontWeight="SemiBold"
+                       Text="{x:Static res:Languages.VeloWrench}"
+                       TextAlignment="Center" TextWrapping="Wrap" />
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
