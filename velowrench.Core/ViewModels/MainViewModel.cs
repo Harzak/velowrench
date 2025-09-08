@@ -1,6 +1,7 @@
 ﻿using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using velowrench.Core.Configuration;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Home;
 
@@ -12,6 +13,7 @@ namespace velowrench.Core.ViewModels;
 public sealed partial class MainViewModel : ObservableObject, IHostViewModel, IDisposable
 {
     private INavigationService _navigationService;
+    private IAppConfiguration _appConfiguration;
 
     /// <summary>
     /// Gets or sets the currently displayed content view model.
@@ -46,12 +48,16 @@ public sealed partial class MainViewModel : ObservableObject, IHostViewModel, ID
     /// Initializes the main view model with the navigation service and navigates to the home page.
     /// This should be called after the dependency injection container is fully configured.
     /// </summary>
-    public void Initialize(INavigationService navigationService)
+    public async Task InitializeAsync(INavigationService navigationService, IAppConfiguration appConfiguration)
     {
         _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+        _appConfiguration = appConfiguration ?? throw new ArgumentNullException(nameof(appConfiguration));
+
+        await _appConfiguration.InitializeAsync().ConfigureAwait(false);
+
         _navigationService.CurrentViewModelChanging += OnCurrentViewModelChanging;
         _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
-        _navigationService.NavigateToHomeAsync();
+        await _navigationService.NavigateToHomeAsync().ConfigureAwait(false);
     }
 
     private void OnCurrentViewModelChanging(object? sender, EventArgs e)

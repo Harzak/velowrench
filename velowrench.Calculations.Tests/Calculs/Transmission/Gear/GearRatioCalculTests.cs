@@ -5,7 +5,7 @@ using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation;
+using velowrench.Calculations.Validation;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Transmission.Gear;

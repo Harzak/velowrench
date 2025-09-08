@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -21,6 +22,10 @@
 
 	<ItemGroup>
 	  <None Include="C:\Workspaces\velowrench\velowrench.Repository\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\velowrench.Utils\velowrench.Utils.csproj" />
 	</ItemGroup>
 
 </Project>

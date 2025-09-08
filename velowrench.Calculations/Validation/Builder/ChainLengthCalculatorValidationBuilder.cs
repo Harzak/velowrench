@@ -1,5 +1,5 @@
 using velowrench.Calculations.Calculators.Transmission.Chain;
-using velowrench.Core.Validation;
+using velowrench.Calculations.Validation;
 
 namespace velowrench.Calculations.Validation.Builder;
 

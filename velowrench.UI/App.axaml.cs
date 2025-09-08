@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using velowrench.Calculations.Configuration;
 using velowrench.Core.Configuration;
 using velowrench.Core.Interfaces;
@@ -45,9 +46,13 @@ public partial class App : Application
 
         ServiceProvider = collection.BuildServiceProvider();
 
-        var vm = ServiceProvider.GetRequiredService<MainViewModel>();
-        var navigationService = ServiceProvider.GetRequiredService<INavigationService>();
-        vm.Initialize(navigationService);
+        MainViewModel vm = ServiceProvider.GetRequiredService<MainViewModel>();
+        INavigationService navigationService = ServiceProvider.GetRequiredService<INavigationService>();
+        IAppConfiguration appConfiguration = ServiceProvider.GetRequiredService<IAppConfiguration>();
+        Task.Run(async () =>
+        {
+            await vm.InitializeAsync(navigationService, appConfiguration).ConfigureAwait(false);
+        });
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

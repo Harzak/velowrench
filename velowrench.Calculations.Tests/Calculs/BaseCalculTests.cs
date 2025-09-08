@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation;
+using velowrench.Calculations.Validation;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;
 using velowrench.Utils.Results;

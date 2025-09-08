@@ -2,12 +2,14 @@
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
+using velowrench.Core.Configuration;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Help;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Repository.Interfaces;
+using velowrench.Repository.Repositories;
 using velowrench.Utils.Interfaces;
 
 namespace velowrench.Core.Factories;
@@ -26,6 +28,7 @@ public sealed class ViewModelFactory : IViewModelFactory
     private readonly IDebounceActionFactory _debounceActionFactory;
     private readonly IToolbar _toolbar;
     private readonly IClipboardInterop _clipboard;
+    private readonly IAppConfiguration _appConfiguration;
 
     public ViewModelFactory(ILocalizer localizer,
         ICalculatorFactory<ChainLengthCalculatorInput, ChainLengthCalculatorResult> chainLengthCalculatorFactory,
@@ -35,7 +38,8 @@ public sealed class ViewModelFactory : IViewModelFactory
         IDebounceActionFactory debounceActionFactory,
         IComponentStandardRepository componentStandardRepository,
         IToolbar toolbar,
-        IClipboardInterop clipboard)
+        IClipboardInterop clipboard,
+        IAppConfiguration appConfiguration)
     {
 
         _localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
@@ -47,6 +51,7 @@ public sealed class ViewModelFactory : IViewModelFactory
         _componentStandardRepository = componentStandardRepository ?? throw new ArgumentNullException(nameof(componentStandardRepository));
         _toolbar = toolbar ?? throw new ArgumentNullException(nameof(toolbar));
         _clipboard = clipboard ?? throw new ArgumentNullException(nameof(clipboard));
+        _appConfiguration = appConfiguration ?? throw new ArgumentNullException(nameof(appConfiguration));
     }
 
     /// <inheritdoc/>
@@ -58,7 +63,7 @@ public sealed class ViewModelFactory : IViewModelFactory
     /// <inheritdoc/>
     public IRoutableViewModel CreateProfileViewModel(INavigationService navigationService)
     {
-        return new ProfileViewModel(_localizer, _unitStore, navigationService, _toolbar);
+        return new ProfileViewModel(_appConfiguration, _localizer, _unitStore, navigationService, _toolbar);
     }
 
     /// <inheritdoc/>

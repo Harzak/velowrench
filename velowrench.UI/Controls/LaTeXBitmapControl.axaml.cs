@@ -71,11 +71,9 @@ public partial class LaTeXBitmapControl : UserControl
         using (ILockedFramebuffer lockedBitmap = bitmap.Lock())
         {
             SKImageInfo info = new(this.RenderWidth, this.RenderHeight, SKColorType.Rgba8888, SKAlphaType.Premul);
-            using (var surface = SKSurface.Create(info, lockedBitmap.Address, lockedBitmap.RowBytes))
-            {
-                surface.Canvas.Clear(SKColors.Transparent);
-                painter.Draw(surface.Canvas, 0, bounds.Height);
-            }
+            using var surface = SKSurface.Create(info, lockedBitmap.Address, lockedBitmap.RowBytes);
+            surface.Canvas.Clear(SKColors.Transparent);
+            painter.Draw(surface.Canvas, 0, bounds.Height);
 
         }
         return bitmap;

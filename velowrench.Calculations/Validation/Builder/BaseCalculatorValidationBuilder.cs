@@ -1,8 +1,8 @@
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Calculations.Validation.Rules;
-using velowrench.Core.Validation;
-using velowrench.Core.Validation.Pipeline;
+using velowrench.Calculations.Validation;
+using velowrench.Calculations.Validation.Pipeline;
 
 namespace velowrench.Calculations.Validation.Builder;
 

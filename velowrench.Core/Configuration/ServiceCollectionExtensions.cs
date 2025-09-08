@@ -43,5 +43,7 @@ public static class ServiceCollectionExtensions
             var logger = provider.GetRequiredService<ILogger<NavigationHandler>>();
             return new NavigationHandler(hostViewModel, logger);
         });
+
+        collection.AddSingleton<IAppConfiguration, AppConfiguration>(); 
     }
 }

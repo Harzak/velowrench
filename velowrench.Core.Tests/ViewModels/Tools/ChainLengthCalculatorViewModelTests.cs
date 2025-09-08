@@ -6,7 +6,7 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Core.Interfaces;
 using velowrench.Core.Units;
-using velowrench.Core.Validation;
+using velowrench.Calculations.Validation;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Utils.Enums;
 using velowrench.Utils.EventArg;

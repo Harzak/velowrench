@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Core.Validation;
+using velowrench.Calculations.Validation;
 using velowrench.Utils.Results;
 
 namespace velowrench.Calculations.Tests.Calculs.Wheels.SpokeLength;

@@ -1,7 +1,7 @@
 using System.Globalization;
 using velowrench.Utils.Enums;
 
-namespace velowrench.Core.Validation;
+namespace velowrench.Calculations.Validation;
 
 /// <summary>
 /// Provides contextual information for validation operations.

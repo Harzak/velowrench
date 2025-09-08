@@ -88,8 +88,10 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
     {
         base.WithProgrammaticChange(() =>
         {
-            this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged);
-            this.ChainStayLength.Unit = base.UnitStore.LengthDefaultUnit;
+            this.ChainStayLength = new ConvertibleDouble<LengthUnit>(420, LengthUnit.Millimeter, OnChainStayLengthChanged)
+            {
+                Unit = base.UnitStore.LengthDefaultUnit
+            };
             this.TeethLargestChainring = null;
             this.TeethLargestSprocket = null;
             this.RecommendedChainLength = null;

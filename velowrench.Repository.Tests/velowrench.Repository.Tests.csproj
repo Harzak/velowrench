@@ -12,10 +12,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\velowrench.Core\.editorconfig" Link=".editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="FakeItEasy" />
 		<PackageReference Include="FluentAssertions" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" />
@@ -25,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\velowrench.Core\velowrench.Core.csproj" />
+		<ProjectReference Include="..\velowrench.Repository\velowrench.Repository.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
