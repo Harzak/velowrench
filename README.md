@@ -48,3 +48,15 @@ Strong input verification and error management.
 
 - **Frontend**: Avalonia ([Avalonia](https://github.com/AvaloniaUI/Avalonia)), Semi Avalonia ([Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia))
 - **Backend**: .NET 9 (C#), MVVM
+
+
+# :clap: Credits
+This app uses calculations and observations published by the legendary bicycle mechanic and cycling guru: <b>Sheldon Brown</b>. <br/>
+You will find a huge knowledge base on his website for an in-depth understanding of all aspects of bicycle mechanics: 
+[https://sheldonbrown.com](https://sheldonbrown.com)
+
+<br/>
+
+
+
+
