@@ -188,7 +188,9 @@ public sealed class AppConfiguration : IAppConfiguration
 
     private ThemeVariant GetDefaultTheme()
     {
-        return Application.Current?.RequestedThemeVariant ?? ThemeVariant.Default;
+        return Dispatcher.UIThread.Invoke(() =>
+        {
+            return Application.Current?.RequestedThemeVariant ?? ThemeVariant.Default;
+        });
     }
-
 }
