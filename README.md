@@ -51,8 +51,9 @@ Strong input verification and error management.
 
 
 # :clap: Credits
-This app uses calculations and observations published by the legendary bicycle mechanic and cycling guru: <b>Sheldon Brown</b>. <br/>
-You will find a huge knowledge base on his website for an in-depth understanding of all aspects of bicycle mechanics: 
+This app uses calculations and observations published by the legendary bicycle mechanic and cycling guru:  <br/>
+<b>Sheldon Brown</b>. <br/>
+You will find a huge knowledge base on his website for an in-depth understanding of all aspects of bicycle mechanics:  <br/>
 [https://sheldonbrown.com](https://sheldonbrown.com)
 
 <br/>
