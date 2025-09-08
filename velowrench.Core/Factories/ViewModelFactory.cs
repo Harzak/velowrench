@@ -2,14 +2,12 @@
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Calculators.Wheels.SpokeLength;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Configuration;
 using velowrench.Core.Enums;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Help;
 using velowrench.Core.ViewModels.Home;
 using velowrench.Core.ViewModels.Tools;
 using velowrench.Repository.Interfaces;
-using velowrench.Repository.Repositories;
 using velowrench.Utils.Interfaces;
 
 namespace velowrench.Core.Factories;

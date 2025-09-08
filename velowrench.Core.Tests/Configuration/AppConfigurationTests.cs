@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Styling;
 using FakeItEasy;
 using FluentAssertions;
@@ -28,7 +27,7 @@ public class AppConfigurationTests
         A.CallTo(() => _unitStore.LengthDefaultUnit).Returns(LengthUnit.Millimeter);
         A.CallTo(() => _unitStore.DistanceDefaultUnit).Returns(LengthUnit.Meter);
         A.CallTo(() => _unitStore.SpeedDefaultUnit).Returns(SpeedUnit.KilometerPerHour);
-        
+
         _appConfiguration = new AppConfiguration(_userPreferenceRepository, _unitStore);
     }
 
@@ -198,7 +197,7 @@ public class AppConfigurationTests
             AppLanguage = "fr-FR",
             Theme = "Dark",
             LengthUnit = "Inch",
-            DistanceUnit = "Kilometer", 
+            DistanceUnit = "Kilometer",
             SpeedUnit = "MilePerHour"
         };
         OperationResult<UserPreferenceModel> successResult = new(savedPreferences, true);
@@ -240,7 +239,7 @@ public class AppConfigurationTests
         // Arrange
         OperationResult<UserPreferenceModel> successButEmptyResult = new OperationResult<UserPreferenceModel>().WithSuccess();
 
-        A.CallTo(() => _userPreferenceRepository.LoadAsync()) .Returns(successButEmptyResult);
+        A.CallTo(() => _userPreferenceRepository.LoadAsync()).Returns(successButEmptyResult);
 
         // Act
         await _appConfiguration.InitializeAsync().ConfigureAwait(false);

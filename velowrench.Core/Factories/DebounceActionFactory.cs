@@ -1,6 +1,6 @@
 ﻿using Avalonia.Threading;
-using velowrench.Utils.Interfaces;
 using velowrench.Utils.Actions;
+using velowrench.Utils.Interfaces;
 
 namespace velowrench.Core.Factories;
 

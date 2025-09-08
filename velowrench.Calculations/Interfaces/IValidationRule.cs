@@ -1,5 +1,5 @@
-using velowrench.Calculations.Validation.Results;
 using velowrench.Calculations.Validation;
+using velowrench.Calculations.Validation.Results;
 
 namespace velowrench.Calculations.Interfaces;
 

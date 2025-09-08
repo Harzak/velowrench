@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace velowrench.Repository.LogMessages;
 
@@ -30,7 +25,7 @@ internal static partial class JsonStorageLogs
     [LoggerMessage(EventId = 6, Level = LogLevel.Error, Message = "{type} json storage load failed at: {path}")]
     public static partial void FailedLoading(ILogger logger, string type, string path, Exception ex);
 
-    [LoggerMessage(EventId =7, Level = LogLevel.Error, Message = "{type} json storage delete failed at: {path}")]
+    [LoggerMessage(EventId = 7, Level = LogLevel.Error, Message = "{type} json storage delete failed at: {path}")]
     public static partial void FailedFileDelete(ILogger logger, string type, string path, Exception ex);
 }
 

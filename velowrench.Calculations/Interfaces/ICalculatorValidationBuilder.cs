@@ -1,4 +1,4 @@
-﻿using velowrench.Calculations.Validation.Pipeline;
+﻿using velowrench.Calculations.Validation;
 
 namespace velowrench.Calculations.Interfaces;
 

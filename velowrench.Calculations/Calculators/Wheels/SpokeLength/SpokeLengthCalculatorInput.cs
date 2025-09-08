@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using velowrench.Calculations.Constants;
 
 namespace velowrench.Calculations.Calculators.Wheels.SpokeLength;
 
@@ -134,7 +133,7 @@ public sealed class SpokeLengthCalculatorInput : BaseCalculatorInput, IEquatable
         builder.Append("-cross spoke lacing");
         builder.Append(Environment.NewLine);
 
-        return builder.ToString();  
+        return builder.ToString();
     }
 }
 

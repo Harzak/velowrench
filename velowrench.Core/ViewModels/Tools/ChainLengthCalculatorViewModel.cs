@@ -103,7 +103,7 @@ public sealed partial class ChainLengthCalculatorViewModel : BaseCalculatorViewM
         this.RecommendedChainLength = new ConvertibleDouble<LengthUnit>(result.Content.ChainLengthIn, LengthUnit.Inch);
         this.RecommendedChainLength.Unit = base.UnitStore.LengthDefaultUnit;
         this.RecommendedChainLinks = result.Content.ChainLinks;
-        this.InputSummary = result.Content.UsedInputs.ToString(); 
+        this.InputSummary = result.Content.UsedInputs.ToString();
     }
 
     partial void OnChainStayLengthChanged(ConvertibleDouble<LengthUnit>? value)

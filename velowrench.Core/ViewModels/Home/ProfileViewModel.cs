@@ -1,19 +1,8 @@
-﻿using Avalonia;
-using Avalonia.Styling;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Diagnostics;
-using System.Globalization;
-using System.Reflection;
+﻿using CommunityToolkit.Mvvm.Input;
 using UnitsNet.Units;
 using velowrench.Calculations.Interfaces;
-using velowrench.Core.Configuration;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Base;
-using velowrench.Core.ViewModels.Help;
-using velowrench.Repository.Models;
-using velowrench.Repository.Repositories;
-using velowrench.Utils.Results;
 
 namespace velowrench.Core.ViewModels.Home;
 

@@ -62,7 +62,7 @@ public partial class LengthUpDownControl : UserControl, INotifyPropertyChanged
             if (value.HasValue)
             {
                 double convertedValue = (double)value;
-                if (ConvertibleDouble != null && ConvertibleDouble.Value != convertedValue  && ConvertibleDouble.Value != double.NaN)
+                if (ConvertibleDouble != null && ConvertibleDouble.Value != convertedValue  && !double.IsNaN(ConvertibleDouble.Value))
                 {
 
                     ConvertibleDouble.Value =convertedValue;

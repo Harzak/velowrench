@@ -1,7 +1,6 @@
 using velowrench.Calculations.Calculators.Transmission.Gear;
 using velowrench.Calculations.Enums;
 using velowrench.Calculations.Validation.Results;
-using velowrench.Calculations.Validation;
 
 namespace velowrench.Calculations.Validation.Builder;
 

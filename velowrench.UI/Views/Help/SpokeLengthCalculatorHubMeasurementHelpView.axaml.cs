@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Styling;
 using System;
 using velowrench.UI.Services;
 

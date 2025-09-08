@@ -73,7 +73,7 @@ public sealed class GearCalculatorInput : BaseCalculatorInput, IEquatable<GearCa
         this.NumberOfTeethBySprocket = [];
     }
 
-    public GearCalculatorInput(IEnumerable<int> sprockets, int precision = CalculationConstants.DEFAULT_PRECISION) 
+    public GearCalculatorInput(IEnumerable<int> sprockets, int precision = CalculationConstants.DEFAULT_PRECISION)
         : base(precision)
     {
         this.NumberOfTeethBySprocket = sprockets.ToList();
@@ -145,14 +145,14 @@ public sealed class GearCalculatorInput : BaseCalculatorInput, IEquatable<GearCa
         builder.Append(" in tyre outer diameter");
         builder.Append(Environment.NewLine);
 
-        if(CalculatorType == EGearCalculatorType.GainRatio)
+        if (CalculatorType == EGearCalculatorType.GainRatio)
         {
-            builder.Append(Math.Round(CrankLengthMm,2));
+            builder.Append(Math.Round(CrankLengthMm, 2));
             builder.Append(" mm crank length");
             builder.Append(Environment.NewLine);
         }
 
-        if(CalculatorType == EGearCalculatorType.Speed)
+        if (CalculatorType == EGearCalculatorType.Speed)
         {
             builder.Append(RevolutionPerMinute);
             builder.Append(" rpm cadence");

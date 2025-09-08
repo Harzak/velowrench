@@ -1,7 +1,4 @@
-﻿using System.Net.Sockets;
-using System.Text;
-using velowrench.Calculations.Constants;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Text;
 
 namespace velowrench.Calculations.Calculators.Transmission.Chain;
 
@@ -69,7 +66,7 @@ public sealed class ChainLengthCalculatorInput : BaseCalculatorInput, IEquatable
     public override string ToString()
     {
         StringBuilder builder = new();
-        builder.Append(Math.Round(ChainStayLengthIn,2))
+        builder.Append(Math.Round(ChainStayLengthIn, 2))
                .Append(" in chainstay")
                .Append(Environment.NewLine)
                .Append(TeethLargestChainring)
@@ -77,6 +74,6 @@ public sealed class ChainLengthCalculatorInput : BaseCalculatorInput, IEquatable
                .Append(Environment.NewLine)
                .Append(TeethLargestSprocket)
                .Append("-tooth rear sprocket");
-        return builder.ToString();  
+        return builder.ToString();
     }
 }

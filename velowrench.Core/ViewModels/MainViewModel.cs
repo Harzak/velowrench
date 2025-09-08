@@ -1,7 +1,6 @@
 ﻿using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using velowrench.Core.Configuration;
 using velowrench.Core.Interfaces;
 using velowrench.Core.ViewModels.Home;
 

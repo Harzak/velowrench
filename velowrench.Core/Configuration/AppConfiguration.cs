@@ -1,21 +1,13 @@
 ﻿using Avalonia;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using UnitsNet.Units;
 using velowrench.Calculations.Interfaces;
 using velowrench.Core.Interfaces;
 using velowrench.Repository.Interfaces;
 using velowrench.Repository.Models;
-using velowrench.Repository.Repositories;
 using velowrench.Utils.Results;
 
 namespace velowrench.Core.Configuration;

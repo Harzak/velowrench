@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using velowrench.Calculations.Constants;
+﻿using velowrench.Calculations.Constants;
 
 namespace velowrench.Calculations.Calculators;
 
@@ -17,7 +12,7 @@ public abstract class BaseCalculatorInput
 
     protected BaseCalculatorInput() : this(CalculationConstants.DEFAULT_PRECISION)
     {
-        
+
     }
 
     protected BaseCalculatorInput(int precision)

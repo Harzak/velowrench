@@ -62,7 +62,7 @@ public partial class GearCalculResultRowModel : ObservableObject
 
     partial void OnValueUnitChanged(Enum? oldValue, Enum? newValue)
     {
-        if (oldValue != null && newValue != null && oldValue != newValue )
+        if (oldValue != null && newValue != null && oldValue != newValue)
         {
             TryConvertValues(oldValue, newValue);
         }

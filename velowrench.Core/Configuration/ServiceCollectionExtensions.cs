@@ -44,6 +44,6 @@ public static class ServiceCollectionExtensions
             return new NavigationHandler(hostViewModel, logger);
         });
 
-        collection.AddSingleton<IAppConfiguration, AppConfiguration>(); 
+        collection.AddSingleton<IAppConfiguration, AppConfiguration>();
     }
 }

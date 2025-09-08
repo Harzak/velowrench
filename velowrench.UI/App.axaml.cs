@@ -7,7 +7,6 @@ using Avalonia.Platform;
 using Avalonia.Styling;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using velowrench.Calculations.Configuration;

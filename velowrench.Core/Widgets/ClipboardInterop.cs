@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Input.Platform;
-using System;
-using System.Threading.Tasks;
 
 namespace velowrench.Core.Widgets;
 

@@ -3,7 +3,7 @@ using velowrench.Calculations.Interfaces;
 using velowrench.Calculations.Validation.Results;
 using velowrench.Utils.Enums;
 
-namespace velowrench.Calculations.Validation.Pipeline;
+namespace velowrench.Calculations.Validation;
 
 /// <summary>
 /// A composable validation pipeline that applies multiple validation rules to an input object.

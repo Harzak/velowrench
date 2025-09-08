@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using velowrench.Calculations.Validation.Results;
 using velowrench.Calculations.Validation;
+using velowrench.Calculations.Validation.Results;
 
 [assembly: InternalsVisibleTo("velowrench.Calculations.Tests")]
 
