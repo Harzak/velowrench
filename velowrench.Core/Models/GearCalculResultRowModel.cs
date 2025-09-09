@@ -47,17 +47,10 @@ public partial class GearCalculResultRowModel : ObservableObject
     [ObservableProperty]
     private Enum? _valueUnit;
 
-    /// <summary>
-    /// Gets or sets the precision value used for calculations or formatting.
-    /// </summary>
-    [ObservableProperty]
-    private int _precision;
-
     public GearCalculResultRowModel(double valueForChainring1, Enum? valueUnit)
     {
         _valueForChainring1 = valueForChainring1;
         _valueUnit = valueUnit;
-        _precision = 2;
     }
 
     partial void OnValueUnitChanged(Enum? oldValue, Enum? newValue)
@@ -99,11 +92,6 @@ public partial class GearCalculResultRowModel : ObservableObject
 
     private bool TryConvertValue(double value, Enum oldUnit, Enum newUnit, out double convertedValue)
     {
-        if (UnitConverter.TryConvert(value, oldUnit, newUnit, out convertedValue))
-        {
-            convertedValue = Math.Round(convertedValue, Precision);
-            return true;
-        }
-        return false;
+        return UnitConverter.TryConvert(value, oldUnit, newUnit, out convertedValue);
     }
 }

@@ -207,13 +207,14 @@ public sealed partial class GearCalculatorViewModel : BaseCalculatorViewModel<Ge
         this.GearCalculResultRows.Clear();
         for (int i = 0; i < result.Content.ValuesLargeOrUniqueChainring.Count; i++)
         {
-            this.GearCalculResultRows.Add(new GearCalculResultRowModel(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.Unit)
+            this.GearCalculResultRows.Add(
+                new GearCalculResultRowModel(result.Content.ValuesLargeOrUniqueChainring[i], 
+                result.Content.Unit)
             {
                 ValueForChainring2 = result.Content.ValuesMediumChainring?.Count > i ? result.Content.ValuesMediumChainring[i] : null,
                 ValueForChainring3 = result.Content.ValuesSmallChainring?.Count > i ? result.Content.ValuesSmallChainring[i] : null,
                 SprocketCount = result.Content.UsedInputs.NumberOfTeethBySprocket[i],
                 Intensity = GearCalculatorResultInterpreter.DetermineIntensity(result.Content.ValuesLargeOrUniqueChainring[i], result.Content.UsedInputs.CalculatorType),
-                Precision = result.Content.UsedInputs.Precision,
             });
         }
 

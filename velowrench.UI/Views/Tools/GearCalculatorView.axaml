@@ -47,13 +47,13 @@
                         <DataGridTextColumn Binding="{Binding SprocketCount}"
                                             Foreground="{StaticResource SemiColorTertiary}"
                                             Header="" IsVisible="True" />
-                        <DataGridTextColumn Binding="{Binding ValueForChainring1}"
+                        <DataGridTextColumn Binding="{Binding ValueForChainring1 , Mode=OneWay, StringFormat={}{0:F2}}}"
                                             Header="{Binding $parent[UserControl].DataContext.Chainring1TeethCount}"
                                             IsVisible="True" />
-                        <DataGridTextColumn Binding="{Binding ValueForChainring2}"
+                        <DataGridTextColumn Binding="{Binding ValueForChainring2, Mode=OneWay, StringFormat={}{0:F2}}}"
                                             Header="{Binding $parent[UserControl].DataContext.Chainring2TeethCount}"
                                             IsVisible="{Binding $parent[UserControl].DataContext.Chainring2TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
-                        <DataGridTextColumn Binding="{Binding ValueForChainring3}"
+                        <DataGridTextColumn Binding="{Binding ValueForChainring3, Mode=OneWay, StringFormat={}{0:F2}}"
                                             Header="{Binding $parent[UserControl].DataContext.Chainring3TeethCount}"
                                             IsVisible="{Binding $parent[UserControl].DataContext.Chainring3TeethCount, Converter={StaticResource NotNullToBooleanConverter}}" />
                     </DataGrid.Columns>
