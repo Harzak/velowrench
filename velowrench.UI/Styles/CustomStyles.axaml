@@ -109,5 +109,8 @@
         <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
     </Style>
 
+	<Style Selector="Button.MenuItem:disabled">
+		<Setter Property="Opacity" Value="0.5" />
+	</Style>
 
 </Styles>

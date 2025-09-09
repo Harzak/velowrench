@@ -87,7 +87,7 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="MenuItem">
+                        <Button Classes="MenuItem" IsEnabled="False">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
@@ -115,7 +115,7 @@
                 <TextBlock Classes="GroupHeader" Text="{x:Static res:Languages.CompatibilityAndStandards}" />
                 <Border Classes="MenuItemGroup">
                     <StackPanel>
-                        <Button Classes="MenuItem">
+                        <Button Classes="MenuItem" IsEnabled="False">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
@@ -133,7 +133,7 @@
                                                             Kind="ChevronRight" />
                             </Grid>
                         </Button>
-                        <Button Classes="MenuItem">
+                        <Button Classes="MenuItem" IsEnabled="False">
                             <Grid ColumnDefinitions="25,*,20">
                                 <materialIcons:MaterialIcon Grid.Column="0"
                                                             Width="20" Height="20"
