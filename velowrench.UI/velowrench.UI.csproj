@@ -60,13 +60,5 @@
       <DependentUpon>GearCalculatorView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
-	
-  <ItemGroup>
-    <EditorConfigFiles Remove="C:\Workspaces\velowrench\velowrench.UI\.editorconfig" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <None Include="C:\Workspaces\velowrench\velowrench.UI\.editorconfig" />
-  </ItemGroup>
 
 </Project>
