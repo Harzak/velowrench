@@ -114,9 +114,7 @@ public sealed class AppConfiguration : IAppConfiguration
 
     public Version AppVersion { get; }
 
-    public AppConfiguration(
-    IUserPreferenceRepository userPreferenceRepository,
-    IUnitStore unitStore)
+    public AppConfiguration(IUserPreferenceRepository userPreferenceRepository, IUnitStore unitStore)
     {
         _userPreferenceRepository = userPreferenceRepository ?? throw new ArgumentNullException(nameof(userPreferenceRepository));
         _unitStore = unitStore ?? throw new ArgumentNullException(nameof(unitStore));
@@ -129,9 +127,9 @@ public sealed class AppConfiguration : IAppConfiguration
 
     public async Task InitializeAsync()
     {
-        if (!await TryLoadSavedPreferencesAsync().ConfigureAwait(false))
+        if (!await this.TryLoadSavedPreferencesAsync().ConfigureAwait(false))
         {
-            LoadDefaultPreferences();
+            this.LoadDefaultPreferences();
         }
     }
 
@@ -146,13 +144,13 @@ public sealed class AppConfiguration : IAppConfiguration
             this.CurrentTheme = this.AvailableThemes.FirstOrDefault(x => (string)x.Key == preferencesResult.Content.Theme)
                                       ?? this.GetDefaultTheme();
 
-            this.PreferredLengthUnit = Enum.TryParse<LengthUnit>(preferencesResult.Content.LengthUnit, out LengthUnit lengthUnit)
+            this.PreferredLengthUnit = Enum.TryParse(preferencesResult.Content.LengthUnit, out LengthUnit lengthUnit)
                                            ? lengthUnit : _unitStore.LengthDefaultUnit;
 
-            this.PreferredDistanceUnit = Enum.TryParse<LengthUnit>(preferencesResult.Content.DistanceUnit, out LengthUnit distanceUnit)
+            this.PreferredDistanceUnit = Enum.TryParse(preferencesResult.Content.DistanceUnit, out LengthUnit distanceUnit)
                                             ? distanceUnit : _unitStore.DistanceDefaultUnit;
 
-            this.PreferredSpeedUnit = Enum.TryParse<SpeedUnit>(preferencesResult.Content.SpeedUnit, out SpeedUnit speedUnit)
+            this.PreferredSpeedUnit = Enum.TryParse(preferencesResult.Content.SpeedUnit, out SpeedUnit speedUnit)
                                           ? speedUnit : _unitStore.SpeedDefaultUnit;
             return true;
         }
