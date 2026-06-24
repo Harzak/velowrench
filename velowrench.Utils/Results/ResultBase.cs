@@ -5,7 +5,8 @@ namespace velowrench.Utils.Results;
 /// <summary>
 /// Provides an abstract base class for operation results with success/failure status and error handling.
 /// </summary>
-public abstract class ResultBase : IResult
+public abstract class ResultBase<TResult> : IResult 
+    where TResult : ResultBase<TResult>
 {
     private bool _isSuccess;
     private bool _isFailed;
@@ -59,38 +60,69 @@ public abstract class ResultBase : IResult
     }
 
     /// <summary>
+    /// Sets the operation result to successful status.
+    /// </summary>
+    /// <returns>The current <see cref="TResult"/> instance with the success status set.</returns>
+    public TResult WithSuccess()
+    {
+        this.IsSuccess = true;
+        return (TResult)this;
+    }
+
+    /// <summary>
+    /// Sets the operation result to failed status.
+    /// </summary>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status set.</returns>
+    public TResult WithFailure()
+    {
+        this.IsSuccess = false;
+        return (TResult)this;
+    }
+
+    /// <summary>
+    /// Sets the operation result to failed status with an error message.
+    /// </summary>
+    /// <param name="message">The error message.</param>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status and error message set.</returns>
+    public TResult WithError(string message)
+    {
+        this.ErrorMessage = message;
+        return this.WithFailure();
+    }
+
+    /// <summary>
     /// Affects this result with the success status of another result.
     /// </summary>
-    public IResult Affect(IResult result)
+    public TResult Affect(IResult result)
     {
         if (result != null && IsSuccess)
         {
             IsSuccess = result.IsSuccess;
         }
-        return this;
+        return (TResult)this;
     }
 
     /// <summary>
     /// Affects this result with the success status of a result produced by a function.
     /// </summary>
-    public IResult Affect(Func<IResult> result)
+    public TResult Affect(Func<IResult> result)
     {
         if (result != null)
         {
-            return Affect(result());
+            return (TResult)Affect(result());
         }
-        return this;
+        return (TResult)this;
     }
 
     /// <summary>
     /// Asynchronously affects this result with the success status of a result produced by an async function.
     /// </summary>
-    public async Task<IResult> Affect(Func<Task<IResult>> result)
+    public async Task<TResult> AffectAsync(Func<Task<IResult>> result)
     {
         if (result != null)
         {
-            return Affect(await result().ConfigureAwait(false));
+            return this.Affect(await result().ConfigureAwait(false));
         }
-        return this;
+        return (TResult)this;
     }
 }

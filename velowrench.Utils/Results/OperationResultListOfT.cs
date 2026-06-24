@@ -17,34 +17,6 @@ public class OperationResultList<T> : OperationResult<IList<T>> where T : class
     }
 
     /// <summary>
-    /// Sets the operation result to successful status.
-    /// </summary>
-    public new OperationResultList<T> WithSuccess()
-    {
-        base.WithSuccess();
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status.
-    /// </summary>
-    public new OperationResultList<T> WithFailure()
-    {
-        base.WithFailure();
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status with an error message.
-    /// </summary>
-    /// <param name="message">The error message.</param>
-    public new OperationResultList<T> WithError(string message)
-    {
-        base.WithError(message);
-        return this;
-    }
-
-    /// <summary>
     /// Sets the list content value for this operation result.
     /// </summary>
     /// <param name="value">The list of items that represent the value.</param>

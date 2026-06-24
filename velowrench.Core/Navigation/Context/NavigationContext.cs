@@ -1,4 +1,6 @@
-﻿namespace velowrench.Core.Navigation.Context;
+﻿using velowrench.Utils.Results;
+
+namespace velowrench.Core.Navigation.Context;
 
 /// <summary>
 /// Navigation context that includes parameters and metadata
@@ -14,6 +16,10 @@ public sealed class NavigationContext
         Parameters = parameters ?? [];
         SourceView = sourceView;
         NavigatedAt = DateTime.UtcNow;
+
+        OperationResult<string> e = new ();
+        OperationResult<bool> f = new ();
+        e.Affect(f);
     }
 }
 

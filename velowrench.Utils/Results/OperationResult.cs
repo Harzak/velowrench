@@ -4,46 +4,16 @@
 /// Represents the result of an operation with success/failure status and error handling capabilities.
 /// </summary>
 [Serializable]
-public class OperationResult : ResultBase
+public class OperationResult : ResultBase<OperationResult>
 {
     public OperationResult() : base()
     {
 
     }
+
     public OperationResult(bool success) : base(success)
     {
 
-    }
-
-    /// <summary>
-    /// Sets the operation result to successful status.
-    /// </summary>
-    /// <returns>The current <see cref="OperationResult"/> instance with the success status set.</returns>
-    public OperationResult WithSuccess()
-    {
-        base.IsSuccess = true;
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status.
-    /// </summary>
-    /// <returns>The current <see cref="OperationResult"/> instance with the failure status set.</returns>
-    public OperationResult WithFailure()
-    {
-        base.IsSuccess = false;
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status with an error message.
-    /// </summary>
-    /// <param name="message">The error message.</param>
-    /// <returns>The current <see cref="OperationResult"/> instance with the failure status and error message set.</returns>
-    public OperationResult WithError(string message)
-    {
-        base.ErrorMessage = message;
-        return this.WithFailure();
     }
 
     /// <summary>

@@ -6,7 +6,7 @@ namespace velowrench.Utils.Results;
 /// Represents the result of an operation that returns strongly-typed content along with success/failure status.
 /// </summary>
 [Serializable]
-public class OperationResult<T> : OperationResult, IResult<T>
+public class OperationResult<T> : ResultBase<OperationResult<T>>, IResult<T>
 {
     /// <summary>
     /// Gets or sets the strongly-typed content of the operation result.
@@ -34,33 +34,6 @@ public class OperationResult<T> : OperationResult, IResult<T>
     public OperationResult(T content, bool result) : base(result)
     {
         Content = content;
-    }
-
-    /// <summary>
-    /// Sets the operation result to successful status.
-    /// </summary>
-    public new OperationResult<T> WithSuccess()
-    {
-        base.WithSuccess();
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status.
-    /// </summary>
-    public new OperationResult<T> WithFailure()
-    {
-        base.WithFailure();
-        return this;
-    }
-
-    /// <summary>
-    /// Sets the operation result to failed status with an error message.
-    /// </summary>
-    public new OperationResult<T> WithError(string message)
-    {
-        base.WithError(message);
-        return this;
     }
 
     /// <summary>
