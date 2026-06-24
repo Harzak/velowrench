@@ -5,7 +5,7 @@ namespace velowrench.Utils.Results;
 /// <summary>
 /// Provides an abstract base class for operation results with success/failure status and error handling.
 /// </summary>
-public abstract class ResultBase<TResult> : IResult 
+public abstract class ResultBase<TResult> : IResult
     where TResult : ResultBase<TResult>
 {
     private bool _isSuccess;
@@ -47,12 +47,21 @@ public abstract class ResultBase<TResult> : IResult
     /// Gets the concatenated functional/user error message (joined by <see cref="Environment.NewLine"/>).
     /// </summary>
     public string ErrorMessage => string.Join(Environment.NewLine, _errors);
-    
+
+    /// <summary>
+    /// Gets a value indicating whether this result has any functional error messages.
+    /// </summary>
+    public bool HasErrors => _errors.Count > 0;
 
     /// <summary>
     /// Gets the technical exception associated with this result.
     /// </summary>
     public Exception? Exception { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether a technical exception is associated with this result.
+    /// </summary>
+    public bool HasException => Exception is not null;
 
     /// <summary>
     /// Gets or sets the error code when the operation fails.
@@ -122,7 +131,18 @@ public abstract class ResultBase<TResult> : IResult
     /// <returns>The current <see cref="TResult"/> instance with the failure status and exception set.</returns>
     public TResult WithException(Exception exception)
     {
+        ArgumentNullException.ThrowIfNull(exception);
         this.Exception = exception;
+        return this.WithFailure();
+    }
+
+    /// <summary>
+    /// Sets the error code and sets the operation result to failed status.
+    /// </summary>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status and error code set.</returns>
+    public TResult WithErrorCode(string code)
+    {
+        this.ErrorCode = code;
         return this.WithFailure();
     }
 
@@ -154,6 +174,19 @@ public abstract class ResultBase<TResult> : IResult
     }
 
     /// <summary>
+    /// Affects this result with the full status and error state of another <see cref="ResultBase{TSource}"/> result.
+    /// </summary>
+    public TResult Affect<TSource>(ResultBase<TSource> result) where TSource : ResultBase<TSource>
+    {
+        if (result != null && IsSuccess)
+        {
+            IsSuccess = result.IsSuccess;
+            this.CopyErrorStateFrom(result);
+        }
+        return (TResult)this;
+    }
+
+    /// <summary>
     /// Affects this result with the success status of a result produced by a function.
     /// </summary>
     public TResult Affect(Func<IResult> result)
@@ -161,6 +194,18 @@ public abstract class ResultBase<TResult> : IResult
         if (result != null)
         {
             return (TResult)Affect(result());
+        }
+        return (TResult)this;
+    }
+
+    /// <summary>
+    /// Affects this result with the full status and error state of a <see cref="ResultBase{TSource}"/> produced by a function.
+    /// </summary>
+    public TResult Affect<TSource>(Func<ResultBase<TSource>> result) where TSource : ResultBase<TSource>
+    {
+        if (result != null)
+        {
+            return Affect(result());
         }
         return (TResult)this;
     }
@@ -176,4 +221,29 @@ public abstract class ResultBase<TResult> : IResult
         }
         return (TResult)this;
     }
+
+    /// <summary>
+    /// Asynchronously affects this result with the full status and error state of a <see cref="ResultBase{TSource}"/> produced by an async function.
+    /// </summary>
+    public async Task<TResult> AffectAsync<TSource>(Func<Task<ResultBase<TSource>>> result) where TSource : ResultBase<TSource>
+    {
+        if (result != null)
+        {
+            return this.Affect(await result().ConfigureAwait(false));
+        }
+        return (TResult)this;
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> when the operation completed successfully; otherwise <see langword="false"/>.
+    /// </summary>
+    public bool ToBoolean()
+    {
+        return this.IsSuccess;
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> when the operation completed successfully; otherwise <see langword="false"/>.
+    /// </summary>
+    public static implicit operator bool(ResultBase<TResult> result) => result?.IsSuccess ?? false;
 }

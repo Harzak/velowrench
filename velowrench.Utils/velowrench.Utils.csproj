@@ -11,4 +11,12 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <EditorConfigFiles Remove="C:\Workspaces\velowrench\velowrench.Utils\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="C:\Workspaces\velowrench\velowrench.Utils\.editorconfig" />
+	</ItemGroup>
+
 </Project>
