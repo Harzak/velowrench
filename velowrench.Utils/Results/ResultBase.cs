@@ -10,6 +10,7 @@ public abstract class ResultBase<TResult> : IResult
 {
     private bool _isSuccess;
     private bool _isFailed;
+    private readonly List<string> _errors = [];
 
     /// <summary>
     /// Gets or sets a value indicating whether the operation completed successfully.
@@ -38,9 +39,20 @@ public abstract class ResultBase<TResult> : IResult
     }
 
     /// <summary>
-    /// Gets or sets the error message when the operation fails.
+    /// Gets the list of functional/user error messages concatenated.
     /// </summary>
-    public string ErrorMessage { get; set; }
+    public IReadOnlyList<string> Errors => _errors.AsReadOnly();
+
+    /// <summary>
+    /// Gets the concatenated functional/user error message (joined by <see cref="Environment.NewLine"/>).
+    /// </summary>
+    public string ErrorMessage => string.Join(Environment.NewLine, _errors);
+    
+
+    /// <summary>
+    /// Gets the technical exception associated with this result.
+    /// </summary>
+    public Exception? Exception { get; private set; }
 
     /// <summary>
     /// Gets or sets the error code when the operation fails.
@@ -50,7 +62,6 @@ public abstract class ResultBase<TResult> : IResult
     protected ResultBase(bool success)
     {
         IsSuccess = success;
-        this.ErrorMessage = string.Empty;
         this.ErrorCode = string.Empty;
     }
 
@@ -80,14 +91,54 @@ public abstract class ResultBase<TResult> : IResult
     }
 
     /// <summary>
-    /// Sets the operation result to failed status with an error message.
+    /// Adds a functional error message and sets the operation result to failed status.
     /// </summary>
-    /// <param name="message">The error message.</param>
-    /// <returns>The current <see cref="TResult"/> instance with the failure status and error message set.</returns>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status and error message added.</returns>
     public TResult WithError(string message)
     {
-        this.ErrorMessage = message;
+        if (!string.IsNullOrEmpty(message))
+        {
+            _errors.Add(message);
+        }
         return this.WithFailure();
+    }
+
+    /// <summary>
+    /// Adds multiple functional error messages and sets the operation result to failed status.
+    /// </summary>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status and error messages added.</returns>
+    public TResult WithErrors(IEnumerable<string> messages)
+    {
+        if (messages != null)
+        {
+            _errors.AddRange(messages.Where(m => !string.IsNullOrEmpty(m)));
+        }
+        return this.WithFailure();
+    }
+
+    /// <summary>
+    /// Stores a technical exception and sets the operation result to failed status.
+    /// </summary>
+    /// <returns>The current <see cref="TResult"/> instance with the failure status and exception set.</returns>
+    public TResult WithException(Exception exception)
+    {
+        this.Exception = exception;
+        return this.WithFailure();
+    }
+
+    /// <summary>
+    /// Copies all accumulated error messages and the technical exception from <paramref name="source"/> into this instance.
+    /// </summary>
+    internal void CopyErrorStateFrom<TSource>(ResultBase<TSource> source) where TSource : ResultBase<TSource>
+    {
+        if (source != null)
+        {
+            _errors.AddRange(source.Errors);
+            if (source.Exception != null)
+            {
+                Exception = source.Exception;
+            }
+        }
     }
 
     /// <summary>

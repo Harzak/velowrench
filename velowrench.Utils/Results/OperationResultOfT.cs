@@ -46,16 +46,15 @@ public class OperationResult<T> : ResultBase<OperationResult<T>>, IResult<T>
     }
 
     /// <summary>
-    /// Affects this result with the status and error information from another operation result.
+    /// Affects this result with the status and full error state from another operation result.
     /// </summary>
     public OperationResult<T> Affect<TDifferent>(OperationResult<TDifferent> operationResult)
     {
         ArgumentNullException.ThrowIfNull(operationResult, nameof(operationResult));
         this.IsSuccess = operationResult.IsSuccess;
-        this.ErrorMessage = operationResult.ErrorMessage;
+        this.CopyErrorStateFrom(operationResult);
         this.ErrorCode = operationResult.ErrorCode;
         return this;
-
     }
 
     /// <summary>
@@ -63,10 +62,11 @@ public class OperationResult<T> : ResultBase<OperationResult<T>>, IResult<T>
     /// </summary>
     public OperationResult ToOperationResult()
     {
-        return new OperationResult(this.IsSuccess)
+        OperationResult result = new(this.IsSuccess)
         {
-            ErrorMessage = this.ErrorMessage,
             ErrorCode = this.ErrorCode
         };
+        result.CopyErrorStateFrom(this);
+        return result;
     }
 }

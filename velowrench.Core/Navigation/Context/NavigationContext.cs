@@ -16,10 +16,6 @@ public sealed class NavigationContext
         Parameters = parameters ?? [];
         SourceView = sourceView;
         NavigatedAt = DateTime.UtcNow;
-
-        OperationResult<string> e = new ();
-        OperationResult<bool> f = new ();
-        e.Affect(f);
     }
 }
 
